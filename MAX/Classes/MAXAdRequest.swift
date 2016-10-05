@@ -2,8 +2,6 @@
 //  MAXAdRequest.swift
 //  Pods
 //
-//  Created by Jim Payne on 10/5/16.
-//
 //
 
 import Foundation
@@ -11,19 +9,19 @@ import AdSupport
 import CoreTelephony
 import UIKit
 
-protocol MAXAdRequestDelegate {
+public protocol MAXAdRequestDelegate {
     func adRequestDidLoad(adRequest: MAXAdRequest)
     func adRequestDidFailWithError(adRequest: MAXAdRequest, error: NSError)
 }
 
-class MAXAdRequest {
+public class MAXAdRequest {
     private var placementID: String!
     private var adPlanData: NSData?
     private var adValid: Bool = false
     
-    var delegate: MAXAdRequestDelegate?
+    public var delegate: MAXAdRequestDelegate?
     
-    init(placementID: String) {
+    public init(placementID: String) {
         self.placementID = placementID
     }
     
@@ -36,7 +34,7 @@ class MAXAdRequest {
     // plan can be executed whenever an ad needs to be shown. Once the ad is shown, 
     // the ad request should be discarded. 
     //
-    func requestAd() {
+    public func requestAd() {
         // Detect connection characteristics
         /*
          bool wifi = [[SKReachability reachabilityForInternetConnection] isReachableViaWiFi];
@@ -78,11 +76,24 @@ class MAXAdRequest {
                     return
                 }
                 
-                self.adPlanData = adPlanData
-                self.adValid = true
-                self.delegate?.adRequestDidLoad(self)
-            })
+                if let httpResponse = response as? NSHTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        self.adPlanData = adPlanData
+                        self.adValid = true
+                        self.delegate?.adRequestDidLoad(self)
+                    } else {
+                        self.adPlanData = nil
+                        self.adValid = false
+                        self.delegate?.adRequestDidFailWithError(self, error: NSError(domain: "sprl.com",
+                            code: httpResponse.statusCode,
+                            userInfo: nil))
+                    }
+                }
+            }).resume()
+            
         } catch var error as NSError {
+            self.adPlanData = nil
+            self.adValid = false
             self.delegate?.adRequestDidFailWithError(self, error: error)
         }
         

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "summary": "A short description of MAX.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/MAX",
+  "homepage": "https://github.com/MoLabsInc/MAX",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,11 +12,15 @@
     "Jim Payne": "jim@molabs.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/MAX.git",
+    "git": "https://github.com/MoLabsInc/MAX.git",
     "tag": "0.1.0"
   },
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "MAX/Classes/**/*"
+  "source_files": "MAX/Classes/**/*",
+  "xcconfig": {
+    "HEADER_SEARCH_PATHS": "$(SDKROOT)/usr/include/libxml2"
+  },
+  "libraries": "xml2"
 }
