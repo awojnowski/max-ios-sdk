@@ -7,51 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		008EBF3A4546BD88AA6C59503CF92773 /* SKVASTMediaFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1360D75BF42A9171A87B5348119E610A /* SKVASTMediaFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0838808948E3997CDD175C9F5406AB26 /* SKBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = A7B267333CA1D05E179964479550D214 /* SKBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B9AF61862754685D09F75643959BC3A /* SKVAST2Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = D1DF153508C78C82756FFC3D7B932755 /* SKVAST2Parser.m */; };
-		0C6F665E35836818804B73F593FDADD8 /* SKVASTEventProcessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EA219CA76D9A2AB000AD975859A7A31 /* SKVASTEventProcessor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		12B0B63C196C7FA59920A8B3ABA0127C /* MAXInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = F1FA92F07927AF1A73CC2C5C05E36B73 /* MAXInterstitialAd.m */; };
-		12D9CE07740F5D57D18D305AA610CC0F /* SKVASTControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB81AD30881826FDF9A9C9F9D53AED4 /* SKVASTControls.m */; };
+		019FC3FDE938F19E264B7045C1E5FDBD /* SKVASTMediaFile.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA9209C4E8B15818DA290E9E55D87CE /* SKVASTMediaFile.m */; };
+		13CE22C3011E23AF52EAD30FFEE079E0 /* SKVASTUrlWithId.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F96F48AA84D0301A345E9B234C1568 /* SKVASTUrlWithId.m */; };
+		13E153E673617C3F2F342205523AB0AC /* VASTXMLUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A35396106F4790B00A5D5CC1D37C97 /* VASTXMLUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		19203A8F7C539B85902F9534017E491E /* VASTSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C725E6439B489D59C6E1E933A58D74 /* VASTSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1CD6CF736D64908917CA7DD7B8EAD447 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		1EA0574C0768FCA74C3D807DD801EF95 /* SKVASTUrlWithId.m in Sources */ = {isa = PBXBuildFile; fileRef = B48ED30F1E8C7EADC8622DABD40F2F28 /* SKVASTUrlWithId.m */; };
-		1F02C34CFACAA7BDDC9F7220469C13F4 /* SKVASTEventProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = FD005AAB28CF3174191FAA9199E81B8F /* SKVASTEventProcessor.m */; };
 		1F2DEC87A202BD34CCAFCBF4EEC61ADC /* Pods-MAX_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 57A8A26EDA13C4E1CA0ED5BA68178937 /* Pods-MAX_Example-dummy.m */; };
-		2260A0540605DE7A2D82ED5FA6D8E9FE /* VASTXMLUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = AD86815BB2DB36208F74B7AA66F7105B /* VASTXMLUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2629592E2E17E0B6DD2C6FA792253ACB /* SKVAST2Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 75168F002A6B55140CFF8C04BE4C0220 /* SKVAST2Parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		28C672D44F3D83CEB643B05376799907 /* SKVASTMediaFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EA39C51876B57098940EF83C71DE42 /* SKVASTMediaFile.m */; };
-		35F38331B8E29F3E0CF3E37F111AC01D /* VASTXMLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 51144384C4CBD05A070F798D33F872E6 /* VASTXMLUtil.m */; };
-		39F17499CDEA8E4D3D7C10A11DC643DF /* SKVASTViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E6164566EA1BFBDC8D2BBD2E14E4A0B2 /* SKVASTViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46B22C6EC86508990A7001F79B2395B4 /* SKVASTMediaFilePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D8E9508EE63089E6548320E7961C71F /* SKVASTMediaFilePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		548CDF0E4C78EC2BF65D448E386474EE /* MAXInterstitialAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 5380BCC5C098537A7A418BBC435E7555 /* MAXInterstitialAd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		588B6EA1E91955B924FE48390E8425BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		5D6C5F34D984B3D9E9B7F07CEAB5BE78 /* SKReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = D5286FEF99139825BA087554B80654AC /* SKReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5DFB49D882E77F10D312BE159CA66396 /* vast_2.0.1.xsd in Sources */ = {isa = PBXBuildFile; fileRef = 14E5F76A072749E75ECE1EFE6069C386 /* vast_2.0.1.xsd */; };
-		65F1DBEF862E51135590C59CF2723C01 /* MAX-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 073FF331D1A985512BD58AA5A329AA05 /* MAX-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		88C5C64C321E82DA91B406371C45B4DD /* VASTSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C22D3637CCCE02E114834D31A0A5F19D /* VASTSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		900A8E364D4F4EF0DB4264803634A01E /* SKVASTModel.h in Headers */ = {isa = PBXBuildFile; fileRef = D5AEB633876EE5CFF97E1C923A8338D3 /* SKVASTModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		95BD134497070290C9EFD7E9EA766FA1 /* SKCommonSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E7D92CD46EB58E439256D791D4F44B /* SKCommonSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		972703F6530B59133D8E70099F96B3B5 /* SKVASTUrlWithId.h in Headers */ = {isa = PBXBuildFile; fileRef = 33983772AA05E88601FD344CA9796986 /* SKVASTUrlWithId.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9A6933BDDB9C05FAE218CDAE6712D828 /* SKBrowserControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B789E19224D21884AB9A041717C88FA /* SKBrowserControlsView.m */; };
+		27FCB00E2A150DF95FB6DF9DE6EEC76A /* MAX-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE2F597186FF271620097D77AD932C5 /* MAX-dummy.m */; };
+		2AEBA34883E54BF82684710808FDD57D /* SKVASTMediaFilePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 597843F06E1A5EB50914107BCDD639F0 /* SKVASTMediaFilePicker.m */; };
+		329925361190D0278266F1027169C815 /* SKVASTEventProcessor.h in Headers */ = {isa = PBXBuildFile; fileRef = D7067DC37ECA23249E7D3B5215A1F2D1 /* SKVASTEventProcessor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41C641EDF2B98C2C2C4DC276261FC60F /* SKVASTControls.h in Headers */ = {isa = PBXBuildFile; fileRef = 8428C7A1F1A938AACF6E624EEB543272 /* SKVASTControls.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45030DAB9F5C18223D87994255102FAD /* MAXInterstitialAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F08A83A539325336F90EA0A4E4515BC /* MAXInterstitialAd.swift */; };
+		50AA5BE163FA51A76EB3042FA2E3D49A /* SKReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA159FA95FFBD0DFD87B9E0C1A10ADA /* SKReachability.m */; };
+		585DFD6BFCB04BEEE25614ADC56DDD84 /* SKCommonSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA896E654B2865359A952488DD3C2FF7 /* SKCommonSettings.m */; };
+		5C5C018367872931D80247A3CD2F2E47 /* SKBrowserControlsView.h in Headers */ = {isa = PBXBuildFile; fileRef = EF991F1D28ED890CD237C88116A1D3D4 /* SKBrowserControlsView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5F92A46C644B4B3405A7C9E9EAFC1082 /* SKBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 229CB9313FAB13930CFBB32248AA45B3 /* SKBrowser.m */; };
+		5FE3B38F6CE448022E37549FA0C9E41C /* SKVAST2Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 931C7C4571BB62417C94AF426844D7BD /* SKVAST2Parser.m */; };
+		66FED89D88B8634D4169AA6DC547917B /* SKVASTMediaFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B09F4BF22BF96327360A2D873938C35 /* SKVASTMediaFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68E5BD73C9FD1614034181A4C280F393 /* MAX-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 073FF331D1A985512BD58AA5A329AA05 /* MAX-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A8EFE83F7BF291C72CB107411AF53EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		6BA4C5C126B1F290C5B90E80FDD6CC8D /* VASTSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E174C4CA14BFF9B2EF61200BC12B4B /* VASTSettings.m */; };
+		6CF017435C613CF84F77068378E8B98C /* SKVASTViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4044ABCC66A81388637CF120B1B87253 /* SKVASTViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7FBA8368A0D12225A5CAA92FED561BC1 /* SKVASTControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 7656414BAD254B798C0A3D38D92E4D82 /* SKVASTControls.m */; };
 		A146D09D63157E3135D1ADCA05894D4C /* Pods-MAX_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A97B1AD4C8519BCAF6476C9A8C2DCA6 /* Pods-MAX_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A35AE8BD1F67E6F335DF1203835E6C6D /* SKVASTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118B9839DE19DD28EC36C3A67B1B4909 /* SKVASTViewController.m */; };
-		ABC164C70057D00D7D008C5495E25D45 /* SKBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 470209ECB3E73C918ACB6F529B3A9720 /* SKBrowser.m */; };
+		A43B2FCD954FDA8D85E916966736ED4A /* SKVASTEventProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F7634CA958FBB8FC41BE9626D03A04 /* SKVASTEventProcessor.m */; };
 		AD553F148C332130A214DC21BD5EF1C9 /* Pods-MAX_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D112287E521D52D0F201D4141CE974F5 /* Pods-MAX_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ADECD962641C6A3A27D42EE6184A57C5 /* SKReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FA72A012FB1E66B656032FD33074979F /* SKReachability.m */; };
-		AE790AE199760AF859C7E3D823E048B6 /* MAXAdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5375088D788818929599FC632CBA1098 /* MAXAdRequest.swift */; };
-		B859CD8A39E75C20E569F47EF2D4AAC8 /* VASTSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = FE1039630F13CE251FC72E7D5FB7EF0A /* VASTSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BBB89C3FC5A571FD3A1A51FA68EF51B5 /* MAX-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE2F597186FF271620097D77AD932C5 /* MAX-dummy.m */; };
-		C5BF082AD3AD72915783FD52D0A2D7C9 /* SKBrowserControlsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF808BB7CCC2A45764DF708C79250D9 /* SKBrowserControlsView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0B3A8129C0D7A4EDEFC227940F644C9 /* SKCommonSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D0A8B91F7B2421909EBDFD463F161 /* SKCommonSettings.m */; };
+		ADFBBE87C3AB1A0107182ED1298D6184 /* SKVAST2Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55C3DA105B7169D5EC46A7DB1B3010 /* SKVAST2Parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B160F3C56CD5781A4F12672BFA879733 /* SKCommonSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 46B68CBA393292F16D1E05388F7B19E7 /* SKCommonSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B39A351416146C81CB7FABFE1EEA55BF /* SKLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 8144F7FF5E1920530BF92BFA3AA64CF0 /* SKLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B9782B9CFDD984DEEF1A18B0FE04C5DA /* SKVASTModel.h in Headers */ = {isa = PBXBuildFile; fileRef = F8BCC08CAA6E784F9ED3A88843A9E9FF /* SKVASTModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCAB07B09A1EFE55E4B6BE4C020B7406 /* SKReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BD28059383081B275366F3D3F1862DE /* SKReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1D2D028342B7FFD4FE6D94ACFB7006F /* SKVASTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E1862A66699EC48E343884DAFFAAFF7 /* SKVASTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C29F405E2AB4711D2FA00B1D85DE8EE9 /* SKLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBE50D34B48C4F0E407CB06283EA4F /* SKLogger.m */; };
+		C57AEBC68716F1CD957FECAA2D68AD51 /* SKVASTMediaFilePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 14F5E20E273FFA1E8A4049A5659B8CC0 /* SKVASTMediaFilePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D069DBE86966D60E8038D0CD968DD8D8 /* MAXAdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B97C7E5D187CE93832C00A054B0F4 /* MAXAdRequest.swift */; };
 		D2EC4C30BBA4F72736C8FB88C84414D3 /* Pods-MAX_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F0087AA061A49FE15E44804208118967 /* Pods-MAX_Tests-dummy.m */; };
-		D509A70A19C9B610E840D8712F812B09 /* SKVASTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 23F6786D53E03240F644B0BB5EDE3775 /* SKVASTError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DBE115821478742B4200E96DEFBA7C86 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		DF1706A833B008ECBA4B4FDB6263BECE /* SKVASTControls.h in Headers */ = {isa = PBXBuildFile; fileRef = 96768F0FD082D5A8A793F038FF6CD0B9 /* SKVASTControls.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E23347A9C7B783E8C2FD237CF65DB385 /* SKVASTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAA116972128AFABDB7837BA487786A /* SKVASTModel.m */; };
-		E5351D0590F59BF013B3FF7D4930857D /* VASTSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = DF93AE195ABAC0C523343E9D921C827F /* VASTSettings.m */; };
-		EBA66A772233A801A3EF2CC6CF3EC627 /* SKVASTMediaFilePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C16A06376349A0D8A276F2BF8ADA1773 /* SKVASTMediaFilePicker.m */; };
-		F0666878951094739C4674FFB2406DED /* SKLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC3FAAD3D5CD5C8894372C48A30ED83 /* SKLogger.m */; };
-		FF17C9DB3173F2F317F52CA4AFFB3950 /* SKLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = DB00B465A5AE36F191DA9F38AFDDC041 /* SKLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E271431D181916406CA491D63CE50073 /* SKVASTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9A84E0ABFCB08D63040BEEC16B8D71 /* SKVASTViewController.m */; };
+		E5B70CB7F3AB84A7DD1AD92442029638 /* SKBrowserControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403FBAEDE9BDF259AD8973AAFB03F65 /* SKBrowserControlsView.m */; };
+		EA1B5680CC0ABF7A7FBC0D9FAC0B4A49 /* SKVASTUrlWithId.h in Headers */ = {isa = PBXBuildFile; fileRef = AE8D6719479CE6E15B7C3043E8F79F60 /* SKVASTUrlWithId.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EB784BEC88F8A636223EF62ED6A54F72 /* VASTSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = F6C4314F352591F7CD6C9408ECECE864 /* VASTSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F69A9797291451C865B046C8147F96E1 /* VASTXMLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 98947B5A00D98DE44F6E75D58E8FAF72 /* VASTXMLUtil.m */; };
+		F71D81643568823B905F64CED60333DB /* SKBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 0179D10BC5644606A2FF23782155F2BC /* SKBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7381FBF358FCED5B2A21B2172C6B0F8 /* SKVASTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A619F89F6C6AE744BCCA5E257152B83F /* SKVASTModel.m */; };
+		F9AD2A226F19B5312DEF92135E57611F /* MAXAdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AC6633985A2B5D3E9B11256145F295 /* MAXAdResponse.swift */; };
+		FF588E2DB014C504A9B0512F291524C1 /* vast_2.0.1.xsd in Sources */ = {isa = PBXBuildFile; fileRef = CBF8A94F21CEE344CEF519C2FE3C108B /* vast_2.0.1.xsd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,79 +59,79 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 021AFB13C1E886B2EC8FD256014674A4;
+			remoteGlobalIDString = B4A83857C88F10CA10F9175463E0F1DD;
 			remoteInfo = MAX;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		003A8CCEB36C0E329F4A4C76356732C2 /* MAX.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MAX.xcconfig; sourceTree = "<group>"; };
+		0179D10BC5644606A2FF23782155F2BC /* SKBrowser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKBrowser.h; sourceTree = "<group>"; };
 		04A938574DB842BC2EC7E9A888E99953 /* Pods-MAX_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MAX_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		073FF331D1A985512BD58AA5A329AA05 /* MAX-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MAX-umbrella.h"; sourceTree = "<group>"; };
 		0B4E5DE8F828163F5E74C12492287DED /* Pods-MAX_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MAX_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		118B9839DE19DD28EC36C3A67B1B4909 /* SKVASTViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTViewController.m; sourceTree = "<group>"; };
-		1360D75BF42A9171A87B5348119E610A /* SKVASTMediaFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTMediaFile.h; sourceTree = "<group>"; };
 		146AB2CE5ACA9509A58BBA2B4B78A10B /* Pods-MAX_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MAX_Example.release.xcconfig"; sourceTree = "<group>"; };
 		14902BD2D0553ED2456DBBA14C9563C0 /* MAX-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MAX-prefix.pch"; sourceTree = "<group>"; };
-		14E5F76A072749E75ECE1EFE6069C386 /* vast_2.0.1.xsd */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = vast_2.0.1.xsd; sourceTree = "<group>"; };
+		14F5E20E273FFA1E8A4049A5659B8CC0 /* SKVASTMediaFilePicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTMediaFilePicker.h; sourceTree = "<group>"; };
 		18972C485DBF16724E6D615B580EA33F /* Pods-MAX_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MAX_Example-resources.sh"; sourceTree = "<group>"; };
-		23F6786D53E03240F644B0BB5EDE3775 /* SKVASTError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTError.h; sourceTree = "<group>"; };
-		33983772AA05E88601FD344CA9796986 /* SKVASTUrlWithId.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTUrlWithId.h; sourceTree = "<group>"; };
+		229CB9313FAB13930CFBB32248AA45B3 /* SKBrowser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKBrowser.m; sourceTree = "<group>"; };
+		2A1B97C7E5D187CE93832C00A054B0F4 /* MAXAdRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MAXAdRequest.swift; sourceTree = "<group>"; };
+		2E1862A66699EC48E343884DAFFAAFF7 /* SKVASTError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTError.h; sourceTree = "<group>"; };
+		2F08A83A539325336F90EA0A4E4515BC /* MAXInterstitialAd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAd.swift; sourceTree = "<group>"; };
 		355F1EF218D3AF0E23649B3EE65EFE60 /* Pods-MAX_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MAX_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		3B789E19224D21884AB9A041717C88FA /* SKBrowserControlsView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKBrowserControlsView.m; sourceTree = "<group>"; };
-		3BC3FAAD3D5CD5C8894372C48A30ED83 /* SKLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKLogger.m; sourceTree = "<group>"; };
-		3E2D0A8B91F7B2421909EBDFD463F161 /* SKCommonSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKCommonSettings.m; sourceTree = "<group>"; };
+		3F9A84E0ABFCB08D63040BEEC16B8D71 /* SKVASTViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTViewController.m; sourceTree = "<group>"; };
+		4044ABCC66A81388637CF120B1B87253 /* SKVASTViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTViewController.h; sourceTree = "<group>"; };
 		413452DC53CD99A381DBA7CE7BBB9745 /* MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		470209ECB3E73C918ACB6F529B3A9720 /* SKBrowser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKBrowser.m; sourceTree = "<group>"; };
-		51144384C4CBD05A070F798D33F872E6 /* VASTXMLUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VASTXMLUtil.m; sourceTree = "<group>"; };
-		5375088D788818929599FC632CBA1098 /* MAXAdRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MAXAdRequest.swift; sourceTree = "<group>"; };
-		5380BCC5C098537A7A418BBC435E7555 /* MAXInterstitialAd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MAXInterstitialAd.h; sourceTree = "<group>"; };
+		42FBE50D34B48C4F0E407CB06283EA4F /* SKLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKLogger.m; sourceTree = "<group>"; };
+		46A35396106F4790B00A5D5CC1D37C97 /* VASTXMLUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VASTXMLUtil.h; sourceTree = "<group>"; };
+		46B68CBA393292F16D1E05388F7B19E7 /* SKCommonSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKCommonSettings.h; sourceTree = "<group>"; };
+		51F7634CA958FBB8FC41BE9626D03A04 /* SKVASTEventProcessor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTEventProcessor.m; sourceTree = "<group>"; };
 		57A8A26EDA13C4E1CA0ED5BA68178937 /* Pods-MAX_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MAX_Example-dummy.m"; sourceTree = "<group>"; };
-		5AF808BB7CCC2A45764DF708C79250D9 /* SKBrowserControlsView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKBrowserControlsView.h; sourceTree = "<group>"; };
+		597843F06E1A5EB50914107BCDD639F0 /* SKVASTMediaFilePicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTMediaFilePicker.m; sourceTree = "<group>"; };
+		5B09F4BF22BF96327360A2D873938C35 /* SKVASTMediaFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTMediaFile.h; sourceTree = "<group>"; };
 		6356465BFAC20139B4A2E6BC12D08EAD /* Pods_MAX_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAX_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65E174C4CA14BFF9B2EF61200BC12B4B /* VASTSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VASTSettings.m; sourceTree = "<group>"; };
 		739ABDE4F07A397A5DF8EDE05B9FF31F /* Pods-MAX_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MAX_Example-frameworks.sh"; sourceTree = "<group>"; };
-		75168F002A6B55140CFF8C04BE4C0220 /* SKVAST2Parser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVAST2Parser.h; sourceTree = "<group>"; };
+		7656414BAD254B798C0A3D38D92E4D82 /* SKVASTControls.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTControls.m; sourceTree = "<group>"; };
+		79AC6633985A2B5D3E9B11256145F295 /* MAXAdResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MAXAdResponse.swift; sourceTree = "<group>"; };
 		7D67B898DE60F07305ECE8C612D0143E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7EA219CA76D9A2AB000AD975859A7A31 /* SKVASTEventProcessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTEventProcessor.h; sourceTree = "<group>"; };
+		8144F7FF5E1920530BF92BFA3AA64CF0 /* SKLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKLogger.h; sourceTree = "<group>"; };
+		8428C7A1F1A938AACF6E624EEB543272 /* SKVASTControls.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTControls.h; sourceTree = "<group>"; };
+		86C725E6439B489D59C6E1E933A58D74 /* VASTSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VASTSettings.h; sourceTree = "<group>"; };
 		892B6FC9D9E13D4B8887924B6CA7FB0C /* MAX.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MAX.modulemap; sourceTree = "<group>"; };
 		8A97B1AD4C8519BCAF6476C9A8C2DCA6 /* Pods-MAX_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MAX_Example-umbrella.h"; sourceTree = "<group>"; };
-		8AB81AD30881826FDF9A9C9F9D53AED4 /* SKVASTControls.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTControls.m; sourceTree = "<group>"; };
-		8D8E9508EE63089E6548320E7961C71F /* SKVASTMediaFilePicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTMediaFilePicker.h; sourceTree = "<group>"; };
 		90C5DDAE6C0FF228F256C5B15472AD86 /* Pods-MAX_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MAX_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		90E7D92CD46EB58E439256D791D4F44B /* SKCommonSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKCommonSettings.h; sourceTree = "<group>"; };
+		931C7C4571BB62417C94AF426844D7BD /* SKVAST2Parser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVAST2Parser.m; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		96768F0FD082D5A8A793F038FF6CD0B9 /* SKVASTControls.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTControls.h; sourceTree = "<group>"; };
+		9403FBAEDE9BDF259AD8973AAFB03F65 /* SKBrowserControlsView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKBrowserControlsView.m; sourceTree = "<group>"; };
+		98947B5A00D98DE44F6E75D58E8FAF72 /* VASTXMLUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VASTXMLUtil.m; sourceTree = "<group>"; };
 		99A6E991EF2284BB0FDF0B4B38A49E1A /* Pods-MAX_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MAX_Example.modulemap"; sourceTree = "<group>"; };
 		9B81DDB6A26F2B11F12528C47FD36FE2 /* Pods-MAX_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MAX_Tests-resources.sh"; sourceTree = "<group>"; };
+		9BD28059383081B275366F3D3F1862DE /* SKReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKReachability.h; sourceTree = "<group>"; };
 		A11858FD430A3B70214E9105C0DC1379 /* Pods-MAX_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MAX_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A7B267333CA1D05E179964479550D214 /* SKBrowser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKBrowser.h; sourceTree = "<group>"; };
-		AD86815BB2DB36208F74B7AA66F7105B /* VASTXMLUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VASTXMLUtil.h; sourceTree = "<group>"; };
+		A619F89F6C6AE744BCCA5E257152B83F /* SKVASTModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTModel.m; sourceTree = "<group>"; };
+		AAA9209C4E8B15818DA290E9E55D87CE /* SKVASTMediaFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTMediaFile.m; sourceTree = "<group>"; };
+		AE8D6719479CE6E15B7C3043E8F79F60 /* SKVASTUrlWithId.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTUrlWithId.h; sourceTree = "<group>"; };
 		B2089CDD91CCA421429E683C2E7064F1 /* Pods-MAX_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MAX_Tests.modulemap"; sourceTree = "<group>"; };
-		B48ED30F1E8C7EADC8622DABD40F2F28 /* SKVASTUrlWithId.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTUrlWithId.m; sourceTree = "<group>"; };
 		BBCF1627021A59C7CF860CE681757FED /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC55C3DA105B7169D5EC46A7DB1B3010 /* SKVAST2Parser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVAST2Parser.h; sourceTree = "<group>"; };
 		BE327ECF6052DF562071F2CC417E2731 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C16A06376349A0D8A276F2BF8ADA1773 /* SKVASTMediaFilePicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTMediaFilePicker.m; sourceTree = "<group>"; };
-		C22D3637CCCE02E114834D31A0A5F19D /* VASTSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VASTSettings.h; sourceTree = "<group>"; };
-		C2EA39C51876B57098940EF83C71DE42 /* SKVASTMediaFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTMediaFile.m; sourceTree = "<group>"; };
 		C7269E15E79BCCD2B6DD268DEB5DA997 /* Pods_MAX_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAX_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBF8A94F21CEE344CEF519C2FE3C108B /* vast_2.0.1.xsd */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = vast_2.0.1.xsd; sourceTree = "<group>"; };
 		CCB8470E3BE8609D4BC7407E51B945AB /* Pods-MAX_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MAX_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D112287E521D52D0F201D4141CE974F5 /* Pods-MAX_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MAX_Tests-umbrella.h"; sourceTree = "<group>"; };
-		D1DF153508C78C82756FFC3D7B932755 /* SKVAST2Parser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVAST2Parser.m; sourceTree = "<group>"; };
-		D5286FEF99139825BA087554B80654AC /* SKReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKReachability.h; sourceTree = "<group>"; };
-		D5AEB633876EE5CFF97E1C923A8338D3 /* SKVASTModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTModel.h; sourceTree = "<group>"; };
-		DB00B465A5AE36F191DA9F38AFDDC041 /* SKLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKLogger.h; sourceTree = "<group>"; };
-		DCAA116972128AFABDB7837BA487786A /* SKVASTModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTModel.m; sourceTree = "<group>"; };
+		D7067DC37ECA23249E7D3B5215A1F2D1 /* SKVASTEventProcessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTEventProcessor.h; sourceTree = "<group>"; };
 		DF26CEBA62353B3F60A060F0F0C5BE61 /* Pods-MAX_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MAX_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		DF93AE195ABAC0C523343E9D921C827F /* VASTSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = VASTSettings.m; sourceTree = "<group>"; };
-		E6164566EA1BFBDC8D2BBD2E14E4A0B2 /* SKVASTViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTViewController.h; sourceTree = "<group>"; };
+		E1F96F48AA84D0301A345E9B234C1568 /* SKVASTUrlWithId.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTUrlWithId.m; sourceTree = "<group>"; };
+		EA896E654B2865359A952488DD3C2FF7 /* SKCommonSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKCommonSettings.m; sourceTree = "<group>"; };
+		EF991F1D28ED890CD237C88116A1D3D4 /* SKBrowserControlsView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKBrowserControlsView.h; sourceTree = "<group>"; };
+		EFA159FA95FFBD0DFD87B9E0C1A10ADA /* SKReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKReachability.m; sourceTree = "<group>"; };
 		F0087AA061A49FE15E44804208118967 /* Pods-MAX_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MAX_Tests-dummy.m"; sourceTree = "<group>"; };
-		F1FA92F07927AF1A73CC2C5C05E36B73 /* MAXInterstitialAd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MAXInterstitialAd.m; sourceTree = "<group>"; };
+		F6C4314F352591F7CD6C9408ECECE864 /* VASTSchema.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VASTSchema.h; sourceTree = "<group>"; };
+		F8BCC08CAA6E784F9ED3A88843A9E9FF /* SKVASTModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKVASTModel.h; sourceTree = "<group>"; };
 		FA4DB2515F41E1A1EBF041526CDAB1F1 /* Pods-MAX_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MAX_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		FA72A012FB1E66B656032FD33074979F /* SKReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKReachability.m; sourceTree = "<group>"; };
 		FCE2F597186FF271620097D77AD932C5 /* MAX-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MAX-dummy.m"; sourceTree = "<group>"; };
-		FD005AAB28CF3174191FAA9199E81B8F /* SKVASTEventProcessor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SKVASTEventProcessor.m; sourceTree = "<group>"; };
-		FE1039630F13CE251FC72E7D5FB7EF0A /* VASTSchema.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VASTSchema.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,19 +143,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2AB1AAC2E3C8BAB52E379479E0CAAA18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A8EFE83F7BF291C72CB107411AF53EB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51887A3ABBF38D3445DA21FE68B8BFBC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1CD6CF736D64908917CA7DD7B8EAD447 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5417F1D80A10126E26E3023D18D4FBA1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				588B6EA1E91955B924FE48390E8425BD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +195,7 @@
 		65D148D9E9E82F6990C32E5B0A6F55B8 /* MAX */ = {
 			isa = PBXGroup;
 			children = (
-				E4D860B36A97551639099BD2ABECE786 /* Classes */,
+				C929C1AB53F18C2995CBABE7DF694898 /* Classes */,
 			);
 			path = MAX;
 			sourceTree = "<group>";
@@ -238,6 +238,49 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C929C1AB53F18C2995CBABE7DF694898 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2A1B97C7E5D187CE93832C00A054B0F4 /* MAXAdRequest.swift */,
+				79AC6633985A2B5D3E9B11256145F295 /* MAXAdResponse.swift */,
+				2F08A83A539325336F90EA0A4E4515BC /* MAXInterstitialAd.swift */,
+				0179D10BC5644606A2FF23782155F2BC /* SKBrowser.h */,
+				229CB9313FAB13930CFBB32248AA45B3 /* SKBrowser.m */,
+				EF991F1D28ED890CD237C88116A1D3D4 /* SKBrowserControlsView.h */,
+				9403FBAEDE9BDF259AD8973AAFB03F65 /* SKBrowserControlsView.m */,
+				46B68CBA393292F16D1E05388F7B19E7 /* SKCommonSettings.h */,
+				EA896E654B2865359A952488DD3C2FF7 /* SKCommonSettings.m */,
+				8144F7FF5E1920530BF92BFA3AA64CF0 /* SKLogger.h */,
+				42FBE50D34B48C4F0E407CB06283EA4F /* SKLogger.m */,
+				9BD28059383081B275366F3D3F1862DE /* SKReachability.h */,
+				EFA159FA95FFBD0DFD87B9E0C1A10ADA /* SKReachability.m */,
+				BC55C3DA105B7169D5EC46A7DB1B3010 /* SKVAST2Parser.h */,
+				931C7C4571BB62417C94AF426844D7BD /* SKVAST2Parser.m */,
+				8428C7A1F1A938AACF6E624EEB543272 /* SKVASTControls.h */,
+				7656414BAD254B798C0A3D38D92E4D82 /* SKVASTControls.m */,
+				2E1862A66699EC48E343884DAFFAAFF7 /* SKVASTError.h */,
+				D7067DC37ECA23249E7D3B5215A1F2D1 /* SKVASTEventProcessor.h */,
+				51F7634CA958FBB8FC41BE9626D03A04 /* SKVASTEventProcessor.m */,
+				5B09F4BF22BF96327360A2D873938C35 /* SKVASTMediaFile.h */,
+				AAA9209C4E8B15818DA290E9E55D87CE /* SKVASTMediaFile.m */,
+				14F5E20E273FFA1E8A4049A5659B8CC0 /* SKVASTMediaFilePicker.h */,
+				597843F06E1A5EB50914107BCDD639F0 /* SKVASTMediaFilePicker.m */,
+				F8BCC08CAA6E784F9ED3A88843A9E9FF /* SKVASTModel.h */,
+				A619F89F6C6AE744BCCA5E257152B83F /* SKVASTModel.m */,
+				AE8D6719479CE6E15B7C3043E8F79F60 /* SKVASTUrlWithId.h */,
+				E1F96F48AA84D0301A345E9B234C1568 /* SKVASTUrlWithId.m */,
+				4044ABCC66A81388637CF120B1B87253 /* SKVASTViewController.h */,
+				3F9A84E0ABFCB08D63040BEEC16B8D71 /* SKVASTViewController.m */,
+				CBF8A94F21CEE344CEF519C2FE3C108B /* vast_2.0.1.xsd */,
+				F6C4314F352591F7CD6C9408ECECE864 /* VASTSchema.h */,
+				86C725E6439B489D59C6E1E933A58D74 /* VASTSettings.h */,
+				65E174C4CA14BFF9B2EF61200BC12B4B /* VASTSettings.m */,
+				46A35396106F4790B00A5D5CC1D37C97 /* VASTXMLUtil.h */,
+				98947B5A00D98DE44F6E75D58E8FAF72 /* VASTXMLUtil.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		D7FBBBBA10EDC1DF62ACE67060E99E75 /* Pods-MAX_Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,49 +297,6 @@
 			);
 			name = "Pods-MAX_Example";
 			path = "Target Support Files/Pods-MAX_Example";
-			sourceTree = "<group>";
-		};
-		E4D860B36A97551639099BD2ABECE786 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				5375088D788818929599FC632CBA1098 /* MAXAdRequest.swift */,
-				5380BCC5C098537A7A418BBC435E7555 /* MAXInterstitialAd.h */,
-				F1FA92F07927AF1A73CC2C5C05E36B73 /* MAXInterstitialAd.m */,
-				A7B267333CA1D05E179964479550D214 /* SKBrowser.h */,
-				470209ECB3E73C918ACB6F529B3A9720 /* SKBrowser.m */,
-				5AF808BB7CCC2A45764DF708C79250D9 /* SKBrowserControlsView.h */,
-				3B789E19224D21884AB9A041717C88FA /* SKBrowserControlsView.m */,
-				90E7D92CD46EB58E439256D791D4F44B /* SKCommonSettings.h */,
-				3E2D0A8B91F7B2421909EBDFD463F161 /* SKCommonSettings.m */,
-				DB00B465A5AE36F191DA9F38AFDDC041 /* SKLogger.h */,
-				3BC3FAAD3D5CD5C8894372C48A30ED83 /* SKLogger.m */,
-				D5286FEF99139825BA087554B80654AC /* SKReachability.h */,
-				FA72A012FB1E66B656032FD33074979F /* SKReachability.m */,
-				75168F002A6B55140CFF8C04BE4C0220 /* SKVAST2Parser.h */,
-				D1DF153508C78C82756FFC3D7B932755 /* SKVAST2Parser.m */,
-				96768F0FD082D5A8A793F038FF6CD0B9 /* SKVASTControls.h */,
-				8AB81AD30881826FDF9A9C9F9D53AED4 /* SKVASTControls.m */,
-				23F6786D53E03240F644B0BB5EDE3775 /* SKVASTError.h */,
-				7EA219CA76D9A2AB000AD975859A7A31 /* SKVASTEventProcessor.h */,
-				FD005AAB28CF3174191FAA9199E81B8F /* SKVASTEventProcessor.m */,
-				1360D75BF42A9171A87B5348119E610A /* SKVASTMediaFile.h */,
-				C2EA39C51876B57098940EF83C71DE42 /* SKVASTMediaFile.m */,
-				8D8E9508EE63089E6548320E7961C71F /* SKVASTMediaFilePicker.h */,
-				C16A06376349A0D8A276F2BF8ADA1773 /* SKVASTMediaFilePicker.m */,
-				D5AEB633876EE5CFF97E1C923A8338D3 /* SKVASTModel.h */,
-				DCAA116972128AFABDB7837BA487786A /* SKVASTModel.m */,
-				33983772AA05E88601FD344CA9796986 /* SKVASTUrlWithId.h */,
-				B48ED30F1E8C7EADC8622DABD40F2F28 /* SKVASTUrlWithId.m */,
-				E6164566EA1BFBDC8D2BBD2E14E4A0B2 /* SKVASTViewController.h */,
-				118B9839DE19DD28EC36C3A67B1B4909 /* SKVASTViewController.m */,
-				14E5F76A072749E75ECE1EFE6069C386 /* vast_2.0.1.xsd */,
-				FE1039630F13CE251FC72E7D5FB7EF0A /* VASTSchema.h */,
-				C22D3637CCCE02E114834D31A0A5F19D /* VASTSettings.h */,
-				DF93AE195ABAC0C523343E9D921C827F /* VASTSettings.m */,
-				AD86815BB2DB36208F74B7AA66F7105B /* VASTXMLUtil.h */,
-				51144384C4CBD05A070F798D33F872E6 /* VASTXMLUtil.m */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		EA5CBC96420BF73A301385424FF113DB /* Pods-MAX_Tests */ = {
@@ -330,32 +330,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		A530F2804482AA75CA53416D8B89DAEF /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65F1DBEF862E51135590C59CF2723C01 /* MAX-umbrella.h in Headers */,
-				548CDF0E4C78EC2BF65D448E386474EE /* MAXInterstitialAd.h in Headers */,
-				0838808948E3997CDD175C9F5406AB26 /* SKBrowser.h in Headers */,
-				C5BF082AD3AD72915783FD52D0A2D7C9 /* SKBrowserControlsView.h in Headers */,
-				95BD134497070290C9EFD7E9EA766FA1 /* SKCommonSettings.h in Headers */,
-				FF17C9DB3173F2F317F52CA4AFFB3950 /* SKLogger.h in Headers */,
-				5D6C5F34D984B3D9E9B7F07CEAB5BE78 /* SKReachability.h in Headers */,
-				2629592E2E17E0B6DD2C6FA792253ACB /* SKVAST2Parser.h in Headers */,
-				DF1706A833B008ECBA4B4FDB6263BECE /* SKVASTControls.h in Headers */,
-				D509A70A19C9B610E840D8712F812B09 /* SKVASTError.h in Headers */,
-				0C6F665E35836818804B73F593FDADD8 /* SKVASTEventProcessor.h in Headers */,
-				008EBF3A4546BD88AA6C59503CF92773 /* SKVASTMediaFile.h in Headers */,
-				46B22C6EC86508990A7001F79B2395B4 /* SKVASTMediaFilePicker.h in Headers */,
-				900A8E364D4F4EF0DB4264803634A01E /* SKVASTModel.h in Headers */,
-				972703F6530B59133D8E70099F96B3B5 /* SKVASTUrlWithId.h in Headers */,
-				39F17499CDEA8E4D3D7C10A11DC643DF /* SKVASTViewController.h in Headers */,
-				B859CD8A39E75C20E569F47EF2D4AAC8 /* VASTSchema.h in Headers */,
-				88C5C64C321E82DA91B406371C45B4DD /* VASTSettings.h in Headers */,
-				2260A0540605DE7A2D82ED5FA6D8E9FE /* VASTXMLUtil.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C4E9DE47A2FA00EEF7EE3CC220812E3A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -372,26 +346,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E63D494D540D7EFBD8F461F8D61E48A5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68E5BD73C9FD1614034181A4C280F393 /* MAX-umbrella.h in Headers */,
+				F71D81643568823B905F64CED60333DB /* SKBrowser.h in Headers */,
+				5C5C018367872931D80247A3CD2F2E47 /* SKBrowserControlsView.h in Headers */,
+				B160F3C56CD5781A4F12672BFA879733 /* SKCommonSettings.h in Headers */,
+				B39A351416146C81CB7FABFE1EEA55BF /* SKLogger.h in Headers */,
+				BCAB07B09A1EFE55E4B6BE4C020B7406 /* SKReachability.h in Headers */,
+				ADFBBE87C3AB1A0107182ED1298D6184 /* SKVAST2Parser.h in Headers */,
+				41C641EDF2B98C2C2C4DC276261FC60F /* SKVASTControls.h in Headers */,
+				C1D2D028342B7FFD4FE6D94ACFB7006F /* SKVASTError.h in Headers */,
+				329925361190D0278266F1027169C815 /* SKVASTEventProcessor.h in Headers */,
+				66FED89D88B8634D4169AA6DC547917B /* SKVASTMediaFile.h in Headers */,
+				C57AEBC68716F1CD957FECAA2D68AD51 /* SKVASTMediaFilePicker.h in Headers */,
+				B9782B9CFDD984DEEF1A18B0FE04C5DA /* SKVASTModel.h in Headers */,
+				EA1B5680CC0ABF7A7FBC0D9FAC0B4A49 /* SKVASTUrlWithId.h in Headers */,
+				6CF017435C613CF84F77068378E8B98C /* SKVASTViewController.h in Headers */,
+				EB784BEC88F8A636223EF62ED6A54F72 /* VASTSchema.h in Headers */,
+				19203A8F7C539B85902F9534017E491E /* VASTSettings.h in Headers */,
+				13E153E673617C3F2F342205523AB0AC /* VASTXMLUtil.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		021AFB13C1E886B2EC8FD256014674A4 /* MAX */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1C1DA283A87A53B9087C8CF45A0EE857 /* Build configuration list for PBXNativeTarget "MAX" */;
-			buildPhases = (
-				021F49B8A619AC837EA5CCC449D59EFD /* Sources */,
-				5417F1D80A10126E26E3023D18D4FBA1 /* Frameworks */,
-				A530F2804482AA75CA53416D8B89DAEF /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MAX;
-			productName = MAX;
-			productReference = 413452DC53CD99A381DBA7CE7BBB9745 /* MAX.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		7A440AB24FC63DAEFB560A0BA236048A /* Pods-MAX_Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A8A1CFA8C0015426A43E7A211F4E8736 /* Build configuration list for PBXNativeTarget "Pods-MAX_Tests" */;
@@ -407,6 +389,23 @@
 			name = "Pods-MAX_Tests";
 			productName = "Pods-MAX_Tests";
 			productReference = 6356465BFAC20139B4A2E6BC12D08EAD /* Pods_MAX_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B4A83857C88F10CA10F9175463E0F1DD /* MAX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7241AA6277E34B8DFAA92CFC96A595CC /* Build configuration list for PBXNativeTarget "MAX" */;
+			buildPhases = (
+				48E01E240C6A25ECAE5B6172C2961359 /* Sources */,
+				2AB1AAC2E3C8BAB52E379479E0CAAA18 /* Frameworks */,
+				E63D494D540D7EFBD8F461F8D61E48A5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MAX;
+			productName = MAX;
+			productReference = 413452DC53CD99A381DBA7CE7BBB9745 /* MAX.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		F678CCA20499334F8302689B4CF16049 /* Pods-MAX_Example */ = {
@@ -448,7 +447,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				021AFB13C1E886B2EC8FD256014674A4 /* MAX */,
+				B4A83857C88F10CA10F9175463E0F1DD /* MAX */,
 				F678CCA20499334F8302689B4CF16049 /* Pods-MAX_Example */,
 				7A440AB24FC63DAEFB560A0BA236048A /* Pods-MAX_Tests */,
 			);
@@ -456,29 +455,30 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		021F49B8A619AC837EA5CCC449D59EFD /* Sources */ = {
+		48E01E240C6A25ECAE5B6172C2961359 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBB89C3FC5A571FD3A1A51FA68EF51B5 /* MAX-dummy.m in Sources */,
-				AE790AE199760AF859C7E3D823E048B6 /* MAXAdRequest.swift in Sources */,
-				12B0B63C196C7FA59920A8B3ABA0127C /* MAXInterstitialAd.m in Sources */,
-				ABC164C70057D00D7D008C5495E25D45 /* SKBrowser.m in Sources */,
-				9A6933BDDB9C05FAE218CDAE6712D828 /* SKBrowserControlsView.m in Sources */,
-				D0B3A8129C0D7A4EDEFC227940F644C9 /* SKCommonSettings.m in Sources */,
-				F0666878951094739C4674FFB2406DED /* SKLogger.m in Sources */,
-				ADECD962641C6A3A27D42EE6184A57C5 /* SKReachability.m in Sources */,
-				0B9AF61862754685D09F75643959BC3A /* SKVAST2Parser.m in Sources */,
-				12D9CE07740F5D57D18D305AA610CC0F /* SKVASTControls.m in Sources */,
-				1F02C34CFACAA7BDDC9F7220469C13F4 /* SKVASTEventProcessor.m in Sources */,
-				28C672D44F3D83CEB643B05376799907 /* SKVASTMediaFile.m in Sources */,
-				EBA66A772233A801A3EF2CC6CF3EC627 /* SKVASTMediaFilePicker.m in Sources */,
-				E23347A9C7B783E8C2FD237CF65DB385 /* SKVASTModel.m in Sources */,
-				1EA0574C0768FCA74C3D807DD801EF95 /* SKVASTUrlWithId.m in Sources */,
-				A35AE8BD1F67E6F335DF1203835E6C6D /* SKVASTViewController.m in Sources */,
-				5DFB49D882E77F10D312BE159CA66396 /* vast_2.0.1.xsd in Sources */,
-				E5351D0590F59BF013B3FF7D4930857D /* VASTSettings.m in Sources */,
-				35F38331B8E29F3E0CF3E37F111AC01D /* VASTXMLUtil.m in Sources */,
+				27FCB00E2A150DF95FB6DF9DE6EEC76A /* MAX-dummy.m in Sources */,
+				D069DBE86966D60E8038D0CD968DD8D8 /* MAXAdRequest.swift in Sources */,
+				F9AD2A226F19B5312DEF92135E57611F /* MAXAdResponse.swift in Sources */,
+				45030DAB9F5C18223D87994255102FAD /* MAXInterstitialAd.swift in Sources */,
+				5F92A46C644B4B3405A7C9E9EAFC1082 /* SKBrowser.m in Sources */,
+				E5B70CB7F3AB84A7DD1AD92442029638 /* SKBrowserControlsView.m in Sources */,
+				585DFD6BFCB04BEEE25614ADC56DDD84 /* SKCommonSettings.m in Sources */,
+				C29F405E2AB4711D2FA00B1D85DE8EE9 /* SKLogger.m in Sources */,
+				50AA5BE163FA51A76EB3042FA2E3D49A /* SKReachability.m in Sources */,
+				5FE3B38F6CE448022E37549FA0C9E41C /* SKVAST2Parser.m in Sources */,
+				7FBA8368A0D12225A5CAA92FED561BC1 /* SKVASTControls.m in Sources */,
+				A43B2FCD954FDA8D85E916966736ED4A /* SKVASTEventProcessor.m in Sources */,
+				019FC3FDE938F19E264B7045C1E5FDBD /* SKVASTMediaFile.m in Sources */,
+				2AEBA34883E54BF82684710808FDD57D /* SKVASTMediaFilePicker.m in Sources */,
+				F7381FBF358FCED5B2A21B2172C6B0F8 /* SKVASTModel.m in Sources */,
+				13CE22C3011E23AF52EAD30FFEE079E0 /* SKVASTUrlWithId.m in Sources */,
+				E271431D181916406CA491D63CE50073 /* SKVASTViewController.m in Sources */,
+				FF588E2DB014C504A9B0512F291524C1 /* vast_2.0.1.xsd in Sources */,
+				6BA4C5C126B1F290C5B90E80FDD6CC8D /* VASTSettings.m in Sources */,
+				F69A9797291451C865B046C8147F96E1 /* VASTXMLUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,41 +504,12 @@
 		F59B100234B6C6678657FDD78706CF6B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MAX;
-			target = 021AFB13C1E886B2EC8FD256014674A4 /* MAX */;
+			target = B4A83857C88F10CA10F9175463E0F1DD /* MAX */;
 			targetProxy = 73895DA8E511D9E321E4C78192D2F751 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		04437437923CC98DEC1A90B36DCB50A5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 003A8CCEB36C0E329F4A4C76356732C2 /* MAX.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MAX/MAX-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MAX/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MAX/MAX.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = MAX;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		0ACDCBCB0B6796575F46FFA2F5410C6B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -576,36 +547,6 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
-		484607F27FC2395990152875CBE8F5B8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 003A8CCEB36C0E329F4A4C76356732C2 /* MAX.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MAX/MAX-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MAX/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MAX/MAX.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = MAX;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		70FE9FA79496A825E11D0F588FA3A33D /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -749,6 +690,36 @@
 			};
 			name = Debug;
 		};
+		DD5811E1ED80FDD8E9AAA978815CA00B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 003A8CCEB36C0E329F4A4C76356732C2 /* MAX.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MAX/MAX-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MAX/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/MAX/MAX.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = MAX;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		FA7D86C74589FD9EB095BDB49424D9AE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04A938574DB842BC2EC7E9A888E99953 /* Pods-MAX_Tests.debug.xcconfig */;
@@ -782,18 +753,38 @@
 			};
 			name = Debug;
 		};
+		FDCF0B98C32C3709379678C8D3771C03 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 003A8CCEB36C0E329F4A4C76356732C2 /* MAX.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MAX/MAX-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MAX/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/MAX/MAX.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = MAX;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1C1DA283A87A53B9087C8CF45A0EE857 /* Build configuration list for PBXNativeTarget "MAX" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				484607F27FC2395990152875CBE8F5B8 /* Debug */,
-				04437437923CC98DEC1A90B36DCB50A5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -808,6 +799,15 @@
 			buildConfigurations = (
 				CC731C1A1420465EAA36D9EB760F0EB0 /* Debug */,
 				ABB7D80A558BA4401615C17B43838F33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7241AA6277E34B8DFAA92CFC96A595CC /* Build configuration list for PBXNativeTarget "MAX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD5811E1ED80FDD8E9AAA978815CA00B /* Debug */,
+				FDCF0B98C32C3709379678C8D3771C03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

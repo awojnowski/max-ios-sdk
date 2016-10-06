@@ -15,17 +15,17 @@ public protocol MAXAdRequestDelegate {
 }
 
 public class MAXAdRequest {
-    private var placementID: String!
-    private var adPlanData: NSData?
-    private var adValid: Bool = false
-    
+    private var adUnitID: String!
     public var delegate: MAXAdRequestDelegate?
     
-    public init(placementID: String) {
-        self.placementID = placementID
+    private var responseURL: NSURL?
+
+    public var adResponse: MAXAdResponse?
+    
+    public init(adUnitID: String) {
+        self.adUnitID = adUnitID
     }
-    
-    
+        
     // 
     // Begin the ad flow by calling requestAd(), which conducts various server side 
     // auctions and other ad logic to determine the ad plan. 
@@ -43,7 +43,7 @@ public class MAXAdRequest {
          */
         
         // Setup POST
-        var url = NSURL(string: "https://sprl.com/ads/req/\(self.placementID)")!
+        var url = NSURL(string: "https://sprl.com/ads/req/\(self.adUnitID)")!
         var config = NSURLSessionConfiguration.defaultSessionConfiguration()
         var session = NSURLSession(configuration: config)
         
@@ -66,34 +66,28 @@ public class MAXAdRequest {
         do {
             var data = try NSJSONSerialization.dataWithJSONObject(dict, options: [])
             
-            session.uploadTaskWithRequest(request, fromData: data, completionHandler: { (data, response, error) in
-                guard let adPlanData = data else {
-                    self.adPlanData = nil
-                    self.adValid = false
-                    if let error = error {
-                        self.delegate?.adRequestDidFailWithError(self, error: error)
+            session.uploadTaskWithRequest(request, fromData: data, completionHandler: { (_data, _response, _error) in
+                do {
+                    guard let data = _data,
+                        response = _response as? NSHTTPURLResponse where
+                        _error == nil else {
+                        throw _error!
                     }
-                    return
-                }
-                
-                if let httpResponse = response as? NSHTTPURLResponse {
-                    if httpResponse.statusCode == 200 {
-                        self.adPlanData = adPlanData
-                        self.adValid = true
+                    
+                    if response.statusCode == 200 {
+                        self.adResponse = try MAXAdResponse(data: data)
                         self.delegate?.adRequestDidLoad(self)
                     } else {
-                        self.adPlanData = nil
-                        self.adValid = false
-                        self.delegate?.adRequestDidFailWithError(self, error: NSError(domain: "sprl.com",
-                            code: httpResponse.statusCode,
-                            userInfo: nil))
+                        throw NSError(domain: "sprl.com",
+                            code: response.statusCode,
+                            userInfo: nil)
                     }
+                } catch var error as NSError {
+                    self.delegate?.adRequestDidFailWithError(self, error: error)
                 }
             }).resume()
             
         } catch var error as NSError {
-            self.adPlanData = nil
-            self.adValid = false
             self.delegate?.adRequestDidFailWithError(self, error: error)
         }
         

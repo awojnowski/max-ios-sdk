@@ -1,6 +1,5 @@
 #import <UIKit/UIKit.h>
 
-#import "MAXInterstitialAd.h"
 #import "SKBrowser.h"
 #import "SKBrowserControlsView.h"
 #import "SKCommonSettings.h"
