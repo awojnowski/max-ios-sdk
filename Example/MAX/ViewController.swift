@@ -14,6 +14,7 @@ class ViewController: UIViewController, MAXAdRequestDelegate {
     @IBOutlet private weak var outputTextView: UITextView!
     
     private var adResponse : MAXAdResponse?
+    private var interstitialAd : MAXInterstitialAd?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +27,16 @@ class ViewController: UIViewController, MAXAdRequestDelegate {
         adr.delegate = self
         adr.requestAd()
         
+        // Clear output
+        self.outputTextView.text = "Loading..."
     }
     
     @IBAction func tappedShowAdButton(sender: AnyObject) {
-        let ad = MAXInterstitialAd(adResponse: self.adResponse)
+        if let adResponse = self.adResponse {
+            let ad = MAXInterstitialAd(adResponse: adResponse)
+            self.interstitialAd = ad
+            ad.showAdFromRootViewController(self)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,7 +48,9 @@ class ViewController: UIViewController, MAXAdRequestDelegate {
         NSLog("adRequestDidLoad(\(adRequest))")
         self.adResponse = adRequest.adResponse
         dispatch_async(dispatch_get_main_queue(), {
-            self.outputTextView.text = "\(self.adResponse?.response)"
+            if let adResponse = self.adResponse {
+                self.outputTextView.text = "\(adResponse.response)"
+            }
         })
     }
     
