@@ -22,7 +22,6 @@ public class MAXInterstitialAd : NSObject, SKVASTViewControllerDelegate {
                 case "vast3":
                     self._videoData = (winner["creative"] as? String ?? "").dataUsingEncoding(NSUTF8StringEncoding)
                     if let _videoData = self._videoData {
-                        SKLogger.setLogLevel(SourceKitLogLevelDebug)
                         let vc = SKVASTViewController(delegate: self, withViewController: rootViewController)
                         vc.loadVideoWithData(_videoData)
                     }
