@@ -35,22 +35,8 @@ public class MAXAdRequest {
     // the ad request should be discarded. 
     //
     public func requestAd() {
-        // Detect connection characteristics
-        /*
-         bool wifi = [[SKReachability reachabilityForInternetConnection] isReachableViaWiFi];
-         bool wwan = [[SKReachability reachabilityForInternetConnection] isReachableViaWWAN];
-         CTCarrier *carrier = [[[CTTelephonyNetworkInfo alloc] init] subscriberCellularProvider];
-         */
-        
-        // Setup POST
-        var url = NSURL(string: "https://sprl.com/ads/req/\(self.adUnitID)")!
-        var config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        var session = NSURLSession(configuration: config)
-        
-        var request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        
-        var dict : NSDictionary = [
+        // All interesting things about this particular device
+        let dict : NSDictionary = [
             "ifa": ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString,
             "lmt": ASIdentifierManager.sharedManager().advertisingTrackingEnabled ? false : true,
             "vendor_id": UIDevice.currentDevice().identifierForVendor?.UUIDString ?? "",
@@ -60,11 +46,22 @@ public class MAXAdRequest {
                 (UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? "landscape" : "none"),
             "w": floor(UIScreen.mainScreen().bounds.size.width),
             "h": floor(UIScreen.mainScreen().bounds.size.height),
+            "browser_agent": UIWebView().stringByEvaluatingJavaScriptFromString("navigator.userAgent") ?? "",
+            "model": self.model(),
+            "connectivity": SKReachability.reachabilityForInternetConnection().isReachableViaWiFi() ? "wifi" :
+                SKReachability.reachabilityForInternetConnection().isReachableViaWWAN() ? "wwan" : "none",
             "carrier": CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""]
-    
+        
+        // Setup POST
+        let url = NSURL(string: "https://sprl.com/ads/req/\(self.adUnitID)")!
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: config)
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
 
         do {
-            var data = try NSJSONSerialization.dataWithJSONObject(dict, options: [])
+            let data = try NSJSONSerialization.dataWithJSONObject(dict, options: [])
             
             session.uploadTaskWithRequest(request, fromData: data, completionHandler: { (_data, _response, _error) in
                 do {
@@ -82,14 +79,20 @@ public class MAXAdRequest {
                             code: response.statusCode,
                             userInfo: nil)
                     }
-                } catch var error as NSError {
+                } catch let error as NSError {
                     self.delegate?.adRequestDidFailWithError(self, error: error)
                 }
             }).resume()
             
-        } catch var error as NSError {
+        } catch let error as NSError {
             self.delegate?.adRequestDidFailWithError(self, error: error)
         }
         
+    }
+    
+    private func model() -> String {
+        var sysinfo = utsname()
+        uname(&sysinfo) // ignore return value
+        return NSString(bytes: &sysinfo.machine, length: Int(_SYS_NAMELEN), encoding: NSASCIIStringEncoding)! as String
     }
 }
