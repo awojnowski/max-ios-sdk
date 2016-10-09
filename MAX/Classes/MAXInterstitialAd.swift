@@ -7,8 +7,6 @@
 import Foundation
 
 public protocol MAXInterstitialAdDelegate {
-    func interstitialAdDidLoad(interstitialAd: MAXInterstitialAd)
-    func interstitialAd(interstitialAd: MAXInterstitialAd, didFailWithError: NSError)
     func interstitialAdDidClick(interstitialAd: MAXInterstitialAd)
     func interstitialAdWillClose(interstitialAd: MAXInterstitialAd)
     func interstitialAdDidClose(interstitialAd: MAXInterstitialAd)
@@ -34,8 +32,6 @@ public class MAXInterstitialAd {
                         let vc = SKVASTViewController(delegate: VASTDelegate(parent: self),
                                                       withViewController: rootViewController)
                         vc.loadVideoWithData(_videoData)
-                    } else {
-                        self.delegate?.interstitialAd(self, didFailWithError: NSError(domain: "sprl.com", code: 0, userInfo: nil))
                     }
                 case "html":
                     break
@@ -66,7 +62,6 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     //
     
     public func vastReady(vastVC: SKVASTViewController!) {
-        self.parent.delegate?.interstitialAdDidLoad(self.parent)
         vastVC.play()
     }
     
