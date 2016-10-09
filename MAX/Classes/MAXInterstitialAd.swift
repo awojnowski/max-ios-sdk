@@ -13,13 +13,16 @@ public protocol MAXInterstitialAdDelegate {
 }
 
 public class MAXInterstitialAd {
+    private var adResponse: MAXAdResponse!
+
     public var delegate: MAXInterstitialAdDelegate?
     
-    private var adResponse: MAXAdResponse!
+    private var _vastDelegate: VASTDelegate!
     private var _videoData: NSData?
     
     public init(adResponse: MAXAdResponse) {
         self.adResponse = adResponse
+        self._vastDelegate = VASTDelegate(parent: self)
     }
     
     public func showAdFromRootViewController(rootViewController: UIViewController) {
@@ -29,7 +32,7 @@ public class MAXInterstitialAd {
                 case "vast3":
                     self._videoData = (winner["creative"] as? String ?? "").dataUsingEncoding(NSUTF8StringEncoding)
                     if let _videoData = self._videoData {
-                        let vc = SKVASTViewController(delegate: VASTDelegate(parent: self),
+                        let vc = SKVASTViewController(delegate: _vastDelegate,
                                                       withViewController: rootViewController)
                         vc.loadVideoWithData(_videoData)
                     }
