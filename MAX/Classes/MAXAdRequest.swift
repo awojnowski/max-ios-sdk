@@ -9,17 +9,9 @@ import AdSupport
 import CoreTelephony
 import UIKit
 
-public protocol MAXAdRequestDelegate {
-    func adRequestDidLoad(adRequest: MAXAdRequest)
-    func adRequestDidFailWithError(adRequest: MAXAdRequest, error: NSError)
-}
 
 public class MAXAdRequest {
     public var adUnitID: String!
-    public var delegate: MAXAdRequestDelegate?
-    
-    private var responseURL: NSURL?
-
     public var adResponse: MAXAdResponse?
     
     public init(adUnitID: String) {
@@ -34,7 +26,7 @@ public class MAXAdRequest {
     // plan can be executed whenever an ad needs to be shown. Once the ad is shown, 
     // the ad request should be discarded. 
     //
-    public func requestAd() {
+    public func requestAd(completion: (MAXAdResponse?, NSError?) -> Void) {
         // All interesting things about this particular device
         let dict : NSDictionary = [
             "ifa": ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString,
@@ -73,19 +65,19 @@ public class MAXAdRequest {
                     
                     if response.statusCode == 200 {
                         self.adResponse = try MAXAdResponse(data: data)
-                        self.delegate?.adRequestDidLoad(self)
+                        completion(self.adResponse, nil)
                     } else {
                         throw NSError(domain: "sprl.com",
                             code: response.statusCode,
                             userInfo: nil)
                     }
                 } catch let error as NSError {
-                    self.delegate?.adRequestDidFailWithError(self, error: error)
+                    completion(nil, error)
                 }
             }).resume()
             
         } catch let error as NSError {
-            self.delegate?.adRequestDidFailWithError(self, error: error)
+            completion(nil, error)
         }
         
     }

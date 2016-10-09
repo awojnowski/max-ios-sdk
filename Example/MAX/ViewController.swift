@@ -2,13 +2,11 @@
 //  ViewController.swift
 //  MAX
 //
-//  Copyright (c) 2016 Jim Payne. All rights reserved.
-//
 
 import UIKit
 import MAX
 
-class ViewController: UIViewController, MAXAdRequestDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet private weak var adUnitTextField: UITextField!
     @IBOutlet private weak var outputTextView: UITextView!
@@ -28,8 +26,20 @@ class ViewController: UIViewController, MAXAdRequestDelegate {
         
         // Do any additional setup after loading the view, typically from a nib.
         let adr = MAXAdRequest(adUnitID: self.adUnitTextField.text!)
-        adr.delegate = self
-        adr.requestAd()
+        adr.requestAd() {(adResponse, error) in
+            if let adResponse = adResponse {
+                NSLog("adRequestDidLoad(\(adr))")
+                self.adResponse = adResponse
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.outputTextView.text = "\(adResponse.response)"
+                })
+            } else if let error = error {
+                NSLog("adRequestDidFailWithError(\(adr), \(error))")
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.outputTextView.text = "\(error.localizedDescription)"
+                })
+            }
+        }
         
         // Clear output
         self.outputTextView.text = "Loading..."
@@ -66,23 +76,6 @@ class ViewController: UIViewController, MAXAdRequestDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func adRequestDidLoad(adRequest: MAXAdRequest) {
-        NSLog("adRequestDidLoad(\(adRequest))")
-        self.adResponse = adRequest.adResponse
-        dispatch_async(dispatch_get_main_queue(), {
-            if let adResponse = self.adResponse {
-                self.outputTextView.text = "\(adResponse.response)"
-            }
-        })
-    }
-    
-    func adRequestDidFailWithError(adRequest: MAXAdRequest, error: NSError) {
-        NSLog("adRequestDidFailWithError(\(adRequest), \(error))")
-        dispatch_async(dispatch_get_main_queue(), {
-            self.outputTextView.text = "\(error.localizedDescription)"
-        })
     }
 
 }
