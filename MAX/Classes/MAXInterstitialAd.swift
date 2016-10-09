@@ -6,13 +6,14 @@
 
 import Foundation
 
-public class MAXInterstitialAd : NSObject, SKVASTViewControllerDelegate {
+public class MAXInterstitialAd {
     private var adResponse: MAXAdResponse!
-    
     private var _videoData: NSData?
+    private var _delegate : VASTDelegate?
     
     public init(adResponse: MAXAdResponse) {
         self.adResponse = adResponse
+        self._delegate = VASTDelegate(parent: self)
     }
     
     public func showAdFromRootViewController(rootViewController: UIViewController) {
@@ -22,7 +23,7 @@ public class MAXInterstitialAd : NSObject, SKVASTViewControllerDelegate {
                 case "vast3":
                     self._videoData = (winner["creative"] as? String ?? "").dataUsingEncoding(NSUTF8StringEncoding)
                     if let _videoData = self._videoData {
-                        let vc = SKVASTViewController(delegate: self, withViewController: rootViewController)
+                        let vc = SKVASTViewController(delegate: _delegate, withViewController: rootViewController)
                         vc.loadVideoWithData(_videoData)
                     }
                 case "html":
@@ -38,6 +39,15 @@ public class MAXInterstitialAd : NSObject, SKVASTViewControllerDelegate {
                 }
             }
         }
+    }
+}
+
+private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
+
+    private var parent : MAXInterstitialAd
+    
+    init(parent: MAXInterstitialAd) {
+        self.parent = parent
     }
     
     //
