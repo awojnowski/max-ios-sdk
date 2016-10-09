@@ -15,7 +15,7 @@ public protocol MAXAdRequestDelegate {
 }
 
 public class MAXAdRequest {
-    private var adUnitID: String!
+    public var adUnitID: String!
     public var delegate: MAXAdRequestDelegate?
     
     private var responseURL: NSURL?

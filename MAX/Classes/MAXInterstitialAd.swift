@@ -6,14 +6,22 @@
 
 import Foundation
 
+public protocol MAXInterstitialAdDelegate {
+    func interstitialAdDidLoad(interstitialAd: MAXInterstitialAd)
+    func interstitialAd(interstitialAd: MAXInterstitialAd, didFailWithError: NSError)
+    func interstitialAdDidClick(interstitialAd: MAXInterstitialAd)
+    func interstitialAdWillClose(interstitialAd: MAXInterstitialAd)
+    func interstitialAdDidClose(interstitialAd: MAXInterstitialAd)
+}
+
 public class MAXInterstitialAd {
+    public var delegate: MAXInterstitialAdDelegate?
+    
     private var adResponse: MAXAdResponse!
     private var _videoData: NSData?
-    private var _delegate : VASTDelegate?
     
     public init(adResponse: MAXAdResponse) {
         self.adResponse = adResponse
-        self._delegate = VASTDelegate(parent: self)
     }
     
     public func showAdFromRootViewController(rootViewController: UIViewController) {
@@ -23,8 +31,11 @@ public class MAXInterstitialAd {
                 case "vast3":
                     self._videoData = (winner["creative"] as? String ?? "").dataUsingEncoding(NSUTF8StringEncoding)
                     if let _videoData = self._videoData {
-                        let vc = SKVASTViewController(delegate: _delegate, withViewController: rootViewController)
+                        let vc = SKVASTViewController(delegate: VASTDelegate(parent: self),
+                                                      withViewController: rootViewController)
                         vc.loadVideoWithData(_videoData)
+                    } else {
+                        self.delegate?.interstitialAd(self, didFailWithError: NSError(domain: "sprl.com", code: 0, userInfo: nil))
                     }
                 case "html":
                     break
@@ -55,18 +66,23 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     //
     
     public func vastReady(vastVC: SKVASTViewController!) {
+        self.parent.delegate?.interstitialAdDidLoad(self.parent)
         vastVC.play()
     }
     
     public func vastTrackingEvent(eventName: String!) {
         NSLog("vastTrackingEvent(\(eventName)")
+        if eventName == "close" {
+            self.parent.delegate?.interstitialAdWillClose(self.parent)
+        }
     }
     
     public func vastDidDismissFullScreen(vastVC: SKVASTViewController!) {
-        
+        self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
     public func vastOpenBrowseWithUrl(vastVC: SKVASTViewController!, url: NSURL!) {
+        self.parent.delegate?.interstitialAdDidClick(self.parent)
         vastVC.dismissViewControllerAnimated(false) {
             UIApplication.sharedApplication().openURL(url)
         }
