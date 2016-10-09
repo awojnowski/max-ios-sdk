@@ -20,7 +20,7 @@ public class MAXAdResponse {
     
     public func preBidKeywords() -> String {
         if let winner = self.response["ad_source_response"] as? NSDictionary {
-            return "m_max:true, m_bidprice: \(winner["bid_price"])"
+            return self.response["prebid_keywords"] as? String ?? ""
         } else {
             return ""
         }
