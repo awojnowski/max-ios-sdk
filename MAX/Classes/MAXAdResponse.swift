@@ -17,4 +17,12 @@ public class MAXAdResponse {
         self.response = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! NSDictionary
         NSLog("\(self.response)")
     }
+    
+    public func preBidKeywords() -> String {
+        if let winner = self.response["ad_source_response"] as? NSDictionary {
+            return "m_max:true, m_bidprice: \(winner["bid_price"])"
+        } else {
+            return ""
+        }
+    }
 }
