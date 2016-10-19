@@ -182,7 +182,7 @@ typedef enum {
             }
             if (vastErrors) {
                 [SKLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-                [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+                [self.eventProcessor trackError:VASTErrorNoCompatibleMediaFile withVASTUrls:vastErrors];
             }
             return;
         }
@@ -329,7 +329,7 @@ typedef enum {
             }
             if (vastErrors) {
                 [SKLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-                [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+                [self.eventProcessor trackError:VASTErrorPlaybackError withVASTUrls:vastErrors];
             }
             [self close];
         } else {
@@ -366,7 +366,7 @@ typedef enum {
         }
         if (vastErrors) {
             [SKLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-            [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+            [self.eventProcessor trackError:VASTErrorMovieTooShort withVASTUrls:vastErrors];
         }
         [self close];
     }
@@ -462,7 +462,7 @@ typedef enum {
             }
             if (vastErrors) {
                 [SKLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-                [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+                [self.eventProcessor trackError:VASTErrorPlayerHung withVASTUrls:vastErrors];
             }
             [self close];
         }
@@ -525,7 +525,7 @@ typedef enum {
     
     if (vastErrors) {
        [SKLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-        [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+        [self.eventProcessor trackError:VASTErrorLoadTimeout withVASTUrls:vastErrors];
     }
     if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
         [self.delegate vastError:self error:VASTErrorLoadTimeout];
@@ -592,7 +592,7 @@ typedef enum {
             }
             if (vastErrors) {
                 [SKLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-                [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+                [self.eventProcessor trackError:VASTErrorPlaybackError withVASTUrls:vastErrors];
             }
             return;
         }

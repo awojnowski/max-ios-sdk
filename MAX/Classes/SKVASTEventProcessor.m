@@ -144,6 +144,37 @@
     }
 }
 
+- (void)trackError:(SKVASTError)vastError withVASTUrls:(NSArray*)vastUrls {
+    int errorCode;
+    switch(vastError) {
+        case VASTErrorNoCompatibleMediaFile:
+            errorCode = 403;
+            break;
+        case VASTErrorPlaybackError:
+            errorCode = 405;
+            break;
+        case VASTErrorMovieTooShort:
+            errorCode = 203;
+            break;
+        case VASTErrorPlayerHung:
+            errorCode = 402;
+            break;
+        case VASTErrorLoadTimeout:
+            errorCode = 301;
+            break;
+        default:
+            errorCode = 900;
+    }
+    
+    for (SKVASTUrlWithId *urlWithId in vastUrls) {
+        NSURLComponents* components = [[NSURLComponents alloc] initWithURL:urlWithId.url resolvingAgainstBaseURL:false ];
+        components.query = [components.query stringByReplacingOccurrencesOfString:@"[ERRORCODE]" withString:[NSString stringWithFormat:@"%d", errorCode]];
+        
+        [self sendTrackingRequest:components.URL];
+        [SKLogger debug:@"VAST - Event Processor" withMessage:[NSString stringWithFormat:@"Sent VAST Error to url: %@", components.URL]];
+    }
+}
+
 - (void)sendTrackingRequest:(NSURL *)trackingURL
 {
     dispatch_queue_t sendTrackRequestQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
