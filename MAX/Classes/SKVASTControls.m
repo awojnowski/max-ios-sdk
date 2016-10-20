@@ -196,13 +196,13 @@ static const float kControlsToobarHeight = 44.0;
         int playedSeconds =  (int)playerSeconds % 60;
         int playedMinutes = (int)(playerSeconds / 60) % 60;
         // playbackTimeLabel.title = [NSString stringWithFormat:@"%02d:%02d / %02d:%02d",playedMinutes, playedSeconds, totalMinutes, totalSeconds];
-        playbackTimeLabel.title = [NSString stringWithFormat:@"00:%02d", remainingSeconds];
+        playbackTimeLabel.title = [NSString stringWithFormat:@"Swipe up for more... 00:%02d", remainingSeconds];
 
         stopButton.enabled = YES;
         stopButton.tintColor = nil;
 
     } else {
-        playbackTimeLabel.title = [NSString stringWithFormat:@"Skip in %d", (int)(kSkipOffset - playerSeconds + 1)];
+        playbackTimeLabel.title = [NSString stringWithFormat:@"Swipe up for more... Tap to skip in %d", (int)(kSkipOffset - playerSeconds + 1)];
 
         stopButton.enabled = NO;
         stopButton.tintColor = [UIColor clearColor];
