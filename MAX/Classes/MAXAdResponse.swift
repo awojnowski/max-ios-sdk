@@ -11,6 +11,12 @@ public class MAXAdResponse {
     public var data : NSData!
     public var response : NSDictionary!
     
+    public init() {
+        self.createdAt = NSDate()
+        self.data = NSData()
+        self.response = NSDictionary()
+    }
+    
     public init(data: NSData) throws {
         self.createdAt = NSDate()
         self.data = data

@@ -9,6 +9,7 @@ import AdSupport
 import CoreTelephony
 import UIKit
 
+let ADS_DOMAIN = "https://sprl.com"
 
 public class MAXAdRequest {
     public var adUnitID: String!
@@ -45,7 +46,7 @@ public class MAXAdRequest {
             "carrier": CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""]
         
         // Setup POST
-        let url = NSURL(string: "https://sprl.com/ads/req/\(self.adUnitID)")!
+        let url = NSURL(string: "\(ADS_DOMAIN)/ads/req/\(self.adUnitID)")!
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: config)
         
@@ -65,6 +66,9 @@ public class MAXAdRequest {
                     
                     if response.statusCode == 200 {
                         self.adResponse = try MAXAdResponse(data: data)
+                        completion(self.adResponse, nil)
+                    } else if response.statusCode == 204 {
+                        self.adResponse = MAXAdResponse()
                         completion(self.adResponse, nil)
                     } else {
                         throw NSError(domain: "sprl.com",
