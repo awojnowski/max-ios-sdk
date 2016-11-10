@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     private var adResponse : MAXAdResponse?
     private var interstitialAd : MAXInterstitialAd?
+    private var bannerAdView : MAXAdView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
