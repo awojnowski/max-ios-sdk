@@ -19,18 +19,16 @@ public protocol MAXAdViewDelegate {
 public class MAXAdView : UIView {
     private var adResponse: MAXAdResponse!
     
-    public var delegate: MAXInterstitialAdDelegate?
+    public var delegate: MAXAdViewDelegate?
     
     private var creative: String = ""
     private var creative_type: String = "empty"
     
     private var _mraidDelegate: MRAIDDelegate!
     private var _mraidView: SKMRAIDView!
-    private var _rootViewController: UIViewController!
     
     public init(adResponse: MAXAdResponse,
-                size: CGSize,
-                rootViewController: UIViewController) {
+                size: CGSize) {
         super.init(frame: CGRect(origin: CGPointZero, size: size))
         SKLogger.setLogLevel(SourceKitLogLevelDebug)
         
@@ -41,7 +39,6 @@ public class MAXAdView : UIView {
         }
         
         self._mraidDelegate = MRAIDDelegate(parent: self)
-        self._rootViewController = rootViewController
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -57,7 +54,8 @@ public class MAXAdView : UIView {
                                           supportedFeatures: [],
                                           delegate: self._mraidDelegate,
                                           serviceDelegate: self._mraidDelegate,
-                                          rootViewController: self._rootViewController)
+                                          rootViewController: self.delegate?.viewControllerForPresentingModalView)
+            self.delegate?.adViewWillLogImpression(self)
             self.addSubview(self._mraidView)
         case "empty":
             NSLog("MAX: empty ad response, nothing to show")
@@ -79,11 +77,14 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     //
     //
+    
     public func mraidViewAdReady(mraidView: SKMRAIDView!) {
         NSLog("mraidViewAdReady")
+        parent.delegate?.adViewDidLoad(parent)
     }
     public func mraidViewAdFailed(mraidView: SKMRAIDView!) {
         NSLog("mraidViewAdFailed")
+        parent.delegate?.adViewDidFailWithError(parent, error: nil)
     }
     public func mraidViewDidClose(mraidView: SKMRAIDView!) {
         NSLog("mraidViewDidClose")
@@ -105,7 +106,9 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
         NSLog("mraidServiceOpenBrowserWithUrlString")
-        
+        parent.delegate?.adViewDidClick(parent)
+        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+        parent.delegate?.adViewDidFinishHandlingClick(parent)
     }
     
 }
