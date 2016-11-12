@@ -21,23 +21,14 @@ public class MAXAdView : UIView {
     
     public var delegate: MAXAdViewDelegate?
     
-    private var creative: String = ""
-    private var creative_type: String = "empty"
-    
     private var _mraidDelegate: MRAIDDelegate!
     private var _mraidView: SKMRAIDView!
     
     public init(adResponse: MAXAdResponse,
                 size: CGSize) {
         super.init(frame: CGRect(origin: CGPointZero, size: size))
-        SKLogger.setLogLevel(SourceKitLogLevelDebug)
         
         self.adResponse = adResponse
-        if let winner = self.adResponse.response["ad_source_response"] {
-            self.creative = winner["creative"] as! String
-            self.creative_type = winner["creative_type"] as! String
-        }
-        
         self._mraidDelegate = MRAIDDelegate(parent: self)
     }
     
@@ -46,24 +37,38 @@ public class MAXAdView : UIView {
     }
     
     public func loadAd() {
-        switch creative_type {
+        switch self.adResponse.creativeType {
         case "html":
             self._mraidView = SKMRAIDView(frame: self.frame,
-                                          withHtmlData: self.creative,
+                                          withHtmlData: self.adResponse.creative,
                                           withBaseURL: NSURL(string: "https://sprl.com"),
                                           supportedFeatures: [],
                                           delegate: self._mraidDelegate,
                                           serviceDelegate: self._mraidDelegate,
-                                          rootViewController: self.delegate?.viewControllerForPresentingModalView)
-            self.delegate?.adViewWillLogImpression(self)
+                                          rootViewController: self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController)
             self.addSubview(self._mraidView)
         case "empty":
             NSLog("MAX: empty ad response, nothing to show")
+            self.delegate?.adViewDidLoad(self)
             break
         default:
-            NSLog("MAX: unsupported ad creative_type=\(creative_type)")
+            NSLog("MAX: unsupported ad creative_type=\(self.adResponse.creativeType)")
+            self.delegate?.adViewDidFailWithError(self, error: nil)
             break
         }
+    }
+    
+    func trackImpression() {
+        self.delegate?.adViewWillLogImpression(self)
+        self.adResponse.trackImpression()
+    }
+    
+    func click(url: String) {
+        self.adResponse.trackClick()
+        
+        self.delegate?.adViewDidClick(self)
+        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+        self.delegate?.adViewDidFinishHandlingClick(self)
     }
 }
 
@@ -80,6 +85,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     
     public func mraidViewAdReady(mraidView: SKMRAIDView!) {
         NSLog("mraidViewAdReady")
+        parent.trackImpression()
         parent.delegate?.adViewDidLoad(parent)
     }
     public func mraidViewAdFailed(mraidView: SKMRAIDView!) {
@@ -93,7 +99,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
         NSLog("mraidViewWillExpand")
     }
     public func mraidViewNavigate(mraidView: SKMRAIDView!, withURL url: NSURL!) {
-        NSLog("mraidViewNavigate")
+        NSLog("mraidViewNavigate \(url)")
     }
     public func mraidViewShouldResize(mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
         NSLog("mraidViewShouldResize")
@@ -106,9 +112,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
         NSLog("mraidServiceOpenBrowserWithUrlString")
-        parent.delegate?.adViewDidClick(parent)
-        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
-        parent.delegate?.adViewDidFinishHandlingClick(parent)
+        parent.click(url)
     }
     
 }

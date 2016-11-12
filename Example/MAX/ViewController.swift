@@ -20,17 +20,17 @@ let MOPUB_BANNER_ADUNIT_ID = "92cfc1c922f9490c8d7badf62ac8b33f"
 class ViewController: UIViewController, MPAdViewDelegate {
     
     @IBOutlet private weak var fullScreenAdUnitTextField: UITextField!
-    @IBOutlet private weak var timeElapsedLabel: UILabel!
-
     @IBOutlet private weak var bannerAdUnitTextField: UITextField!
-    @IBOutlet private weak var bannerAdView : UIView!
+    
+    @IBOutlet private weak var resultsView : UIView!
+    @IBOutlet private weak var showInterstitialButton : UIButton!
 
+    @IBOutlet private weak var timeElapsedLabel: UILabel!
     @IBOutlet private weak var outputTextView: UITextView!
     
     private var adResponse : MAXAdResponse?
     private var adError : NSError?
     
-    private var interstitialAd : MAXInterstitialAd?
     private var interstitialController : MPInterstitialAdController?
 
     override func viewDidLoad() {
@@ -42,12 +42,18 @@ class ViewController: UIViewController, MPAdViewDelegate {
     func monitorAdRequest() {
         self.adResponse = nil
         self.adError = nil
-        self.interstitialAd = nil
         self.interstitialController = nil
 
         // Clear output
         self.outputTextView.text = "Loading..."
         self.timeElapsedLabel.text = ""
+        self.showInterstitialButton.hidden = true
+        for v in self.resultsView.subviews {
+            if let adView = v as? MPAdView {
+                adView.removeFromSuperview()
+            }
+        }
+
         
         // Start loading timer
         if #available(iOS 10.0, *) {
@@ -55,23 +61,24 @@ class ViewController: UIViewController, MPAdViewDelegate {
             NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), repeats: true) { (timer) in
                 if let r = self.adResponse {
                     timer.invalidate()
-                    self.timeElapsedLabel.text =
-                        String.localizedStringWithFormat("%.3f",
-                                                         r.createdAt.timeIntervalSinceDate(beginRequestDate))
                     dispatch_async(dispatch_get_main_queue(), {
+                        self.timeElapsedLabel.text =
+                            String.localizedStringWithFormat("%.3fs // %d bytes",
+                                r.createdAt.timeIntervalSinceDate(beginRequestDate),
+                                r.data.length)
                         self.outputTextView.text = "\(r.response)"
                     })
 
                 } else if let error = self.adError {
                     timer.invalidate()
-                    self.timeElapsedLabel.text = ""
                     dispatch_async(dispatch_get_main_queue(), {
+                        self.timeElapsedLabel.text = ""
                         self.outputTextView.text = "\(error.localizedDescription)"
                     })
 
                 } else {
                     self.timeElapsedLabel.text =
-                        String.localizedStringWithFormat("%.3f",
+                        String.localizedStringWithFormat("%.3fs",
                                                          -beginRequestDate.timeIntervalSinceNow)
                 }
             }
@@ -86,6 +93,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
     @IBAction func tappedRequestFullScreenButton(sender: AnyObject) {
         self.monitorAdRequest()
         MAXAdRequest(adUnitID: self.fullScreenAdUnitTextField.text!).requestAd() {(adResponse, error) in
+            NSLog("adResponse: \(adResponse)")
         }
     }
     
@@ -96,11 +104,11 @@ class ViewController: UIViewController, MPAdViewDelegate {
                 if let response = response {
                     self.adResponse = response
                     
-                    self.interstitialAd = MAXInterstitialAd(adResponse: response)
-                    
                     self.interstitialController = MPInterstitialAdController(forAdUnitId: MOPUB_FULLSCREEN_ADUNIT_ID)
                     self.interstitialController!.keywords = response.preBidKeywords
                     self.interstitialController!.loadAd()
+                    
+                    self.showInterstitialButton.hidden = false
                 } else if let error = error {
                     self.adError = error
                 }
@@ -112,6 +120,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
         if let ic = self.interstitialController {
             if ic.ready {
                 ic.showFromViewController(self)
+                self.interstitialController = nil
             }
         }
     }
@@ -133,7 +142,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
                     banner.keywords = response.preBidKeywords
                     banner.loadAd()
                     
-                    self.bannerAdView.addSubview(banner)
+                    self.resultsView.addSubview(banner)
                 } else if let error = error {
                     self.adError = error
                 }

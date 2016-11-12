@@ -132,12 +132,16 @@ public class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInt
     private var MAXInterstitial : MAXInterstitialAd?
     
     override public func requestInterstitialWithCustomEventInfo(info: [NSObject : AnyObject]!) {
-        guard let adUnitID = info["adunit_id"] as? String,
-            let adResponse = MAXPreBids[adUnitID] else {
-                NSLog("MAX interstitial pre-bid was not found")
-                self.MAXInterstitial = nil
-                self.delegate.interstitialCustomEventDidExpire(self)
-                return
+        guard let adUnitID = info["adunit_id"] as? String else {
+            NSLog("No Ad Unit ID found in Custom Event parameters")
+            return
+        }
+        guard let adResponse = MAXPreBids[adUnitID] else {
+            NSLog("MAX interstitial pre-bid was not found")
+            self.MAXInterstitial = nil
+            self.delegate.interstitialCustomEvent(self,
+                                                  didFailToLoadAdWithError: MAXPreBidErrors[adUnitID] ?? NSError(domain: "sprl.com", code: 0, userInfo: [:]))
+            return
         }
         
         // only allow pre-bid to be used once
@@ -153,7 +157,7 @@ public class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInt
     
     override public func showInterstitialFromRootViewController(rootViewController: UIViewController!) {
         guard let interstitial = MAXInterstitial else {
-            NSLog("MAX interstitial ad was not loaded")
+            NSLog("MAX interstitial ad was not loaded when show was called, expiring.")
             self.delegate.interstitialCustomEventDidExpire(self)
             return
         }

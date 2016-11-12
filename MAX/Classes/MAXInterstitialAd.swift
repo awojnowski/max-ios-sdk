@@ -69,6 +69,7 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     //
     
     public func vastReady(vastVC: SKVASTViewController!) {
+        self.parent.adResponse.trackImpression()
         vastVC.play()
     }
     
@@ -86,8 +87,9 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     public func vastOpenBrowseWithUrl(vastVC: SKVASTViewController!, url: NSURL!) {
         self.parent.delegate?.interstitialAdDidClick(self.parent)
         vastVC.dismissViewControllerAnimated(false) {
-            UIApplication.sharedApplication().openURL(url)
+            self.parent.adResponse.handleClick(url)
         }
+        vastVC.close()
     }
     
 }
@@ -106,11 +108,14 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     public func mraidInterstitialAdReady(mraidInterstitial: SKMRAIDInterstitial!) {
         if mraidInterstitial.isAdReady() {
             mraidInterstitial.show()
+            self.parent.adResponse.trackImpression()
         }
     }
     
     public func mraidInterstitialDidHide(mraidInterstitial: SKMRAIDInterstitial!) {
         NSLog("mraidInterstitialDidHide")
+        self.parent.delegate?.interstitialAdWillClose(self.parent)
+        self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
     public func mraidInterstitialAdFailed(mraidInterstitial: SKMRAIDInterstitial!) {
@@ -131,7 +136,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
         NSLog("mraidServiceOpenBrowserWithUrlString")
-
+        self.parent.adResponse.handleClick(NSURL(string: url)!)
     }
 
 }

@@ -48,40 +48,6 @@
                                     <action selector="tappedPreBidFullScreenButtonWithSender:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tuM-K1-DwD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPh-Km-Hy7">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="151" id="33s-dg-YZi"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="151" id="DYJ-hS-f81"/>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="EXu-WS-Zd1"/>
-                                    <constraint firstAttribute="height" constant="30" id="bwW-ZF-eEf"/>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="151" id="mt2-K3-DIW"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="zdd-WP-Buk"/>
-                                </constraints>
-                                <state key="normal" title="Show Fullscreen"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="33s-dg-YZi"/>
-                                        <exclude reference="DYJ-hS-f81"/>
-                                        <exclude reference="EXu-WS-Zd1"/>
-                                        <exclude reference="bwW-ZF-eEf"/>
-                                        <exclude reference="mt2-K3-DIW"/>
-                                        <exclude reference="zdd-WP-Buk"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="33s-dg-YZi"/>
-                                        <include reference="DYJ-hS-f81"/>
-                                        <include reference="EXu-WS-Zd1"/>
-                                        <include reference="bwW-ZF-eEf"/>
-                                        <include reference="mt2-K3-DIW"/>
-                                        <include reference="zdd-WP-Buk"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="tappedShowAdButtonWithSender:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KUr-Rg-Lxg"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Fullscreen AdUnit ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p0D-pc-hmI">
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="184" id="4ZD-Ie-fvL"/>
@@ -107,24 +73,18 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAR-pX-i08">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="2cp-Op-SH5"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="151" id="MCd-Ik-w2Q"/>
                                     <constraint firstAttribute="width" constant="151" id="aSJ-g6-BEF"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="nsg-en-5zf"/>
                                 </constraints>
                                 <state key="normal" title="Pre-bid Banner"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="MCd-Ik-w2Q"/>
                                         <exclude reference="aSJ-g6-BEF"/>
-                                        <exclude reference="nsg-en-5zf"/>
                                         <exclude reference="2cp-Op-SH5"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="MCd-Ik-w2Q"/>
                                         <include reference="aSJ-g6-BEF"/>
-                                        <include reference="nsg-en-5zf"/>
                                         <include reference="2cp-Op-SH5"/>
                                     </mask>
                                 </variation>
@@ -159,90 +119,110 @@
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFr-yY-kg1">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIS-Dj-o0m">
+                                <subviews>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPh-Km-Hy7">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="151" id="33s-dg-YZi"/>
+                                            <constraint firstAttribute="height" constant="30" id="bwW-ZF-eEf"/>
+                                        </constraints>
+                                        <state key="normal" title="Show Fullscreen"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="33s-dg-YZi"/>
+                                                <exclude reference="bwW-ZF-eEf"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="33s-dg-YZi"/>
+                                                <include reference="bwW-ZF-eEf"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="tappedShowAdButtonWithSender:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KUr-Rg-Lxg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="GPh-Km-Hy7" firstAttribute="centerX" secondItem="uIS-Dj-o0m" secondAttribute="centerX" id="QWo-uS-WjL"/>
+                                    <constraint firstAttribute="height" constant="50" id="Xpx-oL-20q"/>
+                                    <constraint firstAttribute="width" constant="320" id="fU7-Nu-0iT"/>
+                                    <constraint firstItem="GPh-Km-Hy7" firstAttribute="centerY" secondItem="uIS-Dj-o0m" secondAttribute="centerY" id="rLS-72-rEb"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.000s, 0 bytes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFr-yY-kg1">
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIS-Dj-o0m">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Xpx-oL-20q"/>
-                                    <constraint firstAttribute="width" constant="320" id="fU7-Nu-0iT"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="GPh-Km-Hy7" secondAttribute="bottom" constant="575" id="0iA-Rn-nCw"/>
-                            <constraint firstItem="GPh-Km-Hy7" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" constant="96" id="3Mr-0L-ARv"/>
-                            <constraint firstItem="FPD-Ox-HDS" firstAttribute="top" secondItem="uIS-Dj-o0m" secondAttribute="bottom" constant="8" symbolic="YES" id="91O-rl-Ly8"/>
-                            <constraint firstItem="FPD-Ox-HDS" firstAttribute="top" secondItem="up3-ai-UOc" secondAttribute="bottom" constant="137" id="BcQ-A5-lke"/>
+                            <constraint firstItem="RFr-yY-kg1" firstAttribute="top" secondItem="up3-ai-UOc" secondAttribute="bottom" constant="104" id="0b3-B3-R8g"/>
+                            <constraint firstItem="FPD-Ox-HDS" firstAttribute="top" secondItem="uIS-Dj-o0m" secondAttribute="bottom" constant="38" id="91O-rl-Ly8"/>
+                            <constraint firstItem="FPD-Ox-HDS" firstAttribute="top" secondItem="up3-ai-UOc" secondAttribute="bottom" constant="134" id="BcQ-A5-lke"/>
+                            <constraint firstItem="RFr-yY-kg1" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="79" id="Cb0-i1-Hhj"/>
                             <constraint firstItem="FPD-Ox-HDS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="DzS-WY-WGJ"/>
-                            <constraint firstItem="RFr-yY-kg1" firstAttribute="centerY" secondItem="up3-ai-UOc" secondAttribute="centerY" constant="34" id="HId-e5-eho"/>
                             <constraint firstItem="FPD-Ox-HDS" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="KVq-me-0tA"/>
+                            <constraint firstItem="CAR-pX-i08" firstAttribute="leading" secondItem="up3-ai-UOc" secondAttribute="leading" id="KiC-E4-7q4"/>
+                            <constraint firstItem="uIS-Dj-o0m" firstAttribute="top" secondItem="RFr-yY-kg1" secondAttribute="bottom" constant="-80" id="PC6-6L-ZSW"/>
                             <constraint firstItem="p0D-pc-hmI" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" constant="-79.5" id="WYn-TS-lMS"/>
                             <constraint firstItem="p0D-pc-hmI" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="X8o-Ko-2aW"/>
-                            <constraint firstItem="RFr-yY-kg1" firstAttribute="leading" secondItem="FPD-Ox-HDS" secondAttribute="leading" id="aHf-B5-dEo"/>
-                            <constraint firstItem="bhY-WY-7mw" firstAttribute="top" secondItem="RFr-yY-kg1" secondAttribute="bottom" constant="8" symbolic="YES" id="ary-dd-5fk"/>
+                            <constraint firstItem="bhY-WY-7mw" firstAttribute="top" secondItem="p0D-pc-hmI" secondAttribute="bottom" constant="8" symbolic="YES" id="YH9-fl-0L3"/>
+                            <constraint firstItem="RFr-yY-kg1" firstAttribute="centerX" secondItem="uIS-Dj-o0m" secondAttribute="centerX" id="YhO-vQ-VwQ"/>
                             <constraint firstItem="up3-ai-UOc" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" constant="96" id="buJ-QK-Qb2"/>
-                            <constraint firstItem="CAR-pX-i08" firstAttribute="leading" secondItem="GPh-Km-Hy7" secondAttribute="leading" id="cAc-S1-t5j"/>
                             <constraint firstItem="uIS-Dj-o0m" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="fuo-WU-OyO"/>
                             <constraint firstItem="up3-ai-UOc" firstAttribute="top" secondItem="p0D-pc-hmI" secondAttribute="bottom" constant="-30" id="fws-Dg-7QI"/>
-                            <constraint firstItem="up3-ai-UOc" firstAttribute="leading" secondItem="RFr-yY-kg1" secondAttribute="trailing" constant="8" id="o06-Qh-uRQ"/>
                             <constraint firstItem="FPD-Ox-HDS" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" constant="20" id="o3r-8X-P7s">
                                 <variation key="widthClass=compact" constant="-20"/>
                             </constraint>
                             <constraint firstItem="CAR-pX-i08" firstAttribute="top" secondItem="bhY-WY-7mw" secondAttribute="bottom" constant="-30" id="uBf-ci-3zV"/>
-                            <constraint firstItem="bhY-WY-7mw" firstAttribute="leading" secondItem="RFr-yY-kg1" secondAttribute="leading" id="usN-VS-h4S"/>
-                            <constraint firstItem="FPD-Ox-HDS" firstAttribute="top" secondItem="RFr-yY-kg1" secondAttribute="bottom" constant="107" id="zdl-jg-Bha"/>
+                            <constraint firstItem="bhY-WY-7mw" firstAttribute="leading" secondItem="p0D-pc-hmI" secondAttribute="leading" id="uQR-cr-KoR"/>
+                            <constraint firstItem="RFr-yY-kg1" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="162" id="yBT-W4-pPQ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="up3-ai-UOc"/>
-                                <exclude reference="GPh-Km-Hy7"/>
                                 <exclude reference="p0D-pc-hmI"/>
                                 <exclude reference="FPD-Ox-HDS"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="WYn-TS-lMS"/>
                                 <exclude reference="X8o-Ko-2aW"/>
+                                <exclude reference="buJ-QK-Qb2"/>
+                                <exclude reference="fws-Dg-7QI"/>
                                 <exclude reference="BcQ-A5-lke"/>
                                 <exclude reference="DzS-WY-WGJ"/>
                                 <exclude reference="KVq-me-0tA"/>
                                 <exclude reference="o3r-8X-P7s"/>
-                                <exclude reference="buJ-QK-Qb2"/>
-                                <exclude reference="fws-Dg-7QI"/>
-                                <exclude reference="3Mr-0L-ARv"/>
-                                <exclude reference="0iA-Rn-nCw"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="up3-ai-UOc"/>
-                                <include reference="GPh-Km-Hy7"/>
                                 <include reference="p0D-pc-hmI"/>
                                 <include reference="FPD-Ox-HDS"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="WYn-TS-lMS"/>
                                 <include reference="X8o-Ko-2aW"/>
+                                <include reference="buJ-QK-Qb2"/>
+                                <include reference="fws-Dg-7QI"/>
                                 <include reference="BcQ-A5-lke"/>
                                 <include reference="DzS-WY-WGJ"/>
                                 <include reference="KVq-me-0tA"/>
                                 <include reference="o3r-8X-P7s"/>
-                                <include reference="buJ-QK-Qb2"/>
-                                <include reference="fws-Dg-7QI"/>
-                                <include reference="3Mr-0L-ARv"/>
-                                <include reference="0iA-Rn-nCw"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="bannerAdUnitTextField" destination="bhY-WY-7mw" id="w6x-hu-bUo"/>
-                        <outlet property="bannerAdView" destination="uIS-Dj-o0m" id="MWg-LJ-apm"/>
                         <outlet property="fullScreenAdUnitTextField" destination="p0D-pc-hmI" id="7yM-Ie-7Gz"/>
                         <outlet property="outputTextView" destination="FPD-Ox-HDS" id="rOH-pW-yii"/>
+                        <outlet property="resultsView" destination="uIS-Dj-o0m" id="7bP-j0-I04"/>
+                        <outlet property="showInterstitialButton" destination="GPh-Km-Hy7" id="EyV-Pu-rQC"/>
                         <outlet property="timeElapsedLabel" destination="RFr-yY-kg1" id="yCz-EZ-710"/>
                     </connections>
                 </viewController>
