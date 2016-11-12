@@ -17,9 +17,6 @@ public class MAXInterstitialAd {
 
     public var delegate: MAXInterstitialAdDelegate?
     
-    private var creative: String
-    private var creative_type: String
-    
     private var _vastDelegate: VASTDelegate!
     private var _mraidDelegate: MRAIDDelegate!
     
@@ -28,29 +25,21 @@ public class MAXInterstitialAd {
     
     public init(adResponse: MAXAdResponse) {
         self.adResponse = adResponse
-        if let winner = self.adResponse.response["ad_source_response"] {
-            self.creative = winner["creative"] as? String ?? ""
-            self.creative_type = winner["creative_type"] as? String ?? "empty"
-        } else {
-            self.creative = ""
-            self.creative_type = "empty"
-        }
-
         self._vastDelegate = VASTDelegate(parent: self)
         self._mraidDelegate = MRAIDDelegate(parent: self)
     }
     
     public func showAdFromRootViewController(rootViewController: UIViewController) {
-        switch creative_type {
+        switch self.adResponse.creativeType {
             case "vast3":
-                if let videoData = self.creative.dataUsingEncoding(NSUTF8StringEncoding) {
+                if let videoData = self.adResponse.creative!.dataUsingEncoding(NSUTF8StringEncoding) {
                     self._vastViewController = SKVASTViewController(delegate: _vastDelegate,
                                                   withViewController: rootViewController)
                     self._vastViewController!.loadVideoWithData(videoData)
                 }
             case "html":
                 self._mraidInterstitial = SKMRAIDInterstitial(supportedFeatures:[],
-                    withHtmlData: self.creative,
+                    withHtmlData: self.adResponse.creative!,
                     withBaseURL: NSURL(string: "https://sprl.com"),
                     delegate: _mraidDelegate,
                     serviceDelegate: _mraidDelegate,
@@ -61,7 +50,7 @@ public class MAXInterstitialAd {
                 NSLog("MAX: empty ad response, nothing to show")
                 break
             default:
-                NSLog("MAX: unsupported ad creative_type=\(creative_type)")
+                NSLog("MAX: unsupported ad creative_type=\(self.adResponse.creativeType)")
                 break
         }
     }
@@ -80,6 +69,7 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     //
     
     public func vastReady(vastVC: SKVASTViewController!) {
+        self.parent.adResponse.trackImpression()
         vastVC.play()
     }
     
@@ -97,8 +87,9 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     public func vastOpenBrowseWithUrl(vastVC: SKVASTViewController!, url: NSURL!) {
         self.parent.delegate?.interstitialAdDidClick(self.parent)
         vastVC.dismissViewControllerAnimated(false) {
-            UIApplication.sharedApplication().openURL(url)
+            self.parent.adResponse.handleClick(url)
         }
+        vastVC.close()
     }
     
 }
@@ -117,11 +108,14 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     public func mraidInterstitialAdReady(mraidInterstitial: SKMRAIDInterstitial!) {
         if mraidInterstitial.isAdReady() {
             mraidInterstitial.show()
+            self.parent.adResponse.trackImpression()
         }
     }
     
     public func mraidInterstitialDidHide(mraidInterstitial: SKMRAIDInterstitial!) {
         NSLog("mraidInterstitialDidHide")
+        self.parent.delegate?.interstitialAdWillClose(self.parent)
+        self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
     public func mraidInterstitialAdFailed(mraidInterstitial: SKMRAIDInterstitial!) {
@@ -142,7 +136,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
         NSLog("mraidServiceOpenBrowserWithUrlString")
-
+        self.parent.adResponse.handleClick(NSURL(string: url)!)
     }
 
 }

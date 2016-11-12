@@ -10,11 +10,25 @@ import CoreTelephony
 import UIKit
 
 let ADS_DOMAIN = "https://sprl.com"
+var MAXPreBids : [String : MAXAdResponse] = [:]
+var MAXPreBidErrors : [String : NSError] = [:]
 
 public class MAXAdRequest {
     public var adUnitID: String!
     public var adResponse: MAXAdResponse?
     
+    public class func preBidWithMAXAdUnit(adUnitID: String, completion: (MAXAdResponse?, NSError?) -> Void) {
+        let adr = MAXAdRequest(adUnitID: adUnitID)
+        adr.requestAd() {(response, error) in
+            MAXPreBids[adr.adUnitID] = response
+            MAXPreBidErrors[adr.adUnitID] = error
+            completion(response, error)
+        }
+    }
+    
+    // 
+    // Initialize a new ad request 
+    // 
     public init(adUnitID: String) {
         self.adUnitID = adUnitID
     }
