@@ -16,11 +16,12 @@ public class MAXInterstitialAd {
     private var adResponse: MAXAdResponse!
 
     public var delegate: MAXInterstitialAdDelegate?
+    var rootViewController : UIViewController?
     
     private var _vastDelegate: VASTDelegate!
-    private var _mraidDelegate: MRAIDDelegate!
-    
     private var _vastViewController: SKVASTViewController?
+
+    private var _mraidDelegate: MRAIDDelegate!
     private var _mraidInterstitial: SKMRAIDInterstitial?
     
     public init(adResponse: MAXAdResponse) {
@@ -30,6 +31,7 @@ public class MAXInterstitialAd {
     }
     
     public func showAdFromRootViewController(rootViewController: UIViewController) {
+        self.rootViewController = rootViewController
         switch self.adResponse.creativeType {
             case "vast3":
                 if let videoData = self.adResponse.creative!.dataUsingEncoding(NSUTF8StringEncoding) {
@@ -87,7 +89,7 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     public func vastOpenBrowseWithUrl(vastVC: SKVASTViewController!, url: NSURL!) {
         self.parent.delegate?.interstitialAdDidClick(self.parent)
         vastVC.dismissViewControllerAnimated(false) {
-            self.parent.adResponse.handleClick(url)
+            self.parent.adResponse.handleClick(vastVC, url: url)
         }
         vastVC.close()
     }
@@ -136,7 +138,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
         NSLog("mraidServiceOpenBrowserWithUrlString")
-        self.parent.adResponse.handleClick(NSURL(string: url)!)
+        self.parent.adResponse.handleClick(parent.rootViewController!, url: NSURL(string: url)!)
     }
 
 }

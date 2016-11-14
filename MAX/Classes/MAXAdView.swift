@@ -64,10 +64,10 @@ public class MAXAdView : UIView {
     }
     
     func click(url: String) {
-        self.adResponse.trackClick()
-        
         self.delegate?.adViewDidClick(self)
-        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+        if let URL = NSURL(string: url) {
+            self.adResponse.handleClick((self.window?.rootViewController)!, url: URL)
+        }
         self.delegate?.adViewDidFinishHandlingClick(self)
     }
 }
