@@ -89,7 +89,7 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     public func vastOpenBrowseWithUrl(vastVC: SKVASTViewController!, url: NSURL!) {
         self.parent.delegate?.interstitialAdDidClick(self.parent)
         vastVC.dismissViewControllerAnimated(false) {
-            self.parent.adResponse.handleClick(vastVC, url: url)
+            MAXLinkHandler().openURL(vastVC.parentViewController!, url: url, completion: nil)
         }
         vastVC.close()
     }
@@ -138,7 +138,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
         NSLog("mraidServiceOpenBrowserWithUrlString")
-        self.parent.adResponse.handleClick(parent.rootViewController!, url: NSURL(string: url)!)
+        MAXLinkHandler().openURL(parent.rootViewController!, url: NSURL(string: url)!, completion: nil)
     }
 
 }

@@ -401,6 +401,7 @@
 		E5854BF2B3E0330FB3BC83ECCE7A8D00 /* MoPub-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E0E620C69A73AA070875120D78C49E9 /* MoPub-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E75FB720C868C375E0227A666E7FFDC5 /* SKVASTModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C13220F14D98FE2D588840FB9B170C2 /* SKVASTModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7A51B762FCA3B52C1E2C16B4271A61D /* MPURLActionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6284C371F25263D6A8C2DCBD6BF4320C /* MPURLActionInfo.m */; };
+		E8AC45DD1DDBB3B700A8E229 /* MAXLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AC45DC1DDBB3B600A8E229 /* MAXLinkHandler.swift */; };
 		EA39F86EE1E7135F7A72EDD5C627796B /* MPInterstitialCustomEventDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A7712089024FABC3622C821DF8B445A /* MPInterstitialCustomEventDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA43CDDEADE686CBC0E73628DEC18F60 /* MPVideoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE07B01DB2F28A6CFD4E1B646223042 /* MPVideoConfig.m */; };
 		EADC990892A190DB08BE76AA43A960F9 /* Pods-MAX_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A97B1AD4C8519BCAF6476C9A8C2DCA6 /* Pods-MAX_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -886,6 +887,7 @@
 		E75691E9ACD5D562FDB4FFF8B156D4DD /* MPCloseButtonX.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = MPCloseButtonX.png; path = MoPubSDK/Resources/MPCloseButtonX.png; sourceTree = "<group>"; };
 		E7675CF119E4363A118875D60CB9DBB0 /* SKBrowser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SKBrowser.h; sourceTree = "<group>"; };
 		E891425DCDC27D0F841C7CBD26D2115D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		E8AC45DC1DDBB3B600A8E229 /* MAXLinkHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXLinkHandler.swift; sourceTree = "<group>"; };
 		E8B5C7DBDDDEFB8FCF725EBC00F1049B /* MOPUBPlayerManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MOPUBPlayerManager.h; path = MoPubSDK/NativeVideo/Internal/MOPUBPlayerManager.h; sourceTree = "<group>"; };
 		E8E799DB30F4C40EF4A4772A3D90F003 /* Fabric.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Fabric.h; path = MoPubSDK/Internal/Fabric/Fabric.h; sourceTree = "<group>"; };
 		E95B18E37718841055C089390FB1769E /* MRConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MRConstants.h; path = MoPubSDK/Internal/MRAID/MRConstants.h; sourceTree = "<group>"; };
@@ -1452,6 +1454,7 @@
 				26D7AF654239A9219E3D433B67F60D58 /* MAXAdView.swift */,
 				F03C93DD0687E30AFA0D81F7773E8F9A /* MAXInterstitialAd.swift */,
 				90784FFDB101CFC348CA852CE3369721 /* MAXMoPubCustomEvent.swift */,
+				E8AC45DC1DDBB3B600A8E229 /* MAXLinkHandler.swift */,
 				B56DF7B0D91E4B1E42C557997581E127 /* mraid.js */,
 				82682A18E428E7E7E9F956ACB8ABAB77 /* mraidjs.h */,
 				7987A96EE0EA8649151F3B4A12585C69 /* MRAIDSettings.h */,
@@ -2003,6 +2006,7 @@
 				3042CE0D6B2A7BF6A3C270B74642542A /* SKVASTMediaFilePicker.m in Sources */,
 				C79F247EE8787922C0150763FAD3C579 /* SKVASTModel.m in Sources */,
 				685C261D25496979F258AE876C000BE8 /* SKVASTUrlWithId.m in Sources */,
+				E8AC45DD1DDBB3B700A8E229 /* MAXLinkHandler.swift in Sources */,
 				9AACCAA7660BA88E84EBA4DA25CBEC28 /* SKVASTViewController.m in Sources */,
 				72D2C419C4EF6EDEBC14805A00E6254C /* vast_2.0.1.xsd in Sources */,
 				CBB28F9F3DBB88769676AA8C229F7E69 /* VASTSettings.m in Sources */,

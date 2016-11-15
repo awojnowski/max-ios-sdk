@@ -66,9 +66,11 @@ public class MAXAdView : UIView {
     func click(url: String) {
         self.delegate?.adViewDidClick(self)
         if let URL = NSURL(string: url) {
-            self.adResponse.handleClick((self.window?.rootViewController)!, url: URL)
+            let vc = self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController
+            MAXLinkHandler().openURL(vc, url: URL) {
+                self.delegate?.adViewDidFinishHandlingClick(self)
+            }
         }
-        self.delegate?.adViewDidFinishHandlingClick(self)
     }
 }
 
@@ -116,3 +118,4 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     }
     
 }
+
