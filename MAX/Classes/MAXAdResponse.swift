@@ -58,25 +58,29 @@ public class MAXAdResponse {
     // Fires an impression tracking event for this AdResponse
     //
     public func trackImpression() {
-        if let trackingUrl = self.response["impression_url"] as? String,
-            url = NSURL(string: trackingUrl) {
-            self.track(url)
-        }
+        self.trackAll(self.response["impression_urls"] as? NSArray)
     }
 
     //
     // Fires a click tracking event for this AdResponse
     //
     public func trackClick() {
-        if let trackingUrl = self.response["click_url"] as? String,
-            url = NSURL(string: trackingUrl) {
-            self.track(url)
-        }
-        
+        self.trackAll(self.response["click_urls"] as? NSArray)
     }
 
+    private func trackAll(urls: NSArray?) {
+        guard let trackingUrls = urls else {
+            return
+        }
+        for case let t as String in trackingUrls {
+            if let url = NSURL(string: t) {
+                self.track(url)
+            }
+        }
+    }
+    
     private func track(url: NSURL) {
-        NSLog("MAXAdResponse.track() => \(url)")        
+        NSLog("MAXAdResponse.track() => \(url)")
         MAXAdResponseURLSession.dataTaskWithURL(url).resume()
     }
     
