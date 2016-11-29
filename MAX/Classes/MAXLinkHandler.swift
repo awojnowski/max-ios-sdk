@@ -12,6 +12,8 @@ import StoreKit
 
 class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, NSURLSessionTaskDelegate {
     
+    let USE_STORE_KIT = false
+    
     var session : NSURLSession? = nil
     var sessionLastURL : NSURL?
     
@@ -37,6 +39,11 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, NSURLSessi
     public func openURL(viewController: UIViewController?,
                         url: NSURL,
                         completion: (()->Void)?) {
+        guard USE_STORE_KIT else {
+            UIApplication.sharedApplication().openURL(url)
+            return
+        }
+        
         let task = session?.dataTaskWithURL(url) { (data, response, error) in
             NSLog("After redirects, last URL was \(self.sessionLastURL)")
             

@@ -17,6 +17,8 @@ public class MAXAdResponse {
     private var winner : NSDictionary?
     
     public var preBidKeywords : String! = ""
+    
+    public var autoRefreshInterval: Int?
 
     public var creativeType : String! = "empty"
     public var creative : String? = ""
@@ -34,10 +36,21 @@ public class MAXAdResponse {
         
         self.winner = self.response["ad_source_response"] as? NSDictionary
         self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
+        self.autoRefreshInterval = self.response["refresh"] as? Int
         
         if let winner = self.winner {
             self.creativeType = winner["creative_type"] as? String ?? "empty"
             self.creative = winner["creative"] as? String
+        }
+    }
+    
+    // 
+    // Refresh operations
+    public func shouldAutoRefresh() -> Bool {
+        if let autoRefreshInterval = self.autoRefreshInterval {
+            return autoRefreshInterval > 0
+        } else {
+            return false
         }
     }
     

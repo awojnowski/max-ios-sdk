@@ -13,6 +13,11 @@ let ADS_DOMAIN = "https://sprl.com"
 var MAXPreBids : [String : MAXAdResponse] = [:]
 var MAXPreBidErrors : [String : NSError] = [:]
 
+class Block<T> {
+    let f : T
+    init (_ f: T) { self.f = f }
+}
+
 public class MAXAdRequest {
     public var adUnitID: String!
     public var adResponse: MAXAdResponse?
@@ -23,11 +28,29 @@ public class MAXAdRequest {
             MAXPreBids[adr.adUnitID] = response
             MAXPreBidErrors[adr.adUnitID] = error
             completion(response, error)
+            
+            // Auto-refresh 
+            if let adResponse = response {
+                if adResponse.shouldAutoRefresh() {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        NSLog("MAX: Scheduling auto-refresh in \(adResponse.autoRefreshInterval) seconds")
+                        let b = Block<(MAXAdResponse?, NSError?) -> Void>(completion)
+                        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(adResponse.autoRefreshInterval!), target: adr, selector: #selector(self.autoRefresh(_:)), userInfo: b, repeats: false)
+                    })
+                }
+            }            
         }
     }
     
-    // 
-    // Initialize a new ad request 
+    @objc func autoRefresh(timer: NSTimer!) {
+        NSLog("MAX: Auto-refreshing...")
+        if let completion = timer.userInfo as? Block<(MAXAdResponse?, NSError?) -> Void> {
+            MAXAdRequest.preBidWithMAXAdUnit(adUnitID, completion: completion.f)
+        }
+    }
+    
+    //
+    // Initialize a new ad request
     // 
     public init(adUnitID: String) {
         self.adUnitID = adUnitID
