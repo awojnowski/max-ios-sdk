@@ -101,17 +101,19 @@ class ViewController: UIViewController, MPAdViewDelegate {
         self.monitorAdRequest()
         MAXAdRequest.preBidWithMAXAdUnit(self.fullScreenAdUnitTextField.text!) {(response, error) in
             dispatch_sync(dispatch_get_main_queue()) {
+                
+                // Debugging UI items
                 if let response = response {
                     self.adResponse = response
-                    
-                    self.interstitialController = MPInterstitialAdController(forAdUnitId: MOPUB_FULLSCREEN_ADUNIT_ID)
-                    self.interstitialController!.keywords = response.preBidKeywords
-                    self.interstitialController!.loadAd()
-                    
                     self.showInterstitialButton.hidden = false
                 } else if let error = error {
                     self.adError = error
                 }
+
+                // Requesting an ad normally here
+                self.interstitialController = MPInterstitialAdController(forAdUnitId: MOPUB_FULLSCREEN_ADUNIT_ID)
+                self.interstitialController!.keywords = response?.preBidKeywords ?? self.interstitialController!.keywords
+                self.interstitialController!.loadAd()
             }
         }
     }
@@ -128,24 +130,29 @@ class ViewController: UIViewController, MPAdViewDelegate {
     // MARK: -- Pre-bid banners
     
     @IBAction func tappedPreBidBannerButtonWithSender(sender: AnyObject) {
+        guard let adUnitID = self.bannerAdUnitTextField.text else {
+            return
+        }
         
         self.monitorAdRequest()
-        MAXAdRequest.preBidWithMAXAdUnit(self.bannerAdUnitTextField.text!) {(response, error) in
-            
+
+        MAXAdRequest.preBidWithMAXAdUnit(adUnitID) {(response, error) in
             dispatch_sync(dispatch_get_main_queue()) {
+                
+                // Debugging information
                 if let response = response {
                     self.adResponse = response
-                    
-                    let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
-                    banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
-                    banner.delegate = self
-                    banner.keywords = response.preBidKeywords
-                    banner.loadAd()
-                    
-                    self.resultsView.addSubview(banner)
                 } else if let error = error {
                     self.adError = error
                 }
+                
+                // Your ad call goes here
+                let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
+                banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
+                banner.delegate = self
+                banner.keywords = response?.preBidKeywords ?? banner.keywords
+                banner.loadAd()
+                self.resultsView.addSubview(banner)
             }
         }
 

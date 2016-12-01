@@ -9,16 +9,11 @@
 Pod::Spec.new do |s|
   s.name             = 'MAX'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of MAX.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
+  s.summary          = 'Parallel bidding wrapper for mobile ads.'
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, 
+giving you the ability to work with multiple programmatic buyers and exchanges in parallel at any 
+point in your existing waterfall.
                        DESC
 
   s.homepage         = 'https://github.com/MoLabsInc/MAX'
@@ -27,7 +22,7 @@ TODO: Add long description of the pod here.
   s.author           = { 'Jim Payne' => 'jim@molabs.com' }
   s.source           = { :git => 'https://github.com/MoLabsInc/MAX.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
+	
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'MAX/Classes/**/*'
