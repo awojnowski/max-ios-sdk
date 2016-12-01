@@ -98,7 +98,7 @@ Interstitials work similarly to the above. None of your other interstitial displ
 
 ## Ad Server/SSP Setup
 
-# Pre-bid Keywords 
+### Pre-bid Keywords 
 
 MAX works by triggering line items in your SSP/ad server waterfall using keyword targeting. The keywords returned from
 the MAX pre-bid system for a $0.26 bid look like this:
@@ -109,7 +109,7 @@ the MAX pre-bid system for a $0.26 bid look like this:
 
 This structure allows you to set price increments in your SSP at the dollar, ten cent or single cent level. 
 
-# Line Item Custom Events
+### Line Item Custom Events
 
 To create a MAX line item:
 
