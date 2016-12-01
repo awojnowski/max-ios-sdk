@@ -14,6 +14,12 @@ Currently validated with MoPub SDK 4.1 or higher.
 
 ## Installation
 
+NOTE: for versions below MAX 1.0, please install the CocoaPod into your project through GitHub:
+
+```ruby
+pod 'MAX', :git => 'git@github.com:MoLabsInc/MAX.git'
+```
+
 MAX is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
