@@ -96,6 +96,27 @@ Interstitials work similarly to the above. None of your other interstitial displ
         }
 ```
 
+## Ad Server/SSP Setup
+
+# Pre-bid Keywords 
+
+MAX works by triggering line items in your SSP/ad server waterfall using keyword targeting. The keywords returned from
+the MAX pre-bid system for a $0.26 bid look like this:
+
+```
+	m_max:true,max_bidX:000,max_bidXX:020,max_bidXXX:026
+```
+
+This structure allows you to set price increments in your SSP at the dollar, ten cent or single cent level. 
+
+# Line Item Custom Events
+
+To create a MAX line item:
+
+1. Create a new line item of type Custom Native 
+2. Set the Custom Event Class to the appropriate value depending on their type: `MAXMoPubBannerCustomEvent` or `MAXMoPubInterstitialCustomEvent`.
+3. Set the Custom Event Info to `{"adunit_id": "<MAX_ADUNIT_ID>"}` where the value of `MAX_ADUNIT_ID` corresponds to the ID of the MAX ad unit for this request.
+
 ## Author
 
 MoLabs Inc, hello@molabs.com
