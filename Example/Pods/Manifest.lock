@@ -1,0 +1,21 @@
+PODS:
+  - MAX (0.1.0):
+    - mopub-ios-sdk (~> 4.10)
+  - mopub-ios-sdk (4.11.0):
+    - mopub-ios-sdk/MoPubSDK (= 4.11.0)
+  - mopub-ios-sdk/MoPubSDK (4.11.0)
+
+DEPENDENCIES:
+  - MAX (from `../`)
+
+EXTERNAL SOURCES:
+  MAX:
+    :path: ../
+
+SPEC CHECKSUMS:
+  MAX: c6e6cf84cf56d5c52a0d8ecf3d7df1f24a3d53de
+  mopub-ios-sdk: 5eb11389c025ca283a646389f35b6a6fd27b2ce5
+
+PODFILE CHECKSUM: d2a11db6a56f31e414e1a5c34735e19a017f84a5
+
+COCOAPODS: 1.0.1
