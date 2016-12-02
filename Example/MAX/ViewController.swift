@@ -136,7 +136,15 @@ class ViewController: UIViewController, MPAdViewDelegate {
         
         self.monitorAdRequest()
 
-        MAXAdRequest.preBidWithMAXAdUnit(adUnitID) {(response, error) in
+        // 1) Add the static banner view here as usual ...
+        let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
+        banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
+        banner.delegate = self
+        self.resultsView.addSubview(banner)
+        
+        // 2) Then use MAX to autorefresh periodically after prebid has completed
+        banner.stopAutomaticallyRefreshingContents()
+        let adManager = MAXAdRequestManager(adUnitID: adUnitID) {(response, error) in
             dispatch_sync(dispatch_get_main_queue()) {
                 
                 // Debugging information
@@ -145,16 +153,13 @@ class ViewController: UIViewController, MPAdViewDelegate {
                 } else if let error = error {
                     self.adError = error
                 }
-                
-                // Your ad call goes here
-                let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
-                banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
-                banner.delegate = self
+
+                // Update the banner view's keywords and reload
                 banner.keywords = response?.preBidKeywords ?? banner.keywords
                 banner.loadAd()
-                self.resultsView.addSubview(banner)
             }
         }
+        adManager.startRefresh()
 
     }
     

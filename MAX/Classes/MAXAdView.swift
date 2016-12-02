@@ -86,25 +86,25 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     
     public func mraidViewAdReady(mraidView: SKMRAIDView!) {
-        NSLog("mraidViewAdReady")
+        NSLog("MAX: mraidViewAdReady")
         parent.trackImpression()
         parent.delegate?.adViewDidLoad(parent)
     }
     public func mraidViewAdFailed(mraidView: SKMRAIDView!) {
-        NSLog("mraidViewAdFailed")
+        NSLog("MAX: mraidViewAdFailed")
         parent.delegate?.adViewDidFailWithError(parent, error: nil)
     }
     public func mraidViewDidClose(mraidView: SKMRAIDView!) {
-        NSLog("mraidViewDidClose")
+        NSLog("MAX: mraidViewDidClose")
     }
     public func mraidViewWillExpand(mraidView: SKMRAIDView!) {
-        NSLog("mraidViewWillExpand")
+        NSLog("MAX: mraidViewWillExpand")
     }
     public func mraidViewNavigate(mraidView: SKMRAIDView!, withURL url: NSURL!) {
-        NSLog("mraidViewNavigate \(url)")
+        NSLog("MAX: mraidViewNavigate \(url)")
     }
     public func mraidViewShouldResize(mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
-        NSLog("mraidViewShouldResize")
+        NSLog("MAX: mraidViewShouldResize")
         return false
     }
     
@@ -113,7 +113,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
-        NSLog("mraidServiceOpenBrowserWithUrlString")
+        NSLog("MAX: mraidServiceOpenBrowserWithUrlString")
         parent.click(url)
     }
     

@@ -76,7 +76,7 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     }
     
     public func vastTrackingEvent(eventName: String!) {
-        NSLog("vastTrackingEvent(\(eventName)")
+        NSLog("MAX: vastTrackingEvent(\(eventName)")
         if eventName == "close" {
             self.parent.delegate?.interstitialAdWillClose(self.parent)
         }
@@ -115,21 +115,21 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     }
     
     public func mraidInterstitialDidHide(mraidInterstitial: SKMRAIDInterstitial!) {
-        NSLog("mraidInterstitialDidHide")
+        NSLog("MAX: mraidInterstitialDidHide")
         self.parent.delegate?.interstitialAdWillClose(self.parent)
         self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
     public func mraidInterstitialAdFailed(mraidInterstitial: SKMRAIDInterstitial!) {
-        NSLog("mraidInterstitialAdFailed")
+        NSLog("MAX: mraidInterstitialAdFailed")
     }
     
     public func mraidInterstitialWillShow(mraidInterstitial: SKMRAIDInterstitial!) {
-        NSLog("mraidInterstitialWillShow")
+        NSLog("MAX: mraidInterstitialWillShow")
     }
     
     public func mraidInterstitialNavigate(mraidInterstitial: SKMRAIDInterstitial!, withURL url: NSURL!) {
-        NSLog("mraidInterstitialNavigate")
+        NSLog("MAX: mraidInterstitialNavigate")
     }
     
     //
@@ -137,7 +137,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     //
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
-        NSLog("mraidServiceOpenBrowserWithUrlString")
+        NSLog("MAX: mraidServiceOpenBrowserWithUrlString")
         MAXLinkHandler().openURL(parent.rootViewController!, url: NSURL(string: url)!, completion: nil)
     }
 

@@ -1,8 +1,8 @@
 {
   "name": "MAX",
   "version": "0.1.0",
-  "summary": "A short description of MAX.",
-  "description": "TODO: Add long description of the pod here.",
+  "summary": "Parallel bidding wrapper for mobile ads.",
+  "description": "MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, \ngiving you the ability to work with multiple programmatic buyers and exchanges in parallel at any \npoint in your existing waterfall.",
   "homepage": "https://github.com/MoLabsInc/MAX",
   "license": {
     "type": "MIT",
@@ -12,7 +12,7 @@
     "Jim Payne": "jim@molabs.com"
   },
   "source": {
-    "git": "https://github.com/MoLabsInc/MAX.git",
+    "git": "git@github.com:MoLabsInc/MAX.git",
     "tag": "0.1.0"
   },
   "platforms": {
