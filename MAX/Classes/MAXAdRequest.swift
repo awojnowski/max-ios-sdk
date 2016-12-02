@@ -10,43 +10,24 @@ import CoreTelephony
 import UIKit
 
 let ADS_DOMAIN = "https://sprl.com"
+
 var MAXPreBids : [String : MAXAdResponse] = [:]
 var MAXPreBidErrors : [String : NSError] = [:]
 
-class Block<T> {
-    let f : T
-    init (_ f: T) { self.f = f }
-}
-
 public class MAXAdRequest {
     public var adUnitID: String!
-    public var adResponse: MAXAdResponse?
     
-    public class func preBidWithMAXAdUnit(adUnitID: String, completion: (MAXAdResponse?, NSError?) -> Void) {
+    public var adResponse: MAXAdResponse?
+    public var adError: NSError?
+    
+    public class func preBidWithMAXAdUnit(adUnitID: String, completion: (MAXAdResponse?, NSError?) -> Void) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd() {(response, error) in
             MAXPreBids[adr.adUnitID] = response
             MAXPreBidErrors[adr.adUnitID] = error
             completion(response, error)
-            
-            // Auto-refresh 
-            if let adResponse = response {
-                if adResponse.shouldAutoRefresh() {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        NSLog("MAX: Scheduling auto-refresh in \(adResponse.autoRefreshInterval) seconds")
-                        let b = Block<(MAXAdResponse?, NSError?) -> Void>(completion)
-                        NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(adResponse.autoRefreshInterval!), target: adr, selector: #selector(self.autoRefresh(_:)), userInfo: b, repeats: false)
-                    })
-                }
-            }            
         }
-    }
-    
-    @objc func autoRefresh(timer: NSTimer!) {
-        NSLog("MAX: Auto-refreshing...")
-        if let completion = timer.userInfo as? Block<(MAXAdResponse?, NSError?) -> Void> {
-            MAXAdRequest.preBidWithMAXAdUnit(adUnitID, completion: completion.f)
-        }
+        return adr
     }
     
     //
@@ -113,11 +94,13 @@ public class MAXAdRequest {
                             userInfo: nil)
                     }
                 } catch let error as NSError {
+                    self.adError = error
                     completion(nil, error)
                 }
             }).resume()
             
         } catch let error as NSError {
+            self.adError = error
             completion(nil, error)
         }
         
