@@ -85,30 +85,35 @@ class ViewController: UIViewController, MPAdViewDelegate {
         } else {
             // Fallback on earlier versions
         }
-        
+    }
+    
+    func updateAdRequest(response: MAXAdResponse?, error: NSError?) {
+        self.adResponse = response
+        self.adError = error
     }
     
     // MARK: -- Pre-bid Fullscreen Interstitial
     
     @IBAction func tappedRequestFullScreenButton(sender: AnyObject) {
+        guard let adUnitID = self.fullScreenAdUnitTextField.text else {
+            return
+        }
+        
         self.monitorAdRequest()
-        MAXAdRequest(adUnitID: self.fullScreenAdUnitTextField.text!).requestAd() {(adResponse, error) in
+        MAXAdRequest(adUnitID: adUnitID).requestAd() {(adResponse, error) in
             NSLog("adResponse: \(adResponse)")
         }
     }
     
     @IBAction func tappedPreBidFullScreenButtonWithSender(sender: AnyObject) {
+        guard let adUnitID = self.fullScreenAdUnitTextField.text else {
+            return
+        }
+        
         self.monitorAdRequest()
-        MAXAdRequest.preBidWithMAXAdUnit(self.fullScreenAdUnitTextField.text!) {(response, error) in
+        MAXAdRequest.preBidWithMAXAdUnit(adUnitID) {(response, error) in
             dispatch_sync(dispatch_get_main_queue()) {
-                
-                // Debugging UI items
-                if let response = response {
-                    self.adResponse = response
-                    self.showInterstitialButton.hidden = false
-                } else if let error = error {
-                    self.adError = error
-                }
+                self.updateAdRequest(response, error: error)
 
                 // Requesting an ad normally here
                 self.interstitialController = MPInterstitialAdController(forAdUnitId: MOPUB_FULLSCREEN_ADUNIT_ID)
@@ -146,14 +151,8 @@ class ViewController: UIViewController, MPAdViewDelegate {
         banner.stopAutomaticallyRefreshingContents()
         let adManager = MAXAdRequestManager(adUnitID: adUnitID) {(response, error) in
             dispatch_sync(dispatch_get_main_queue()) {
+                self.updateAdRequest(response, error: error)
                 
-                // Debugging information
-                if let response = response {
-                    self.adResponse = response
-                } else if let error = error {
-                    self.adError = error
-                }
-
                 // Update the banner view's keywords and reload
                 banner.keywords = response?.preBidKeywords ?? banner.keywords
                 banner.loadAd()
@@ -167,6 +166,5 @@ class ViewController: UIViewController, MPAdViewDelegate {
         return self
     }
     
-
 }
 

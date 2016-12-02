@@ -11,7 +11,7 @@ class Block<T> {
     init (_ f: T) { self.f = f }
 }
 
-let MIN_ERROR_RETRY = 1.0, MAX_ERROR_RETRY = 30.0
+let ERROR_RETRY_BASE = 2.0, MAX_ERROR_RETRY = 30.0
 
 //
 // Use a MAXAdRequestManager to coordinate refreshing static ad units (banners) 
@@ -28,8 +28,7 @@ public class MAXAdRequestManager {
     
     private var _shouldRefresh = false
     private var _timer : NSTimer?
-    private var _errorCount = 0
-    private var _retryInterval = 0.0
+    private var _errorCount = 0.0
     
     public init(adUnitID: String, completion: (MAXAdResponse?, NSError?) -> Void) {
         self._adUnitID = adUnitID
@@ -64,8 +63,6 @@ public class MAXAdRequestManager {
             //
             if let adResponse = response {
                 self._errorCount = 0
-                self._retryInterval = 0.0
-                
                 if adResponse.shouldAutoRefresh() {
                     if let autoRefreshInterval = adResponse.autoRefreshInterval {
                         self.scheduleTimerWithInterval(Double(autoRefreshInterval))
@@ -73,12 +70,11 @@ public class MAXAdRequestManager {
                 }
 
             } else if let adError = error {
-                // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
                 self._errorCount += 1
-                self._retryInterval = min(MAX_ERROR_RETRY, max(self._retryInterval * 2, MIN_ERROR_RETRY))
-
+                
+                // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
                 NSLog("MAX: Error occurred, retry attempt \(self._errorCount)")
-                self.scheduleTimerWithInterval(self._retryInterval)
+                self.scheduleTimerWithInterval(min(pow(ERROR_RETRY_BASE, self._errorCount), MAX_ERROR_RETRY))
             }
         }
         
