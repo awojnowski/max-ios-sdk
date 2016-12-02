@@ -49,11 +49,10 @@ the way your ads are served currently.
 
 ## Banner Example
 
-It is simple to wrap your existing ad call with a MAX pre-bid, but a special approach is necessary in order to 
-allow auto-refresh and error retry logic to work properly. <b>NOTE</b>: you should disable your SSP's auto-refresh
-feature in order for MAX pre-bid to work correctly. 
+It is simple to wrap your existing ad banner view with a MAX pre-bid, using `MAXAdRequestManager`. MAX will handle
+all auto-refresh and error retry logic, so you should disable these features on your SSP.
 
-Typically, you will add a banner `AdView` object to your view hierarchy:
+Typically, you will add a banner `AdView` object to your view hierarchy as follows:
 
 ```swift
     let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
@@ -62,11 +61,11 @@ Typically, you will add a banner `AdView` object to your view hierarchy:
     self.resultsView.addSubview(banner)
 ```
 
-The code required to wrap this ad call with a MAX pre-bid is straightforward. Use a `MAXAdRequestManager` object 
-to control the auto-refresh and error retry logic. In your completion handler, pass the keywords to the 
-banner `AdView` object and call `loadAd()` in this handler, rather than in the main thread. Then, instruct the
-manager to begin loading ads, which will happen immediately by calling `startRefresh()`. 
+To wrap this banner ad view with a MAX pre-bid, do the following:
 
+1. Use a `MAXAdRequestManager` object, which controls the auto-refresh and error retry logic. 
+2. In your completion handler, pass the MAX pre-bid keywords to the banner `AdView` object and call `loadAd()`. 
+3. Call `startRefresh()` to begin loading ads into the banner view.
 
 ```swift
     let adManager = MAXAdRequestManager(adUnitID: MAX_BANNER_ADUNIT_ID) {(response, error) in
