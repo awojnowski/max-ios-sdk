@@ -47,46 +47,41 @@ rules is selected.
 In this way, you can increase competition and take control of the exchange layer in your ad waterfall without disrupting
 the way your ads are served currently.
 
-## iOS Example
+## Banner Example
 
-It is simple to wrap your existing ad call with a MAX pre-bid. Here is a typical banner ad request to an SSP:
+It is simple to wrap your existing ad call with a MAX pre-bid, but a special approach is necessary in order to 
+allow auto-refresh and error retry logic to work properly. <b>NOTE</b>: you should disable your SSP's auto-refresh
+feature in order for MAX pre-bid to work correctly. 
+
+Typically, you will add a banner `AdView` object to your view hierarchy and load an initial ad. The banner will then
+begin to automatically refresh periodically:
 
 ```swift
     let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
     banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
     banner.delegate = self
     banner.loadAd()
+    self.resultsView.addSubview(banner)
 ```
 
-There are only three additional lines required to wrap this ad call with a MAX pre-bid. Simply set the `keywords`
-parameters on your ad view to the value returned by `MAXAdResponse.preBidKeywords` and the custom event machinery
-will ensure that the MAX custom event hook is called back appropriately.
+The code required to wrap this ad call with a MAX pre-bid is straightforward. Use a `MAXAdRequestManager` object 
+to control the auto-refresh and error retry logic, then in your completion handler, pass the keywords to the 
+banner `AdView` object and call `loadAd()` as normal. 
+
 
 ```swift
-        MAXAdRequest.preBidWithMAXAdUnit(adUnitID) {(response, error) in
-            dispatch_sync(dispatch_get_main_queue()) {
-                let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
-                banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
-                banner.delegate = self
-                banner.keywords = response?.preBidKeywords ?? banner.keywords
-                banner.loadAd()
-                self.resultsView.addSubview(banner)
-            }
-        }
-```
-
-The relevant lines are these, to make the pre-bid call to MAX and then enqueue the UI actions on the main thread:
-
-```swift
-    MAXAdRequest.preBidWithMAXAdUnit(adUnitID) {(response, error) in
+    let adManager = MAXAdRequestManager(adUnitID: adUnitID) {(response, error) in
         dispatch_sync(dispatch_get_main_queue()) {
+            banner.keywords = response?.preBidKeywords ?? banner.keywords
+            banner.loadAd()
+        }
+    }
+    adManager.startRefresh()
 ```
 
-and then setting the keywords:
+Note that you may want to optionally call `banner.stopAutomaticallyRefreshingContents()` or a similar method
+for your SSP to ensure that auto-refresh logic is not duplicated by your ad server.
 
-```swift
-    banner.keywords = response?.preBidKeywords ?? banner.keywords
-```
 
 ## Interstitial Example
 
