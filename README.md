@@ -53,24 +53,23 @@ It is simple to wrap your existing ad call with a MAX pre-bid, but a special app
 allow auto-refresh and error retry logic to work properly. <b>NOTE</b>: you should disable your SSP's auto-refresh
 feature in order for MAX pre-bid to work correctly. 
 
-Typically, you will add a banner `AdView` object to your view hierarchy and load an initial ad. The banner will then
-begin to automatically refresh periodically:
+Typically, you will add a banner `AdView` object to your view hierarchy:
 
 ```swift
     let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
     banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
     banner.delegate = self
-    banner.loadAd()
     self.resultsView.addSubview(banner)
 ```
 
 The code required to wrap this ad call with a MAX pre-bid is straightforward. Use a `MAXAdRequestManager` object 
-to control the auto-refresh and error retry logic, then in your completion handler, pass the keywords to the 
-banner `AdView` object and call `loadAd()` as normal. 
+to control the auto-refresh and error retry logic. In your completion handler, pass the keywords to the 
+banner `AdView` object and call `loadAd()` in this handler, rather than in the main thread. Then, instruct the
+manager to begin loading ads, which will happen immediately by calling `startRefresh()`. 
 
 
 ```swift
-    let adManager = MAXAdRequestManager(adUnitID: adUnitID) {(response, error) in
+    let adManager = MAXAdRequestManager(adUnitID: MAX_BANNER_ADUNIT_ID) {(response, error) in
         dispatch_sync(dispatch_get_main_queue()) {
             banner.keywords = response?.preBidKeywords ?? banner.keywords
             banner.loadAd()
@@ -79,8 +78,8 @@ banner `AdView` object and call `loadAd()` as normal.
     adManager.startRefresh()
 ```
 
-Note that you may want to optionally call `banner.stopAutomaticallyRefreshingContents()` or a similar method
-for your SSP to ensure that auto-refresh logic is not duplicated by your ad server.
+Note that you may want to use `banner.stopAutomaticallyRefreshingContents()` or a similar method
+for your ad server to ensure that auto-refresh logic is not duplicated without first running a pre-bid.
 
 
 ## Interstitial Example
@@ -88,7 +87,7 @@ for your SSP to ensure that auto-refresh logic is not duplicated by your ad serv
 Interstitials work similarly to the above. None of your other interstitial display logic needs to change.
 
 ```swift
-        MAXAdRequest.preBidWithMAXAdUnit(self.fullScreenAdUnitTextField.text!) {(response, error) in
+        MAXAdRequest.preBidWithMAXAdUnit(MAX_FULLSCREEN_ADUNIT_ID) {(response, error) in
             dispatch_sync(dispatch_get_main_queue()) {
                 self.interstitialController = MPInterstitialAdController(forAdUnitId: MOPUB_FULLSCREEN_ADUNIT_ID)
                 self.interstitialController!.keywords = response?.preBidKeywords ?? self.interstitialController!.keywords
