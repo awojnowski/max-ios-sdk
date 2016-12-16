@@ -119,6 +119,8 @@ class ViewController: UIViewController, MPAdViewDelegate {
                 self.interstitialController = MPInterstitialAdController(forAdUnitId: MOPUB_FULLSCREEN_ADUNIT_ID)
                 self.interstitialController!.keywords = response?.preBidKeywords ?? self.interstitialController!.keywords
                 self.interstitialController!.loadAd()
+                
+                self.showInterstitialButton.hidden = false
             }
         }
     }

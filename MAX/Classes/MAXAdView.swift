@@ -63,13 +63,11 @@ public class MAXAdView : UIView {
         self.adResponse.trackImpression()
     }
     
-    func click(url: String) {
+    func click(url: NSURL) {
         self.delegate?.adViewDidClick(self)
-        if let URL = NSURL(string: url) {
-            let vc = self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController
-            MAXLinkHandler().openURL(vc, url: URL) {
-                self.delegate?.adViewDidFinishHandlingClick(self)
-            }
+        let vc = self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController
+        MAXLinkHandler().openURL(vc, url: url) {
+            self.delegate?.adViewDidFinishHandlingClick(self)
         }
     }
 }
@@ -102,6 +100,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     }
     public func mraidViewNavigate(mraidView: SKMRAIDView!, withURL url: NSURL!) {
         NSLog("MAX: mraidViewNavigate \(url)")
+        parent.click(url)
     }
     public func mraidViewShouldResize(mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
         NSLog("MAX: mraidViewShouldResize")
@@ -113,8 +112,10 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     
     public func mraidServiceOpenBrowserWithUrlString(url: String) {
-        NSLog("MAX: mraidServiceOpenBrowserWithUrlString")
-        parent.click(url)
+        NSLog("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
+        if let url = NSURL(string: url) {
+            parent.click(url)
+        }
     }
     
 }
