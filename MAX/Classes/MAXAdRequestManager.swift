@@ -27,17 +27,17 @@ public class MAXAdRequestManager {
     private var _completion : (MAXAdResponse?, NSError?) -> Void
     
     private var _shouldRefresh = false
-    private var _timer : NSTimer?
+    private var _timer : Timer?
     private var _errorCount = 0.0
     
-    public init(adUnitID: String, completion: (MAXAdResponse?, NSError?) -> Void) {
+    public init(adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         self._adUnitID = adUnitID
         self._completion = completion
         
         // App lifecycle: when the app is in the background, we will automatically ignore a 
         // request to refresh, so when the app comes back to the foreground, we need to resurrect the timer
         // so that the refresh begins again.
-        let foregroundNotification = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) {
+        let foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) {
             notification in
             if self._shouldRefresh {
                 NSLog("MAX: got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
@@ -47,7 +47,7 @@ public class MAXAdRequestManager {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     // 
@@ -92,15 +92,15 @@ public class MAXAdRequestManager {
         self._timer = nil
     }
     
-    private func scheduleTimerWithInterval(interval: Double) {
+    private func scheduleTimerWithInterval(_ interval: Double) {
         NSLog("MAX: Scheduling auto-refresh in \(interval) seconds")
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             // if there is an existing timer, we first cancel it
             if let timer = self._timer {
                 timer.invalidate()
             }
             // then, set a new timer with the requested time interval
-            self._timer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(interval),
+            self._timer = Timer.scheduledTimer(timeInterval: TimeInterval(interval),
                 target: self,
                 selector: #selector(self.refreshTimerDidFire(_:)),
                 userInfo: nil,
@@ -108,12 +108,12 @@ public class MAXAdRequestManager {
         })
     }
     
-    @objc func refreshTimerDidFire(timer: NSTimer!) {
+    @objc func refreshTimerDidFire(_ timer: Timer!) {
         self._timer = nil
         guard self._shouldRefresh else {
             return
         }
-        guard UIApplication.sharedApplication().applicationState == .Active else {
+        guard UIApplication.shared.applicationState == .active else {
             // in this case, the user has stopped refresh for this ad manager explicitly,
             // or the application is backgrounded, in which case we should not attempt to continue
             // loading new ads

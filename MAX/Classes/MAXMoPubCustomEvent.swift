@@ -9,10 +9,10 @@ import MAX
 import MoPub
 
 @objc(MAXMoPubBannerCustomEvent)
-public class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MAXAdViewDelegate  {
+open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MAXAdViewDelegate  {
     private var adView : MAXAdView?
     
-    override public func requestAdWithSize(size: CGSize, customEventInfo info: [NSObject : AnyObject]!) {
+    override open func requestAd(with size: CGSize, customEventInfo info: [AnyHashable: Any]!) {
         guard let adUnitID = info["adunit_id"] as? String else {
             NSLog("MAX: AdUnitID not specified in adunit_id customEventInfo block: \(info)")
             return
@@ -34,35 +34,35 @@ public class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MAXAdViewDelegate 
         NSLog("MAX: banner for \(adUnitID) found and loaded")
     }
     
-    public func adViewDidLoad(adView: MAXAdView) {
+    open func adViewDidLoad(_ adView: MAXAdView) {
         NSLog("MAX: adViewDidLoad")
         self.delegate.bannerCustomEvent(self, didLoadAd: adView)
     }
-    public func adViewDidClick(adView: MAXAdView) {
+    open func adViewDidClick(_ adView: MAXAdView) {
         NSLog("MAX: adViewDidClick")
         self.delegate.bannerCustomEventWillLeaveApplication(self)
     }
-    public func adViewWillLogImpression(adView: MAXAdView) {
+    open func adViewWillLogImpression(_ adView: MAXAdView) {
         NSLog("MAX: adViewWillLogImpression")
     }
-    public func adViewDidFinishHandlingClick(adView: MAXAdView) {
+    open func adViewDidFinishHandlingClick(_ adView: MAXAdView) {
         NSLog("MAX: adViewDidFinishHandlingClick")
         self.delegate.bannerCustomEventDidFinishAction(self)
     }
-    public func adViewDidFailWithError(adView: MAXAdView, error: NSError?) {
+    open func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
         NSLog("MAX: adViewDidFailWithError")
         self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: error)
     }
-    public var viewControllerForPresentingModalView: UIViewController {
+    open var viewControllerForPresentingModalView: UIViewController {
         return self.delegate.viewControllerForPresentingModalView()
     }
 }
 
 @objc(MAXMoPubInterstitialCustomEvent)
-public class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInterstitialAdDelegate {
+open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInterstitialAdDelegate {
     private var MAXInterstitial : MAXInterstitialAd?
     
-    override public func requestInterstitialWithCustomEventInfo(info: [NSObject : AnyObject]!) {
+    override open func requestInterstitial(withCustomEventInfo info: [AnyHashable: Any]!) {
         guard let adUnitID = info["adunit_id"] as? String else {
             NSLog("MAX: No adunit_id found in customEventInfo \(info)")
             return
@@ -86,7 +86,7 @@ public class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInt
         NSLog("MAX: interstitial for \(adUnitID) found and loaded")
     }
     
-    override public func showInterstitialFromRootViewController(rootViewController: UIViewController!) {
+    override open func showInterstitial(fromRootViewController rootViewController: UIViewController!) {
         guard let interstitial = MAXInterstitial else {
             NSLog("MAX: interstitial ad was not loaded, calling interstitialCustomEventDidExpire")
             self.delegate.interstitialCustomEventDidExpire(self)
@@ -105,17 +105,17 @@ public class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInt
     
     // MAXInterstitialAdDelegate
     
-    public func interstitialAdDidClick(interstitialAd: MAXInterstitialAd) {
+    open func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {
         NSLog("MAX: interstitialAdDidClick")
-        self.delegate.interstitialCustomEventDidReceiveTapEvent(self)
+        self.delegate.interstitialCustomEventDidReceiveTap(self)
     }
     
-    public func interstitialAdWillClose(interstitialAd: MAXInterstitialAd) {
+    open func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd) {
         NSLog("MAX: interstitialAdWillClose")
         self.delegate.interstitialCustomEventWillDisappear(self)
     }
     
-    public func interstitialAdDidClose(interstitialAd: MAXInterstitialAd) {
+    open func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd) {
         NSLog("MAX: interstitialAdDidClose")
         self.delegate.interstitialCustomEventDidDisappear(self)
     }

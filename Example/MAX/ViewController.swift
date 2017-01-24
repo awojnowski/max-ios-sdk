@@ -47,7 +47,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
         // Clear output
         self.outputTextView.text = "Loading..."
         self.timeElapsedLabel.text = ""
-        self.showInterstitialButton.hidden = true
+        self.showInterstitialButton.isHidden = true
         for v in self.resultsView.subviews {
             if let adView = v as? MPAdView {
                 adView.removeFromSuperview()
@@ -57,21 +57,21 @@ class ViewController: UIViewController, MPAdViewDelegate {
         
         // Start loading timer
         if #available(iOS 10.0, *) {
-            let beginRequestDate = NSDate()
-            NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(0.1), repeats: true) { (timer) in
+            let beginRequestDate = Date()
+            Timer.scheduledTimer(withTimeInterval: TimeInterval(0.1), repeats: true) { (timer) in
                 if let r = self.adResponse {
                     timer.invalidate()
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.timeElapsedLabel.text =
                             String.localizedStringWithFormat("%.3fs // %d bytes",
-                                r.createdAt.timeIntervalSinceDate(beginRequestDate),
-                                r.data.length)
+                                r.createdAt.timeIntervalSince(beginRequestDate),
+                                r.data.count)
                         self.outputTextView.text = "\(r.response)"
                     })
 
                 } else if let error = self.adError {
                     timer.invalidate()
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.timeElapsedLabel.text = ""
                         self.outputTextView.text = "\(error.localizedDescription)"
                     })
@@ -87,14 +87,14 @@ class ViewController: UIViewController, MPAdViewDelegate {
         }
     }
     
-    func updateAdRequest(response: MAXAdResponse?, error: NSError?) {
+    func updateAdRequest(_ response: MAXAdResponse?, error: NSError?) {
         self.adResponse = response
         self.adError = error
     }
     
     // MARK: -- Pre-bid Fullscreen Interstitial
     
-    @IBAction func tappedRequestFullScreenButton(sender: AnyObject) {
+    @IBAction func tappedRequestFullScreenButton(_ sender: AnyObject) {
         guard let adUnitID = self.fullScreenAdUnitTextField.text else {
             return
         }
@@ -105,14 +105,14 @@ class ViewController: UIViewController, MPAdViewDelegate {
         }
     }
     
-    @IBAction func tappedPreBidFullScreenButtonWithSender(sender: AnyObject) {
+    @IBAction func tappedPreBidFullScreenButtonWithSender(_ sender: AnyObject) {
         guard let adUnitID = self.fullScreenAdUnitTextField.text else {
             return
         }
         
         self.monitorAdRequest()
         MAXAdRequest.preBidWithMAXAdUnit(adUnitID) {(response, error) in
-            dispatch_sync(dispatch_get_main_queue()) {
+            DispatchQueue.main.sync {
                 self.updateAdRequest(response, error: error)
 
                 // Requesting an ad normally here
@@ -121,15 +121,15 @@ class ViewController: UIViewController, MPAdViewDelegate {
                 self.interstitialController!.loadAd()
                 
                 // Give the user a button to click
-                self.showInterstitialButton.hidden = false
+                self.showInterstitialButton.isHidden = false
             }
         }
     }
     
-    @IBAction func tappedShowAdButtonWithSender(sender: AnyObject) {
+    @IBAction func tappedShowAdButtonWithSender(_ sender: AnyObject) {
         if let ic = self.interstitialController {
             if ic.ready {
-                ic.showFromViewController(self)
+                ic.show(from: self)
                 self.interstitialController = nil
             }
         }
@@ -137,7 +137,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
     
     // MARK: -- Pre-bid banners
     
-    @IBAction func tappedPreBidBannerButtonWithSender(sender: AnyObject) {
+    @IBAction func tappedPreBidBannerButtonWithSender(_ sender: AnyObject) {
         guard let adUnitID = self.bannerAdUnitTextField.text else {
             return
         }
@@ -145,15 +145,17 @@ class ViewController: UIViewController, MPAdViewDelegate {
         self.monitorAdRequest()
 
         // 1) Add the static banner view here as usual ...
-        let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
-        banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
+        guard let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSize(width: 320, height: 50)) else {
+            return
+        }
+        banner.frame = CGRect(origin: CGPoint.zero, size: banner.adContentViewSize())
         banner.delegate = self
         self.resultsView.addSubview(banner)
         
         // 2) Then use MAX to autorefresh periodically after prebid has completed
         banner.stopAutomaticallyRefreshingContents()
         let adManager = MAXAdRequestManager(adUnitID: adUnitID) {(response, error) in
-            dispatch_sync(dispatch_get_main_queue()) {
+            DispatchQueue.main.sync {
                 self.updateAdRequest(response, error: error)
                 
                 // Update the banner view's keywords and reload

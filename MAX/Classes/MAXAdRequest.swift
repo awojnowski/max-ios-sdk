@@ -20,7 +20,7 @@ public class MAXAdRequest {
     // the callback function provided is invoked and the pre-bid ad response is made available
     // through that callback. Timeouts and other errors are also returned through the callback.
     //
-    public class func preBidWithMAXAdUnit(adUnitID: String, completion: (MAXAdResponse?, NSError?) -> Void) -> MAXAdRequest {
+    public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd() {(response, error) in
             MAXPreBids[adr.adUnitID] = response
@@ -50,38 +50,38 @@ public class MAXAdRequest {
     // plan can be executed whenever an ad needs to be shown. Once the ad is shown, 
     // the ad request should be discarded. 
     //
-    public func requestAd(completion: (MAXAdResponse?, NSError?) -> Void) {
+    public func requestAd(_ completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         // All interesting things about this particular device
         let dict : NSDictionary = [
-            "ifa": ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString,
-            "lmt": ASIdentifierManager.sharedManager().advertisingTrackingEnabled ? false : true,
-            "vendor_id": UIDevice.currentDevice().identifierForVendor?.UUIDString ?? "",
-            "tz": NSTimeZone.systemTimeZone().abbreviation ?? "",
-            "locale": NSLocale.systemLocale().localeIdentifier ?? "",
-            "orientation": UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) ? "portrait" :
-                (UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? "landscape" : "none"),
-            "w": floor(UIScreen.mainScreen().bounds.size.width),
-            "h": floor(UIScreen.mainScreen().bounds.size.height),
-            "browser_agent": UIWebView().stringByEvaluatingJavaScriptFromString("navigator.userAgent") ?? "",
+            "ifa": ASIdentifierManager.shared().advertisingIdentifier.uuidString,
+            "lmt": ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true,
+            "vendor_id": UIDevice.current.identifierForVendor?.uuidString ?? "",
+            "tz": NSTimeZone.system.abbreviation() ?? "",
+            "locale": Locale.current.identifier ?? "",
+            "orientation": UIDeviceOrientationIsPortrait(UIDevice.current.orientation) ? "portrait" :
+                (UIDeviceOrientationIsLandscape(UIDevice.current.orientation) ? "landscape" : "none"),
+            "w": floor(UIScreen.main.bounds.size.width),
+            "h": floor(UIScreen.main.bounds.size.height),
+            "browser_agent": UIWebView().stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? "",
             "model": self.model(),
-            "connectivity": SKReachability.reachabilityForInternetConnection().isReachableViaWiFi() ? "wifi" :
-                SKReachability.reachabilityForInternetConnection().isReachableViaWWAN() ? "wwan" : "none",
+            "connectivity": SKReachability.forInternetConnection().isReachableViaWiFi() ? "wifi" :
+                SKReachability.forInternetConnection().isReachableViaWWAN() ? "wwan" : "none",
             "carrier": CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""]
         
         // Setup POST
-        let url = NSURL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID)")!
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: config)
+        let url = URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID!)")!
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
         
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
+        let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "POST"
 
         do {
-            let data = try NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            session.uploadTaskWithRequest(request, fromData: data, completionHandler: { (_data, _response, _error) in
+            let data = try JSONSerialization.data(withJSONObject: dict, options: [])
+            session.uploadTask(with: request as URLRequest, from: data, completionHandler: { (_data, _response, _error) in
                 do {
                     guard let data = _data,
-                        response = _response as? NSHTTPURLResponse where
+                        let response = _response as? HTTPURLResponse,
                         _error == nil else {
                         throw _error!
                     }
@@ -115,7 +115,7 @@ public class MAXAdRequest {
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
         return identifier

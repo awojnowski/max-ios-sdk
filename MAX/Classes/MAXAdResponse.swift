@@ -7,32 +7,32 @@
 import Foundation
 import StoreKit
 
-let MAXAdResponseURLSession = NSURLSession(configuration: NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("MAXAdResponse"))
+let MAXAdResponseURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
 
-public class MAXAdResponse {
-    public var createdAt : NSDate!
-    public var data : NSData!
-    public var response : NSDictionary!
+open class MAXAdResponse {
+    open var createdAt : Date!
+    open var data : Data!
+    open var response : NSDictionary!
     
     private var winner : NSDictionary?
     
-    public var preBidKeywords : String! = ""
+    open var preBidKeywords : String! = ""
     
-    public var autoRefreshInterval: Int?
+    open var autoRefreshInterval: Int?
 
-    public var creativeType : String! = "empty"
-    public var creative : String? = ""
+    open var creativeType : String! = "empty"
+    open var creative : String? = ""
     
     public init() {
-        self.createdAt = NSDate()
-        self.data = NSData()
+        self.createdAt = Date()
+        self.data = Data()
         self.response = [:]
     }
     
-    public init(data: NSData) throws {
-        self.createdAt = NSDate()
+    public init(data: Data) throws {
+        self.createdAt = Date()
         self.data = data
-        self.response = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! NSDictionary
+        self.response = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
         
         self.winner = self.response["ad_source_response"] as? NSDictionary
         self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
@@ -46,7 +46,7 @@ public class MAXAdResponse {
     
     // 
     // Refresh operations
-    public func shouldAutoRefresh() -> Bool {
+    open func shouldAutoRefresh() -> Bool {
         if let autoRefreshInterval = self.autoRefreshInterval {
             return autoRefreshInterval > 0
         } else {
@@ -57,31 +57,31 @@ public class MAXAdResponse {
     // 
     // Fires an impression tracking event for this AdResponse
     //
-    public func trackImpression() {
+    open func trackImpression() {
         self.trackAll(self.response["impression_urls"] as? NSArray)
     }
 
     //
     // Fires a click tracking event for this AdResponse
     //
-    public func trackClick() {
+    open func trackClick() {
         self.trackAll(self.response["click_urls"] as? NSArray)
     }
 
-    private func trackAll(urls: NSArray?) {
+    private func trackAll(_ urls: NSArray?) {
         guard let trackingUrls = urls else {
             return
         }
         for case let t as String in trackingUrls {
-            if let url = NSURL(string: t) {
+            if let url = URL(string: t) {
                 self.track(url)
             }
         }
     }
     
-    private func track(url: NSURL) {
+    private func track(_ url: URL) {
         NSLog("MAXAdResponse.track() => \(url)")
-        MAXAdResponseURLSession.dataTaskWithURL(url).resume()
+        MAXAdResponseURLSession.dataTask(with: url).resume()
     }
     
 }

@@ -7,15 +7,15 @@
 import Foundation
 
 public protocol MAXInterstitialAdDelegate {
-    func interstitialAdDidClick(interstitialAd: MAXInterstitialAd)
-    func interstitialAdWillClose(interstitialAd: MAXInterstitialAd)
-    func interstitialAdDidClose(interstitialAd: MAXInterstitialAd)
+    func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd)
+    func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd)
+    func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd)
 }
 
-public class MAXInterstitialAd {
+open class MAXInterstitialAd {
     private var adResponse: MAXAdResponse!
 
-    public var delegate: MAXInterstitialAdDelegate?
+    open var delegate: MAXInterstitialAdDelegate?
     var rootViewController : UIViewController?
     
     private var _vastDelegate: VASTDelegate!
@@ -30,19 +30,19 @@ public class MAXInterstitialAd {
         self._mraidDelegate = MRAIDDelegate(parent: self)
     }
     
-    public func showAdFromRootViewController(rootViewController: UIViewController) {
+    open func showAdFromRootViewController(_ rootViewController: UIViewController) {
         self.rootViewController = rootViewController
         switch self.adResponse.creativeType {
             case "vast3":
-                if let videoData = self.adResponse.creative!.dataUsingEncoding(NSUTF8StringEncoding) {
+                if let videoData = self.adResponse.creative!.data(using: String.Encoding.utf8) {
                     self._vastViewController = SKVASTViewController(delegate: _vastDelegate,
-                                                  withViewController: rootViewController)
-                    self._vastViewController!.loadVideoWithData(videoData)
+                                                  with: rootViewController)
+                    self._vastViewController!.loadVideo(with: videoData)
                 }
             case "html":
                 self._mraidInterstitial = SKMRAIDInterstitial(supportedFeatures:[],
                     withHtmlData: self.adResponse.creative!,
-                    withBaseURL: NSURL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
+                    withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
                     delegate: _mraidDelegate,
                     serviceDelegate: _mraidDelegate,
                     rootViewController: rootViewController)
@@ -70,26 +70,26 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     //
     //
     
-    public func vastReady(vastVC: SKVASTViewController!) {
+    open func vastReady(_ vastVC: SKVASTViewController!) {
         self.parent.adResponse.trackImpression()
         vastVC.play()
     }
     
-    public func vastTrackingEvent(eventName: String!) {
+    open func vastTrackingEvent(_ eventName: String!) {
         NSLog("MAX: vastTrackingEvent(\(eventName)")
         if eventName == "close" {
             self.parent.delegate?.interstitialAdWillClose(self.parent)
         }
     }
     
-    public func vastDidDismissFullScreen(vastVC: SKVASTViewController!) {
+    open func vastDidDismissFullScreen(_ vastVC: SKVASTViewController!) {
         self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
-    public func vastOpenBrowseWithUrl(vastVC: SKVASTViewController!, url: NSURL!) {
+    open func vastOpenBrowse(withUrl vastVC: SKVASTViewController!, url: URL!) {
         self.parent.delegate?.interstitialAdDidClick(self.parent)
-        vastVC.dismissViewControllerAnimated(false) {
-            MAXLinkHandler().openURL(vastVC.parentViewController!, url: url, completion: nil)
+        vastVC.dismiss(animated: false) {
+            MAXLinkHandler().openURL(vastVC.parent!, url: url, completion: nil)
         }
         vastVC.close()
     }
@@ -107,28 +107,28 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     //
     //
     
-    public func mraidInterstitialAdReady(mraidInterstitial: SKMRAIDInterstitial!) {
+    open func mraidInterstitialAdReady(_ mraidInterstitial: SKMRAIDInterstitial!) {
         if mraidInterstitial.isAdReady() {
             mraidInterstitial.show()
             self.parent.adResponse.trackImpression()
         }
     }
     
-    public func mraidInterstitialDidHide(mraidInterstitial: SKMRAIDInterstitial!) {
+    open func mraidInterstitialDidHide(_ mraidInterstitial: SKMRAIDInterstitial!) {
         NSLog("MAX: mraidInterstitialDidHide")
         self.parent.delegate?.interstitialAdWillClose(self.parent)
         self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
-    public func mraidInterstitialAdFailed(mraidInterstitial: SKMRAIDInterstitial!) {
+    open func mraidInterstitialAdFailed(_ mraidInterstitial: SKMRAIDInterstitial!) {
         NSLog("MAX: mraidInterstitialAdFailed")
     }
     
-    public func mraidInterstitialWillShow(mraidInterstitial: SKMRAIDInterstitial!) {
+    open func mraidInterstitialWillShow(_ mraidInterstitial: SKMRAIDInterstitial!) {
         NSLog("MAX: mraidInterstitialWillShow")
     }
     
-    public func mraidInterstitialNavigate(mraidInterstitial: SKMRAIDInterstitial!, withURL url: NSURL!) {
+    open func mraidInterstitialNavigate(_ mraidInterstitial: SKMRAIDInterstitial!, with url: URL!) {
         NSLog("MAX: mraidInterstitialNavigate")
     }
     
@@ -136,9 +136,9 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     //
     //
     
-    public func mraidServiceOpenBrowserWithUrlString(url: String) {
+    open func mraidServiceOpenBrowser(withUrlString url: String) {
         NSLog("MAX: mraidServiceOpenBrowserWithUrlString")
-        MAXLinkHandler().openURL(parent.rootViewController!, url: NSURL(string: url)!, completion: nil)
+        MAXLinkHandler().openURL(parent.rootViewController!, url: URL(string: url)!, completion: nil)
     }
 
 }

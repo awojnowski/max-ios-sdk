@@ -9,24 +9,24 @@ import Foundation
 public protocol MAXAdViewDelegate {
     var viewControllerForPresentingModalView :  UIViewController { get }
     
-    func adViewDidFailWithError(adView: MAXAdView, error: NSError?)
-    func adViewDidClick(adView: MAXAdView)
-    func adViewDidFinishHandlingClick(adView: MAXAdView)
-    func adViewDidLoad(adView: MAXAdView)
-    func adViewWillLogImpression(adView: MAXAdView)
+    func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?)
+    func adViewDidClick(_ adView: MAXAdView)
+    func adViewDidFinishHandlingClick(_ adView: MAXAdView)
+    func adViewDidLoad(_ adView: MAXAdView)
+    func adViewWillLogImpression(_ adView: MAXAdView)
 }
 
-public class MAXAdView : UIView {
+open class MAXAdView : UIView {
     private var adResponse: MAXAdResponse!
     
-    public var delegate: MAXAdViewDelegate?
+    open var delegate: MAXAdViewDelegate?
     
     private var _mraidDelegate: MRAIDDelegate!
     private var _mraidView: SKMRAIDView!
     
     public init(adResponse: MAXAdResponse,
                 size: CGSize) {
-        super.init(frame: CGRect(origin: CGPointZero, size: size))
+        super.init(frame: CGRect(origin: CGPoint.zero, size: size))
         
         self.adResponse = adResponse
         self._mraidDelegate = MRAIDDelegate(parent: self)
@@ -36,12 +36,12 @@ public class MAXAdView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func loadAd() {
+    open func loadAd() {
         switch self.adResponse.creativeType {
         case "html":
             self._mraidView = SKMRAIDView(frame: self.frame,
                                           withHtmlData: self.adResponse.creative,
-                                          withBaseURL: NSURL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
+                                          withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
                                           supportedFeatures: [],
                                           delegate: self._mraidDelegate,
                                           serviceDelegate: self._mraidDelegate,
@@ -63,7 +63,7 @@ public class MAXAdView : UIView {
         self.adResponse.trackImpression()
     }
     
-    func click(url: NSURL) {
+    func click(_ url: URL) {
         self.delegate?.adViewDidClick(self)
         let vc = self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController
         MAXLinkHandler().openURL(vc, url: url) {
@@ -83,26 +83,26 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     //
     
-    public func mraidViewAdReady(mraidView: SKMRAIDView!) {
+    open func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
         NSLog("MAX: mraidViewAdReady")
         parent.trackImpression()
         parent.delegate?.adViewDidLoad(parent)
     }
-    public func mraidViewAdFailed(mraidView: SKMRAIDView!) {
+    open func mraidViewAdFailed(_ mraidView: SKMRAIDView!) {
         NSLog("MAX: mraidViewAdFailed")
         parent.delegate?.adViewDidFailWithError(parent, error: nil)
     }
-    public func mraidViewDidClose(mraidView: SKMRAIDView!) {
+    open func mraidViewDidClose(_ mraidView: SKMRAIDView!) {
         NSLog("MAX: mraidViewDidClose")
     }
-    public func mraidViewWillExpand(mraidView: SKMRAIDView!) {
+    open func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
         NSLog("MAX: mraidViewWillExpand")
     }
-    public func mraidViewNavigate(mraidView: SKMRAIDView!, withURL url: NSURL!) {
+    open func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
         NSLog("MAX: mraidViewNavigate \(url)")
         parent.click(url)
     }
-    public func mraidViewShouldResize(mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
+    open func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
         NSLog("MAX: mraidViewShouldResize")
         return false
     }
@@ -111,9 +111,9 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     //
     
-    public func mraidServiceOpenBrowserWithUrlString(url: String) {
+    open func mraidServiceOpenBrowser(withUrlString url: String) {
         NSLog("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
-        if let url = NSURL(string: url) {
+        if let url = URL(string: url) {
             parent.click(url)
         }
     }
