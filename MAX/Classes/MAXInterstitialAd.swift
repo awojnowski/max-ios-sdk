@@ -13,7 +13,7 @@ public protocol MAXInterstitialAdDelegate {
 }
 
 open class MAXInterstitialAd {
-    private var adResponse: MAXAdResponse!
+    fileprivate var adResponse: MAXAdResponse!
 
     open var delegate: MAXInterstitialAdDelegate?
     var rootViewController : UIViewController?

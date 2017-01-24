@@ -55,7 +55,9 @@ all auto-refresh and error retry logic, so you should disable these features on 
 Typically, you will add a banner `AdView` object to your view hierarchy as follows:
 
 ```swift
-    let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50))
+    guard let banner = MPAdView(adUnitId: MOPUB_BANNER_ADUNIT_ID, size: CGSizeMake(320, 50)) else {
+        return
+    }
     banner.frame = CGRect(origin: CGPointZero, size: banner.adContentViewSize())
     banner.delegate = self
     self.resultsView.addSubview(banner)
