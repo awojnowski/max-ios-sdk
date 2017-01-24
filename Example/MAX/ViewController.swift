@@ -9,8 +9,8 @@ import MoPub
 
 // MAX account: jim@molabs.com
 //
-let MAX_FULLSCREEN_ADUNIT_ID = "ahFzfm1vYmlsZXZpZGVvZmVlZHITCxIGQWRVbml0GICAgIe30IwKDA"
-let MAX_BANNER_ADUNIT_ID = "ahFzfm1vYmlsZXZpZGVvZmVlZHITCxIGQWRVbml0GICAgOO34YEKDA"
+let MAX_FULLSCREEN_ADUNIT_ID = "ag9zfm1heGFkcy0xNTY1MTlyEwsSBkFkVW5pdBiAgICA2uOGCgw"
+let MAX_BANNER_ADUNIT_ID = "ag9zfm1heGFkcy0xNTY1MTlyEwsSBkFkVW5pdBiAgICAvKGCCQw"
 
 // MoPub account: muyexcellente@mailinator.com
 //
@@ -120,6 +120,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
                 self.interstitialController!.keywords = response?.preBidKeywords ?? self.interstitialController!.keywords
                 self.interstitialController!.loadAd()
                 
+                // Give the user a button to click
                 self.showInterstitialButton.hidden = false
             }
         }

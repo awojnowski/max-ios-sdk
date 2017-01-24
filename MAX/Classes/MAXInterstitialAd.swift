@@ -42,7 +42,7 @@ public class MAXInterstitialAd {
             case "html":
                 self._mraidInterstitial = SKMRAIDInterstitial(supportedFeatures:[],
                     withHtmlData: self.adResponse.creative!,
-                    withBaseURL: NSURL(string: "https://sprl.com"),
+                    withBaseURL: NSURL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
                     delegate: _mraidDelegate,
                     serviceDelegate: _mraidDelegate,
                     rootViewController: rootViewController)

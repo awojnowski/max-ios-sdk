@@ -9,17 +9,17 @@ import AdSupport
 import CoreTelephony
 import UIKit
 
-let ADS_DOMAIN = "https://sprl.com"
-
 var MAXPreBids : [String : MAXAdResponse] = [:]
 var MAXPreBidErrors : [String : NSError] = [:]
 
 public class MAXAdRequest {
-    public var adUnitID: String!
-    
-    public var adResponse: MAXAdResponse?
-    public var adError: NSError?
-    
+    public static let ADS_DOMAIN = "ads.maxads.io"
+
+    // 
+    // Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has compelted, 
+    // the callback function provided is invoked and the pre-bid ad response is made available
+    // through that callback. Timeouts and other errors are also returned through the callback.
+    //
     public class func preBidWithMAXAdUnit(adUnitID: String, completion: (MAXAdResponse?, NSError?) -> Void) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd() {(response, error) in
@@ -29,6 +29,11 @@ public class MAXAdRequest {
         }
         return adr
     }
+
+    public var adUnitID: String!
+    
+    public var adResponse: MAXAdResponse?
+    public var adError: NSError?
     
     //
     // Initialize a new ad request
@@ -64,7 +69,7 @@ public class MAXAdRequest {
             "carrier": CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""]
         
         // Setup POST
-        let url = NSURL(string: "\(ADS_DOMAIN)/ads/req/\(self.adUnitID)")!
+        let url = NSURL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID)")!
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: config)
         
@@ -73,7 +78,6 @@ public class MAXAdRequest {
 
         do {
             let data = try NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            
             session.uploadTaskWithRequest(request, fromData: data, completionHandler: { (_data, _response, _error) in
                 do {
                     guard let data = _data,
@@ -89,7 +93,7 @@ public class MAXAdRequest {
                         self.adResponse = MAXAdResponse()
                         completion(self.adResponse, nil)
                     } else {
-                        throw NSError(domain: "sprl.com",
+                        throw NSError(domain: MAXAdRequest.ADS_DOMAIN,
                             code: response.statusCode,
                             userInfo: nil)
                     }

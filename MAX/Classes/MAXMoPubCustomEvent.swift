@@ -71,7 +71,7 @@ public class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInt
             NSLog("MAX: interstitial pre-bid was not found for adUnitID=\(adUnitID)")
             self.MAXInterstitial = nil
             self.delegate.interstitialCustomEvent(self,
-                                                  didFailToLoadAdWithError: MAXPreBidErrors[adUnitID] ?? NSError(domain: "sprl.com", code: 0, userInfo: [:]))
+                                                  didFailToLoadAdWithError: MAXPreBidErrors[adUnitID] ?? NSError(domain: MAXAdRequest.ADS_DOMAIN, code: 0, userInfo: [:]))
             return
         }
         

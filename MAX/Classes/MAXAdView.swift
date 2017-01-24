@@ -41,7 +41,7 @@ public class MAXAdView : UIView {
         case "html":
             self._mraidView = SKMRAIDView(frame: self.frame,
                                           withHtmlData: self.adResponse.creative,
-                                          withBaseURL: NSURL(string: "https://sprl.com"),
+                                          withBaseURL: NSURL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
                                           supportedFeatures: [],
                                           delegate: self._mraidDelegate,
                                           serviceDelegate: self._mraidDelegate,
