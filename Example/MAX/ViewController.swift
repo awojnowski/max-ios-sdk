@@ -66,7 +66,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
                             String.localizedStringWithFormat("%.3fs // %d bytes",
                                 r.createdAt.timeIntervalSince(beginRequestDate),
                                 r.data.count)
-                        self.outputTextView.text = "\(r.response)"
+                        self.outputTextView.text = "\(r.response!)"
                     })
 
                 } else if let error = self.adError {
@@ -101,7 +101,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
         
         self.monitorAdRequest()
         MAXAdRequest(adUnitID: adUnitID).requestAd() {(adResponse, error) in
-            NSLog("adResponse: \(adResponse)")
+            NSLog("adResponse: \(adResponse!)")
         }
     }
     
