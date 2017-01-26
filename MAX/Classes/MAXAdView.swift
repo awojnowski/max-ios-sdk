@@ -39,14 +39,21 @@ open class MAXAdView : UIView {
     open func loadAd() {
         switch self.adResponse.creativeType {
         case "html":
-            self._mraidView = SKMRAIDView(frame: self.frame,
-                                          withHtmlData: self.adResponse.creative,
-                                          withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
-                                          supportedFeatures: [],
-                                          delegate: self._mraidDelegate,
-                                          serviceDelegate: self._mraidDelegate,
-                                          rootViewController: self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController)
-            self.addSubview(self._mraidView)
+            if let htmlData = self.adResponse.creative {
+                self._mraidView = SKMRAIDView(frame: self.frame,
+                                              withHtmlData: self.adResponse.creative,
+                                              withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
+                                              supportedFeatures: [],
+                                              delegate: self._mraidDelegate,
+                                              serviceDelegate: self._mraidDelegate,
+                                              rootViewController: self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController)
+                self.addSubview(self._mraidView)
+                break
+            } else {
+                NSLog("MAX: malformed response, HTML creative type but no markup... showing empty")
+                self.delegate?.adViewDidLoad(self)
+                break
+            }
         case "empty":
             NSLog("MAX: empty ad response, nothing to show")
             self.delegate?.adViewDidLoad(self)

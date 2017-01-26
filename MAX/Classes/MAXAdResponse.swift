@@ -34,14 +34,11 @@ open class MAXAdResponse {
         self.data = data
         self.response = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
         
-        self.winner = self.response["ad_source_response"] as? NSDictionary
+        self.winner = self.response["winner"] as? NSDictionary
         self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
         self.autoRefreshInterval = self.response["refresh"] as? Int
-        
-        if let winner = self.winner {
-            self.creativeType = winner["creative_type"] as? String ?? "empty"
-            self.creative = winner["creative"] as? String
-        }
+        self.creativeType = self.response["creative_type"] as? String ?? "empty"
+        self.creative = self.response["creative"] as? String
     }
     
     // 
