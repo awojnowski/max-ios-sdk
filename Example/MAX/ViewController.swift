@@ -50,6 +50,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
         self.showInterstitialButton.isHidden = true
         for v in self.resultsView.subviews {
             if let adView = v as? MPAdView {
+                adView.stopAutomaticallyRefreshingContents()
                 adView.removeFromSuperview()
             }
         }
@@ -63,9 +64,8 @@ class ViewController: UIViewController, MPAdViewDelegate {
                     timer.invalidate()
                     DispatchQueue.main.async(execute: {
                         self.timeElapsedLabel.text =
-                            String.localizedStringWithFormat("%.3fs // %d bytes",
-                                r.createdAt.timeIntervalSince(beginRequestDate),
-                                r.data.count)
+                            String.localizedStringWithFormat("%.3fs",
+                                r.createdAt.timeIntervalSince(beginRequestDate))
                         self.outputTextView.text = "\(r.response!)"
                     })
 
@@ -153,6 +153,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
         self.resultsView.addSubview(banner)
         
         // 2) Then use MAX to autorefresh periodically after prebid has completed
+        // NOTE: this overrides the standard auto-refresh logic, so we disable auto-refresh here.
         banner.stopAutomaticallyRefreshingContents()
         let adManager = MAXAdRequestManager(adUnitID: adUnitID) {(response, error) in
             DispatchQueue.main.sync {

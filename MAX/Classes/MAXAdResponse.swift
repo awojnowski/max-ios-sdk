@@ -11,34 +11,30 @@ let MAXAdResponseURLSession = URLSession(configuration: URLSessionConfiguration.
 
 open class MAXAdResponse {
     open var createdAt : Date!
-    open var data : Data!
     open var response : NSDictionary!
     
-    private var winner : NSDictionary?
+    open var winner : NSDictionary!
     
     open var preBidKeywords : String! = ""
-    
     open var autoRefreshInterval: Int?
 
+    open var creative : String!
     open var creativeType : String! = "empty"
-    open var creative : String? = ""
     
     public init() {
         self.createdAt = Date()
-        self.data = Data()
         self.response = [:]
     }
     
     public init(data: Data) throws {
         self.createdAt = Date()
-        self.data = data
         self.response = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
         
-        self.winner = self.response["winner"] as? NSDictionary
+        self.winner = self.response["winner"] as? NSDictionary ?? [:]
         self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
         self.autoRefreshInterval = self.response["refresh"] as? Int
-        self.creativeType = self.response["creative_type"] as? String ?? "empty"
         self.creative = self.response["creative"] as? String
+        self.creativeType = self.winner["creative_type"] as? String ?? "empty"
     }
     
     // 
