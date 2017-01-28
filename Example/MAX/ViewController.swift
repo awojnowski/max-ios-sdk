@@ -32,6 +32,8 @@ class ViewController: UIViewController, MPAdViewDelegate {
     private var adError : NSError?
     
     private var interstitialController : MPInterstitialAdController?
+    
+    private var adManager : MAXAdRequestManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,10 @@ class ViewController: UIViewController, MPAdViewDelegate {
         self.adResponse = nil
         self.adError = nil
         self.interstitialController = nil
+        
+        // If banner refresh logic currently exists, stop it 
+        self.adManager?.stopRefresh()
+        self.adManager = nil
 
         // Clear output
         self.outputTextView.text = "Loading..."
@@ -50,7 +56,6 @@ class ViewController: UIViewController, MPAdViewDelegate {
         self.showInterstitialButton.isHidden = true
         for v in self.resultsView.subviews {
             if let adView = v as? MPAdView {
-                adView.stopAutomaticallyRefreshingContents()
                 adView.removeFromSuperview()
             }
         }
@@ -155,7 +160,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
         // 2) Then use MAX to autorefresh periodically after prebid has completed
         // NOTE: this overrides the standard auto-refresh logic, so we disable auto-refresh here.
         banner.stopAutomaticallyRefreshingContents()
-        let adManager = MAXAdRequestManager(adUnitID: adUnitID) {(response, error) in
+        self.adManager = MAXAdRequestManager(adUnitID: adUnitID) {(response, error) in
             DispatchQueue.main.sync {
                 self.updateAdRequest(response, error: error)
                 
@@ -164,7 +169,7 @@ class ViewController: UIViewController, MPAdViewDelegate {
                 banner.loadAd()
             }
         }
-        adManager.startRefresh()
+        adManager?.startRefresh()
 
     }
     
