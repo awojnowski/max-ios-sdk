@@ -17,15 +17,18 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MAXAdViewDelegate  {
             NSLog("MAX: AdUnitID not specified in adunit_id customEventInfo block: \(info)")
             return
         }
+        defer {
+            // only allow pre-bid to be used once
+            MAXPreBids[adUnitID] = nil
+            MAXPreBidErrors[adUnitID] = nil
+        }
+
         guard let adResponse = MAXPreBids[adUnitID] else {
             NSLog("MAX: banner pre-bid was not found for adUnitID=\(adUnitID)")
             self.adView = nil
             self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
             return
         }
-        
-        // only allow pre-bid to be used once
-        MAXPreBids[adUnitID] = nil
         
         // generate View object from the AdResponse
         self.adView = MAXAdView(adResponse: adResponse, size: size)
@@ -63,10 +66,17 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
     private var MAXInterstitial : MAXInterstitialAd?
     
     override open func requestInterstitial(withCustomEventInfo info: [AnyHashable: Any]!) {
+        NSLog("MAX: MAXMoPubInterstitialCustomEvent.requestInterstitial()")
         guard let adUnitID = info["adunit_id"] as? String else {
             NSLog("MAX: No adunit_id found in customEventInfo \(info)")
             return
         }
+        defer {
+            // only allow pre-bid to be used once
+            MAXPreBids[adUnitID] = nil
+            MAXPreBidErrors[adUnitID] = nil
+        }
+
         guard let adResponse = MAXPreBids[adUnitID] else {
             NSLog("MAX: interstitial pre-bid was not found for adUnitID=\(adUnitID)")
             self.MAXInterstitial = nil
@@ -74,9 +84,6 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
                                                   didFailToLoadAdWithError: MAXPreBidErrors[adUnitID] ?? NSError(domain: MAXAdRequest.ADS_DOMAIN, code: 0, userInfo: [:]))
             return
         }
-        
-        // only allow pre-bid to be used once
-        MAXPreBids[adUnitID] = nil
         
         // generate interstitial object from the pre-bid,
         // connect delegate and tell MoPub SDK that the interstitial has been loaded
@@ -87,6 +94,7 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
     }
     
     override open func showInterstitial(fromRootViewController rootViewController: UIViewController!) {
+        NSLog("MAX: MAXMoPubInterstitialCustomEvent.showInterstitial()")
         guard let interstitial = MAXInterstitial else {
             NSLog("MAX: interstitial ad was not loaded, calling interstitialCustomEventDidExpire")
             self.delegate.interstitialCustomEventDidExpire(self)

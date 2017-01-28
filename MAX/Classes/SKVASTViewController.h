@@ -60,5 +60,7 @@
 - (void)info;                        // callback to host class for opening a browser to the URL specified in 'clickthrough'
 - (void)close;                       // dismisses a video playing on screen
 - (BOOL)isPlaying;                   // playing state
+- (NSTimeInterval)currentPlaybackTime;  // current playback time
+- (NSURL*)assetURI;                     // current playback asset
 
 @end

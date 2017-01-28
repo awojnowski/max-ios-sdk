@@ -168,7 +168,7 @@ typedef enum {
             return;
         }
         
-        self.eventProcessor = [[SKVASTEventProcessor alloc] initWithTrackingEvents:[vastModel trackingEvents] withDelegate:_delegate];
+        self.eventProcessor = [[SKVASTEventProcessor alloc] initWithTrackingEvents:[vastModel trackingEvents] withViewController:self withDelegate:_delegate];
         impressions = [vastModel impressions];
         vastErrors = [vastModel errors];
         self.clickThrough = [[vastModel clickThrough] url];
@@ -753,6 +753,15 @@ typedef enum {
 - (BOOL)isPlaying
 {
     return isPlaying;
+}
+
+- (NSTimeInterval)currentPlaybackTime
+{
+    return self.moviePlayer.currentPlaybackTime;
+}
+
+- (NSURL*)assetURI {
+    return self.moviePlayer.contentURL;
 }
 
 - (void)showAndPlayVideo

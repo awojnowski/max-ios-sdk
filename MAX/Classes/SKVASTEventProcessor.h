@@ -23,7 +23,7 @@ typedef enum {
 
 @interface SKVASTEventProcessor : NSObject
 
-- (id)initWithTrackingEvents:(NSDictionary *)trackingEvents withDelegate:(id<SKVASTViewControllerDelegate>)delegate;    // designated initializer, uses tracking events stored in VASTModel
+- (id)initWithTrackingEvents:(NSDictionary *)trackingEvents withViewController:(SKVASTViewController*)vastVC withDelegate:(id<SKVASTViewControllerDelegate>)delegate;    // designated initializer, uses tracking events stored in VASTModel
 - (void)trackEvent:(SKVASTEvent)vastEvent;                       // sends the given VASTEvent
 - (void)sendVASTUrlsWithId:(NSArray *)vastUrls;                // sends the set of http requests to supplied URLs, used for Impressions, ClickTracking, and Errors.
 - (void)trackError:(SKVASTError)vastError withVASTUrls:(NSArray*)vastUrls;

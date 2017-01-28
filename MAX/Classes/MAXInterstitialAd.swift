@@ -76,7 +76,7 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     }
     
     open func vastTrackingEvent(_ eventName: String!) {
-        NSLog("MAX: vastTrackingEvent(\(eventName)")
+        NSLog("MAX: vastTrackingEvent(\(eventName!))")
         if eventName == "close" {
             self.parent.delegate?.interstitialAdWillClose(self.parent)
         }
@@ -89,7 +89,7 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     open func vastOpenBrowse(withUrl vastVC: SKVASTViewController!, url: URL!) {
         self.parent.delegate?.interstitialAdDidClick(self.parent)
         vastVC.dismiss(animated: false) {
-            MAXLinkHandler().openURL(vastVC.parent!, url: url, completion: nil)
+            MAXLinkHandler().openURL(vastVC, url: url, completion: nil)
         }
         vastVC.close()
     }

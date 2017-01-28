@@ -13,6 +13,7 @@
 @interface SKVASTEventProcessor()
 
 @property(nonatomic, strong) NSDictionary *trackingEvents;
+@property(nonatomic, strong) SKVASTViewController *vastVC;
 @property(nonatomic, strong) id<SKVASTViewControllerDelegate> delegate;
 
 @end
@@ -21,11 +22,12 @@
 @implementation SKVASTEventProcessor
 
 // designated initializer
-- (id)initWithTrackingEvents:(NSDictionary *)trackingEvents withDelegate:(id<SKVASTViewControllerDelegate>)delegate
+- (id)initWithTrackingEvents:(NSDictionary *)trackingEvents withViewController:(SKVASTViewController *)vastVC withDelegate:(id<SKVASTViewControllerDelegate>)delegate
 {
     self = [super init];
     if (self) {
         self.trackingEvents = trackingEvents;
+        self.vastVC = vastVC;
         self.delegate = delegate;
     }
     return self;
@@ -177,6 +179,36 @@
 
 - (void)sendTrackingRequest:(NSURL *)trackingURL
 {
+    NSMutableString *URLString = [[trackingURL absoluteString] mutableCopy];
+
+    NSTimeInterval timeOffset = self.vastVC.currentPlaybackTime;
+    if (timeOffset >= 0) {
+        NSDateComponentsFormatter* formatter = [[NSDateComponentsFormatter alloc] init];
+        formatter.unitsStyle = NSDateComponentsFormatterUnitsStylePositional;
+        formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+        formatter.allowedUnits = NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+        
+        NSString *timeOffsetString = [formatter stringFromTimeInterval:timeOffset];
+        [URLString replaceOccurrencesOfString:@"[CONTENTPLAYHEAD]" withString:timeOffsetString options:0 range:NSMakeRange(0, [URLString length])];
+        [URLString replaceOccurrencesOfString:@"%5BCONTENTPLAYHEAD%5D" withString:timeOffsetString options:0 range:NSMakeRange(0, [URLString length])];
+    }
+    
+    NSString *assetURI = [self.vastVC.assetURI absoluteString];
+    if (assetURI) {
+        [URLString replaceOccurrencesOfString:@"[ASSETURI]" withString:assetURI options:0 range:NSMakeRange(0, [URLString length])];
+        [URLString replaceOccurrencesOfString:@"%5BASSETURI%5D" withString:assetURI options:0 range:NSMakeRange(0, [URLString length])];
+    }
+    
+    NSString *cachebuster = [NSString stringWithFormat:@"%u", arc4random() % 90000000 + 10000000];
+    [URLString replaceOccurrencesOfString:@"[CACHEBUSTING]" withString:cachebuster options:0 range:NSMakeRange(0, [URLString length])];
+    [URLString replaceOccurrencesOfString:@"%5BCACHEBUSTING%5D" withString:cachebuster options:0 range:NSMakeRange(0, [URLString length])];
+
+    NSString *timestamp = [[[NSISO8601DateFormatter alloc] init] stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
+    [URLString replaceOccurrencesOfString:@"[TIMESTAMP]" withString:timestamp options:0 range:NSMakeRange(0, [URLString length])];
+    [URLString replaceOccurrencesOfString:@"%5BTIMESTAMP%5D" withString:timestamp options:0 range:NSMakeRange(0, [URLString length])];
+    
+    trackingURL = [NSURL URLWithString:URLString];
+    
     dispatch_queue_t sendTrackRequestQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(sendTrackRequestQueue, ^{
         NSURLRequest* trackingURLrequest = [ NSURLRequest requestWithURL:trackingURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:1.0];
