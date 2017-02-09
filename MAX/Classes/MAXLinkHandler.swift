@@ -1,10 +1,6 @@
 
 //
 //  MAXLinkHandler.swift
-//  MoVideo
-//
-//  Created by Edison Wang on 12/4/15.
-//  Copyright © 2015 MoLabs Inc. All rights reserved.
 //
 
 import Foundation

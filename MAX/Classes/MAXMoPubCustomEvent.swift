@@ -1,8 +1,6 @@
 //
 //  MAXMoPubCustomEvent.swift
 //
-//  Copyright © 2016 MoLabs Inc. All rights reserved.
-//
 
 import Foundation
 import MAX

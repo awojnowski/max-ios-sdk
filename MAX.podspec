@@ -16,23 +16,15 @@ giving you the ability to work with multiple programmatic buyers and exchanges i
 point in your existing waterfall.
                        DESC
 
-  s.homepage         = 'https://github.com/MoLabsInc/MAX'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://maxads.co'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Jim Payne' => 'jim@molabs.com' }
-  s.source           = { :git => 'git@github.com:MoLabsInc/MAX.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-	
+  s.author           = { 'MAX' => 'hello@maxads.co' }
+  s.source           = { :git => 'git@github.com:MAXAds/MAX.git', :tag => s.version.to_s }
+
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'MAX/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'MAX' => ['MAX/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'mopub-ios-sdk', '~> 4.10'
 
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }

@@ -7,13 +7,9 @@ import UIKit
 import MAX
 import MoPub
 
-// MAX account: jim@molabs.com
-//
 let MAX_FULLSCREEN_ADUNIT_ID = "ag9zfm1heGFkcy0xNTY1MTlyEwsSBkFkVW5pdBiAgICA2uOGCgw"
 let MAX_BANNER_ADUNIT_ID = "ag9zfm1heGFkcy0xNTY1MTlyEwsSBkFkVW5pdBiAgICAvKGCCQw"
 
-// MoPub account: muyexcellente@mailinator.com
-//
 let MOPUB_FULLSCREEN_ADUNIT_ID = "9033f69dca454f1fadb7f59ef0a24562"
 let MOPUB_BANNER_ADUNIT_ID = "92cfc1c922f9490c8d7badf62ac8b33f"
 
