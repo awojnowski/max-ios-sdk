@@ -1,6 +1,6 @@
 PODS:
   - MAX (0.1.0):
-    - mopub-ios-sdk (~> 4.10)
+    - mopub-ios-sdk (~> 4.11.1)
   - mopub-ios-sdk (4.11.1):
     - mopub-ios-sdk/MoPubSDK (= 4.11.1)
   - mopub-ios-sdk/MoPubSDK (4.11.1)
@@ -13,7 +13,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MAX: 44625e2c0829267a2834ae3dc78f6d8f4749f4a3
+  MAX: 873183a4f25588805c877a37c2c832da71cd8865
   mopub-ios-sdk: 099068378872b60ae5be882dbcfbaa3a8a2b1c36
 
 PODFILE CHECKSUM: 2a1fd5e8648ff39cb95af22c402c218ccec223ca

@@ -16,7 +16,7 @@ giving you the ability to work with multiple programmatic buyers and exchanges i
 point in your existing waterfall.
                        DESC
 
-  s.homepage         = 'https://maxads.co'
+  s.homepage         = 'http://maxads.co'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'MAX' => 'hello@maxads.co' }
   s.source           = { :git => 'git@github.com:MAXAds/MAX.git', :tag => s.version.to_s }
@@ -25,7 +25,7 @@ point in your existing waterfall.
 
   s.source_files = 'MAX/Classes/**/*'
   
-  s.dependency 'mopub-ios-sdk', '~> 4.10'
+  s.dependency 'mopub-ios-sdk', '~> 4.11.1'
 
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   s.libraries = 'xml2'

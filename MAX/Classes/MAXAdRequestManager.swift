@@ -37,7 +37,7 @@ public class MAXAdRequestManager {
         // App lifecycle: when the app is in the background, we will automatically ignore a 
         // request to refresh, so when the app comes back to the foreground, we need to resurrect the timer
         // so that the refresh begins again.
-        let foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) {
+        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) {
             notification in
             if self._shouldRefresh {
                 NSLog("MAX: got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
@@ -73,7 +73,7 @@ public class MAXAdRequestManager {
                 self._errorCount += 1
                 
                 // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
-                NSLog("MAX: Error occurred, retry attempt \(self._errorCount)")
+                NSLog("MAX: Error occurred \(adError), retry attempt \(self._errorCount)")
                 self.scheduleTimerWithInterval(min(pow(ERROR_RETRY_BASE, self._errorCount), MAX_ERROR_RETRY))
             }
         }

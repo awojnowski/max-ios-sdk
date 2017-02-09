@@ -13,7 +13,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
     var session : Foundation.URLSession? = nil
     var sessionLastURL : URL?
     
-    public override init() {
+    override init() {
         super.init()
         self.session = Foundation.URLSession(configuration: URLSessionConfiguration.default,
                                     delegate: self,
@@ -32,7 +32,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
     // Opens a URL. This method will detect if a URL redirects to an iTunes page, 
     // in which case it will open the URL using the system call in UIApplication.
     //
-    open func openURL(_ viewController: UIViewController?,
+    func openURL(_ viewController: UIViewController?,
                         url: URL,
                         completion: (()->Void)?) {
         guard USE_STORE_KIT else {
@@ -45,7 +45,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
             
             guard let viewController = viewController,
                 let sessionLastURL = self.sessionLastURL,
-                let iTunesHost = sessionLastURL.host?.range(of: "itunes.apple.com"),
+                let _ = sessionLastURL.host?.range(of: "itunes.apple.com"),
                 let match = sessionLastURL.path.range(of: "/id(\\d+)", options: .regularExpression) else {
                     UIApplication.shared.openURL(url)
                     return

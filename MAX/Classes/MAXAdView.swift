@@ -90,26 +90,26 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     //
     
-    open func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
+    fileprivate func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
         NSLog("MAX: mraidViewAdReady")
         parent.trackImpression()
         parent.delegate?.adViewDidLoad(parent)
     }
-    open func mraidViewAdFailed(_ mraidView: SKMRAIDView!) {
+    fileprivate func mraidViewAdFailed(_ mraidView: SKMRAIDView!) {
         NSLog("MAX: mraidViewAdFailed")
         parent.delegate?.adViewDidFailWithError(parent, error: nil)
     }
-    open func mraidViewDidClose(_ mraidView: SKMRAIDView!) {
+    fileprivate func mraidViewDidClose(_ mraidView: SKMRAIDView!) {
         NSLog("MAX: mraidViewDidClose")
     }
-    open func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
+    fileprivate func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
         NSLog("MAX: mraidViewWillExpand")
     }
-    open func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
+    fileprivate func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
         NSLog("MAX: mraidViewNavigate \(url)")
         parent.click(url)
     }
-    open func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
+    fileprivate func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
         NSLog("MAX: mraidViewShouldResize")
         return false
     }
@@ -118,7 +118,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     //
     
-    open func mraidServiceOpenBrowser(withUrlString url: String) {
+    fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
         NSLog("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
         if let url = URL(string: url) {
             parent.click(url)

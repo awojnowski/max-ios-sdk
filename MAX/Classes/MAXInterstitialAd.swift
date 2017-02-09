@@ -70,23 +70,23 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     //
     //
     
-    open func vastReady(_ vastVC: SKVASTViewController!) {
+    fileprivate func vastReady(_ vastVC: SKVASTViewController!) {
         self.parent.adResponse.trackImpression()
         vastVC.play()
     }
     
-    open func vastTrackingEvent(_ eventName: String!) {
+    fileprivate func vastTrackingEvent(_ eventName: String!) {
         NSLog("MAX: vastTrackingEvent(\(eventName!))")
         if eventName == "close" {
             self.parent.delegate?.interstitialAdWillClose(self.parent)
         }
     }
     
-    open func vastDidDismissFullScreen(_ vastVC: SKVASTViewController!) {
+    fileprivate func vastDidDismissFullScreen(_ vastVC: SKVASTViewController!) {
         self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
-    open func vastOpenBrowse(withUrl vastVC: SKVASTViewController!, url: URL!) {
+    fileprivate func vastOpenBrowse(withUrl vastVC: SKVASTViewController!, url: URL!) {
         self.parent.delegate?.interstitialAdDidClick(self.parent)
         vastVC.dismiss(animated: false) {
             MAXLinkHandler().openURL(vastVC, url: url, completion: nil)
@@ -107,28 +107,28 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     //
     //
     
-    open func mraidInterstitialAdReady(_ mraidInterstitial: SKMRAIDInterstitial!) {
+    fileprivate func mraidInterstitialAdReady(_ mraidInterstitial: SKMRAIDInterstitial!) {
         if mraidInterstitial.isAdReady() {
             mraidInterstitial.show()
             self.parent.adResponse.trackImpression()
         }
     }
     
-    open func mraidInterstitialDidHide(_ mraidInterstitial: SKMRAIDInterstitial!) {
+    fileprivate func mraidInterstitialDidHide(_ mraidInterstitial: SKMRAIDInterstitial!) {
         NSLog("MAX: mraidInterstitialDidHide")
         self.parent.delegate?.interstitialAdWillClose(self.parent)
         self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
-    open func mraidInterstitialAdFailed(_ mraidInterstitial: SKMRAIDInterstitial!) {
+    fileprivate func mraidInterstitialAdFailed(_ mraidInterstitial: SKMRAIDInterstitial!) {
         NSLog("MAX: mraidInterstitialAdFailed")
     }
     
-    open func mraidInterstitialWillShow(_ mraidInterstitial: SKMRAIDInterstitial!) {
+    fileprivate func mraidInterstitialWillShow(_ mraidInterstitial: SKMRAIDInterstitial!) {
         NSLog("MAX: mraidInterstitialWillShow")
     }
     
-    open func mraidInterstitialNavigate(_ mraidInterstitial: SKMRAIDInterstitial!, with url: URL!) {
+    fileprivate func mraidInterstitialNavigate(_ mraidInterstitial: SKMRAIDInterstitial!, with url: URL!) {
         NSLog("MAX: mraidInterstitialNavigate")
     }
     
@@ -136,7 +136,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     //
     //
     
-    open func mraidServiceOpenBrowser(withUrlString url: String) {
+    fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
         NSLog("MAX: mraidServiceOpenBrowserWithUrlString")
         MAXLinkHandler().openURL(parent.rootViewController!, url: URL(string: url)!, completion: nil)
     }

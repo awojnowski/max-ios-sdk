@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "summary": "Parallel bidding wrapper for mobile ads.",
   "description": "MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, \ngiving you the ability to work with multiple programmatic buyers and exchanges in parallel at any \npoint in your existing waterfall.",
-  "homepage": "https://maxads.co",
+  "homepage": "http://maxads.co",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -21,7 +21,7 @@
   "source_files": "MAX/Classes/**/*",
   "dependencies": {
     "mopub-ios-sdk": [
-      "~> 4.10"
+      "~> 4.11.1"
     ]
   },
   "xcconfig": {

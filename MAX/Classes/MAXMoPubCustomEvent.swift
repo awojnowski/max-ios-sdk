@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import MAX
 import MoPub
 
 @objc(MAXMoPubBannerCustomEvent)
