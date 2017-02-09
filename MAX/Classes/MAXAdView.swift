@@ -50,16 +50,16 @@ open class MAXAdView : UIView {
                 self.addSubview(self._mraidView)
                 break
             } else {
-                NSLog("MAX: malformed response, HTML creative type but no markup... showing empty")
+                MAXLog.error("MAX: malformed response, HTML creative type but no markup... showing empty")
                 self.delegate?.adViewDidLoad(self)
                 break
             }
         case "empty":
-            NSLog("MAX: empty ad response, nothing to show")
+            MAXLog.debug("MAX: empty ad response, nothing to show")
             self.delegate?.adViewDidLoad(self)
             break
         default:
-            NSLog("MAX: unsupported ad creative_type=\(self.adResponse.creativeType)")
+            MAXLog.error("MAX: unsupported ad creative_type=\(self.adResponse.creativeType)")
             self.delegate?.adViewDidFailWithError(self, error: nil)
             break
         }
@@ -91,26 +91,26 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     
     fileprivate func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
-        NSLog("MAX: mraidViewAdReady")
+        MAXLog.debug("MAX: mraidViewAdReady")
         parent.trackImpression()
         parent.delegate?.adViewDidLoad(parent)
     }
     fileprivate func mraidViewAdFailed(_ mraidView: SKMRAIDView!) {
-        NSLog("MAX: mraidViewAdFailed")
+        MAXLog.debug("MAX: mraidViewAdFailed")
         parent.delegate?.adViewDidFailWithError(parent, error: nil)
     }
     fileprivate func mraidViewDidClose(_ mraidView: SKMRAIDView!) {
-        NSLog("MAX: mraidViewDidClose")
+        MAXLog.debug("MAX: mraidViewDidClose")
     }
     fileprivate func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
-        NSLog("MAX: mraidViewWillExpand")
+        MAXLog.debug("MAX: mraidViewWillExpand")
     }
     fileprivate func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
-        NSLog("MAX: mraidViewNavigate \(url)")
+        MAXLog.debug("MAX: mraidViewNavigate \(url)")
         parent.click(url)
     }
     fileprivate func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
-        NSLog("MAX: mraidViewShouldResize")
+        MAXLog.debug("MAX: mraidViewShouldResize")
         return false
     }
     
@@ -119,7 +119,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDeleg
     //
     
     fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
-        NSLog("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
+        MAXLog.debug("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
         if let url = URL(string: url) {
             parent.click(url)
         }

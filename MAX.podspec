@@ -26,6 +26,7 @@ point in your existing waterfall.
   s.source_files = 'MAX/Classes/**/*'
   
   s.dependency 'mopub-ios-sdk', '~> 4.11.1'
+  s.dependency 'XCGLogger', '~> 4.0.0'
 
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   s.libraries = 'xml2'

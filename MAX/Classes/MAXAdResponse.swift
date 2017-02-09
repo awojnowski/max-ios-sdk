@@ -73,7 +73,6 @@ open class MAXAdResponse {
     }
     
     private func track(_ url: URL) {
-        NSLog("MAXAdResponse.track() => \(url)")
         MAXAdResponseURLSession.dataTask(with: url).resume()
     }
     

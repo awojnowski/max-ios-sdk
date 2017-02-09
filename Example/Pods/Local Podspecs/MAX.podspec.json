@@ -22,6 +22,9 @@
   "dependencies": {
     "mopub-ios-sdk": [
       "~> 4.11.1"
+    ],
+    "XCGLogger": [
+      "~> 4.0.0"
     ]
   },
   "xcconfig": {

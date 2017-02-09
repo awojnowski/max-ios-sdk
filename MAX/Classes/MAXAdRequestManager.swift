@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import XCGLogger
 
 class Block<T> {
     let f : T
@@ -12,6 +13,24 @@ class Block<T> {
 }
 
 let ERROR_RETRY_BASE = 2.0, MAX_ERROR_RETRY = 30.0
+
+//
+// Centralized MAX logging
+// By default, only ERROR messages are logged to the console. To see debug
+// messages, call MAXLogLevelDebug()
+//
+let MAXLog: XCGLogger = {
+    let log = XCGLogger(identifier: "MAX", includeDefaultDestinations: true)
+    log.setup(level: .error)
+    return log
+}()
+public func MAXLogLevelDebug() {
+    MAXLog.setup(level: .debug,
+                 showThreadName: false,
+                 showLevel: true,
+                 showFileNames: true,
+                 showLineNumbers: true)
+}
 
 //
 // Use a MAXAdRequestManager to coordinate refreshing static ad units (banners) 
@@ -40,7 +59,7 @@ public class MAXAdRequestManager {
         let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) {
             notification in
             if self._shouldRefresh {
-                NSLog("MAX: got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
+                MAXLog.debug("MAX: got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
                 self.scheduleTimerWithInterval(0)
             }
         }
@@ -73,7 +92,7 @@ public class MAXAdRequestManager {
                 self._errorCount += 1
                 
                 // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
-                NSLog("MAX: Error occurred \(adError), retry attempt \(self._errorCount)")
+                MAXLog.error("MAX: Error occurred \(adError), retry attempt \(self._errorCount)")
                 self.scheduleTimerWithInterval(min(pow(ERROR_RETRY_BASE, self._errorCount), MAX_ERROR_RETRY))
             }
         }
@@ -93,7 +112,7 @@ public class MAXAdRequestManager {
     }
     
     private func scheduleTimerWithInterval(_ interval: Double) {
-        NSLog("MAX: Scheduling auto-refresh in \(interval) seconds")
+        MAXLog.debug("MAX: Scheduling auto-refresh in \(interval) seconds")
         DispatchQueue.main.async(execute: {
             // if there is an existing timer, we first cancel it
             if let timer = self._timer {
@@ -117,7 +136,7 @@ public class MAXAdRequestManager {
             // in this case, the user has stopped refresh for this ad manager explicitly,
             // or the application is backgrounded, in which case we should not attempt to continue
             // loading new ads
-            NSLog("MAX: auto-refresh cancelled, app is not active")
+            MAXLog.debug("MAX: auto-refresh cancelled, app is not active")
             return
         }
 

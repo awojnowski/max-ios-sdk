@@ -49,10 +49,10 @@ open class MAXInterstitialAd {
             case "native":
                 break
             case "empty":
-                NSLog("MAX: empty ad response, nothing to show")
+                MAXLog.debug("MAX: empty ad response, nothing to show")
                 break
             default:
-                NSLog("MAX: unsupported ad creative_type=\(self.adResponse.creativeType)")
+                MAXLog.error("MAX: unsupported ad creative_type=\(self.adResponse.creativeType)")
                 break
         }
     }
@@ -76,7 +76,7 @@ private class VASTDelegate : NSObject, SKVASTViewControllerDelegate {
     }
     
     fileprivate func vastTrackingEvent(_ eventName: String!) {
-        NSLog("MAX: vastTrackingEvent(\(eventName!))")
+        MAXLog.debug("MAX: vastTrackingEvent(\(eventName!))")
         if eventName == "close" {
             self.parent.delegate?.interstitialAdWillClose(self.parent)
         }
@@ -115,21 +115,21 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     }
     
     fileprivate func mraidInterstitialDidHide(_ mraidInterstitial: SKMRAIDInterstitial!) {
-        NSLog("MAX: mraidInterstitialDidHide")
+        MAXLog.debug("MAX: mraidInterstitialDidHide")
         self.parent.delegate?.interstitialAdWillClose(self.parent)
         self.parent.delegate?.interstitialAdDidClose(self.parent)
     }
     
     fileprivate func mraidInterstitialAdFailed(_ mraidInterstitial: SKMRAIDInterstitial!) {
-        NSLog("MAX: mraidInterstitialAdFailed")
+        MAXLog.debug("MAX: mraidInterstitialAdFailed")
     }
     
     fileprivate func mraidInterstitialWillShow(_ mraidInterstitial: SKMRAIDInterstitial!) {
-        NSLog("MAX: mraidInterstitialWillShow")
+        MAXLog.debug("MAX: mraidInterstitialWillShow")
     }
     
     fileprivate func mraidInterstitialNavigate(_ mraidInterstitial: SKMRAIDInterstitial!, with url: URL!) {
-        NSLog("MAX: mraidInterstitialNavigate")
+        MAXLog.debug("MAX: mraidInterstitialNavigate")
     }
     
     //
@@ -137,7 +137,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     //
     
     fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
-        NSLog("MAX: mraidServiceOpenBrowserWithUrlString")
+        MAXLog.debug("MAX: mraidServiceOpenBrowserWithUrlString")
         MAXLinkHandler().openURL(parent.rootViewController!, url: URL(string: url)!, completion: nil)
     }
 

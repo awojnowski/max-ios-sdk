@@ -25,7 +25,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
     func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
         self.sessionLastURL = request.url
         
-        NSLog("Redirecting to \(sessionLastURL)")
+        MAXLog.debug("Redirecting to \(self.sessionLastURL)")
         completionHandler(request)
     }
     
@@ -41,7 +41,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
         }
         
         let task = session?.dataTask(with: url, completionHandler: { (data, response, error) in
-            NSLog("After redirects, last URL was \(self.sessionLastURL)")
+            MAXLog.debug("After redirects, last URL was \(self.sessionLastURL)")
             
             guard let viewController = viewController,
                 let sessionLastURL = self.sessionLastURL,
@@ -63,7 +63,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
         store.delegate = self
         store.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier : storeKitIdentifier], completionBlock: { (result, error) -> Void in
             if let error = error {
-                NSLog("\(error.localizedDescription)")
+                MAXLog.debug("\(error.localizedDescription)")
                 completion?()
             } else {
                 vc.present(store, animated: true, completion: completion)
