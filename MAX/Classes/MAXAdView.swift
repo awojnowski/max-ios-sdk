@@ -7,7 +7,7 @@
 import Foundation
 
 public protocol MAXAdViewDelegate {
-    var viewControllerForPresentingModalView :  UIViewController { get }
+    func viewControllerForPresentingModalView() -> UIViewController!
     
     func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?)
     func adViewDidClick(_ adView: MAXAdView)
@@ -46,7 +46,7 @@ open class MAXAdView : UIView {
                                               supportedFeatures: [],
                                               delegate: self._mraidDelegate,
                                               serviceDelegate: self._mraidDelegate,
-                                              rootViewController: self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController)
+                                              rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController)
                 self.addSubview(self._mraidView)
                 break
             } else {
@@ -72,7 +72,7 @@ open class MAXAdView : UIView {
     
     func click(_ url: URL) {
         self.delegate?.adViewDidClick(self)
-        let vc = self.delegate?.viewControllerForPresentingModalView ?? self.window?.rootViewController
+        let vc = self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
         MAXLinkHandler().openURL(vc, url: url) {
             self.delegate?.adViewDidFinishHandlingClick(self)
         }

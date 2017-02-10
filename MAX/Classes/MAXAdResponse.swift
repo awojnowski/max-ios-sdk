@@ -10,6 +10,8 @@ import StoreKit
 let MAXAdResponseURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
 
 open class MAXAdResponse {
+    open var data : Data!
+    
     open var createdAt : Date!
     open var response : NSDictionary!
     
@@ -27,6 +29,7 @@ open class MAXAdResponse {
     }
     
     public init(data: Data) throws {
+        self.data = data
         self.createdAt = Date()
         self.response = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
         
