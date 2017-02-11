@@ -1,6 +1,0 @@
-framework module MAX {
-  umbrella header "MAX-umbrella.h"
-
-  export *
-  module * { export * }
-}
