@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MAX'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'Parallel bidding wrapper for mobile ads.'
   s.description      = <<-DESC
 MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, 
@@ -25,7 +25,6 @@ point in your existing waterfall.
 
   s.source_files = 'MAX/Classes/**/*'
   
-  s.dependency 'mopub-ios-sdk', '~> 4.11.1'
   s.dependency 'XCGLogger', '~> 4.0.0'
 
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
