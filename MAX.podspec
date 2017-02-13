@@ -23,10 +23,9 @@ point in your existing waterfall.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'MAX/Classes/**/*'
+  s.source_files = 'MAX/**/*'
+  s.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => 'MAX/SKFramework', 'MODULEMAP_PRIVATE_FILE' => 'MAX/SKFramework.private.modulemap'}
   
-  s.dependency 'XCGLogger', '~> 4.0.0'
-
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   s.libraries = 'xml2'
 

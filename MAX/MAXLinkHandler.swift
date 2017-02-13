@@ -57,7 +57,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
         task?.resume()
     }
     
-    func presentStoreKit(_ vc: UIViewController, storeKitIdentifier: String, completion: (()->Void)?) -> Bool {
+    func presentStoreKit(_ vc: UIViewController, storeKitIdentifier: String, completion: (()->Void)?) {
         // Open the AppStore that handles the URL scheme in question
         let store = SKStoreProductViewController()
         store.delegate = self
@@ -70,6 +70,5 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
                 completion?()
             }
         })
-        return true
     }
 }

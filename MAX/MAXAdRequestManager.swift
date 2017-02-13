@@ -121,7 +121,7 @@ public class MAXAdRequestManager {
             return
         }
 
-        self.refresh()
+        let _ = self.refresh()
     }
 
 

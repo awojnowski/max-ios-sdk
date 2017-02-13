@@ -66,7 +66,7 @@ static const float kControlsToobarHeight = 44.0;
         playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:(self) action:@selector(pausePlay:)];
         fixedPause = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixedPause.width = kControlsToobarFixedPauseWidth;
-        playbackTimeLabel = [[UIBarButtonItem alloc] initWithCustomView:nil];
+        playbackTimeLabel = [[UIBarButtonItem alloc] init];
         flexPlayback = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         infoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:(self) action:@selector(info:)];
         fixedInfo = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -191,11 +191,6 @@ static const float kControlsToobarHeight = 44.0;
     int remainingSeconds = (int)(totalDuration - playerSeconds);
     
     if (playerSeconds >= kSkipOffset) {
-        int totalSeconds =  (int)totalDuration % 60;
-        int totalMinutes = ((int)totalDuration / 60) % 60;
-        int playedSeconds =  (int)playerSeconds % 60;
-        int playedMinutes = (int)(playerSeconds / 60) % 60;
-        // playbackTimeLabel.title = [NSString stringWithFormat:@"%02d:%02d / %02d:%02d",playedMinutes, playedSeconds, totalMinutes, totalSeconds];
         playbackTimeLabel.title = [NSString stringWithFormat:@"Swipe up for more... 00:%02d", remainingSeconds];
 
         stopButton.enabled = YES;

@@ -86,6 +86,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E87B28561E4FDF04007EE65C /* MAX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MAX.xcconfig; sourceTree = "<group>"; };
 		E8E21AC51E4E31D0003BE3BD /* MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E21AC81E4E31D0003BE3BD /* MAX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAX.h; sourceTree = "<group>"; };
 		E8E21AC91E4E31D0003BE3BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -201,6 +202,7 @@
 		E8E21AC71E4E31D0003BE3BD /* MAX */ = {
 			isa = PBXGroup;
 			children = (
+				E87B28561E4FDF04007EE65C /* MAX.xcconfig */,
 				E8E21C171E4E683D003BE3BD /* SKFramework.private.modulemap */,
 				E8E21BA91E4E67C2003BE3BD /* SKFramework */,
 				E8E21AFD1E4E6112003BE3BD /* MAXAdRequest.swift */,

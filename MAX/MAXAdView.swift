@@ -42,7 +42,7 @@ open class MAXAdView : UIView {
         case "html":
             if let htmlData = self.adResponse.creative {
                 self._mraidView = SKMRAIDView(frame: self.frame,
-                                              withHtmlData: self.adResponse.creative,
+                                              withHtmlData: htmlData,
                                               withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
                                               supportedFeatures: [],
                                               delegate: self._mraidDelegate,

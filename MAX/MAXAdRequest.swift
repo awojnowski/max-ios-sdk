@@ -54,7 +54,7 @@ public class MAXAdRequest {
             "lmt": ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true,
             "vendor_id": UIDevice.current.identifierForVendor?.uuidString ?? "",
             "tz": NSTimeZone.system.abbreviation() ?? "",
-            "locale": Locale.current.identifier ?? "",
+            "locale": Locale.current.identifier,
             "orientation": UIDeviceOrientationIsPortrait(UIDevice.current.orientation) ? "portrait" :
                 (UIDeviceOrientationIsLandscape(UIDevice.current.orientation) ? "landscape" : "none"),
             "w": floor(UIScreen.main.bounds.size.width),
