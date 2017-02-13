@@ -24,7 +24,8 @@ point in your existing waterfall.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'MAX/**/*'
-  s.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => 'MAX/SKFramework', 'MODULEMAP_PRIVATE_FILE' => 'MAX/SKFramework.private.modulemap'}
+  s.resources = 'MAX/SKFramework.private.modulemap', 'MAX/SKFramework'
+  s.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/MAX/MAX/SKFramework', 'MODULEMAP_PRIVATE_FILE' => '$(SRCROOT)/MAX/MAX/SKFramework.private.modulemap'}
   
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   s.libraries = 'xml2'
