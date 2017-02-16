@@ -20,7 +20,7 @@ let ERROR_RETRY_BASE = 2.0, MAX_ERROR_RETRY = 30.0
 // 2) Auto-retry of failed ad requests
 // 3) Lifecycle management (e.g. automatically load a new ad when app is brought to foreground) 
 //
-public class MAXAdRequestManager {
+public class MAXAdRequestManager : NSObject {
     public var lastRequest : MAXAdRequest?
     
     private var _adUnitID : String
@@ -33,7 +33,7 @@ public class MAXAdRequestManager {
     public init(adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         self._adUnitID = adUnitID
         self._completion = completion
-        
+        super.init()
         // App lifecycle: when the app is in the background, we will automatically ignore a 
         // request to refresh, so when the app comes back to the foreground, we need to resurrect the timer
         // so that the refresh begins again.

@@ -21,14 +21,18 @@ public func MAXLogLevelDebug() {
     MAXLog.setLogLevelDebug()
 }
 
-public class MAXLogger {
+public class MAXLogger : NSObject {
     var identifier: String
     var logLevelDebug: Bool = false
+    
+    @objc
+    public static var logger = MAXLog
     
     public init(identifier: String) {
         self.identifier = identifier
     }
     
+    @objc
     public func setLogLevelDebug() {
         self.logLevelDebug = true
     }

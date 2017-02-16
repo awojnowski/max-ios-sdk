@@ -8,7 +8,8 @@ import Foundation
 
 let MAXAdResponseURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
 
-open class MAXAdResponse : CustomStringConvertible {
+
+open class MAXAdResponse : NSObject {
     private let data : Data
     private let response : NSDictionary
     
@@ -18,9 +19,9 @@ open class MAXAdResponse : CustomStringConvertible {
     let creativeType : String
     var creative : String?
     
-    public var description: String { return String(describing: response) }
+    open override var description: String { return String(describing: response) }
     
-    public init() {
+    public override init() {
         self.data = Data()
         self.response = [:]
         self.preBidKeywords = ""
