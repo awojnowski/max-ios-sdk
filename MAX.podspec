@@ -19,8 +19,8 @@ point in your existing waterfall.
 
   s.ios.deployment_target = '8.0'
 
-  s.default_subspec = 'base'
-  s.subspec 'base' do |d| 
+  s.default_subspec = 'core'
+  s.subspec 'core' do |d| 
 	#	 
 	# No SSP 
 	#
@@ -34,6 +34,7 @@ point in your existing waterfall.
   end
 
   s.subspec 'mopub' do |m| 
+	m.dependency 'MAX/core'
 	m.dependency 'mopub-ios-sdk', '~>4.11.1'
 	m.source_files = 'Adapters/mopub/*'
   end
