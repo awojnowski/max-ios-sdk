@@ -35,6 +35,8 @@ If you plan to use the MoPub integration, use the following CocoaPod subspec:
 pod "MAX/mopub", "~>0.2.2"
 ```
 
+Then, copy `MAXMoPubCustomEvent.swift` from the `Pods/Pods/MAX/mopub` group into your main project. 
+
 ## Integration Overview
 
 MAX is a simple parallel bidding mechanism, which works by running an auction before you call your
