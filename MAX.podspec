@@ -4,7 +4,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MAX'
-  s.version          = '0.2.3'
+  s.version          = '0.2.4'
   s.summary          = 'Parallel bidding wrapper for mobile ads.'
   s.description      = <<-DESC
 MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, 
@@ -22,7 +22,6 @@ point in your existing waterfall.
   s.default_subspec = 'core'
   s.subspec 'core' do |d| 
   	d.source_files = 'MAX/**/*'
-	d.exclude_files = 'MAX/Adapters'
   	d.resources = ['MAX/SKFramework.private.modulemap', 'MAX/SKFramework']
   	d.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/MAX/MAX/SKFramework', 'MODULEMAP_PRIVATE_FILE' => '$(SRCROOT)/MAX/MAX/SKFramework.private.modulemap'}
   	d.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }

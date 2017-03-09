@@ -17,12 +17,11 @@ public protocol MAXAdViewDelegate {
     func adViewWillLogImpression(_ adView: MAXAdView)
 }
 
-open class MAXAdView : UIView {
+open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
     private var adResponse: MAXAdResponse!
     
     open var delegate: MAXAdViewDelegate?
     
-    private var _mraidDelegate: MRAIDDelegate!
     private var _mraidView: SKMRAIDView!
     
     public init(adResponse: MAXAdResponse,
@@ -30,7 +29,6 @@ open class MAXAdView : UIView {
         super.init(frame: CGRect(origin: CGPoint.zero, size: size))
         
         self.adResponse = adResponse
-        self._mraidDelegate = MRAIDDelegate(parent: self)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -45,8 +43,8 @@ open class MAXAdView : UIView {
                                               withHtmlData: htmlData,
                                               withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
                                               supportedFeatures: [],
-                                              delegate: self._mraidDelegate,
-                                              serviceDelegate: self._mraidDelegate,
+                                              delegate: self,
+                                              serviceDelegate: self,
                                               rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController)
                 self.addSubview(self._mraidView)
                 break
@@ -78,51 +76,43 @@ open class MAXAdView : UIView {
             self.delegate?.adViewDidFinishHandlingClick(self)
         }
     }
-}
-
-private class MRAIDDelegate : NSObject, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
-    private var parent : MAXAdView
-    
-    init(parent: MAXAdView) {
-        self.parent = parent
-    }
     
     //
-    //
+    // SKMRAIDViewDelegate
     //
     
-    fileprivate func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
+    public func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdReady")
-        parent.trackImpression()
-        parent.delegate?.adViewDidLoad(parent)
+        self.trackImpression()
+        self.delegate?.adViewDidLoad(self)
     }
-    fileprivate func mraidViewAdFailed(_ mraidView: SKMRAIDView!) {
+    public func mraidViewAdFailed(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdFailed")
-        parent.delegate?.adViewDidFailWithError(parent, error: nil)
+        self.delegate?.adViewDidFailWithError(self, error: nil)
     }
-    fileprivate func mraidViewDidClose(_ mraidView: SKMRAIDView!) {
+    public func mraidViewDidClose(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewDidClose")
     }
-    fileprivate func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
+    public func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewWillExpand")
     }
-    fileprivate func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
+    public func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
         MAXLog.debug("MAX: mraidViewNavigate \(url)")
-        parent.click(url)
+        self.click(url)
     }
-    fileprivate func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
+    public func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
         MAXLog.debug("MAX: mraidViewShouldResize")
         return false
     }
     
     //
-    //
+    // SKMRAIDServiceDelegate
     //
     
-    fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
+    public func mraidServiceOpenBrowser(withUrlString url: String) {
         MAXLog.debug("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
         if let url = URL(string: url) {
-            parent.click(url)
+            self.click(url)
         }
     }
     
