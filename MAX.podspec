@@ -21,23 +21,20 @@ point in your existing waterfall.
 
   s.default_subspec = 'core'
   s.subspec 'core' do |d| 
-	#	 
-	# No SSP 
-	#
-
   	d.source_files = 'MAX/**/*'
 	d.exclude_files = 'MAX/Adapters'
   	d.resources = ['MAX/SKFramework.private.modulemap', 'MAX/SKFramework']
   	d.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/MAX/MAX/SKFramework', 'MODULEMAP_PRIVATE_FILE' => '$(SRCROOT)/MAX/MAX/SKFramework.private.modulemap'}
-  
   	d.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   	d.libraries = 'xml2'
   end
 
-  s.subspec 'mopub' do |m| 
-	m.dependency 'MAX/core'
-	m.dependency 'mopub-ios-sdk', '~>4.11.1'
-	m.source_files = 'MAX/Adapters/mopub/*'
+  s.subspec 'mopub' do |d| 
+  	d.source_files = ['MAX/**/*', 'Adapters/mopub/*']
+  	d.resources = ['MAX/SKFramework.private.modulemap', 'MAX/SKFramework']
+  	d.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/MAX/MAX/SKFramework', 'MODULEMAP_PRIVATE_FILE' => '$(SRCROOT)/MAX/MAX/SKFramework.private.modulemap'}
+  	d.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
+  	d.libraries = 'xml2'
   end
 
 end
