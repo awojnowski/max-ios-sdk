@@ -30,6 +30,7 @@ point in your existing waterfall.
   end
 
   s.subspec 'mopub' do |d| 
+	d.dependency 'mopub-ios-sdk', '~>4.11.1'
   	d.source_files = ['MAX/**/*', 'Adapters/mopub/*']
   	d.resources = ['MAX/SKFramework.private.modulemap', 'MAX/SKFramework']
   	d.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/MAX/MAX/SKFramework', 'MODULEMAP_PRIVATE_FILE' => '$(SRCROOT)/MAX/MAX/SKFramework.private.modulemap'}
