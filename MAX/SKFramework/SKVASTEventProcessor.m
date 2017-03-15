@@ -214,7 +214,11 @@
         NSURLRequest* trackingURLrequest = [ NSURLRequest requestWithURL:trackingURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:1.0];
         NSOperationQueue *senderQueue = [[NSOperationQueue alloc] init];
         [SKLogger debug:@"VAST - Event Processor" withMessage:[NSString stringWithFormat:@"Event processor sending request to url: %@", [trackingURL absoluteString]]];
-        [NSURLConnection sendAsynchronousRequest:trackingURLrequest queue:senderQueue completionHandler:nil];  // Send the request only, no response or errors
+        [NSURLConnection sendAsynchronousRequest:trackingURLrequest
+                                           queue:senderQueue
+                               completionHandler:^(NSURLResponse *_response, NSData *_data, NSError *_error) {
+
+        }];
     });
 }
 

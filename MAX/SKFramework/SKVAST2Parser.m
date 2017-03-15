@@ -113,8 +113,10 @@
                 url = ((NSDictionary *)childArray[0])[@"nodeContent"];
             }
         }
-        vastData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-        return [self parseRecursivelyWithData:vastData depth:(depth + 1)];
+        if (url) {
+            vastData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+            return [self parseRecursivelyWithData:vastData depth:(depth + 1)];
+        }
     }
     
     return VASTErrorNone;
