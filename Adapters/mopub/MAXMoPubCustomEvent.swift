@@ -54,14 +54,12 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
     }
     open func adViewDidClick(_ adView: MAXAdView) {
         MAXLog.debug("MAX: adViewDidClick")
-        self.delegate.bannerCustomEventWillBeginAction(self)
     }
     open func adViewWillLogImpression(_ adView: MAXAdView) {
         MAXLog.debug("MAX: adViewWillLogImpression")
     }
     open func adViewDidFinishHandlingClick(_ adView: MAXAdView) {
         MAXLog.debug("MAX: adViewDidFinishHandlingClick")
-        self.delegate.bannerCustomEventDidFinishAction(self)
         self.delegate.bannerCustomEventWillLeaveApplication(self)
     }
     open func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
