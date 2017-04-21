@@ -37,6 +37,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
                         completion: (()->Void)?) {
         guard USE_STORE_KIT else {
             UIApplication.shared.openURL(url)
+            completion?()
             return
         }
         

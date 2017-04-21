@@ -112,7 +112,6 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     fileprivate func mraidInterstitialAdReady(_ mraidInterstitial: SKMRAIDInterstitial!) {
         if mraidInterstitial.isAdReady() {
             mraidInterstitial.show()
-            self.parent.adResponse.trackImpression()
         }
     }
     
@@ -128,6 +127,7 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     
     fileprivate func mraidInterstitialWillShow(_ mraidInterstitial: SKMRAIDInterstitial!) {
         MAXLog.debug("MAX: mraidInterstitialWillShow")
+        self.parent.adResponse.trackImpression()
     }
     
     fileprivate func mraidInterstitialNavigate(_ mraidInterstitial: SKMRAIDInterstitial!, with url: URL!) {
@@ -140,6 +140,10 @@ private class MRAIDDelegate : NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServ
     
     fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
         MAXLog.debug("MAX: mraidServiceOpenBrowserWithUrlString")
+
+        // This method is called when the MRAID creative requests a native browser to be opened. This is
+        // considered to be a click event
+        self.parent.adResponse.trackClick()
         MAXLinkHandler().openURL(parent.rootViewController!, url: URL(string: url)!, completion: nil)
     }
 

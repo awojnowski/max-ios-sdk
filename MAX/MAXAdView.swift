@@ -49,8 +49,8 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
                 self.addSubview(self._mraidView)
                 break
             } else {
-                MAXLog.error("MAX: malformed response, HTML creative type but no markup... showing empty")
-                self.delegate?.adViewDidLoad(self)
+                MAXLog.error("MAX: malformed response, HTML creative type but no markup... failing")
+                self.delegate?.adViewDidFailWithError(self, error: nil)
                 break
             }
         case "empty":
@@ -69,8 +69,14 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
         self.adResponse.trackImpression()
     }
     
-    func click(_ url: URL) {
+    func trackClick() {
+        self.adResponse.trackClick()
         self.delegate?.adViewDidClick(self)
+    }
+    
+    func click(_ url: URL) {
+        self.trackClick()
+        
         let vc = self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
         MAXLinkHandler().openURL(vc, url: url) {
             self.delegate?.adViewDidFinishHandlingClick(self)
@@ -95,14 +101,19 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
     }
     public func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewWillExpand")
+        
+        // An MRAID expand action is considered to be a click for tracking purposes. 
+        self.trackClick()
     }
     public func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
         MAXLog.debug("MAX: mraidViewNavigate \(url)")
+
+        // The main mechanism for MRAID banners to request a navigation out to an external browser
         self.click(url)
     }
     public func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
-        MAXLog.debug("MAX: mraidViewShouldResize")
-        return false
+        MAXLog.debug("MAX: mraidViewShouldResize to \(position) offscreen=\(allowOffscreen)")
+        return true
     }
     
     //
@@ -111,6 +122,9 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
     
     public func mraidServiceOpenBrowser(withUrlString url: String) {
         MAXLog.debug("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
+        
+        // This method is called when an MRAID creative requests a native browser open.
+        // This is considered to be a click.
         if let url = URL(string: url) {
             self.click(url)
         }
