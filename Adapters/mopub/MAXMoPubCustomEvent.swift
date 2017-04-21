@@ -6,7 +6,7 @@ import Foundation
 import MoPub
 
 @objc(MAXMoPubBannerCustomEvent)
-open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventDelegate  {
+open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventDelegate, MAXAdViewDelegate {
 
     private var adView : MAXAdView?
     private var customEventInstance : MPBannerCustomEvent?
@@ -33,18 +33,20 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
             customEventInstance.requestAd(with: size, customEventInfo: customEventInfo)
             
         } else {
-            // For all other creative types, we handoff internally to our own rendering layer.
-            // Generate View object from the AdResponse
+            MAXLog.debug("Banner for \(adUnitID) found, loading...")
+
+            // For most creative types, we handoff internally to our own rendering layer.
+            // The loadAd() call will tell our delegate if the load succeeded or failed, 
+            // and we pass this along accordingly.
             self.adView = MAXAdView(adResponse: adResponse, size: size)
+            self.adView?.delegate = self
             self.adView?.loadAd()
-            self.delegate.bannerCustomEvent(self, didLoadAd: self.adView)
-            
-            MAXLog.debug("Banner for \(adUnitID) found and loaded")
         }
 
     }
     
     // MAXAdViewDelegate
+    // This is used to handle callbacks from native creative rendering by MAX interally.
     
     open func adViewDidLoad(_ adView: MAXAdView) {
         MAXLog.debug("MAX: adViewDidLoad")
@@ -52,7 +54,7 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
     }
     open func adViewDidClick(_ adView: MAXAdView) {
         MAXLog.debug("MAX: adViewDidClick")
-        self.delegate.bannerCustomEventWillLeaveApplication(self)
+        self.delegate.bannerCustomEventWillBeginAction(self)
     }
     open func adViewWillLogImpression(_ adView: MAXAdView) {
         MAXLog.debug("MAX: adViewWillLogImpression")
@@ -60,6 +62,7 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
     open func adViewDidFinishHandlingClick(_ adView: MAXAdView) {
         MAXLog.debug("MAX: adViewDidFinishHandlingClick")
         self.delegate.bannerCustomEventDidFinishAction(self)
+        self.delegate.bannerCustomEventWillLeaveApplication(self)
     }
     open func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
         MAXLog.debug("MAX: adViewDidFailWithError")
@@ -70,6 +73,8 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
     }
     
     // MPBannerCustomEventDelegate
+    // This is used to handle callbacks from another embedded custom event. In these cases,
+    // we pass along directly. 
     
     public func location() -> CLLocation! {
         return self.delegate.location()

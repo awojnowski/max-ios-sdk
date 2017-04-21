@@ -111,6 +111,7 @@ open class MAXAdResponse : NSObject {
     }
     
     private func track(_ url: URL) {
+        MAXLog.debug("MAX: tracking URL fired ==> \(url)")
         MAXAdResponseURLSession.dataTask(with: url).resume()
     }
     
