@@ -128,6 +128,27 @@ To create a MAX line item:
 2. Set the Custom Event Class to the appropriate value depending on their type: `MAXMoPubBannerCustomEvent` or `MAXMoPubInterstitialCustomEvent`.
 3. Set the Custom Event Info to `{"adunit_id": "<MAX_ADUNIT_ID>"}` where the value of `MAX_ADUNIT_ID` corresponds to the ID of the MAX ad unit for this request.
 
+## Steps to Update Pod Version
+
+0. Ensure that the MAX Specs repository is added to your `pod` configuration:
+```
+pod repo add MAX-specs git@github.com:MAXAds/Specs.git
+```
+1. Update pod version in `podspec` file, e.g. from `0.3.0` to `0.3.1`
+2. Create a tag for the new version on git: 
+```
+git tag 0.3.1
+git push --tags
+```
+3. Verify that the spec is valid and the code compiles successfully:
+```
+pod spec lint --allow-warnings
+```
+4. Publish the updated spec to the repository:
+```
+pod repo push MAX-specs MAX.podspec
+```
+
 ## Author
 
 MAX, hello@maxads.co
