@@ -130,10 +130,23 @@ To create a MAX line item:
 
 ## Steps to Update Pod Version
 
-0. Ensure that the MAX Specs repository is added to your `pod` configuration:
+First, ensure that the MAX Specs repository is added to your configuration.  The output of `pod repo list` should show something like this: 
 ```
-pod repo add MAX-specs git@github.com:MAXAds/Specs.git
+pod repo list
+
+master
+- Type: git (master)
+- URL:  https://github.com/CocoaPods/Specs.git
+- Path: /Users/jp/.cocoapods/repos/master
+
+MAX-specs
+- Type: git (master)
+- URL:  git@github.com:MAXAds/Specs.git
+- Path: /Users/jp/.cocoapods/repos/MAX-specs
+
+2 repos
 ```
+Then, follow these steps:
 1. Update pod version in `podspec` file, e.g. from `0.3.0` to `0.3.1`
 2. Create a tag for the new version on git: 
 ```
@@ -146,7 +159,7 @@ pod spec lint --allow-warnings
 ```
 4. Publish the updated spec to the repository:
 ```
-pod repo push MAX-specs MAX.podspec
+pod repo push --allow-warnings MAX-specs MAX.podspec
 ```
 
 ## Author
