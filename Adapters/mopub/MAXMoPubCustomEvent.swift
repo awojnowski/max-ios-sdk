@@ -13,7 +13,6 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
 
     override open func requestAd(with size: CGSize, customEventInfo info: [AnyHashable: Any]!) {
         self.adView = nil
-        SKLogger.setLogLevel(SourceKitLogLevelDebug)
         
         guard let adUnitID = info["adunit_id"] as? String else {
             MAXLog.error("AdUnitID not specified in adunit_id customEventInfo block: \(info)")
