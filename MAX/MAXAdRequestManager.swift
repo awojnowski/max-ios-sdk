@@ -55,7 +55,9 @@ public class MAXAdRequestManager : NSObject {
     // If an error occurs, a new ad request is generated on an exponential backoff strategy, and retried.
     //
     public func refresh() -> MAXAdRequest {
+        MAXLog.debug("refresh() called")
         let adr = MAXAdRequest.preBidWithMAXAdUnit(self._adUnitID) {(response, error) in
+            MAXLog.debug("preBidWithMAXAdUnit() returned")
             self._completion(response, error)
             
             // Auto-refresh the same pre-bid and execution logic if we successfully retrieved a pre-bid.

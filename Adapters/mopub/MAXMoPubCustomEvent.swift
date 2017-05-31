@@ -13,6 +13,7 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
 
     override open func requestAd(with size: CGSize, customEventInfo info: [AnyHashable: Any]!) {
         self.adView = nil
+        SKLogger.setLogLevel(SourceKitLogLevelDebug)
         
         guard let adUnitID = info["adunit_id"] as? String else {
             MAXLog.error("AdUnitID not specified in adunit_id customEventInfo block: \(info)")
@@ -39,32 +40,43 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
             // The loadAd() call will tell our delegate if the load succeeded or failed, 
             // and we pass this along accordingly.
             self.adView = MAXAdView(adResponse: adResponse, size: size)
-            self.adView?.delegate = self
-            self.adView?.loadAd()
+            if let adView = self.adView {
+                adView.delegate = self
+                adView.loadAd()
+            } else {
+                MAXLog.error("Unable to create MAXAdView, failing")
+                self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
+            }
         }
 
     }
+
+    open override func enableAutomaticImpressionAndClickTracking() -> Bool {
+        return false
+    }
     
     // MAXAdViewDelegate
-    // This is used to handle callbacks from native creative rendering by MAX interally.
-    
+    // This is used to handle callbacks from native creative rendering by MAX internally.
+    open func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
+        MAXLog.debug("adViewDidFailWithError")
+        delegate?.bannerCustomEvent(self, didFailToLoadAdWithError: error)
+    }
     open func adViewDidLoad(_ adView: MAXAdView) {
-        MAXLog.debug("MAX: adViewDidLoad")
-        self.delegate.bannerCustomEvent(self, didLoadAd: adView)
+        MAXLog.debug("adViewDidLoad")
+        delegate?.trackImpression()
+        delegate?.bannerCustomEvent(self, didLoadAd: adView)
     }
     open func adViewDidClick(_ adView: MAXAdView) {
-        MAXLog.debug("MAX: adViewDidClick")
-    }
-    open func adViewWillLogImpression(_ adView: MAXAdView) {
-        MAXLog.debug("MAX: adViewWillLogImpression")
+        MAXLog.debug("adViewDidClick")
+        delegate?.trackClick()
+        delegate?.bannerCustomEventWillBeginAction(self)
     }
     open func adViewDidFinishHandlingClick(_ adView: MAXAdView) {
-        MAXLog.debug("MAX: adViewDidFinishHandlingClick")
-        self.delegate.bannerCustomEventWillLeaveApplication(self)
+        MAXLog.debug("adViewDidFinishHandlingClick")
+        delegate?.bannerCustomEventDidFinishAction(self)
     }
-    open func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
-        MAXLog.debug("MAX: adViewDidFailWithError")
-        self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: error)
+    open func adViewWillLogImpression(_ adView: MAXAdView) {
+        MAXLog.debug("adViewWillLogImpression")
     }
     public func viewControllerForPresentingModalView() -> UIViewController! {
         return self.delegate.viewControllerForPresentingModalView()
