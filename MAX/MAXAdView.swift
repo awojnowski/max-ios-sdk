@@ -7,7 +7,7 @@
 import Foundation
 import SKFramework
 
-public protocol MAXAdViewDelegate {
+public protocol MAXAdViewDelegate : NSObjectProtocol {
     func viewControllerForPresentingModalView() -> UIViewController!
     
     func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?)
@@ -18,16 +18,17 @@ public protocol MAXAdViewDelegate {
 }
 
 open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
+    // The delegate should be weak here so that if the CustomEvent object itself gets deallocated
+    // due to a new request being initiated by the SSP (e.g. for a timeout or other failure) 
+    // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack. 5/30/17
+    open weak var delegate: MAXAdViewDelegate?
+    
     private var adResponse: MAXAdResponse!
-    
-    open var delegate: MAXAdViewDelegate?
-    
     private var _mraidView: SKMRAIDView!
     
     public init(adResponse: MAXAdResponse,
                 size: CGSize) {
-        super.init(frame: CGRect(origin: CGPoint.zero, size: size))
-        
+        super.init(frame: CGRect(origin: CGPoint.zero, size: size))        
         self.adResponse = adResponse
     }
     
