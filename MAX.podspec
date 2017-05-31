@@ -4,7 +4,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MAX'
-  s.version          = '0.3.2'
+  s.version          = '0.3.3'
   s.summary          = 'Parallel bidding wrapper for mobile ads.'
   s.description      = <<-DESC
 MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, 
