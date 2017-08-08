@@ -12,6 +12,7 @@ import SKFramework
 
 public class MAXAdRequest {
     public static let ADS_DOMAIN = "ads.maxads.io"
+    public static let API_VERSION = "1"
 
     // 
     // Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has compelted, 
@@ -50,6 +51,7 @@ public class MAXAdRequest {
     public func requestAd(_ completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         // All interesting things about this particular device
         let dict : NSDictionary = [
+            "v": API_VERSION,
             "ifa": ASIdentifierManager.shared().advertisingIdentifier.uuidString,
             "lmt": ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true,
             "vendor_id": UIDevice.current.identifierForVendor?.uuidString ?? "",

@@ -34,6 +34,9 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
             
         } else {
             MAXLog.debug("Banner for \(adUnitID) found, loading...")
+            
+            // Inform MAX system that we won in the waterfall
+            adResponse.trackSelected()
 
             // For most creative types, we handoff internally to our own rendering layer.
             // The loadAd() call will tell our delegate if the load succeeded or failed, 
@@ -147,6 +150,9 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
             customEventInstance.requestInterstitial(withCustomEventInfo: customEventInfo)
             
         } else {
+            // Inform MAX system that we won in the waterfall
+            adResponse.trackSelected()
+
             // generate interstitial object from the pre-bid,
             // connect delegate and tell MoPub SDK that the interstitial has been loaded
             let MAXInterstitial = MAXInterstitialAd(adResponse: adResponse)

@@ -96,6 +96,15 @@ open class MAXAdResponse : NSObject {
     }
 
     //
+    // Fires a selected tracking event for this AdResponse
+    // This is used when the AdResponse is selected for display through a
+    // containing SSP
+    //
+    open func trackSelected() {
+        self.trackAll(self.response["selected_urls"] as? NSArray)
+    }
+
+    //
     // 
     // 
     
