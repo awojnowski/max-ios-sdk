@@ -15,7 +15,7 @@ public class MAXAdRequest {
     public static let API_VERSION = "1"
 
     // 
-    // Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has compelted, 
+    // Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has completed,
     // the callback function provided is invoked and the pre-bid ad response is made available
     // through that callback. Timeouts and other errors are also returned through the callback.
     //
@@ -51,7 +51,7 @@ public class MAXAdRequest {
     public func requestAd(_ completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         // All interesting things about this particular device
         let dict : NSDictionary = [
-            "v": API_VERSION,
+            "v": MAXAdRequest.API_VERSION,
             "ifa": ASIdentifierManager.shared().advertisingIdentifier.uuidString,
             "lmt": ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true,
             "vendor_id": UIDevice.current.identifierForVendor?.uuidString ?? "",
