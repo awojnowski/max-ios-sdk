@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E684B951F50CB980067ED0D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E684B941F50CB980067ED0D /* CoreLocation.framework */; };
 		E8E21ACF1E4E31D0003BE3BD /* MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8E21AC51E4E31D0003BE3BD /* MAX.framework */; };
 		E8E21AD41E4E31D0003BE3BD /* MAXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E21AD31E4E31D0003BE3BD /* MAXTests.swift */; };
 		E8E21AD61E4E31D0003BE3BD /* MAX.h in Headers */ = {isa = PBXBuildFile; fileRef = E8E21AC81E4E31D0003BE3BD /* MAX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E684B941F50CB980067ED0D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E87B28561E4FDF04007EE65C /* MAX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MAX.xcconfig; sourceTree = "<group>"; };
 		E8E21AC51E4E31D0003BE3BD /* MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E21AC81E4E31D0003BE3BD /* MAX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAX.h; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E684B951F50CB980067ED0D /* CoreLocation.framework in Frameworks */,
 				E8E21C491E4E7507003BE3BD /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +234,7 @@
 		E8E21AF41E4E5FCC003BE3BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7E684B941F50CB980067ED0D /* CoreLocation.framework */,
 				E8E21C481E4E7507003BE3BD /* libxml2.2.dylib */,
 			);
 			name = Frameworks;
