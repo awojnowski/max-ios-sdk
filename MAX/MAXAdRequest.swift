@@ -65,7 +65,9 @@ public class MAXAdRequest {
             "model": self.model(),
             "connectivity": SKReachability.forInternetConnection().isReachableViaWiFi() ? "wifi" :
                 SKReachability.forInternetConnection().isReachableViaWWAN() ? "wwan" : "none",
-            "carrier": CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""]
+            "carrier": CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? "",
+            "session_depth": MAXSession.sharedInstance.sessionDepth
+        ]
         
         // Setup POST
         let url = URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID!)")!

@@ -40,13 +40,15 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
         switch self.adResponse.creativeType {
         case "html":
             if let htmlData = self.adResponse.creative {
-                self._mraidView = SKMRAIDView(frame: self.frame,
-                                              withHtmlData: htmlData,
-                                              withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
-                                              supportedFeatures: [],
-                                              delegate: self,
-                                              serviceDelegate: self,
-                                              rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController)
+                self._mraidView = SKMRAIDView(
+                        frame: self.frame,
+                        withHtmlData: htmlData,
+                        withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
+                        supportedFeatures: [],
+                        delegate: self,
+                        serviceDelegate: self,
+                        rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
+                )
                 self.addSubview(self._mraidView)
                 break
             } else {
@@ -90,6 +92,7 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
     
     public func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdReady")
+        MAXSession.sharedInstance.incrementDepth()
         self.trackImpression()
         self.delegate?.adViewDidLoad(self)
     }
