@@ -11,7 +11,7 @@ class MAXErrorReporterTest: XCTestCase {
     class MockErrorReporter: MAXErrorReporter {
         var data: Data?
         init() {
-            super().init()
+            super.init()
         }
 
         override func record(data: Data) {
@@ -41,6 +41,7 @@ class MAXErrorReporterTest: XCTestCase {
 
         guard let data = recorder.data else {
             XCTFail("Recorder didn't generate any data")
+            return
         }
 
         print(data)
