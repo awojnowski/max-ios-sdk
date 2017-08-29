@@ -124,7 +124,6 @@ class MAXClientError {
             "message": self.message,
             "lmt": self.lmt,
             "ifa": self.ifa,
-            "lmt": self.lmt,
             "vendor_id": self.vendorId,
             "tz": self.timeZone,
             "locale": self.locale,
@@ -139,6 +138,6 @@ class MAXClientError {
     }
 
     var jsonData: Data? {
-        return JSONSerialization.data(withJSONObject: self.data, options: [])
+        return try? JSONSerialization.data(withJSONObject: self.data, options: [])
     }
 }
