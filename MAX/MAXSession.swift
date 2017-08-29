@@ -9,23 +9,16 @@ class MAXSession {
 
     static let sharedInstance = MAXSession()
 
-    private init() {
+    init(notificationCenter: NotificationCenter = NotificationCenter.default) {
         MAXLog.debug("MAXSession initialized")
 
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(
-                self,
-                selector: #selector(resetDepth),
-                name: Notification.Name.UIApplicationWillResignActive,
-                object: nil
-        )
+        notificationCenter.addObserver(forName: Notification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
+            notification in self.resetDepth()
+        }
 
-        notificationCenter.addObserver(
-                self,
-                selector: #selector(resetDepth),
-                name: Notification.Name.UIApplicationWillEnterForeground,
-                object: nil
-        )
+        notificationCenter.addObserver(forName: Notification.Name.UIApplicationWillResignActive, object: nil, queue: OperationQueue.main) {
+            notification in self.resetDepth()
+        }
     }
 
     private var _sessionDepth = 0
@@ -41,7 +34,7 @@ class MAXSession {
     }
 
     @objc
-    private func resetDepth() {
+    func resetDepth() {
         MAXLog.debug("MAXSession.resetDepth")
         self._sessionDepth = 0
     }

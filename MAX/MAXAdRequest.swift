@@ -51,7 +51,7 @@ public class MAXAdRequest {
     public func requestAd(_ completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         // All interesting things about this particular device
         let dict : NSDictionary = [
-            "v": API_VERSION,
+            "v": MAXAdRequest.API_VERSION,
             "ifa": ASIdentifierManager.shared().advertisingIdentifier.uuidString,
             "lmt": ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true,
             "vendor_id": UIDevice.current.identifierForVendor?.uuidString ?? "",
