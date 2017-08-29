@@ -199,7 +199,6 @@ public class MAXAdRequest {
     // the ad request should be discarded. 
     //
     public func requestAd(_ completion: @escaping MAXResponseCompletion) {
-
         // Setup POST
         let url = URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID!)")!
         let config = URLSessionConfiguration.default
