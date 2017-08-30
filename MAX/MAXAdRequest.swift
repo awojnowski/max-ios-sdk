@@ -110,6 +110,10 @@ public class MAXAdRequest {
 
     var latitude: String {
         get {
+            guard MAXConfiguration.shared.locationTrackingEnabled else {
+                return ""
+            }
+
             guard CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                     CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways else {
                 return ""
@@ -125,6 +129,10 @@ public class MAXAdRequest {
 
     var longitude: String {
         get {
+            guard MAXConfiguration.shared.locationTrackingEnabled else {
+                return ""
+            }
+
             guard CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                           CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways else {
                 return ""
