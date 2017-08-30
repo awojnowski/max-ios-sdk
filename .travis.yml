@@ -1,7 +1,7 @@
 language: objective-c
 osx_image: xcode8.3
 xcode_project: MAX.xcodeproj
-xcode_scheme: MyNewProjectTests
+xcode_scheme: MAXTests
 
 # travis chokes on this because we have an empty .gitmodules file
 git:

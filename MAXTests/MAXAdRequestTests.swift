@@ -3,59 +3,39 @@
 // Copyright (c) 2017 MAX. All rights reserved.
 //
 
-import Foundation
 import XCTest
 @testable import MAX
-
-typealias Completion = (Data?, URLResponse?, Error?) -> Void
-
-class MockUploadTask: URLSessionUploadTask {
-    var request: URLRequest
-    var bodyData: Data?
-    var completionHandler: Completion
-    var mockResponse: URLResponse?
-    var mockResponseData: Data?
-    var mockError: Error?
-
-    init(request:URLRequest, bodyData: Data?, completionHandler: @escaping Completion) {
-        self.request = request
-        self.bodyData = bodyData
-
-        self.response
-
-        self.completionHandler = completionHandler
-    }
-
-    override func resume() {
-        self.completionHandler(self.mockResponseData, self.mockResponse, self.mockError)
-    }
-}
-
-class MockURLSession: URLSession {
-    var mockedRequests: Dictionary<String, Data> = [:]
-    func onRequest(to request: URLRequest, respondWith data: Data) {
-        mockedRequests[request.url!.absoluteString] = data
-    }
-
-    override func uploadTask(with request: URLRequest, from bodyData: Data?, completionHandler: @escaping Completion) -> URLSessionUploadTask {
-        let task = MockUploadTask(request: request, bodyData: bodyData, completionHandler: completionHandler)
-        if let data = mockedRequests[request.url!.absoluteString] {
-            task.mockResponse
-        }
-        return task
-    }
-}
 
 class MAXAdRequestTests: XCTestCase {
 
     class TestableMAXAdRequest: MAXAdRequest {
+        let mockSession = MockURLSession()
         override func getSession() -> URLSession {
-            return MockURLSession()
+            return mockSession
         }
     }
 
+    var adRequest: TestableMAXAdRequest = TestableMAXAdRequest(adUnitID: "1234")
+
+    override func setUp() {
+        super.setUp()
+
+        let url = URL(string:"https://ads.maxads.io/ads/req/1234")!
+        let responseData = [
+            "winner": [
+                "prebid_keywords": "a,b,c",
+                "creative": "<img src='http://a.com/b.png' />",
+                "creative_type": "html"
+            ]
+        ]
+        adRequest.mockSession.onRequest(
+                to: url,
+                respondWith: HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!,
+                withData: try! JSONSerialization.data(withJSONObject: responseData)
+        )
+    }
+
     func testSerialization() {
-        let adRequest = MAXAdRequest(adUnitID: "1234")
         let reqDict = adRequest.dict
 
         XCTAssertNotNil(reqDict["v"])
@@ -77,10 +57,18 @@ class MAXAdRequestTests: XCTestCase {
     }
 
     func testRequestAd() {
-        let adRequest = TestableMAXAdRequest(adUnitID: "1234")
-        adRequest.requestAd { (response, error) in
-            print(response)
-            XCTAssertNotNil(nil)
+        let completion = expectation(description:"MAXAdRequest completes normally")
+
+        adRequest.requestAd { (_response, _error) in
+            XCTAssertNil(_error)
+            XCTAssertNotNil(_response)
+
+            let response = response!
+
+            XCTAssertEqual(response.creativeType, "html")
+            completion.fulfill()
         }
+
+        waitForExpectations(timeout: 1)
     }
 }

@@ -13,6 +13,11 @@ import SKFramework
 
 public typealias MAXResponseCompletion = (MAXAdResponse?, NSError?) -> Void
 
+public enum MAXRequestError: Error {
+    case InvalidResponse(response: URLResponse?, data: Data?)
+    case RequestFailed(domain: String, statusCode: Int, userInfo: Data?)
+}
+
 public class MAXAdRequest {
     public static let ADS_DOMAIN = "ads.maxads.io"
     public static let API_VERSION = "1"
@@ -221,10 +226,12 @@ public class MAXAdRequest {
         do {
             session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (_data, _response, _error) in
                 do {
-                    guard let data = _data,
-                        let response = _response as? HTTPURLResponse,
-                        _error == nil else {
-                        throw _error!
+                    guard let data = _data, let response = _response as? HTTPURLResponse else {
+                        if let error = _error {
+                            throw error
+                        } else {
+                            throw MAXRequestError.InvalidResponse(response: _response, data: _data)
+                        }
                     }
                     
                     if response.statusCode == 200 {
@@ -234,9 +241,11 @@ public class MAXAdRequest {
                         self.adResponse = MAXAdResponse()
                         completion(self.adResponse, nil)
                     } else {
-                        throw NSError(domain: MAXAdRequest.ADS_DOMAIN,
-                            code: response.statusCode,
-                            userInfo: nil)
+                        throw MAXRequestError.RequestFailed(
+                                domain: MAXAdRequest.ADS_DOMAIN,
+                                statusCode: response.statusCode,
+                                userInfo: nil
+                        )
                     }
                 } catch let error as NSError {
                     self.adError = error
