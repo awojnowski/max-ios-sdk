@@ -40,14 +40,14 @@ class MAXSessionTests: XCTestCase {
         session.incrementDepth()
         XCTAssertEqual(session.sessionDepth, 1)
 
-        session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillResignActive)
+        let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillResignActive)
         XCTAssertEqual(session.sessionDepth, 0)
 
         session.incrementDepth()
         session.incrementDepth()
         XCTAssertEqual(session.sessionDepth, 2)
 
-        session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillEnterForeground)
+        let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillEnterForeground)
         XCTAssertEqual(session.sessionDepth, 0)
     }
 }

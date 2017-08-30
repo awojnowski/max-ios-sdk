@@ -63,7 +63,7 @@ class MAXAdRequestTests: XCTestCase {
             XCTAssertNil(_error)
             XCTAssertNotNil(_response)
 
-            let response = response!
+            let response = _response!
 
             XCTAssertEqual(response.creativeType, "html")
             completion.fulfill()
