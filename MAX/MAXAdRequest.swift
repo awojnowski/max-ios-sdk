@@ -175,6 +175,19 @@ public class MAXAdRequest {
         }
     }
 
+    var asJSONObject: Data? {
+        get {
+            let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
+            return data
+        }
+    }
+
+    func getSession() -> URLSession {
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        return session
+    }
+
 
     //
     // Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has completed,
@@ -201,15 +214,12 @@ public class MAXAdRequest {
     public func requestAd(_ completion: @escaping MAXResponseCompletion) {
         // Setup POST
         let url = URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID!)")!
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
+        let session = getSession()
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
 
         do {
-            let data = try JSONSerialization.data(withJSONObject: self.dict, options: [])
-            session.uploadTask(with: request as URLRequest, from: data, completionHandler: { (_data, _response, _error) in
+            session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (_data, _response, _error) in
                 do {
                     guard let data = _data,
                         let response = _response as? HTTPURLResponse,
