@@ -25,9 +25,11 @@ public class MAXAdRequest {
     public var adUnitID: String!
     public var adResponse: MAXAdResponse?
     public var adError: NSError?
+    public var locationTrackingEnabled: Bool
 
     public init(adUnitID: String) {
         self.adUnitID = adUnitID
+        self.locationTrackingEnabled = MAXConfiguration.shared.locationTrackingEnabled
     }
 
     var ifa: String {
@@ -134,7 +136,7 @@ public class MAXAdRequest {
 
     var longitude: String {
         get {
-            guard MAXConfiguration.shared.locationTrackingEnabled else {
+            guard self.locationTrackingEnabled else {
                 return ""
             }
 
@@ -167,7 +169,7 @@ public class MAXAdRequest {
     // All interesting things about this particular device
     var dict: Dictionary<String, Any> {
         get {
-            return [
+            var d: Dictionary<String, Any> = [
                 "v": MAXAdRequest.API_VERSION,
                 "ifa": self.ifa,
                 "lmt": self.lmt,
@@ -181,10 +183,15 @@ public class MAXAdRequest {
                 "model": self.model,
                 "connectivity": self.connectivity,
                 "carrier": self.carrier,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "session_depth": MAXSession.sharedInstance.sessionDepth
             ]
+
+            if self.locationTrackingEnabled {
+                d["latitude"] = self.latitude
+                d["longitude"] = self.longitude
+            }
+
+            return d
         }
     }
 

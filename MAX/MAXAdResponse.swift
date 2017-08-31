@@ -6,9 +6,6 @@
 
 import Foundation
 
-let MAXAdResponseURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
-
-
 open class MAXAdResponse : NSObject {
     private let data : Data
     private let response : NSDictionary
@@ -18,7 +15,7 @@ open class MAXAdResponse : NSObject {
 
     let creativeType : String
     var creative : String?
-    
+
     open override var description: String { return String(describing: response) }
     
     public override init() {
@@ -31,7 +28,7 @@ open class MAXAdResponse : NSObject {
     public init(data: Data) throws {
         self.data = data
         self.response = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
-        
+
         if let winner = self.response["winner"] as? NSDictionary {
             self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
             self.autoRefreshInterval = self.response["refresh"] as? Int
@@ -42,7 +39,11 @@ open class MAXAdResponse : NSObject {
             self.creativeType = "empty"
         }
     }
-    
+
+    func getSession() -> URLSession {
+         return URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
+    }
+
     //
     // Refresh operations
     //
@@ -121,7 +122,7 @@ open class MAXAdResponse : NSObject {
     
     private func track(_ url: URL) {
         MAXLog.debug("MAX: tracking URL fired ==> \(url)")
-        MAXAdResponseURLSession.dataTask(with: url).resume()
+        getSession().dataTask(with: url).resume()
     }
     
 }

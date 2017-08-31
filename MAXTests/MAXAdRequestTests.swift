@@ -16,18 +16,17 @@ class MAXAdRequestTests: XCTestCase {
     }
 
     var adRequest: TestableMAXAdRequest = TestableMAXAdRequest(adUnitID: "1234")
+    var url = URL(string:"https://ads.maxads.io/ads/req/1234")!
+    let responseData = [
+        "winner": [
+            "prebid_keywords": "a,b,c",
+            "creative": "<img src='http://a.com/b.png' />",
+            "creative_type": "html"
+        ]
+    ]
 
     override func setUp() {
         super.setUp()
-
-        let url = URL(string:"https://ads.maxads.io/ads/req/1234")!
-        let responseData = [
-            "winner": [
-                "prebid_keywords": "a,b,c",
-                "creative": "<img src='http://a.com/b.png' />",
-                "creative_type": "html"
-            ]
-        ]
         adRequest.mockSession.onRequest(
                 to: url,
                 respondWith: HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!,
@@ -51,13 +50,22 @@ class MAXAdRequestTests: XCTestCase {
         XCTAssertNotNil(reqDict["model"])
         XCTAssertNotNil(reqDict["connectivity"])
         XCTAssertNotNil(reqDict["carrier"])
-        XCTAssertNotNil(reqDict["longitude"])
-        XCTAssertNotNil(reqDict["latitude"])
         XCTAssertNotNil(reqDict["session_depth"])
+
+        XCTAssertNil(reqDict["longitude"])
+        XCTAssertNil(reqDict["latitude"])
     }
 
-    func testRequestAd() {
-        let completion = expectation(description:"MAXAdRequest completes normally")
+    func testAdRequestNoLatLongWhenDisabled() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        XCTAssertNotNil(reqDict["longitude"])
+        XCTAssertNotNil(reqDict["latitude"])
+    }
+
+    func testRequestAdWithValidServerResponse() {
+        let completion = expectation(description:"MAXAdRequest completes normally with normal response")
 
         adRequest.requestAd { (_response, _error) in
             XCTAssertNil(_error)
@@ -66,6 +74,51 @@ class MAXAdRequestTests: XCTestCase {
             let response = _response!
 
             XCTAssertEqual(response.creativeType, "html")
+            completion.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testRequestAdWithEmptyServerResponse() {
+        adRequest.mockSession.clearMocks()
+        adRequest.mockSession.onRequest(
+                to: url,
+                respondWith: HTTPURLResponse(url: url, statusCode: 204, httpVersion: "1.1", headerFields: nil)!,
+                withData: try! JSONSerialization.data(withJSONObject: [:])
+        )
+
+        let completion = expectation(description:"MAXAdRequest completes normally with empty response")
+
+        adRequest.requestAd { (_response, _error) in
+            XCTAssertNil(_error)
+            XCTAssertNotNil(_response)
+
+            let response = _response!
+
+            XCTAssertEqual(response.creativeType, "empty")
+            XCTAssertEqual(response.preBidKeywords, "")
+
+            completion.fulfill()
+        }
+
+        waitForExpectations(timeout: 1)
+    }
+
+    func testRequestAdWithErroneousServerResponse() {
+        enum TestError: Error { case error }
+        adRequest.mockSession.clearMocks()
+        adRequest.mockSession.onRequest(
+                to: url,
+                respondWith: HTTPURLResponse(url: url, statusCode: 400, httpVersion: "1.1", headerFields: nil)!,
+                withError: TestError.error
+        )
+
+        let completion = expectation(description:"MAXAdRequest completes normally with empty response")
+
+        adRequest.requestAd { (_response, _error) in
+            XCTAssertNotNil(_error)
+            XCTAssertNil(_response)
             completion.fulfill()
         }
 

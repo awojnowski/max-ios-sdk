@@ -21,4 +21,18 @@ class MAXConfiguration {
     public func enableLocationTracking() {
         self._locationTrackingEnabled = true
     }
+
+    public func disableLocationTracking() {
+        self._locationTrackingEnabled = false
+    }
+
+    private var _debugMode: Bool = false
+
+    public func enabledDebugMode() {
+        self._debugMode = true
+    }
+
+    public func disableDebugMode() {
+        self._debugMode = false
+    }
 }
