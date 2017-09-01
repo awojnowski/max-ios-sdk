@@ -26,6 +26,12 @@ class MockUploadTask: URLSessionUploadTask {
     }
 }
 
+class MockDataTask: URLSessionDataTask {
+    override func resume() {
+        return
+    }
+}
+
 class MockURLSession: URLSession {
     var mockedRequests: Dictionary<String, (URLResponse, Data?, Error?)> = [:]
     func onRequest(to url: URL, respondWith response: URLResponse, withData data: Data) {
@@ -36,6 +42,10 @@ class MockURLSession: URLSession {
         mockedRequests[url.absoluteString] = (response, nil, error)
     }
 
+    func onRequest(to url: URL, respondWith response: URLResponse) {
+        mockedRequests[url.absoluteString] = (response, nil, nil)
+    }
+
     func clearMock(for url: URL) {
         mockedRequests.removeValue(forKey: url.absoluteString)
     }
@@ -44,7 +54,15 @@ class MockURLSession: URLSession {
         mockedRequests.removeAll()
     }
 
+    var uploadTaskCalls: Dictionary<String, Int> = [:]
+
     override func uploadTask(with request: URLRequest, from bodyData: Data?, completionHandler: @escaping Completion) -> URLSessionUploadTask {
+        if let previous = dataTaskCalls[request.url!.absoluteString] {
+            uploadTaskCalls[request.url!.absoluteString] = previous + 1
+        } else {
+            uploadTaskCalls[request.url!.absoluteString] = 1
+        }
+
         let task = MockUploadTask(request: request, bodyData: bodyData, completionHandler: completionHandler)
         if let mockResponse = mockedRequests[request.url!.absoluteString] {
             print("Found a mock response for \(request.url!.absoluteString)")
@@ -52,6 +70,19 @@ class MockURLSession: URLSession {
             task.mockResponseData = mockResponse.1
             task.mockError = mockResponse.2
         }
+        return task
+    }
+
+    var dataTaskCalls: Dictionary<String, Int> = [:]
+
+    override func dataTask(with url: URL) -> URLSessionDataTask {
+        if let previous = dataTaskCalls[url.absoluteString] {
+            dataTaskCalls[url.absoluteString] = previous + 1
+        } else {
+            dataTaskCalls[url.absoluteString] = 1
+        }
+
+        let task = MockDataTask()
         return task
     }
 }

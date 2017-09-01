@@ -44,6 +44,10 @@ open class MAXAdResponse : NSObject {
          return URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
     }
 
+    func getCustomEventClass(name: String) -> NSObject.Type? {
+        return NSClassFromString(name) as? NSObject.Type
+    }
+
     //
     // Refresh operations
     //
@@ -70,10 +74,10 @@ open class MAXAdResponse : NSObject {
                 MAXLog.error("MAX: proxy bid had invalid creative JSON")
                 return (nil, nil)
         }
-        
+
         // pass along to our proxy custom event
         guard let customEventClassName = json?["custom_event_class"] as? String,
-            let customEventClass = NSClassFromString(customEventClassName) as? NSObject.Type,
+            let customEventClass = getCustomEventClass(name: customEventClassName),
             let customEventInfo = json?["custom_event_info"] as? [AnyHashable : Any] else {
                 MAXLog.error("MAX: proxy bid has missing or invalid custom event properties")
                 return (nil, nil)

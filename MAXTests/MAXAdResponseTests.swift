@@ -8,6 +8,18 @@ import XCTest
 
 class MAXAdResponseTests: XCTestCase {
 
+    class CustomEvent: NSObject {}
+    class TestableMAXAdResponse: MAXAdResponse {
+        let mockSession = MockURLSession()
+        override func getSession() -> URLSession {
+            return mockSession
+        }
+
+        override func getCustomEventClass(name: String) -> NSObject.Type? {
+            return CustomEvent.self
+        }
+    }
+
     var responseData: Dictionary<String, Any> = [
         "winner": [
             "creative_type": "html",
@@ -17,12 +29,9 @@ class MAXAdResponseTests: XCTestCase {
         ],
         "prebid_keywords": "a,b,c",
         "refresh": 10,
-        "impression_urls": [
-            "https://ads.maxads.io/event/imp",
-            "https://ads.ssp.com/track/imp"
-        ],
-        "click_urls": [ "https://ads.maxads.io/event/clk" ],
-        "selected_urls": [ "https://ads.maxads.io/event/select" ],
+        "impression_urls": [ "https://ads.maxads.io/event/imp/abcd" ],
+        "click_urls": [ "https://ads.maxads.io/event/clk/abcd" ],
+        "selected_urls": [ "https://ads.maxads.io/event/select/abcd" ],
     ]
 
     func testCreateAdResponse() {
@@ -55,16 +64,14 @@ class MAXAdResponseTests: XCTestCase {
     }
 
     func testNetworkHandlerFromCreative() {
-        var responseData: Dictionary<String, Any> = [
+        let responseData: Dictionary<String, Any> = [
             "winner": [
                 "creative_type": "network",
             ],
-            "creative": [
-                "custom_event_class": "NetworkEventClass"
-            ]
+            "creative": "{\"custom_event_class\": \"CustomEvent\",\"custom_event_info\" : {\"test\": \"info\"}}"
         ]
         let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
-        let response = try! MAXAdResponse(data:jsonData)
+        let response = try! TestableMAXAdResponse(data:jsonData)
 
         let handler = response.networkHandlerFromCreative()
 
@@ -73,14 +80,47 @@ class MAXAdResponseTests: XCTestCase {
     }
 
     func testTrackImpression() {
+        let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
+        let response = try! TestableMAXAdResponse(data:jsonData)
+        let url = URL(string:"https://ads.maxads.io/event/imp/abcd")!
 
+        response.mockSession.onRequest(
+                to: url,
+                respondWith: HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
+        )
+
+        response.trackImpression()
+
+        XCTAssertEqual(response.mockSession.dataTaskCalls[url.absoluteString], 1)
     }
 
     func testTrackClick() {
+        let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
+        let response = try! TestableMAXAdResponse(data:jsonData)
+        let url = URL(string:"https://ads.maxads.io/event/clk/abcd")!
 
+        response.mockSession.onRequest(
+                to: url,
+                respondWith: HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
+        )
+
+        response.trackClick()
+
+        XCTAssertEqual(response.mockSession.dataTaskCalls[url.absoluteString], 1)
     }
 
     func testTrackSelected() {
+        let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
+        let response = try! TestableMAXAdResponse(data:jsonData)
+        let url = URL(string:"https://ads.maxads.io/event/select/abcd")!
 
+        response.mockSession.onRequest(
+                to: url,
+                respondWith: HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
+        )
+
+        response.trackSelected()
+
+        XCTAssertEqual(response.mockSession.dataTaskCalls[url.absoluteString], 1)
     }
 }
