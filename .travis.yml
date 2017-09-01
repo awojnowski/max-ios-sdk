@@ -5,5 +5,8 @@ osx_image: xcode8.3
 git:
   submodules: false
 
-script: xcodebuild clean && xcodebuild build -project yourproject.xcodeproj -scheme yourscheme
+script: 
+  - xcodebuild clean 
+  - xcodebuild build -project MAX.xcodeproj -scheme MAX
+  - xcodebuild test -project MAX.xcodeproj -scheme MAX -sdk iphonesimulator -destination "name=iPhone SE"
 
