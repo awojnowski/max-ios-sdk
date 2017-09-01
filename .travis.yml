@@ -8,5 +8,5 @@ git:
 script: 
   - xcodebuild clean 
   - xcodebuild build -project MAX.xcodeproj -scheme MAX
-  - xcodebuild test -project MAX.xcodeproj -scheme MAX -sdk iphonesimulator -destination "name=iPhone SE"
+  - xcodebuild test -project MAX.xcodeproj -scheme MAXTests -sdk iphonesimulator -destination "name=iPhone SE"
 
