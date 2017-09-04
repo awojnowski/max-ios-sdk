@@ -80,6 +80,9 @@ public class MAXAdRequest {
         do {
             let data = try JSONSerialization.data(withJSONObject: dict, options: [])
             session.uploadTask(with: request as URLRequest, from: data, completionHandler: { (_data, _response, _error) in
+
+                MAXSession.sharedInstance.incrementDepth()
+
                 do {
                     guard let data = _data,
                         let response = _response as? HTTPURLResponse,

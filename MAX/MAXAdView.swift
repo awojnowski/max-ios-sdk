@@ -92,7 +92,6 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
     
     public func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdReady")
-        MAXSession.sharedInstance.incrementDepth()
         self.trackImpression()
         self.delegate?.adViewDidLoad(self)
     }
