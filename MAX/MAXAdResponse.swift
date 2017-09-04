@@ -29,9 +29,14 @@ open class MAXAdResponse : NSObject {
         self.data = data
         self.response = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
 
+        if let refresh = self.response["refresh"] as? Int {
+            self.autoRefreshInterval = refresh
+        } else {
+            MAXLog.debug("Refresh interval not set in ad response")
+        }
+        
         if let winner = self.response["winner"] as? NSDictionary {
             self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
-            self.autoRefreshInterval = self.response["refresh"] as? Int
             self.creative = self.response["creative"] as? String
             self.creativeType = winner["creative_type"] as? String ?? "empty"
         } else {

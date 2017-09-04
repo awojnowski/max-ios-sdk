@@ -3,4 +3,24 @@
 // Copyright (c) 2017 MAX. All rights reserved.
 //
 
-import Foundation
+import XCTest
+@testable import MAX
+
+class MAXRequestManagerTests: XCTestCase {
+
+    func testManagerRefreshesOnActive() {
+
+    }
+
+    func testRefresh() {
+
+    }
+
+    func testStartRefresh() {
+
+    }
+
+    func stopRefresh() {
+
+    }
+}
