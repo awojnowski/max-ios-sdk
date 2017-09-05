@@ -128,6 +128,12 @@ public class MAXAdRequest {
         }
     }
 
+    var locationTrackingAvailability: String {
+        get {
+            return MAXLocationProvider.shared.locationTrackingAvailability()
+        }
+    }
+
     var model: String {
         get {
             var systemInfo = utsname()
@@ -159,7 +165,8 @@ public class MAXAdRequest {
                 "connectivity": self.connectivity,
                 "carrier": self.carrier,
                 "latitude": self.latitude,
-                "longitude": self.longitude
+                "longitude": self.longitude,
+                "location_tracking": self.locationTrackingAvailability
             ]
         }
     }

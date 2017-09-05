@@ -52,9 +52,19 @@ class MAXLocationProvider: CLLocationManagerDelegate {
         return MAXConfiguration.shared.locationTrackingEnabled
     }
 
-    func locationUpdatesAvailable() -> Bool {
+    func locationTrackingAuthorized() -> Bool {
         return CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways
+    }
+
+    func locationTrackingAvailability() -> String {
+        if !self.locationTrackingEnabled() {
+            return "disabled"
+        } else if !self.locationTrackingAuthorized() {
+            return "unauthorized"
+        } else {
+            return "enabled"
+        }
     }
 
     func startLocationUpdates() {
@@ -63,7 +73,7 @@ class MAXLocationProvider: CLLocationManagerDelegate {
             return
         }
 
-        guard self.locationUpdatesAvailable() else {
+        guard self.locationTrackingAuthorized() else {
             MAXLog.debug("Location tracking not enabled by the user for this app, skipping location updates")
             return
         }
