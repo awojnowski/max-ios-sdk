@@ -115,41 +115,29 @@ public class MAXAdRequest {
         }
     }
 
-    var latitude: String {
+    var latitude: Double? {
         get {
-            guard MAXConfiguration.shared.locationTrackingEnabled else {
-                return ""
+            if let location = MAXLocationProvider.shared.getLocation() {
+                return location.coordinate.latitude
             }
 
-            guard CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-                    CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways else {
-                return ""
-            }
-
-            if let location = CLLocationManager().location {
-                return String(location.coordinate.latitude)
-            }
-
-            return ""
+            return nil
         }
     }
 
-    var longitude: String {
+    var longitude: Double? {
         get {
-            guard self.locationTrackingEnabled else {
-                return ""
+            if let location = MAXLocationProvider.shared.getLocation() {
+                return location.coordinate.longitude
             }
 
-            guard CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-                          CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways else {
-                return ""
-            }
+            return nil
+        }
+    }
 
-            if let location = CLLocationManager().location {
-                return String(location.coordinate.longitude)
-            }
-
-            return ""
+    var locationTrackingAvailability: String {
+        get {
+            return MAXLocationProvider.shared.locationTrackingAvailability()
         }
     }
 
@@ -183,13 +171,11 @@ public class MAXAdRequest {
                 "model": self.model,
                 "connectivity": self.connectivity,
                 "carrier": self.carrier,
-                "session_depth": MAXSession.sharedInstance.sessionDepth
+                "session_depth": MAXSession.sharedInstance.sessionDepth,
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "location_tracking": self.locationTrackingAvailability
             ]
-
-            if self.locationTrackingEnabled {
-                d["latitude"] = self.latitude
-                d["longitude"] = self.longitude
-            }
 
             return d
         }
