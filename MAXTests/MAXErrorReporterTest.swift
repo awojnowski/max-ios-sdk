@@ -43,7 +43,5 @@ class MAXErrorReporterTest: XCTestCase {
             XCTFail("Recorder didn't generate any data")
             return
         }
-
-        print(data)
     }
 }

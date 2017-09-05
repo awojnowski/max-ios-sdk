@@ -10,11 +10,17 @@ import UIKit
 import SKFramework
 
 public class MAXErrorReporter {
-    static let defaultErrorUrl = URL(string: "https://ads.maxads.io/events/error")!
+
+    static let sharedInstance = MAXErrorReporter()
+    static let defaultErrorUrl = URL(string: "https://ads.maxads.io/events/client-error")!
     var errorUrl: URL
 
     public init(errorUrl: URL = MAXErrorReporter.defaultErrorUrl) {
         self.errorUrl = errorUrl
+    }
+
+    public func setUrl(url: URL) {
+        self.errorUrl = url
     }
 
     public func logError(error: Error) {
@@ -30,8 +36,12 @@ public class MAXErrorReporter {
     }
 
     func record(data: Data) {
-        let request = NSMutableURLRequest(url: self.errorUrl)
-        let urlSession = URLSession(configuration: URLSessionConfiguration.default)
-        urlSession.uploadTask(with: request as URLRequest, from: data)
+        do {
+            let request = NSMutableURLRequest(url: self.errorUrl)
+            let urlSession = URLSession(configuration: URLSessionConfiguration.default)
+            urlSession.uploadTask(with: request as URLRequest, from: data)
+        } catch {
+            MAXLog.error("MAXErrorReporter unable to record error event")
+        }
     }
 }
