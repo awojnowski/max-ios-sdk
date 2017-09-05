@@ -108,41 +108,23 @@ public class MAXAdRequest {
         }
     }
 
-    var latitude: String {
+    var latitude: Double? {
         get {
-            guard MAXConfiguration.shared.locationTrackingEnabled else {
-                return ""
+            if let location = MAXLocationProvider.shared.getLocation() {
+                return location.coordinate.latitude
             }
 
-            guard CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-                    CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways else {
-                return ""
-            }
-
-            if let location = CLLocationManager().location {
-                return String(location.coordinate.latitude)
-            }
-
-            return ""
+            return nil
         }
     }
 
-    var longitude: String {
+    var longitude: Double? {
         get {
-            guard MAXConfiguration.shared.locationTrackingEnabled else {
-                return ""
+            if let location = MAXLocationProvider.shared.getLocation() {
+                return location.coordinate.longitude
             }
 
-            guard CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-                          CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways else {
-                return ""
-            }
-
-            if let location = CLLocationManager().location {
-                return String(location.coordinate.longitude)
-            }
-
-            return ""
+            return nil
         }
     }
 
