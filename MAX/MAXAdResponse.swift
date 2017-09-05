@@ -47,6 +47,12 @@ open class MAXAdResponse : NSObject {
             self.preBidKeywords = ""
             self.creativeType = "empty"
         }
+
+        if let errorUrl = self.response["error_url"] as? String {
+            if let url = URL(string: errorUrl) {
+                MAXErrorReporter.sharedInstance.setUrl(url: url)
+            }
+        }
     }
     
     //

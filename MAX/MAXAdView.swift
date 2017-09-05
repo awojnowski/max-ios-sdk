@@ -93,25 +93,30 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
         self.trackImpression()
         self.delegate?.adViewDidLoad(self)
     }
+
     public func mraidViewAdFailed(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdFailed")
         self.delegate?.adViewDidFailWithError(self, error: nil)
     }
+
     public func mraidViewDidClose(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewDidClose")
     }
+
     public func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewWillExpand")
         
         // An MRAID expand action is considered to be a click for tracking purposes. 
         self.trackClick()
     }
+
     public func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
         MAXLog.debug("MAX: mraidViewNavigate \(url)")
 
         // The main mechanism for MRAID banners to request a navigation out to an external browser
         self.click(url)
     }
+
     public func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
         MAXLog.debug("MAX: mraidViewShouldResize to \(position) offscreen=\(allowOffscreen)")
         return true
