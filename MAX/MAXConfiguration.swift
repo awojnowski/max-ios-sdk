@@ -21,4 +21,8 @@ class MAXConfiguration {
     public func enableLocationTracking() {
         self._locationTrackingEnabled = true
     }
+
+    public func disableLocationTracking() {
+        self._locationTrackingEnabled = false
+    }
 }

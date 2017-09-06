@@ -37,6 +37,10 @@ open class MAXAdResponse : NSObject {
         } else {
             MAXLog.debug("Refresh interval not set in ad response")
         }
+
+        if let distanceFilter = self.response["distance_filter"] as? Double {
+            MAXLocationProvider.shared.setDistanceFilter(distanceFilter)
+        }
         
         if let winner = self.response["winner"] as? NSDictionary {
             self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
