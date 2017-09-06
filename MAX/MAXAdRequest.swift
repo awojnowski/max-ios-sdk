@@ -226,6 +226,7 @@ public class MAXAdRequest {
 
         do {
             session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (_data, _response, _error) in
+                MAXSession.sharedInstance.incrementDepth()
                 do {
                     guard let data = _data, let response = _response as? HTTPURLResponse else {
                         if let error = _error {

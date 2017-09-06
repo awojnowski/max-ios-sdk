@@ -10,6 +10,10 @@ class MAXConfiguration {
     static let shared = MAXConfiguration()
     private init() {}
 
+    //
+    // Location Tracking configuration
+    //
+
     private var _locationTrackingEnabled: Bool = false
 
     var locationTrackingEnabled: Bool {
@@ -26,6 +30,7 @@ class MAXConfiguration {
         self._locationTrackingEnabled = false
     }
 
+    // Debug mode
     private var _debugMode: Bool = false
 
     public func enabledDebugMode() {
