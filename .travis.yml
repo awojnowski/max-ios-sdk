@@ -5,7 +5,7 @@ xcode_scheme: MAXTests
 xcode_sdk: iphonesimulator10.0
 
 script:
-  - xcodebuild -project MAX.xcodeproj -scheme MAXTests -destination 'platform=iOS Simulator,name=iPhone 7' test
+  - set -o pipefail && xcodebuild -project MAX.xcodeproj -scheme MAX -destination 'platform=iOS Simulator,name=iPhone 7' test | xcpretty
 
 # travis chokes on this because we have an empty .gitmodules file
 git:

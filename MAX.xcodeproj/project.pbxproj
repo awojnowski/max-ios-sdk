@@ -12,17 +12,18 @@
 		60A2D12E2DA369B7208E55D5 /* MAXAdRequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D01DF85129BB97D39A62 /* MAXAdRequestManagerTests.swift */; };
 		60A2D42EBC414FC3663BF45F /* MAXErrorReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DECC551761DDE1492D4A /* MAXErrorReporter.swift */; };
 		60A2D592A112EC7C1989064C /* MAXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D422AB5B759DA2901B6E /* MAXError.swift */; };
+		60A2D6448FB10AD971978B27 /* MAXLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D19BAA850E405A4675B1 /* MAXLocationProvider.swift */; };
 		60A2D66D16B610A50D2ECC02 /* MAXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D422AB5B759DA2901B6E /* MAXError.swift */; };
 		60A2D6CA73581D6FC785F056 /* MAXSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D0E01A9F57FFCAA1CC27 /* MAXSessionTests.swift */; };
 		60A2D7A44EDBC8805321321F /* MAXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DAA400FA91590690059D /* MAXSession.swift */; };
 		60A2D7F6BA4253C8305F2279 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D203EC28556AAAF36126 /* MockURLSession.swift */; };
 		60A2D84D35950B169E11771A /* MAXPreBidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DF605C6AFEBA961AAA5C /* MAXPreBidTests.swift */; };
 		60A2D9AE43C19B8EB3D9FEF6 /* MAXErrorReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DECC551761DDE1492D4A /* MAXErrorReporter.swift */; };
+		60A2DB7DF12E35D5030D7660 /* MAXConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DEB9CB93B72BB0DA6222 /* MAXConfiguration.swift */; };
 		60A2DBB107F20B5A121A17C8 /* MAXAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D731AC000914CA7ED829 /* MAXAdViewTests.swift */; };
+		60A2DD00187AEA812C314B40 /* MAXLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D19BAA850E405A4675B1 /* MAXLocationProvider.swift */; };
 		60A2DD59C64C8E7F4633646D /* MAXLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E21CE11E4E8F22003BE3BD /* MAXLogger.swift */; };
 		60A2DE50FA1C2C4EB33B5457 /* MAXErrorReporterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D352D6D62F6A240F9D7E /* MAXErrorReporterTest.swift */; };
-		60A2D6448FB10AD971978B27 /* MAXLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D19BAA850E405A4675B1 /* MAXLocationProvider.swift */; };
-		60A2DD00187AEA812C314B40 /* MAXLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D19BAA850E405A4675B1 /* MAXLocationProvider.swift */; };
 		60A2DE8C23DE3FD955ADE163 /* MAXConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DEB9CB93B72BB0DA6222 /* MAXConfiguration.swift */; };
 		60A2DFA332C87BFC496C701E /* MAXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DAA400FA91590690059D /* MAXSession.swift */; };
 		60A2DFA8B8BC073CA62F88AB /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DCFF0C14D2D8DBDB2B5D /* MockNotificationCenter.swift */; };
@@ -109,6 +110,7 @@
 /* Begin PBXFileReference section */
 		60A2D01DF85129BB97D39A62 /* MAXAdRequestManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestManagerTests.swift; sourceTree = "<group>"; };
 		60A2D0E01A9F57FFCAA1CC27 /* MAXSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXSessionTests.swift; sourceTree = "<group>"; };
+		60A2D19BAA850E405A4675B1 /* MAXLocationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXLocationProvider.swift; sourceTree = "<group>"; };
 		60A2D203EC28556AAAF36126 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		60A2D2CB6622436E4DCBA3C8 /* MAXInterstitialAdTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdTests.swift; sourceTree = "<group>"; };
 		60A2D352D6D62F6A240F9D7E /* MAXErrorReporterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXErrorReporterTest.swift; sourceTree = "<group>"; };
@@ -118,7 +120,6 @@
 		60A2DA9FF52A460F71E35423 /* MAXAdRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestTests.swift; sourceTree = "<group>"; };
 		60A2DAA400FA91590690059D /* MAXSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXSession.swift; sourceTree = "<group>"; };
 		60A2DCFF0C14D2D8DBDB2B5D /* MockNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNotificationCenter.swift; sourceTree = "<group>"; };
-		60A2D19BAA850E405A4675B1 /* MAXLocationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXLocationProvider.swift; sourceTree = "<group>"; };
 		60A2DEB9CB93B72BB0DA6222 /* MAXConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXConfiguration.swift; sourceTree = "<group>"; };
 		60A2DECC551761DDE1492D4A /* MAXErrorReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXErrorReporter.swift; sourceTree = "<group>"; };
 		60A2DF605C6AFEBA961AAA5C /* MAXPreBidTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXPreBidTests.swift; sourceTree = "<group>"; };
@@ -561,6 +562,7 @@
 				60A2DBB107F20B5A121A17C8 /* MAXAdViewTests.swift in Sources */,
 				60A2D0B45043F0E74B2BB643 /* MAXInterstitialAdTests.swift in Sources */,
 				60A2DD00187AEA812C314B40 /* MAXLocationProvider.swift in Sources */,
+				60A2DB7DF12E35D5030D7660 /* MAXConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

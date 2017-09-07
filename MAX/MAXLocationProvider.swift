@@ -20,18 +20,20 @@ import CoreLocation
  * The app must explicitly ask for authorization by the user to access their location -- MAX will
  * not ask for permission on it's own.
  */
-class MAXLocationProvider: CLLocationManagerDelegate {
+class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
 
     static let shared = MAXLocationProvider()
 
     var locationManager = CLLocationManager()
-    var foregroundObserver: NSObjectProtocol
-    var backgroundObserver: NSObjectProtocol
+    var foregroundObserver: NSObjectProtocol? = nil
+    var backgroundObserver: NSObjectProtocol? = nil
 
     var lastRecordedLocation: CLLocation? = nil
     var lastLocationUpdate: Date? = nil
 
-    init() {
+    override init() {
+        super.init()
+
         self.locationManager.delegate = self
         // This value represents the distance in meters the device needs to move in order to receive a location
         // update. This is set to a fairly fine grained value so as to track hyper-local location changes.
@@ -59,8 +61,12 @@ class MAXLocationProvider: CLLocationManagerDelegate {
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self.foregroundObserver)
-        NotificationCenter.default.removeObserver(self.backgroundObserver)
+        if let foreground = self.foregroundObserver {
+            NotificationCenter.default.removeObserver(foreground)
+        }
+        if let background = self.backgroundObserver {
+            NotificationCenter.default.removeObserver(background)
+        }
         self.stopLocationUpdates()
     }
 
