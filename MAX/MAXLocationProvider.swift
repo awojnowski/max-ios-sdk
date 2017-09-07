@@ -20,7 +20,6 @@ import CoreLocation
  * The app must explicitly ask for authorization by the user to access their location -- MAX will
  * not ask for permission on it's own.
  */
-
 class MAXLocationProvider: CLLocationManagerDelegate {
 
     static let shared = MAXLocationProvider()
@@ -35,7 +34,7 @@ class MAXLocationProvider: CLLocationManagerDelegate {
     init() {
         self.locationManager.delegate = self
         // This value represents the distance in meters the device needs to move in order to receive a location
-        // update. This is set to a fairly fine grained value
+        // update. This is set to a fairly fine grained value so as to track hyper-local location changes.
         self.locationManager.distanceFilter = 10.0
 
         // Stop observing location updates when the app moves to the background
@@ -84,12 +83,6 @@ class MAXLocationProvider: CLLocationManagerDelegate {
         }
     }
 
-    public func setDistanceFilter(_ distanceFilter: Double) {
-        self.locationManager.distanceFilter = distanceFilter
-        self.stopLocationUpdates()
-        self.startLocationUpdates()
-    }
-
     func startLocationUpdates() {
         guard self.locationTrackingEnabled() else {
             MAXLog.debug("Location tracking disabled in MAXConfiguration, skipping location updates")
@@ -101,14 +94,16 @@ class MAXLocationProvider: CLLocationManagerDelegate {
             return
         }
 
+        MAXLog.debug("MAXLocationProvider will start updating it's location.")
         self.locationManager.startUpdatingLocation()
     }
 
     func stopLocationUpdates() {
+        MAXLog.debug("MAXLocationProvider will stop updating it's location.")
         self.locationManager.stopUpdatingLocation()
     }
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    @objc func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         MAXLog.debug("MAXLocationProvider updated with new location")
         let location = locations.last!
 
@@ -116,12 +111,20 @@ class MAXLocationProvider: CLLocationManagerDelegate {
         self.lastLocationUpdate = Date()
     }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    @objc func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         MAXLog.error("MAXLocationProvider failed to update location")
+    }
+
+    public func setDistanceFilter(_ distanceFilter: Double) {
+        MAXLog.debug("MAXLocationProvider distance filter updated from \(self.locationManager.distanceFilter) to \(distanceFilter)")
+        self.locationManager.distanceFilter = distanceFilter
+        self.stopLocationUpdates()
+        self.startLocationUpdates()
     }
 
     func getLocation() -> CLLocation? {
         guard self.locationTrackingEnabled() else {
+            MAXLog.error("MAXLocationProvider getLocation called but location tracking is disabled")
             return nil
         }
         return self.lastRecordedLocation
