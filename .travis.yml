@@ -1,12 +1,9 @@
 language: objective-c
 osx_image: xcode8.3
+xcode_project: MAX.xcodeproj
+xcode_scheme: MAXTests
 
 # travis chokes on this because we have an empty .gitmodules file
 git:
   submodules: false
-
-script: 
-  - xcodebuild clean 
-  - xcodebuild build -project MAX.xcodeproj -scheme MAX
-  - xcodebuild test -project MAX.xcodeproj -scheme MAXTests -sdk iphonesimulator -destination "name=iPhone SE"
 
