@@ -17,7 +17,6 @@
 		60A2D6CA73581D6FC785F056 /* MAXSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D0E01A9F57FFCAA1CC27 /* MAXSessionTests.swift */; };
 		60A2D7A44EDBC8805321321F /* MAXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DAA400FA91590690059D /* MAXSession.swift */; };
 		60A2D7F6BA4253C8305F2279 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D203EC28556AAAF36126 /* MockURLSession.swift */; };
-		60A2D84D35950B169E11771A /* MAXPreBidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DF605C6AFEBA961AAA5C /* MAXPreBidTests.swift */; };
 		60A2D9AE43C19B8EB3D9FEF6 /* MAXErrorReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DECC551761DDE1492D4A /* MAXErrorReporter.swift */; };
 		60A2DB7DF12E35D5030D7660 /* MAXConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DEB9CB93B72BB0DA6222 /* MAXConfiguration.swift */; };
 		60A2DBB107F20B5A121A17C8 /* MAXAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D731AC000914CA7ED829 /* MAXAdViewTests.swift */; };
@@ -122,7 +121,6 @@
 		60A2DCFF0C14D2D8DBDB2B5D /* MockNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNotificationCenter.swift; sourceTree = "<group>"; };
 		60A2DEB9CB93B72BB0DA6222 /* MAXConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXConfiguration.swift; sourceTree = "<group>"; };
 		60A2DECC551761DDE1492D4A /* MAXErrorReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXErrorReporter.swift; sourceTree = "<group>"; };
-		60A2DF605C6AFEBA961AAA5C /* MAXPreBidTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXPreBidTests.swift; sourceTree = "<group>"; };
 		7E684B941F50CB980067ED0D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E87B28561E4FDF04007EE65C /* MAX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MAX.xcconfig; sourceTree = "<group>"; };
 		E8E21AC51E4E31D0003BE3BD /* MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -273,7 +271,6 @@
 				60A2DA9FF52A460F71E35423 /* MAXAdRequestTests.swift */,
 				60A2D203EC28556AAAF36126 /* MockURLSession.swift */,
 				60A2DCFF0C14D2D8DBDB2B5D /* MockNotificationCenter.swift */,
-				60A2DF605C6AFEBA961AAA5C /* MAXPreBidTests.swift */,
 				60A2D01DF85129BB97D39A62 /* MAXAdRequestManagerTests.swift */,
 				60A2D75E92A03EBFCE03B13A /* MAXAdResponseTests.swift */,
 				60A2D731AC000914CA7ED829 /* MAXAdViewTests.swift */,
@@ -556,7 +553,6 @@
 				60A2D11F0D1CD9158BD34DC8 /* MAXAdRequestTests.swift in Sources */,
 				60A2D7F6BA4253C8305F2279 /* MockURLSession.swift in Sources */,
 				60A2DFA8B8BC073CA62F88AB /* MockNotificationCenter.swift in Sources */,
-				60A2D84D35950B169E11771A /* MAXPreBidTests.swift in Sources */,
 				60A2D12E2DA369B7208E55D5 /* MAXAdRequestManagerTests.swift in Sources */,
 				60A2DFE897960E786454B343 /* MAXAdResponseTests.swift in Sources */,
 				60A2DBB107F20B5A121A17C8 /* MAXAdViewTests.swift in Sources */,

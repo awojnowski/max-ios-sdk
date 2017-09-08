@@ -57,12 +57,21 @@ class MAXAdRequestTests: XCTestCase {
     }
 
     func testAdRequestNoLatLongWhenDisabled() {
-        adRequest.locationTrackingEnabled = true
+        adRequest.locationTrackingEnabled = false
         let reqDict = adRequest.dict
 
-        XCTAssertNotNil(reqDict["longitude"])
-        XCTAssertNotNil(reqDict["latitude"])
+        XCTAssertEqual(reqDict["location_tracking"] as! String, "disabled")
     }
+
+//    func testAdRequestLatLongWhenEnabled() {
+//        adRequest.locationTrackingEnabled = true
+//        let reqDict = adRequest.dict
+//
+//        XCTAssertNotNil(reqDict["longitude"])
+//        XCTAssertNotNil(reqDict["latitude"])
+//
+//        XCTAssertEqual(reqDict["location_tracking"] as! String, "enabled")
+//    }
 
     func testRequestAdWithValidServerResponse() {
         let completion = expectation(description:"MAXAdRequest completes normally with normal response")

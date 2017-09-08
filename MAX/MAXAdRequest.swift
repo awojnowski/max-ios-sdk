@@ -172,10 +172,16 @@ public class MAXAdRequest {
                 "connectivity": self.connectivity,
                 "carrier": self.carrier,
                 "session_depth": MAXSession.sharedInstance.sessionDepth,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
                 "location_tracking": self.locationTrackingAvailability
             ]
+
+            if let latitude = self.latitude {
+                d["latitude"] = latitude
+            }
+
+            if let longitude = self.longitude {
+                d["longitude"] = longitude
+            }
 
             return d
         }

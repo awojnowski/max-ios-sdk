@@ -9,18 +9,18 @@ import XCTest
 class MAXRequestManagerTests: XCTestCase {
 
     func testManagerRefreshesOnActive() {
-
+        XCTFail()
     }
 
     func testRefresh() {
-
+        XCTFail()
     }
 
     func testStartRefresh() {
-
+        XCTFail()
     }
 
     func stopRefresh() {
-
+        XCTFail()
     }
 }
