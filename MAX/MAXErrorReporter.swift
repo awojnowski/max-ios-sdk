@@ -29,19 +29,14 @@ public class MAXErrorReporter {
 
     public func logError(message: String) {
         let clientError = MAXClientError(message: message)
-        guard let data = clientError.jsonData else {
-            return
+        if let data = clientError.jsonData {
+            self.record(data: data)
         }
-        self.record(data: data)
     }
 
     func record(data: Data) {
-        do {
-            let request = NSMutableURLRequest(url: self.errorUrl)
-            let urlSession = URLSession(configuration: URLSessionConfiguration.default)
-            urlSession.uploadTask(with: request as URLRequest, from: data)
-        } catch {
-            MAXLog.error("MAXErrorReporter unable to record error event")
-        }
+        let request = NSMutableURLRequest(url: self.errorUrl)
+        let urlSession = URLSession(configuration: URLSessionConfiguration.default)
+        urlSession.uploadTask(with: request as URLRequest, from: data)
     }
 }

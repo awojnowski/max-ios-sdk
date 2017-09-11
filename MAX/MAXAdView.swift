@@ -26,8 +26,7 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
     private var adResponse: MAXAdResponse!
     private var _mraidView: SKMRAIDView!
     
-    public init(adResponse: MAXAdResponse,
-                size: CGSize) {
+    public init(adResponse: MAXAdResponse, size: CGSize) {
         super.init(frame: CGRect(origin: CGPoint.zero, size: size))        
         self.adResponse = adResponse
     }
