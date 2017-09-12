@@ -6,9 +6,6 @@
 
 import Foundation
 
-let MAXAdResponseURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
-
-
 open class MAXAdResponse : NSObject {
     private let data : Data
     private let response : NSDictionary
@@ -18,7 +15,7 @@ open class MAXAdResponse : NSObject {
 
     let creativeType : String
     var creative : String?
-    
+
     open override var description: String { return String(describing: response) }
     
     public override init() {
@@ -37,18 +34,35 @@ open class MAXAdResponse : NSObject {
         } else {
             MAXLog.debug("Refresh interval not set in ad response")
         }
+
+        if let distanceFilter = self.response["distance_filter"] as? Double {
+            MAXLocationProvider.shared.setDistanceFilter(distanceFilter)
+        }
         
         if let winner = self.response["winner"] as? NSDictionary {
             self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
-            self.autoRefreshInterval = self.response["refresh"] as? Int
             self.creative = self.response["creative"] as? String
             self.creativeType = winner["creative_type"] as? String ?? "empty"
         } else {
             self.preBidKeywords = ""
             self.creativeType = "empty"
         }
+
+        if let errorUrl = self.response["error_url"] as? String {
+            if let url = URL(string: errorUrl) {
+                MAXErrorReporter.sharedInstance.setUrl(url: url)
+            }
+        }
     }
-    
+
+    func getSession() -> URLSession {
+         return URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
+    }
+
+    func getCustomEventClass(name: String) -> NSObject.Type? {
+        return NSClassFromString(name) as? NSObject.Type
+    }
+
     //
     // Refresh operations
     //
@@ -73,14 +87,16 @@ open class MAXAdResponse : NSObject {
         guard let creativeData = self.creative?.data(using: .utf8),
             let json = try? JSONSerialization.jsonObject(with: creativeData) as? [String: Any] else {
                 MAXLog.error("MAX: proxy bid had invalid creative JSON")
+                MAXErrorReporter.sharedInstance.logError(message: "Proxy bid had invalid creative JSON")
                 return (nil, nil)
         }
-        
+
         // pass along to our proxy custom event
         guard let customEventClassName = json?["custom_event_class"] as? String,
-            let customEventClass = NSClassFromString(customEventClassName) as? NSObject.Type,
+            let customEventClass = getCustomEventClass(name: customEventClassName),
             let customEventInfo = json?["custom_event_info"] as? [AnyHashable : Any] else {
                 MAXLog.error("MAX: proxy bid has missing or invalid custom event properties")
+                MAXErrorReporter.sharedInstance.logError(message: "Proxy bid had missing or invalid custom event properties")
                 return (nil, nil)
         }
         
@@ -127,7 +143,7 @@ open class MAXAdResponse : NSObject {
     
     private func track(_ url: URL) {
         MAXLog.debug("MAX: tracking URL fired ==> \(url)")
-        MAXAdResponseURLSession.dataTask(with: url).resume()
+        getSession().dataTask(with: url).resume()
     }
     
 }

@@ -1,0 +1,13 @@
+language: swift
+osx_image: xcode8.3
+xcode_project: MAX.xcodeproj
+xcode_scheme: MAXTests
+xcode_sdk: iphonesimulator10.0
+
+script:
+  - make test
+
+# travis chokes on this because we have an empty .gitmodules file
+git:
+  submodules: false
+

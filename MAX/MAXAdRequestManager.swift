@@ -23,12 +23,14 @@ let ERROR_RETRY_BASE = 2.0, MAX_ERROR_RETRY = 30.0
 public class MAXAdRequestManager : NSObject {
     public var lastRequest : MAXAdRequest?
     
-    private var _adUnitID : String
-    private var _completion : (MAXAdResponse?, NSError?) -> Void
+    var _adUnitID : String
+    var _completion : (MAXAdResponse?, NSError?) -> Void
     
-    private var _shouldRefresh = false
-    private var _timer : Timer?
-    private var _errorCount = 0.0
+    var _shouldRefresh = false
+    var _timer : Timer?
+    var _errorCount = 0.0
+
+    var appObserver: NSObjectProtocol!
     
     public init(adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         self._adUnitID = adUnitID
@@ -37,17 +39,25 @@ public class MAXAdRequestManager : NSObject {
         // App lifecycle: when the app is in the background, we will automatically ignore a 
         // request to refresh, so when the app comes back to the foreground, we need to resurrect the timer
         // so that the refresh begins again.
-        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) {
+        self.appObserver = NotificationCenter.default.addObserver(
+                forName: NSNotification.Name.UIApplicationDidBecomeActive,
+                object: nil,
+                queue: OperationQueue.main
+        ) {
             notification in
             if self._shouldRefresh {
                 MAXLog.debug("MAX: got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
-                self.scheduleTimerWithInterval(0)
+                self.scheduleTimerImmediately()
             }
         }
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self.appObserver)
+    }
+
+    func runPreBid(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
+        return MAXAdRequest.preBidWithMAXAdUnit(self._adUnitID, completion: completion)
     }
 
     // 
@@ -56,13 +66,13 @@ public class MAXAdRequestManager : NSObject {
     //
     public func refresh() -> MAXAdRequest {
         MAXLog.debug("refresh() called")
-        let adr = MAXAdRequest.preBidWithMAXAdUnit(self._adUnitID) {(response, error) in
+
+        return self.runPreBid() { (response, error) in
             MAXLog.debug("preBidWithMAXAdUnit() returned")
             self._completion(response, error)
-            
+
             // Auto-refresh the same pre-bid and execution logic if we successfully retrieved a pre-bid.
             // NOTE that the SSP refresh should be disabled if pre-bid refresh is being used.
-            //
             if let adResponse = response {
                 self._errorCount = 0
                 if adResponse.shouldAutoRefresh() {
@@ -76,16 +86,15 @@ public class MAXAdRequestManager : NSObject {
                 
                 // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
                 MAXLog.error("MAX: Error occurred \(adError), retry attempt \(self._errorCount)")
+                MAXErrorReporter.sharedInstance.logError(error: adError)
                 self.scheduleTimerWithInterval(min(pow(ERROR_RETRY_BASE, self._errorCount), MAX_ERROR_RETRY))
             }
         }
-        
-        return adr
     }
     
     public func startRefresh() {
         self._shouldRefresh = true
-        self.scheduleTimerWithInterval(0)
+        self.scheduleTimerImmediately()
     }
     
     public func stopRefresh() {
@@ -102,12 +111,18 @@ public class MAXAdRequestManager : NSObject {
                 timer.invalidate()
             }
             // then, set a new timer with the requested time interval
-            self._timer = Timer.scheduledTimer(timeInterval: TimeInterval(interval),
-                target: self,
-                selector: #selector(self.refreshTimerDidFire(_:)),
-                userInfo: nil,
-                repeats: false)
+            self._timer = Timer.scheduledTimer(
+                    timeInterval: TimeInterval(interval),
+                    target: self,
+                    selector: #selector(self.refreshTimerDidFire(_:)),
+                    userInfo: nil,
+                    repeats: false
+            )
         })
+    }
+
+    private func scheduleTimerImmediately() {
+        self.scheduleTimerWithInterval(0)
     }
     
     @objc func refreshTimerDidFire(_ timer: Timer!) {
@@ -125,6 +140,4 @@ public class MAXAdRequestManager : NSObject {
 
         let _ = self.refresh()
     }
-
-
 }

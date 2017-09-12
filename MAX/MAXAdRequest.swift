@@ -8,18 +8,205 @@ import Foundation
 import AdSupport
 import CoreTelephony
 import UIKit
+import CoreLocation
 import SKFramework
+
+public typealias MAXResponseCompletion = (MAXAdResponse?, NSError?) -> Void
+
+public enum MAXRequestError: Error {
+    case InvalidResponse(response: URLResponse?, data: Data?)
+    case RequestFailed(domain: String, statusCode: Int, userInfo: Data?)
+}
 
 public class MAXAdRequest {
     public static let ADS_DOMAIN = "ads.maxads.io"
     public static let API_VERSION = "1"
 
-    // 
-    // Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has compelted, 
+    public var adUnitID: String!
+    public var adResponse: MAXAdResponse?
+    public var adError: NSError?
+    public var locationTrackingEnabled: Bool
+
+    public init(adUnitID: String) {
+        self.adUnitID = adUnitID
+        self.locationTrackingEnabled = MAXConfiguration.shared.locationTrackingEnabled
+    }
+
+    var ifa: String {
+        get {
+            return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        }
+    }
+
+    var lmt: Bool {
+        get {
+            return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true
+        }
+    }
+
+    var vendorId: String {
+        get {
+            return UIDevice.current.identifierForVendor?.uuidString ?? ""
+        }
+    }
+
+    var timeZone: String {
+        get {
+            return NSTimeZone.system.abbreviation() ?? ""
+        }
+    }
+
+    var locale: String {
+        get {
+            return Locale.current.identifier
+        }
+    }
+    var regionCode: String {
+        get {
+            return Locale.current.regionCode ?? ""
+        }
+    }
+
+    var orientation: String {
+        get {
+            if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+                return "portrait"
+            } else if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+                return "landscape"
+            } else {
+                return "none"
+            }
+        }
+    }
+
+    var deviceWidth: CGFloat {
+        get {
+            return floor(UIScreen.main.bounds.size.width)
+        }
+    }
+
+    var deviceHeight: CGFloat {
+        get {
+            return floor(UIScreen.main.bounds.size.height)
+        }
+    }
+
+    var browserAgent: String {
+        get {
+            return UIWebView().stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
+        }
+    }
+
+    var connectivity: String {
+        get {
+            if SKReachability.forInternetConnection().isReachableViaWiFi() {
+                return "wifi"
+            } else if SKReachability.forInternetConnection().isReachableViaWWAN() {
+                return "wwan"
+            } else {
+                return "none"
+            }
+        }
+    }
+
+    var carrier: String {
+        get {
+            return CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""
+        }
+    }
+
+    var latitude: Double? {
+        get {
+            if let location = MAXLocationProvider.shared.getLocation() {
+                return location.coordinate.latitude
+            }
+
+            return nil
+        }
+    }
+
+    var longitude: Double? {
+        get {
+            if let location = MAXLocationProvider.shared.getLocation() {
+                return location.coordinate.longitude
+            }
+
+            return nil
+        }
+    }
+
+    var locationTrackingAvailability: String {
+        get {
+            return MAXLocationProvider.shared.locationTrackingAvailability()
+        }
+    }
+
+    var model: String {
+        get {
+            var systemInfo = utsname()
+            uname(&systemInfo)
+            let machineMirror = Mirror(reflecting: systemInfo.machine)
+            let identifier = machineMirror.children.reduce("") { identifier, element in
+                guard let value = element.value as? Int8, value != 0 else { return identifier }
+                return identifier + String(UnicodeScalar(UInt8(value)))
+            }
+            return identifier
+        }
+    }
+
+    // All interesting things about this particular device
+    var dict: Dictionary<String, Any> {
+        get {
+            var d: Dictionary<String, Any> = [
+                "v": MAXAdRequest.API_VERSION,
+                "ifa": self.ifa,
+                "lmt": self.lmt,
+                "vendor_id": self.vendorId,
+                "tz": self.timeZone,
+                "locale": self.locale,
+                "orientation": self.orientation,
+                "w": self.deviceWidth,
+                "h": self.deviceHeight,
+                "browser_agent": self.browserAgent,
+                "model": self.model,
+                "connectivity": self.connectivity,
+                "carrier": self.carrier,
+                "session_depth": MAXSession.sharedInstance.sessionDepth,
+                "location_tracking": self.locationTrackingAvailability
+            ]
+
+            if let latitude = self.latitude {
+                d["latitude"] = latitude
+            }
+
+            if let longitude = self.longitude {
+                d["longitude"] = longitude
+            }
+
+            return d
+        }
+    }
+
+    var asJSONObject: Data? {
+        get {
+            let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
+            return data
+        }
+    }
+
+    func getSession() -> URLSession {
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        return session
+    }
+
+
+    //
+    // Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has completed,
     // the callback function provided is invoked and the pre-bid ad response is made available
     // through that callback. Timeouts and other errors are also returned through the callback.
     //
-    public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) -> MAXAdRequest {
+    public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd() {(response, error) in
             MAXPreBid.receivedPreBid(adUnitID: adUnitID, response: response, error: error)
@@ -28,18 +215,6 @@ public class MAXAdRequest {
         return adr
     }
 
-    public var adUnitID: String!
-    
-    public var adResponse: MAXAdResponse?
-    public var adError: NSError?
-    
-    //
-    // Initialize a new ad request
-    // 
-    public init(adUnitID: String) {
-        self.adUnitID = adUnitID
-    }
-        
     // 
     // Begin the ad flow by calling requestAd(), which conducts various server side 
     // auctions and other ad logic to determine the ad plan. 
@@ -48,41 +223,23 @@ public class MAXAdRequest {
     // plan can be executed whenever an ad needs to be shown. Once the ad is shown, 
     // the ad request should be discarded. 
     //
-    public func requestAd(_ completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
-        // All interesting things about this particular device
-        let dict : NSDictionary = [
-            "v": API_VERSION,
-            "ifa": ASIdentifierManager.shared().advertisingIdentifier.uuidString,
-            "lmt": ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true,
-            "vendor_id": UIDevice.current.identifierForVendor?.uuidString ?? "",
-            "tz": NSTimeZone.system.abbreviation() ?? "",
-            "locale": Locale.current.identifier,
-            "orientation": UIDeviceOrientationIsPortrait(UIDevice.current.orientation) ? "portrait" :
-                (UIDeviceOrientationIsLandscape(UIDevice.current.orientation) ? "landscape" : "none"),
-            "w": floor(UIScreen.main.bounds.size.width),
-            "h": floor(UIScreen.main.bounds.size.height),
-            "browser_agent": UIWebView().stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? "",
-            "model": self.model(),
-            "connectivity": SKReachability.forInternetConnection().isReachableViaWiFi() ? "wifi" :
-                SKReachability.forInternetConnection().isReachableViaWWAN() ? "wwan" : "none",
-            "carrier": CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""]
-        
+    public func requestAd(_ completion: @escaping MAXResponseCompletion) {
         // Setup POST
         let url = URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID!)")!
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
+        let session = getSession()
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
 
         do {
-            let data = try JSONSerialization.data(withJSONObject: dict, options: [])
-            session.uploadTask(with: request as URLRequest, from: data, completionHandler: { (_data, _response, _error) in
+            session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (_data, _response, _error) in
+                MAXSession.sharedInstance.incrementDepth()
                 do {
-                    guard let data = _data,
-                        let response = _response as? HTTPURLResponse,
-                        _error == nil else {
-                        throw _error!
+                    guard let data = _data, let response = _response as? HTTPURLResponse else {
+                        if let error = _error {
+                            throw error
+                        } else {
+                            throw MAXRequestError.InvalidResponse(response: _response, data: _data)
+                        }
                     }
                     
                     if response.statusCode == 200 {
@@ -92,9 +249,11 @@ public class MAXAdRequest {
                         self.adResponse = MAXAdResponse()
                         completion(self.adResponse, nil)
                     } else {
-                        throw NSError(domain: MAXAdRequest.ADS_DOMAIN,
-                            code: response.statusCode,
-                            userInfo: nil)
+                        throw MAXRequestError.RequestFailed(
+                                domain: MAXAdRequest.ADS_DOMAIN,
+                                statusCode: response.statusCode,
+                                userInfo: nil
+                        )
                     }
                 } catch let error as NSError {
                     self.adError = error
@@ -106,17 +265,5 @@ public class MAXAdRequest {
             self.adError = error
             completion(nil, error)
         }
-        
-    }
-    
-    private func model() -> String {
-        var systemInfo = utsname()
-        uname(&systemInfo)
-        let machineMirror = Mirror(reflecting: systemInfo.machine)
-        let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8, value != 0 else { return identifier }
-            return identifier + String(UnicodeScalar(UInt8(value)))
-        }
-        return identifier
     }
 }
