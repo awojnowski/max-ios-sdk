@@ -13,6 +13,42 @@ class MAXAdRequestTests: XCTestCase {
         override func getSession() -> URLSession {
             return mockSession
         }
+
+        var locationTrackingEnabled = false
+
+        override var latitude: Double? {
+            if self.locationTrackingEnabled {
+                return 10.01
+            }
+            return nil
+        }
+        override var longitude: Double? {
+            if self.locationTrackingEnabled {
+                return 11.02
+            }
+            return nil
+        }
+
+        override var locationHorizontalAccuracy: Double? {
+            if self.locationTrackingEnabled {
+                return 3.4
+            }
+            return nil
+        }
+
+        override var locationVerticalAccuracy: Double? {
+            if self.locationTrackingEnabled {
+                return 4.5
+            }
+            return nil
+        }
+
+        override var locationTrackingTimestamp: String? {
+            if self.locationTrackingEnabled {
+                return "pretty recently"
+            }
+            return nil
+        }
     }
 
     var adRequest: TestableMAXAdRequest = TestableMAXAdRequest(adUnitID: "1234")
@@ -54,24 +90,70 @@ class MAXAdRequestTests: XCTestCase {
 
         XCTAssertNil(reqDict["longitude"])
         XCTAssertNil(reqDict["latitude"])
+        XCTAssertNil(reqDict["location_accuracy"])
+        XCTAssertNil(reqDict["location_timestamp"])
+    }
+    
+    func testSerializationWithLocationTrackingHasLongitude() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        if let longitude = reqDict["longitude"] {
+            XCTAssertEqual(longitude as! Double, 11.02)
+        } else {
+            XCTFail("Request dict expected to have longitude but didn't.")
+        }
+    }
+
+    func testSerializationWithLocationTrackingHasLatitude() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        if let latitude = reqDict["latitude"] {
+            XCTAssertEqual(latitude as! Double, 10.01)
+        } else {
+            XCTFail("Request dict expected to have latitude but didn't.")
+        }
+    }
+
+    func testSerializationWithLocationTrackingHasLocationAccuracy() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        if let accuracy = reqDict["location_accuracy"] {
+
+            let acc = accuracy as! Dictionary<String, Double>
+            if let hAccuracy = acc["horizontal"] {
+                XCTAssertEqual(hAccuracy, 3.4)
+            } else {
+                XCTFail("Accuracy dict expected to have horizontal accuracy but didn't.")
+            }
+
+            if let vAccuracy = acc["vertical"] {
+                XCTAssertEqual(vAccuracy, 4.5)
+            } else {
+                XCTFail("Accuracy dict expected to have vertical accuracy but didn't.")
+            }
+        } else {
+            XCTFail("Request dict expected to have location accuracy but didn't.")
+        }
+    }
+
+    func testSerializationWithLocationTrackingHasTimestamp() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        if let ts = reqDict["location_timestamp"] {
+            XCTAssertEqual(ts as! String, "pretty recently")
+        } else {
+            XCTFail("Request dict expected to have location_timestamp but didn't.")
+        }
     }
 
     func testAdRequestNoLatLongWhenDisabled() {
-        adRequest.locationTrackingEnabled = false
         let reqDict = adRequest.dict
-
         XCTAssertEqual(reqDict["location_tracking"] as! String, "disabled")
     }
-
-//    func testAdRequestLatLongWhenEnabled() {
-//        adRequest.locationTrackingEnabled = true
-//        let reqDict = adRequest.dict
-//
-//        XCTAssertNotNil(reqDict["longitude"])
-//        XCTAssertNotNil(reqDict["latitude"])
-//
-//        XCTAssertEqual(reqDict["location_tracking"] as! String, "enabled")
-//    }
 
     func testRequestAdWithValidServerResponse() {
         let completion = expectation(description:"MAXAdRequest completes normally with normal response")
