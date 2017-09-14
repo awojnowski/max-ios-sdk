@@ -38,6 +38,7 @@ class MAXAdRequestTests: XCTestCase {
         let reqDict = adRequest.dict
 
         XCTAssertNotNil(reqDict["v"])
+        XCTAssertNotNil(reqDict["sdk_v"])
         XCTAssertNotNil(reqDict["ifa"])
         XCTAssertNotNil(reqDict["lmt"])
         XCTAssertNotNil(reqDict["vendor_id"])
@@ -54,6 +55,13 @@ class MAXAdRequestTests: XCTestCase {
 
         XCTAssertNil(reqDict["longitude"])
         XCTAssertNil(reqDict["latitude"])
+    }
+
+    func testVersionNumbers() {
+        let reqDict = adRequest.dict
+
+        XCTAssertEqual(reqDict["v"] as! String, "1")
+        XCTAssertEqual(reqDict["sdk_v"] as! String, "0.5.0")
     }
 
     func testAdRequestNoLatLongWhenDisabled() {

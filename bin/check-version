@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+configFileVersion=`grep MAX_SDK_VERSION MAX/MAXConfiguration.swift | head -n 1 | awk '{print $NF}' | sed 's/"//g'`;
+podFileVersion=`grep s.version MAX.podspec | head -n 1 | awk '{print $NF}' | sed "s/'//g"`; 
+if [ "$configFileVersion" != "$podFileVersion" ]  
+	then 
+	echo "SDK Version numbers didn't match between project configuration (MAX/MAXConfiguration.swift) and podspec (MAX.podspec)" 
+	echo "Configuration: $configFileVersion" 
+	echo "podspec: $podFileVersion" 
+	exit 1 
+else 
+	echo "SDK Version numbers match" 
+	exit 0 
+fi
