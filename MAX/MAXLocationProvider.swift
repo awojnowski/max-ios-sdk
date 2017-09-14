@@ -29,9 +29,6 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
     var backgroundObserver: NSObjectProtocol? = nil
 
     var lastLocation: CLLocation? = nil
-    var lastLocationUpdateTimestamp: Date? = nil
-    var lastLocationHorizontalAccuracy: CLLocationAccuracy? = nil
-    var lastLocationVerticalAccuracy: CLLocationAccuracy? = nil
 
     override init() {
         super.init()
@@ -119,9 +116,6 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         let location = locations.last!
 
         self.lastLocation = location
-        self.lastLocationUpdateTimestamp = Date()
-        self.lastLocationHorizontalAccuracy = location.horizontalAccuracy
-        self.lastLocationVerticalAccuracy = location.verticalAccuracy
     }
 
     @objc func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -137,7 +131,7 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
 
     func getLocation() -> CLLocation? {
         guard self.locationTrackingEnabled() else {
-            MAXLog.error("MAXLocationProvider getLocation called but location tracking is disabled")
+            MAXLog.warn("MAXLocationProvider getLocation called but location tracking is disabled")
             return nil
         }
         return self.lastLocation
@@ -145,27 +139,43 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
 
     func getLocationUpdateTimestamp() -> Date? {
         guard self.locationTrackingEnabled() else {
-            MAXLog.error("MAXLocationProvider getLastLocationUpdateTimestamp called but location tracking is disabled")
+            MAXLog.warn("MAXLocationProvider getLastLocationUpdateTimestamp called but location tracking is disabled.")
             return nil
         }
-        return self.lastLocationUpdateTimestamp
+
+        if let location = self.lastLocation {
+            return location.timestamp
+        }
+
+        MAXLog.warn("MAXLocationProvider getLastLocationUpdateTimestamp called before any locations were tracked.")
+        return nil
     }
 
     func getLocationHorizontalAccuracy() -> CLLocationAccuracy? {
         guard self.locationTrackingEnabled() else {
-            MAXLog.error("MAXLocationProvider getLocationHorizontalAccuracy called but location tracking is disabled")
+            MAXLog.warn("MAXLocationProvider getLocationHorizontalAccuracy called but location tracking is disabled")
             return nil
         }
 
-        return self.lastLocationHorizontalAccuracy
+        if let location = self.lastLocation {
+            return location.horizontalAccuracy
+        }
+
+        MAXLog.warn("MAXLocationProvider getLocationHorizontalAccuracy called before any locations were tracked.")
+        return nil
     }
 
     func getLocationVerticalAccuracy() -> CLLocationAccuracy? {
         guard self.locationTrackingEnabled() else {
-            MAXLog.error("MAXLocationProvider getLocationVerticalAccuracy called but location tracking is disabled")
+            MAXLog.warn("MAXLocationProvider getLocationVerticalAccuracy called but location tracking is disabled")
             return nil
         }
 
-        return self.lastLocationVerticalAccuracy
+        if let location = self.lastLocation {
+            return location.verticalAccuracy
+        }
+
+        MAXLog.warn("MAXLocationProvider getLocationVerticalAccuracy called before any locations were tracked.")
+        return nil
     }
 }

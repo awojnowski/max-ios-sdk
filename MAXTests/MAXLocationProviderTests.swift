@@ -23,7 +23,10 @@ class MAXLocationProviderTests: XCTestCase {
     }
 
     var provider: MAXLocationProvider = TestableMAXLocationProvider()
-    let location: CLLocation = CLLocation(latitude: 37.792781, longitude:-122.405174)
+    let location: CLLocation = CLLocation(
+            latitude: 37.792781,
+            longitude:-122.405174
+    )
 
     override func setUp() {
         provider = TestableMAXLocationProvider()
@@ -43,25 +46,22 @@ class MAXLocationProviderTests: XCTestCase {
     func testLocationManagerUpdate() {
         let provider = TestableMAXLocationProvider()
 
-        XCTAssertNil(provider.lastLocation)
-        XCTAssertNil(provider.lastLocationUpdateTimestamp)
-        XCTAssertNil(provider.lastLocationHorizontalAccuracy)
-        XCTAssertNil(provider.lastLocationVerticalAccuracy)
+        XCTAssertNil(provider.getLocation())
+        XCTAssertNil(provider.getLocationUpdateTimestamp())
+        XCTAssertNil(provider.getLocationHorizontalAccuracy())
+        XCTAssertNil(provider.getLocationVerticalAccuracy())
 
         provider.locationManager(CLLocationManager(), didUpdateLocations: [location])
 
-        XCTAssertNotNil(provider.lastLocationUpdateTimestamp)
-        XCTAssertNotNil(provider.lastLocationVerticalAccuracy)
-        XCTAssertNotNil(provider.lastLocationHorizontalAccuracy)
+        XCTAssertNotNil(provider.getLocationUpdateTimestamp())
+        XCTAssertNotNil(provider.getLocationHorizontalAccuracy())
+        XCTAssertNotNil(provider.getLocationVerticalAccuracy())
         XCTAssertEqual(provider.lastLocation, location)
     }
 
     func testLocationAccessControls() {
         let provider = TestableMAXLocationProvider()
         provider.lastLocation = location
-        provider.lastLocationHorizontalAccuracy = location.horizontalAccuracy
-        provider.lastLocationVerticalAccuracy = location.verticalAccuracy
-        provider.lastLocationUpdateTimestamp = Date()
         provider._locationTrackingEnabled = false
 
         XCTAssertNil(provider.getLocation())
