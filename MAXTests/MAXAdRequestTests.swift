@@ -98,10 +98,14 @@ class MAXAdRequestTests: XCTestCase {
         adRequest.locationTrackingEnabled = true
         let reqDict = adRequest.dict
 
-        if let longitude = reqDict["longitude"] {
-            XCTAssertEqual(longitude as! Double, 11.02)
+        if let locationData = reqDict["location"] as? Dictionary<String, Any> {
+            if let longitude = locationData["longitude"] as? Double {
+                XCTAssertEqual(longitude, 11.02)
+            } else {
+                XCTFail("Location dict expected to have longitude but didn't.")
+            }
         } else {
-            XCTFail("Request dict expected to have longitude but didn't.")
+            XCTFail("Request dict expected to have location data but didn't.")
         }
     }
 
@@ -109,10 +113,14 @@ class MAXAdRequestTests: XCTestCase {
         adRequest.locationTrackingEnabled = true
         let reqDict = adRequest.dict
 
-        if let latitude = reqDict["latitude"] {
-            XCTAssertEqual(latitude as! Double, 10.01)
+        if let locationData = reqDict["location"] as? Dictionary<String, Any> {
+            if let longitude = locationData["latitude"] as? Double {
+                XCTAssertEqual(longitude, 10.01)
+            } else {
+                XCTFail("Location dict expected to have latitude but didn't.")
+            }
         } else {
-            XCTFail("Request dict expected to have latitude but didn't.")
+            XCTFail("Request dict expected to have location data but didn't.")
         }
     }
 
@@ -120,16 +128,14 @@ class MAXAdRequestTests: XCTestCase {
         adRequest.locationTrackingEnabled = true
         let reqDict = adRequest.dict
 
-        if let accuracy = reqDict["location_accuracy"] {
-
-            let acc = accuracy as! Dictionary<String, Double>
-            if let hAccuracy = acc["horizontal"] {
+        if let locationData = reqDict["location"] as? Dictionary<String, Any> {
+            if let hAccuracy = locationData["horizontal_accuracy"] as? Double {
                 XCTAssertEqual(hAccuracy, 3.4)
             } else {
-                XCTFail("Accuracy dict expected to have horizontal accuracy but didn't.")
+                XCTFail("Location dict expected to have horizontal accuracy but didn't.")
             }
 
-            if let vAccuracy = acc["vertical"] {
+            if let vAccuracy = locationData["vertical_accuracy"] as? Double {
                 XCTAssertEqual(vAccuracy, 4.5)
             } else {
                 XCTFail("Accuracy dict expected to have vertical accuracy but didn't.")
@@ -143,10 +149,14 @@ class MAXAdRequestTests: XCTestCase {
         adRequest.locationTrackingEnabled = true
         let reqDict = adRequest.dict
 
-        if let ts = reqDict["location_timestamp"] {
-            XCTAssertEqual(ts as! String, "pretty recently")
+        if let locationData = reqDict["location"] as? Dictionary<String, Any> {
+            if let ts = locationData["timestamp"] as? String {
+                XCTAssertEqual(ts, "pretty recently")
+            } else {
+                XCTFail("Location dict expected to have timestamp but didn't.")
+            }
         } else {
-            XCTFail("Request dict expected to have location_timestamp but didn't.")
+            XCTFail("Request dict expected to have location data but didn't.")
         }
     }
 
