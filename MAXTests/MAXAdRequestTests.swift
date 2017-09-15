@@ -13,6 +13,42 @@ class MAXAdRequestTests: XCTestCase {
         override func getSession() -> URLSession {
             return mockSession
         }
+
+        var locationTrackingEnabled = false
+
+        override var latitude: Double? {
+            if self.locationTrackingEnabled {
+                return 10.01
+            }
+            return nil
+        }
+        override var longitude: Double? {
+            if self.locationTrackingEnabled {
+                return 11.02
+            }
+            return nil
+        }
+
+        override var locationHorizontalAccuracy: Double? {
+            if self.locationTrackingEnabled {
+                return 3.4
+            }
+            return nil
+        }
+
+        override var locationVerticalAccuracy: Double? {
+            if self.locationTrackingEnabled {
+                return 4.5
+            }
+            return nil
+        }
+
+        override var locationTrackingTimestamp: String? {
+            if self.locationTrackingEnabled {
+                return "pretty recently"
+            }
+            return nil
+        }
     }
 
     var adRequest: TestableMAXAdRequest = TestableMAXAdRequest(adUnitID: "1234")
@@ -54,24 +90,80 @@ class MAXAdRequestTests: XCTestCase {
 
         XCTAssertNil(reqDict["longitude"])
         XCTAssertNil(reqDict["latitude"])
+        XCTAssertNil(reqDict["location_accuracy"])
+        XCTAssertNil(reqDict["location_timestamp"])
+    }
+    
+    func testSerializationWithLocationTrackingHasLongitude() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        if let locationData = reqDict["location"] as? Dictionary<String, Any> {
+            if let longitude = locationData["longitude"] as? Double {
+                XCTAssertEqual(longitude, 11.02)
+            } else {
+                XCTFail("Location dict expected to have longitude but didn't.")
+            }
+        } else {
+            XCTFail("Request dict expected to have location data but didn't.")
+        }
+    }
+
+    func testSerializationWithLocationTrackingHasLatitude() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        if let locationData = reqDict["location"] as? Dictionary<String, Any> {
+            if let longitude = locationData["latitude"] as? Double {
+                XCTAssertEqual(longitude, 10.01)
+            } else {
+                XCTFail("Location dict expected to have latitude but didn't.")
+            }
+        } else {
+            XCTFail("Request dict expected to have location data but didn't.")
+        }
+    }
+
+    func testSerializationWithLocationTrackingHasLocationAccuracy() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        if let locationData = reqDict["location"] as? Dictionary<String, Any> {
+            if let hAccuracy = locationData["horizontal_accuracy"] as? Double {
+                XCTAssertEqual(hAccuracy, 3.4)
+            } else {
+                XCTFail("Location dict expected to have horizontal accuracy but didn't.")
+            }
+
+            if let vAccuracy = locationData["vertical_accuracy"] as? Double {
+                XCTAssertEqual(vAccuracy, 4.5)
+            } else {
+                XCTFail("Accuracy dict expected to have vertical accuracy but didn't.")
+            }
+        } else {
+            XCTFail("Request dict expected to have location accuracy but didn't.")
+        }
+    }
+
+    func testSerializationWithLocationTrackingHasTimestamp() {
+        adRequest.locationTrackingEnabled = true
+        let reqDict = adRequest.dict
+
+        if let locationData = reqDict["location"] as? Dictionary<String, Any> {
+            if let ts = locationData["timestamp"] as? String {
+                XCTAssertEqual(ts, "pretty recently")
+            } else {
+                XCTFail("Location dict expected to have timestamp but didn't.")
+            }
+        } else {
+            XCTFail("Request dict expected to have location data but didn't.")
+        }
     }
 
     func testAdRequestNoLatLongWhenDisabled() {
-        adRequest.locationTrackingEnabled = false
         let reqDict = adRequest.dict
-
         XCTAssertEqual(reqDict["location_tracking"] as! String, "disabled")
     }
-
-//    func testAdRequestLatLongWhenEnabled() {
-//        adRequest.locationTrackingEnabled = true
-//        let reqDict = adRequest.dict
-//
-//        XCTAssertNotNil(reqDict["longitude"])
-//        XCTAssertNotNil(reqDict["latitude"])
-//
-//        XCTAssertEqual(reqDict["location_tracking"] as! String, "enabled")
-//    }
 
     func testRequestAdWithValidServerResponse() {
         let completion = expectation(description:"MAXAdRequest completes normally with normal response")
