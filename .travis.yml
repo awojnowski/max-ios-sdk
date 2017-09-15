@@ -6,6 +6,7 @@ xcode_sdk: iphonesimulator10.0
 
 script:
   - make test
+  - make check-version
 
 # travis chokes on this because we have an empty .gitmodules file
 git:

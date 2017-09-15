@@ -74,6 +74,7 @@ class MAXAdRequestTests: XCTestCase {
         let reqDict = adRequest.dict
 
         XCTAssertNotNil(reqDict["v"])
+        XCTAssertNotNil(reqDict["sdk_v"])
         XCTAssertNotNil(reqDict["ifa"])
         XCTAssertNotNil(reqDict["lmt"])
         XCTAssertNotNil(reqDict["vendor_id"])
@@ -87,11 +88,8 @@ class MAXAdRequestTests: XCTestCase {
         XCTAssertNotNil(reqDict["connectivity"])
         XCTAssertNotNil(reqDict["carrier"])
         XCTAssertNotNil(reqDict["session_depth"])
-
-        XCTAssertNil(reqDict["longitude"])
-        XCTAssertNil(reqDict["latitude"])
-        XCTAssertNil(reqDict["location_accuracy"])
-        XCTAssertNil(reqDict["location_timestamp"])
+        XCTAssertNotNil(reqDict["location"])
+        XCTAssertNotNil(reqDict["location_tracking"])
     }
     
     func testSerializationWithLocationTrackingHasLongitude() {
@@ -107,6 +105,13 @@ class MAXAdRequestTests: XCTestCase {
         } else {
             XCTFail("Request dict expected to have location data but didn't.")
         }
+    }
+
+    func testVersionNumbers() {
+        let reqDict = adRequest.dict
+
+        XCTAssertEqual(reqDict["v"] as! String, "1")
+        XCTAssertEqual(reqDict["sdk_v"] as! String, "0.5.0")
     }
 
     func testSerializationWithLocationTrackingHasLatitude() {

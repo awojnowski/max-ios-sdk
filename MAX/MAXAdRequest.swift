@@ -139,6 +139,12 @@ public class MAXAdRequest {
         }
     }
 
+    var sdkVersion: String {
+        get {
+            return MAXConfiguration.shared.getSDKVersion()
+        }
+    }
+
     var locationHorizontalAccuracy: Double? {
         get {
             return MAXLocationProvider.shared.getLocationHorizontalAccuracy()
@@ -209,6 +215,7 @@ public class MAXAdRequest {
         get {
             var d: Dictionary<String, Any> = [
                 "v": MAXAdRequest.API_VERSION,
+                "sdk_v": self.sdkVersion,
                 "ifa": self.ifa,
                 "lmt": self.lmt,
                 "vendor_id": self.vendorId,

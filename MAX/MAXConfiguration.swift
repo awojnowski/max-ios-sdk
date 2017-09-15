@@ -5,10 +5,20 @@
 
 import Foundation
 
+let MAX_SDK_VERSION = "0.5.0"
+
 class MAXConfiguration {
 
     static let shared = MAXConfiguration()
     private init() {}
+
+    /*
+     * SDK Version
+     */
+
+    public func getSDKVersion() -> String {
+        return MAX_SDK_VERSION
+    }
 
     /*
      * Location Tracking
