@@ -25,11 +25,9 @@ public class MAXAdRequest {
     public var adUnitID: String!
     public var adResponse: MAXAdResponse?
     public var adError: NSError?
-    public var locationTrackingEnabled: Bool
 
     public init(adUnitID: String) {
         self.adUnitID = adUnitID
-        self.locationTrackingEnabled = MAXConfiguration.shared.locationTrackingEnabled
     }
 
     var ifa: String {
@@ -147,6 +145,58 @@ public class MAXAdRequest {
         }
     }
 
+    var locationHorizontalAccuracy: Double? {
+        get {
+            return MAXLocationProvider.shared.getLocationHorizontalAccuracy()
+        }
+    }
+
+    var locationVerticalAccuracy: Double? {
+        get {
+            return MAXLocationProvider.shared.getLocationVerticalAccuracy()
+        }
+    }
+
+    var locationTrackingTimestamp: String? {
+        get {
+            if let dt = MAXLocationProvider.shared.getLocationUpdateTimestamp() {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                return dateFormatter.string(from: dt)
+            } else {
+                return nil
+            }
+        }
+    }
+
+    var locationData: Dictionary<String, Any> {
+        get {
+            var locationData: Dictionary<String, Any> = [:]
+
+            if let latitude = self.latitude {
+                locationData["latitude"] = latitude
+            }
+
+            if let longitude = self.longitude {
+                locationData["longitude"] = longitude
+            }
+
+            if let vAccuracy = self.locationVerticalAccuracy {
+                locationData["vertical_accuracy"] = vAccuracy
+            }
+
+            if let hAccuracy = self.locationHorizontalAccuracy {
+                locationData["horizontal_accuracy"] = hAccuracy
+            }
+
+            if let locationTimestamp = self.locationTrackingTimestamp {
+                locationData["timestamp"] = locationTimestamp
+            }
+
+            return locationData
+        }
+    }
+
     var model: String {
         get {
             var systemInfo = utsname()
@@ -179,16 +229,9 @@ public class MAXAdRequest {
                 "connectivity": self.connectivity,
                 "carrier": self.carrier,
                 "session_depth": MAXSession.sharedInstance.sessionDepth,
-                "location_tracking": self.locationTrackingAvailability
+                "location_tracking": self.locationTrackingAvailability,
+                "location": self.locationData
             ]
-
-            if let latitude = self.latitude {
-                d["latitude"] = latitude
-            }
-
-            if let longitude = self.longitude {
-                d["longitude"] = longitude
-            }
 
             return d
         }

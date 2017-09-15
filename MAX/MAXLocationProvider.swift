@@ -28,8 +28,7 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
     var foregroundObserver: NSObjectProtocol? = nil
     var backgroundObserver: NSObjectProtocol? = nil
 
-    var lastRecordedLocation: CLLocation? = nil
-    var lastLocationUpdate: Date? = nil
+    var lastLocation: CLLocation? = nil
 
     override init() {
         super.init()
@@ -37,6 +36,8 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         self.locationManager.delegate = self
         // This value represents the distance in meters the device needs to move in order to receive a location
         // update. This is set to a fairly fine grained value so as to track hyper-local location changes.
+        // Note that locationManager.desiredAccuracy is set to the best accuracy by default, so we don't need
+        // to set it manually (we have the option if there are battery issues in the future).
         self.locationManager.distanceFilter = 10.0
 
         // Stop observing location updates when the app moves to the background
@@ -75,8 +76,9 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
     }
 
     func locationTrackingAuthorized() -> Bool {
-        return CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        return authorizationStatus == .authorizedWhenInUse ||
+               authorizationStatus == .authorizedAlways
     }
 
     func locationTrackingAvailability() -> String {
@@ -113,8 +115,7 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         MAXLog.debug("MAXLocationProvider updated with new location")
         let location = locations.last!
 
-        self.lastRecordedLocation = location
-        self.lastLocationUpdate = Date()
+        self.lastLocation = location
     }
 
     @objc func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -130,9 +131,51 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
 
     func getLocation() -> CLLocation? {
         guard self.locationTrackingEnabled() else {
-            MAXLog.error("MAXLocationProvider getLocation called but location tracking is disabled")
+            MAXLog.warn("MAXLocationProvider getLocation called but location tracking is disabled")
             return nil
         }
-        return self.lastRecordedLocation
+        return self.lastLocation
+    }
+
+    func getLocationUpdateTimestamp() -> Date? {
+        guard self.locationTrackingEnabled() else {
+            MAXLog.warn("MAXLocationProvider getLastLocationUpdateTimestamp called but location tracking is disabled.")
+            return nil
+        }
+
+        if let location = self.lastLocation {
+            return location.timestamp
+        }
+
+        MAXLog.warn("MAXLocationProvider getLastLocationUpdateTimestamp called before any locations were tracked.")
+        return nil
+    }
+
+    func getLocationHorizontalAccuracy() -> CLLocationAccuracy? {
+        guard self.locationTrackingEnabled() else {
+            MAXLog.warn("MAXLocationProvider getLocationHorizontalAccuracy called but location tracking is disabled")
+            return nil
+        }
+
+        if let location = self.lastLocation {
+            return location.horizontalAccuracy
+        }
+
+        MAXLog.warn("MAXLocationProvider getLocationHorizontalAccuracy called before any locations were tracked.")
+        return nil
+    }
+
+    func getLocationVerticalAccuracy() -> CLLocationAccuracy? {
+        guard self.locationTrackingEnabled() else {
+            MAXLog.warn("MAXLocationProvider getLocationVerticalAccuracy called but location tracking is disabled")
+            return nil
+        }
+
+        if let location = self.lastLocation {
+            return location.verticalAccuracy
+        }
+
+        MAXLog.warn("MAXLocationProvider getLocationVerticalAccuracy called before any locations were tracked.")
+        return nil
     }
 }
