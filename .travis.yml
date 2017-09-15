@@ -12,3 +12,5 @@ script:
 git:
   submodules: false
 
+notifications:
+  slack: maxads:JKmg6ILKHgYKoQDXaGesbjIM
