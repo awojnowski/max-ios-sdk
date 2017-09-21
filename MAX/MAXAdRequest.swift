@@ -213,7 +213,7 @@ public class MAXAdRequest {
     // All interesting things about this particular device
     var dict: Dictionary<String, Any> {
         get {
-            var d: Dictionary<String, Any> = [
+            let d: Dictionary<String, Any> = [
                 "v": MAXAdRequest.API_VERSION,
                 "sdk_v": self.sdkVersion,
                 "ifa": self.ifa,
@@ -241,6 +241,14 @@ public class MAXAdRequest {
         get {
             let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
             return data
+        }
+    }
+
+    func getUrl() -> URL {
+        if MAXConfiguration.shared.debugModeEnabled {
+            return URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/debug/ads/req/\(self.adUnitID!)")!
+        } else {
+            return URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID!)")!
         }
     }
 
@@ -275,45 +283,39 @@ public class MAXAdRequest {
     //
     public func requestAd(_ completion: @escaping MAXResponseCompletion) {
         // Setup POST
-        let url = URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID!)")!
+        let url = self.getUrl()
         let session = getSession()
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
 
-        do {
-            session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (_data, _response, _error) in
-                MAXSession.sharedInstance.incrementDepth()
-                do {
-                    guard let data = _data, let response = _response as? HTTPURLResponse else {
-                        if let error = _error {
-                            throw error
-                        } else {
-                            throw MAXRequestError.InvalidResponse(response: _response, data: _data)
-                        }
-                    }
-                    
-                    if response.statusCode == 200 {
-                        self.adResponse = try MAXAdResponse(data: data)
-                        completion(self.adResponse, nil)
-                    } else if response.statusCode == 204 {
-                        self.adResponse = MAXAdResponse()
-                        completion(self.adResponse, nil)
+        session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (_data, _response, _error) in
+            MAXSession.sharedInstance.incrementDepth()
+            do {
+                guard let data = _data, let response = _response as? HTTPURLResponse else {
+                    if let error = _error {
+                        throw error
                     } else {
-                        throw MAXRequestError.RequestFailed(
-                                domain: MAXAdRequest.ADS_DOMAIN,
-                                statusCode: response.statusCode,
-                                userInfo: nil
-                        )
+                        throw MAXRequestError.InvalidResponse(response: _response, data: _data)
                     }
-                } catch let error as NSError {
-                    self.adError = error
-                    completion(nil, error)
                 }
-            }).resume()
-            
-        } catch let error as NSError {
-            self.adError = error
-            completion(nil, error)
-        }
+
+                if response.statusCode == 200 {
+                    self.adResponse = try MAXAdResponse(data: data)
+                    completion(self.adResponse, nil)
+                } else if response.statusCode == 204 {
+                    self.adResponse = MAXAdResponse()
+                    completion(self.adResponse, nil)
+                } else {
+                    throw MAXRequestError.RequestFailed(
+                            domain: MAXAdRequest.ADS_DOMAIN,
+                            statusCode: response.statusCode,
+                            userInfo: nil
+                    )
+                }
+            } catch let error as NSError {
+                self.adError = error
+                completion(nil, error)
+            }
+        }).resume()
     }
 }

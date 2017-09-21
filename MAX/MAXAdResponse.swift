@@ -38,6 +38,12 @@ open class MAXAdResponse : NSObject {
         if let distanceFilter = self.response["distance_filter"] as? Double {
             MAXLocationProvider.shared.setDistanceFilter(distanceFilter)
         }
+
+        // Give the ability to disable debug mode from a server response in case a client deploys
+        // their app with debug mode enabled
+        if let _ = self.response["disable_debug"] {
+            MAXConfiguration.shared.disableDebugMode()
+        }
         
         if let winner = self.response["winner"] as? NSDictionary {
             self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
