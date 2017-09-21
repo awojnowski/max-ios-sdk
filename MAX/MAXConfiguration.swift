@@ -5,11 +5,11 @@
 
 import Foundation
 
-let MAX_SDK_VERSION = "0.5.0"
+let MAX_SDK_VERSION = "0.5.1"
 
 public class MAXConfiguration {
 
-    static let shared = MAXConfiguration()
+    public static let shared = MAXConfiguration()
     private init() {}
 
     /*
@@ -56,7 +56,7 @@ public class MAXConfiguration {
         }
     }
 
-    public func enabledDebugMode() {
+    public func enableDebugMode() {
         self._debugMode = true
     }
 

@@ -52,7 +52,7 @@ open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
                 break
             } else {
                 MAXLog.error("MAX: malformed response, HTML creative type but no markup... failing")
-                MAXErrorReporter.sharedInstance.logError(message: "Malformed response, creative with type html had no markup")
+                MAXErrorReporter.shared.logError(message: "Malformed response, creative with type html had no markup")
                 self.delegate?.adViewDidFailWithError(self, error: nil)
                 break
             }

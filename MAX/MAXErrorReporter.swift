@@ -11,7 +11,7 @@ import SKFramework
 
 public class MAXErrorReporter {
 
-    static let sharedInstance = MAXErrorReporter()
+    static let shared = MAXErrorReporter()
     static let defaultErrorUrl = URL(string: "https://ads.maxads.io/events/client-error")!
     var errorUrl: URL
 

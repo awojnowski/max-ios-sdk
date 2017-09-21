@@ -7,7 +7,7 @@ import Foundation
 
 class MAXSession {
 
-    static let sharedInstance = MAXSession()
+    static let shared = MAXSession()
 
     init(notificationCenter: NotificationCenter = NotificationCenter.default) {
         MAXLog.debug("MAXSession initialized")
