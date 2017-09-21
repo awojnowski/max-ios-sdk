@@ -311,22 +311,15 @@ public class MAXAdRequest {
                     self.adResponse = MAXAdResponse()
                     completion(self.adResponse, nil)
                 } else {
-                    throw MAXRequestError.InvalidResponse(response: _response, data: _data)
+                    throw MAXRequestError.RequestFailed(
+                            domain: MAXAdRequest.ADS_DOMAIN,
+                            statusCode: response.statusCode,
+                            userInfo: nil
+                    )
                 }
-            }
-
-            if response.statusCode == 200 {
-                self.adResponse = try MAXAdResponse(data: data)
-                completion(self.adResponse, nil)
-            } else if response.statusCode == 204 {
-                self.adResponse = MAXAdResponse()
-                completion(self.adResponse, nil)
-            } else {
-                throw MAXRequestError.RequestFailed(
-                        domain: MAXAdRequest.ADS_DOMAIN,
-                        statusCode: response.statusCode,
-                        userInfo: nil
-                )
+            } catch let error as NSError {
+                self.adError = error
+                completion(nil, error)
             }
         }).resume()
     }
