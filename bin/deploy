@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+./bin/check-version
+
+if [ ! -d "~/.cocoapods/repos/MAX" ]; then
+	pod repo add MAX git@github.com:MAXAds/Specs.git
+fi
+
+pod repo push MAX MAX.podspec --allow-warnings
