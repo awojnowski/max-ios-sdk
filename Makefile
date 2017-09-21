@@ -8,3 +8,6 @@ test-raw:
 
 check-version:
 	bin/check-version
+
+deploy:
+	bin/deploy

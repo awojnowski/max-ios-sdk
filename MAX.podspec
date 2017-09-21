@@ -8,7 +8,7 @@ giving you the ability to work with multiple programmatic buyers and exchanges i
 point in your existing waterfall.
                        DESC
 
-  s.homepage         = 'https://maxads.io'
+  s.homepage         = 'https://app.maxads.io'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'MAX' => 'hello@maxads.co' }
   s.source           = { :git => 'git@github.com:MAXAds/MAX.git', :tag => s.version.to_s }
