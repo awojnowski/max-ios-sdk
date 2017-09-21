@@ -7,7 +7,7 @@ import Foundation
 
 let MAX_SDK_VERSION = "0.5.0"
 
-class MAXConfiguration {
+public class MAXConfiguration {
 
     static let shared = MAXConfiguration()
     private init() {}

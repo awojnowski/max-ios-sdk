@@ -240,6 +240,11 @@ public class MAXAdRequest {
     var asJSONObject: Data? {
         get {
             let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
+
+            if MAXConfiguration.shared.debugModeEnabled,
+               let json = String(data: data!, encoding: String.Encoding.utf8) as String! {
+                MAXLog.debug(json)
+            }
             return data
         }
     }
