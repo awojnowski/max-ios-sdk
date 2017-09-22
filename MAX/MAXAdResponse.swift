@@ -56,7 +56,7 @@ open class MAXAdResponse : NSObject {
 
         if let errorUrl = self.response["error_url"] as? String {
             if let url = URL(string: errorUrl) {
-                MAXErrorReporter.sharedInstance.setUrl(url: url)
+                MAXErrorReporter.shared.setUrl(url: url)
             }
         }
     }
@@ -93,7 +93,7 @@ open class MAXAdResponse : NSObject {
         guard let creativeData = self.creative?.data(using: .utf8),
             let json = try? JSONSerialization.jsonObject(with: creativeData) as? [String: Any] else {
                 MAXLog.error("MAX: proxy bid had invalid creative JSON")
-                MAXErrorReporter.sharedInstance.logError(message: "Proxy bid had invalid creative JSON")
+                MAXErrorReporter.shared.logError(message: "Proxy bid had invalid creative JSON")
                 return (nil, nil)
         }
 
@@ -102,7 +102,7 @@ open class MAXAdResponse : NSObject {
             let customEventClass = getCustomEventClass(name: customEventClassName),
             let customEventInfo = json?["custom_event_info"] as? [AnyHashable : Any] else {
                 MAXLog.error("MAX: proxy bid has missing or invalid custom event properties")
-                MAXErrorReporter.sharedInstance.logError(message: "Proxy bid had missing or invalid custom event properties")
+                MAXErrorReporter.shared.logError(message: "Proxy bid had missing or invalid custom event properties")
                 return (nil, nil)
         }
         

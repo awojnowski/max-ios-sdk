@@ -111,7 +111,7 @@ class MAXAdRequestTests: XCTestCase {
         let reqDict = adRequest.dict
 
         XCTAssertEqual(reqDict["v"] as! String, "1")
-        XCTAssertEqual(reqDict["sdk_v"] as! String, "0.5.0")
+        XCTAssertEqual(reqDict["sdk_v"] as! String, "0.5.1")
     }
 
     func testSerializationWithLocationTrackingHasLatitude() {

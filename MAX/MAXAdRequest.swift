@@ -228,7 +228,7 @@ public class MAXAdRequest {
                 "model": self.model,
                 "connectivity": self.connectivity,
                 "carrier": self.carrier,
-                "session_depth": MAXSession.sharedInstance.sessionDepth,
+                "session_depth": MAXSession.shared.sessionDepth,
                 "location_tracking": self.locationTrackingAvailability,
                 "location": self.locationData
             ]
@@ -240,6 +240,11 @@ public class MAXAdRequest {
     var asJSONObject: Data? {
         get {
             let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
+
+            if MAXConfiguration.shared.debugModeEnabled,
+               let json = String(data: data!, encoding: String.Encoding.utf8) as String! {
+                MAXLog.debug(json)
+            }
             return data
         }
     }
@@ -289,7 +294,7 @@ public class MAXAdRequest {
         request.httpMethod = "POST"
 
         session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (_data, _response, _error) in
-            MAXSession.sharedInstance.incrementDepth()
+            MAXSession.shared.incrementDepth()
             do {
                 guard let data = _data, let response = _response as? HTTPURLResponse else {
                     if let error = _error {

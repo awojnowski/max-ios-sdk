@@ -30,16 +30,16 @@ class MAXRequestManagerTests: XCTestCase {
 
     func testRefresh() {
         let testCompletion = expectation(description: "MAXAdRequestManager completes normally")
-        var manager = TestableMAXAdRequestManager(adUnitID: adUnitID) { (response, error) in
+        let manager = TestableMAXAdRequestManager(adUnitID: adUnitID) { (response, error) in
             testCompletion.fulfill()
         }
 
-        var response = MAXAdResponse()
+        let response = MAXAdResponse()
         response.autoRefreshInterval = 2
         manager.response = response
         manager._errorCount = 1
 
-        manager.refresh()
+        let _ = manager.refresh()
         waitForExpectations(timeout: 0)
 
         XCTAssertEqual(manager._errorCount, 0)
@@ -47,15 +47,15 @@ class MAXRequestManagerTests: XCTestCase {
 
     func testRefreshWithError() {
         let testCompletion = expectation(description: "MAXAdRequestManager completes normally")
-        var manager = TestableMAXAdRequestManager(adUnitID: adUnitID) { (response, error) in
+        let manager = TestableMAXAdRequestManager(adUnitID: adUnitID) { (response, error) in
             testCompletion.fulfill()
         }
 
-        var error = NSError(domain: "ads.maxads.io", code: 400)
+        let error = NSError(domain: "ads.maxads.io", code: 400)
         manager.error = error
         manager.response = nil
 
-        manager.refresh()
+        let _ = manager.refresh()
         waitForExpectations(timeout: 0)
 
         XCTAssertEqual(manager._errorCount, 1)
