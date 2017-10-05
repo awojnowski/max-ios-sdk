@@ -444,21 +444,7 @@ typedef enum {
 
 - (void)createCalendarEvent:(NSString *)eventJSON
 {
-    if(!bonafideTapObserved && SK_SUPPRESS_BANNER_AUTO_REDIRECT){
-        [SKLogger info:@"MRAID - View" withMessage:@"Suppressing an attempt to programmatically call mraid.createCalendarEvent() when no UI touch event exists."];
-        return;  // ignore programmatic touches (taps)
-    }
-
-    eventJSON=[eventJSON stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [SKLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat: @"JS callback %@ %@", NSStringFromSelector(_cmd), eventJSON]];
-    
-    if ([supportedFeatures containsObject:MRAIDSupportsCalendar]) {
-        if ([self.serviceDelegate respondsToSelector:@selector(mraidServiceCreateCalendarEventWithEventJSON:)]) {
-            [self.serviceDelegate mraidServiceCreateCalendarEventWithEventJSON:eventJSON];
-        }
-    } else {
-        [SKLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"No calendar support has been included."]];
-   }
+    [SKLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"No calendar support has been included."]];
 }
 
 // Note: This method is also used to present an interstitial ad.

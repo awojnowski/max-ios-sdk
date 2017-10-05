@@ -108,7 +108,6 @@ var EVENTS = mraid.EVENTS = {
 var SUPPORTED_FEATURES = mraid.SUPPORTED_FEATURES = {
     "SMS" : "sms",
     "TEL" : "tel",
-    "CALENDAR" : "calendar",
     "STOREPICTURE" : "storePicture",
     "INLINEVIDEO" : "inlineVideo"
 };
@@ -201,7 +200,7 @@ mraid.addEventListener = function(event, listener) {
 
 mraid.createCalendarEvent = function(parameters) {
     log.i("mraid.createCalendarEvent with " + parameters);
-    callNative("createCalendarEvent?eventJSON="+JSON.stringify(parameters));
+    mraid.fireErrorEvent("MRAID createCalendarEvent function not supported.");
 };
 
 mraid.close = function() {
