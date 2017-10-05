@@ -18,6 +18,8 @@ public enum MAXRequestError: Error {
     case RequestFailed(domain: String, statusCode: Int, userInfo: Data?)
 }
 
+public let unknownAppVersionIdentifier = "UNKNOWN"
+
 public class MAXAdRequest {
     public static let ADS_DOMAIN = "ads.maxads.io"
     public static let API_VERSION = "1"
@@ -28,6 +30,15 @@ public class MAXAdRequest {
 
     public init(adUnitID: String) {
         self.adUnitID = adUnitID
+    }
+
+    var appVersion: String {
+        get {
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                return version
+            }
+            return unknownAppVersionIdentifier
+        }
     }
 
     var ifa: String {
@@ -216,6 +227,7 @@ public class MAXAdRequest {
             let d: Dictionary<String, Any> = [
                 "v": MAXAdRequest.API_VERSION,
                 "sdk_v": self.sdkVersion,
+                "app_v": self.appVersion,
                 "ifa": self.ifa,
                 "lmt": self.lmt,
                 "vendor_id": self.vendorId,
