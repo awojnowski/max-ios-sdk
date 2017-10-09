@@ -10,7 +10,7 @@ import Foundation
 private var MAXPreBids : [String : MAXAdResponse] = [:]
 private var MAXPreBidErrors : [String : NSError] = [:]
 
-public class MAXPreBid {
+public class MAXAds {
     
     public class func receivedPreBid(adUnitID: String, response: MAXAdResponse?, error: NSError?) {
         MAXPreBids[adUnitID] = response
@@ -36,6 +36,7 @@ public class MAXPreBid {
         
         return adResponse
     }
-    
-    
 }
+
+@available(*, deprecated, message: "MAXPreBid has been renamed to MAXAds")
+public class MAXPreBid: MAXAds {}

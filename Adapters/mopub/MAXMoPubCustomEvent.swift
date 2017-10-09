@@ -20,7 +20,7 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
             return
         }
 
-        guard let adResponse = MAXPreBid.getPreBid(adUnitID: adUnitID) else {
+        guard let adResponse = MAXAds.getPreBid(adUnitID: adUnitID) else {
             MAXLog.error("Pre-bid was not found for adUnitID=\(adUnitID)")
             self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
             return
@@ -137,7 +137,7 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
             return
         }
         
-        guard let adResponse = MAXPreBid.getPreBid(adUnitID: adUnitID) else {
+        guard let adResponse = MAXAds.getPreBid(adUnitID: adUnitID) else {
             MAXLog.error("Pre-bid not found for adUnitId: \(adUnitID)")
             self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: nil)
             return

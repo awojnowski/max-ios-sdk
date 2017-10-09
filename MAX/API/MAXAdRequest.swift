@@ -242,9 +242,10 @@ public class MAXAdRequest {
                 "carrier": self.carrier,
                 "session_depth": MAXSession.shared.sessionDepth,
                 "location_tracking": self.locationTrackingAvailability,
-                "location": self.locationData
+                "location": self.locationData,
             ]
 
+            MAXLog.debug(d.description)
             return d
         }
     }
@@ -284,7 +285,7 @@ public class MAXAdRequest {
     public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd() {(response, error) in
-            MAXPreBid.receivedPreBid(adUnitID: adUnitID, response: response, error: error)
+            MAXAds.receivedPreBid(adUnitID: adUnitID, response: response, error: error)
             completion(response, error)
         }
         return adr
