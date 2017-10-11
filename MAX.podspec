@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
   spec.homepage = 'https://app.maxads.io'
   spec.license  = { :type => 'MIT', :file => 'LICENSE' }
   spec.author   = { 'MAX' => 'hello@maxads.co' }
-  spec.source   = { :git => 'git@github.com:MAXAds/MAX.git', :tag => s.version.to_s }
+  spec.source   = { :git => 'git@github.com:MAXAds/MAX.git', :tag => spec.version.to_s }
 
   spec.ios.deployment_target = '8.0'
 
