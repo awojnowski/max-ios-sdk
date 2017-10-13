@@ -32,7 +32,7 @@ pod "MAX"
 If you plan to use the MoPub integration, use the following CocoaPod subspec: 
 
 ```ruby
-pod "MAX/mopub", "~>0.2.2"
+pod "MAX/mopub", "~>0.6.0"
 ```
 
 Then, copy `MAXMoPubCustomEvent.swift` from the `Pods/Pods/MAX/mopub` group into your main project. 
