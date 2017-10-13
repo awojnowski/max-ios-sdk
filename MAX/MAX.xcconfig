@@ -1,2 +1,1 @@
-SWIFT_INCLUDE_PATHS = $(SRCROOT)/MAX/SKFramework
-MODULEMAP_PRIVATE_FILE = $(SRCROOT)/MAX/SKFramework.private.modulemap
+

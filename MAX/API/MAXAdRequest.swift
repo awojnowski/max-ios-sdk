@@ -9,7 +9,7 @@ import AdSupport
 import CoreTelephony
 import UIKit
 import CoreLocation
-import SKFramework
+import MRAID
 
 public typealias MAXResponseCompletion = (MAXAdResponse?, NSError?) -> Void
 
@@ -31,7 +31,7 @@ public class MAXAdRequest {
     public init(adUnitID: String) {
         self.adUnitID = adUnitID
     }
-
+    
     var appVersion: String {
         get {
             if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {

@@ -5,7 +5,8 @@
 //
 
 import Foundation
-import SKFramework
+import MRAID
+import VAST
 
 public protocol MAXInterstitialAdDelegate {
     func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd)

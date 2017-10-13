@@ -5,7 +5,7 @@
 //
 
 import Foundation
-import SKFramework
+import MRAID
 
 public protocol MAXAdViewDelegate : NSObjectProtocol {
     func viewControllerForPresentingModalView() -> UIViewController!

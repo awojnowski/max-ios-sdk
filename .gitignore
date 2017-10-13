@@ -27,6 +27,9 @@ xcuserdata
 *.hmap
 *.ipa
 
+# Cocoapods
+Pods/
+
 # Swift Package Manager
 .build/
 

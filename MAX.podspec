@@ -1,30 +1,30 @@
-Pod::Spec.new do |spec|
-  spec.name     = 'MAX'
-  spec.version  = '0.6.0'
-  spec.summary  = 'MaxAds parallel bidding SDK.'
-  spec.homepage = 'https://app.maxads.io'
-  spec.license  = { :type => 'MIT', :file => 'LICENSE' }
-  spec.author   = { 'MAX' => 'hello@maxads.co' }
-  spec.source   = { :git => 'git@github.com:MAXAds/MAX.git', :tag => spec.version.to_s }
+Pod::Spec.new do |s|
+  s.name             = 'MAX'
+  s.version          = '0.6.0'
+  s.summary          = 'Parallel bidding wrapper for mobile ads.'
+  s.description      = <<-DESC
+MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, 
+giving you the ability to work with multiple programmatic buyers and exchanges in parallel at any 
+point in your existing waterfall.
+                       DESC
 
-  spec.ios.deployment_target = '8.0'
+  s.homepage         = 'https://app.maxads.io'
+  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.author           = { 'MAX' => 'hello@maxads.co' }
+  s.source           = { :git => 'git@github.com:MAXAds/MAX.git', :tag => s.version.to_s }
 
-  spec.default_subspec = 'core'
-  spec.subspec 'core' do |core| 
-  	core.source_files        = 'MAX/**/*'
-  	core.resources           = ['MAX/SKFramework.private.modulemap', 'MAX/SKFramework']
-  	core.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/MAX/MAX/SKFramework', 'MODULEMAP_PRIVATE_FILE' => '$(SRCROOT)/MAX/MAX/SKFramework.private.modulemap'}
-  	core.xcconfig            = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
-  	core.libraries           = 'xml2'
+  s.ios.deployment_target = '8.0'
+
+  s.default_subspec = 'Core'
+  s.subspec 'Core' do |d| 
+    d.dependency 'MRAID', '1.0.0'
+    d.dependency 'VAST', '1.0.0'
+  	d.source_files = 'MAX/**/*'
   end
 
-  spec.subspec 'mopub' do |mopub| 
-    mopub.dependency 'mopub-ios-sdk', '~>4.11.1'
-    mopub.source_files = ['Adapters/mopub/*']
+  s.subspec 'MoPub' do |d| 
+  	d.dependency 'mopub-ios-sdk', '~>4.17.0'
+  	d.source_files = ['Adapters/mopub/*']
   end
 
-  spec.subspec 'facebook' do |fb|
-    fb.dependency 'FBAudienceNetwork', '~>4.26.0'
-    fb.source_files = ['Adapters/facebook/*']
-  end
 end

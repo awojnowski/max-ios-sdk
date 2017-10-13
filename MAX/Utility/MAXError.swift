@@ -7,7 +7,7 @@ import Foundation
 import AdSupport
 import CoreTelephony
 import UIKit
-import SKFramework
+import MRAID
 
 class MAXClientError {
     var appId: Int64?

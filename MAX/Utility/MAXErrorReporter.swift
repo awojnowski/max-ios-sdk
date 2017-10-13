@@ -7,7 +7,6 @@ import Foundation
 import AdSupport
 import CoreTelephony
 import UIKit
-import SKFramework
 
 public class MAXErrorReporter {
 
