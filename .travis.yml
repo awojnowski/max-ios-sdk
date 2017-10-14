@@ -5,7 +5,8 @@ xcode_scheme: MAXTests
 xcode_sdk: iphonesimulator10.0
 
 before_install:
-  - pod repo add maxads https://MAXCIUser:hDemzZsFc8KPboJchRdZhuNE@github.com/MAXAds/Specs
+  - echo -e "machine github.com\n    login MAXCIUser\n    password hDemzZsFc8KPboJchRdZhuNE" >> ~/.netrc
+  - pod repo add maxads git@github.com/MAXAds/Specs
 
 script:
   - make test
