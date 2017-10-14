@@ -2,7 +2,7 @@ use_frameworks!
 
 target 'MAX' do
 
-  source 'git@github.com:MAXAds/Specs.git'
+  source 'https://github.com/MAXAds/Specs.git'
   pod 'MRAID', '1.0.0'
   pod 'VAST', '1.0.0'
 
