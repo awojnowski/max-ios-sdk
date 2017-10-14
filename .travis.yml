@@ -4,6 +4,9 @@ xcode_project: MAX.xcodeproj
 xcode_scheme: MAXTests
 xcode_sdk: iphonesimulator10.0
 
+before_install:
+  - pod repo add MAXPrivateCocoapods https://github.com/MAXAds/Specs
+
 script:
   - make test
   - make check-version
