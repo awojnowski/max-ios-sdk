@@ -8,6 +8,10 @@ target 'MAX' do
 
   target 'MAXTests' do
     inherit! :search_paths
+
+    source 'https://github.com/CocoaPods/Specs.git'
+    pod 'Quick'
+    pod 'Nimble'
   end
 
 end
