@@ -3,7 +3,7 @@ use_frameworks!
 target 'MAX' do
 
   source 'https://github.com/MAXAds/Specs.git'
-  pod 'MRAID', '1.0.0'
+  pod 'MRAID', '1.0.1'
   pod 'VAST', '1.0.0'
 
   target 'MAXTests' do
