@@ -4,6 +4,7 @@
 
 import Foundation
 import MoPub
+import MAX
 
 @objc(MAXMoPubBannerCustomEvent)
 open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventDelegate, MAXAdViewDelegate {
