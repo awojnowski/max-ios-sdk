@@ -1,8 +1,6 @@
 # MAX
 
-[![Version](https://img.shields.io/cocoapods/v/MAX.svg?style=flat)](http://cocoapods.org/pods/MAX)
-[![License](https://img.shields.io/cocoapods/l/MAX.svg?style=flat)](http://cocoapods.org/pods/MAX)
-[![Platform](https://img.shields.io/cocoapods/p/MAX.svg?style=flat)](http://cocoapods.org/pods/MAX)
+[![Build Status](https://travis-ci.com/MAXAds/max-ios-sdk.svg?token=rKhr8tQCzv8jWSeVfZCR&branch=master)](https://travis-ci.com/MAXAds/max-ios-sdk)
 
 ## Example
 
