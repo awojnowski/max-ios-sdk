@@ -1,8 +1,12 @@
 language: swift
-osx_image: xcode8.3
+osx_image: xcode9.1
 xcode_project: MAX.xcodeproj
 xcode_scheme: MAXTests
 xcode_sdk: iphonesimulator10.0
+
+before_install:
+  - echo -e "machine github.com\n    login MAXCIUser\n    password hDemzZsFc8KPboJchRdZhuNE" >> ~/.netrc
+  - pod repo add maxads https://MAXCIUser:hDemzZsFc8KPboJchRdZhuNE@github.com/MAXAds/Specs.git
 
 script:
   - make test

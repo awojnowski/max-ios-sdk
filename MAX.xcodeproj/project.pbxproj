@@ -606,6 +606,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 911CDD35DD85B7ACE45F5DD7 /* Pods-MAX.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
@@ -631,6 +632,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6FD626BE04F8838A51BE4D05 /* Pods-MAX.release.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
