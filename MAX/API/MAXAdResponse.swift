@@ -109,33 +109,28 @@ open class MAXAdResponse : NSObject {
         return (customEventClass.init(), customEventInfo)
     }
     
-    //
     // Fires an impression tracking event for this AdResponse
-    //
-    open func trackImpression() {
+    public func trackImpression() {
         self.trackAll(self.response["impression_urls"] as? NSArray)
     }
 
-    //
     // Fires a click tracking event for this AdResponse
-    //
-    open func trackClick() {
+    public func trackClick() {
         self.trackAll(self.response["click_urls"] as? NSArray)
     }
 
-    //
-    // Fires a selected tracking event for this AdResponse
-    // This is used when the AdResponse is selected for display through a
-    // containing SSP
-    //
-    open func trackSelected() {
+    // Fires a selected tracking event for this AdResponse. This is used when the AdResponse is
+    // selected for display through a containing SSP.
+    public func trackSelected() {
         self.trackAll(self.response["selected_urls"] as? NSArray)
     }
 
-    //
-    // 
-    // 
-    
+    // Fires a handoff event for this AdResponse, which tracks when we've handed off control to the SSP
+    // SDK and the SSP SDK is about to make an ad request to the SSP ad server.
+    public func trackHandoff() {
+        self.trackAll(self.response["handoff_urls"] as? NSArray)
+    }
+
     private func trackAll(_ urls: NSArray?) {
         guard let trackingUrls = urls else {
             return
@@ -151,5 +146,4 @@ open class MAXAdResponse : NSObject {
         MAXLog.debug("MAX: tracking URL fired ==> \(url)")
         getSession().dataTask(with: url).resume()
     }
-    
 }

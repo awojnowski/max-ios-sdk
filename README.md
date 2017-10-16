@@ -81,6 +81,7 @@ To wrap this banner ad view with a MAX pre-bid, do the following:
     let adManager = MAXAdRequestManager(adUnitID: MAX_BANNER_ADUNIT_ID) {(response, error) in
         dispatch_sync(dispatch_get_main_queue()) {
             banner.keywords = response?.preBidKeywords ?? banner.keywords
+            response.trackHandoff()
             banner.loadAd()
         }
     }
@@ -100,6 +101,7 @@ Interstitials work similarly to the above. None of your other interstitial displ
             dispatch_sync(dispatch_get_main_queue()) {
                 self.interstitialController = MPInterstitialAdController(forAdUnitId: MOPUB_FULLSCREEN_ADUNIT_ID)
                 self.interstitialController!.keywords = response?.preBidKeywords ?? self.interstitialController!.keywords
+                response.trackHandoff()
                 self.interstitialController!.loadAd()
             }
         }
