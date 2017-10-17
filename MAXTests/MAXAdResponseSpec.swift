@@ -23,7 +23,7 @@ class MAXAdResponseSpec: QuickSpec {
     override func spec() {
         describe("MAXAdResponse") {
 
-            var responseData: Dictionary<String, Any> = [
+            let responseData: Dictionary<String, Any> = [
                 "winner": [
                     "creative_type": "html",
                 ],
@@ -32,9 +32,13 @@ class MAXAdResponseSpec: QuickSpec {
                 ],
                 "prebid_keywords": "a,b,c",
                 "refresh": 10,
+                "expiration_interval": 10.0*60.0,
                 "impression_urls": [ "https://ads.maxads.io/event/imp/abcd" ],
                 "click_urls": [ "https://ads.maxads.io/event/clk/abcd" ],
                 "selected_urls": [ "https://ads.maxads.io/event/select/abcd" ],
+                "handoff_urls": [ "https://ads.maxads.io/event/handoff/abcd" ],
+                "loss_urls": ["https://ads.maxads.io/event/loss/abcd" ],
+                "expire_urls": ["https://ads.maxads.io/event/expire/abcd" ]
             ]
 
             it("can be created with JSON data") {
@@ -43,6 +47,7 @@ class MAXAdResponseSpec: QuickSpec {
 
                 expect(response.preBidKeywords).to(equal("a,b,c"))
                 expect(response.autoRefreshInterval).to(equal(10))
+                expect(response.expirationIntervalSeconds).to(equal(600.0))
             }
 
             it("can be created from an empty response body") {
@@ -50,6 +55,7 @@ class MAXAdResponseSpec: QuickSpec {
 
                 expect(response.preBidKeywords).to(equal(""))
                 expect(response.creativeType).to(equal("empty"))
+                expect(response.expirationIntervalSeconds).to(equal(3600.0))
                 expect(response.autoRefreshInterval).to(beNil())
             }
 
@@ -124,6 +130,51 @@ class MAXAdResponseSpec: QuickSpec {
 
                 response.trackSelected()
 
+                expect(response.mockSession.dataTaskCalls[url.absoluteString]).to(equal(1))
+            }
+            
+            it("should track select handoff") {
+                let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
+                let response = try! TestableMAXAdResponse(data:jsonData)
+                let url = URL(string:"https://ads.maxads.io/event/handoff/abcd")!
+                
+                response.mockSession.onRequest(
+                    to: url,
+                    respondWith: HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
+                )
+                
+                response.trackHandoff()
+                
+                expect(response.mockSession.dataTaskCalls[url.absoluteString]).to(equal(1))
+            }
+            
+            it("should track loss events") {
+                let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
+                let response = try! TestableMAXAdResponse(data:jsonData)
+                let url = URL(string:"https://ads.maxads.io/event/loss/abcd")!
+                
+                response.mockSession.onRequest(
+                    to: url,
+                    respondWith: HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
+                )
+                
+                response.trackLoss()
+                
+                expect(response.mockSession.dataTaskCalls[url.absoluteString]).to(equal(1))
+            }
+            
+            it("should track expire events") {
+                let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
+                let response = try! TestableMAXAdResponse(data:jsonData)
+                let url = URL(string:"https://ads.maxads.io/event/expire/abcd")!
+                
+                response.mockSession.onRequest(
+                    to: url,
+                    respondWith: HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
+                )
+                
+                response.trackExpired()
+                
                 expect(response.mockSession.dataTaskCalls[url.absoluteString]).to(equal(1))
             }
         }

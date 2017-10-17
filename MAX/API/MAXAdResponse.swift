@@ -1,12 +1,6 @@
-//
-//  MAXAdResponse.swift
-//  Pods
-//
-//
-
 import Foundation
 
-open class MAXAdResponse : NSObject {
+public class MAXAdResponse : NSObject {
     private let data : Data
     private let response : NSDictionary
     
@@ -16,6 +10,11 @@ open class MAXAdResponse : NSObject {
     let creativeType : String
     var creative : String?
 
+    /// The ad response is only valid for `timeoutIntervalSeconds` seconds, by default set to 60 minutes.
+    /// After this time period has elapsed, the ad response is no longer considered valid for rendering
+    /// and the object's `trackExpired` method will be called if an attempt is made to render this ad.
+    public var expirationIntervalSeconds: Double = 60.0*60.0
+    
     open override var description: String { return String(describing: response) }
     
     public override init() {
@@ -49,6 +48,14 @@ open class MAXAdResponse : NSObject {
             self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
             self.creative = self.response["creative"] as? String
             self.creativeType = winner["creative_type"] as? String ?? "empty"
+            
+            if let expirationInterval = self.response["expiration_interval"] as? Double {
+                self.expirationIntervalSeconds = expirationInterval
+            }
+            
+            if let expirationInterval = winner["expiration_interval"] as? Int {
+                self.expirationIntervalSeconds = Double(expirationInterval)
+            }
         } else {
             self.preBidKeywords = ""
             self.creativeType = "empty"
@@ -125,6 +132,18 @@ open class MAXAdResponse : NSObject {
         self.trackAll(self.response["selected_urls"] as? NSArray)
     }
 
+    // Fires an expire tracking event for this AdResponse. This should be used when the AdResponse value
+    // has been in the ad cache for longer than the expiry time.
+    func trackExpired() {
+        self.trackAll(self.response["expire_urls"] as? NSArray)
+    }
+
+    // Fires a loss tracking event for this AdResponse. This is called when a new AdResponse for the same
+    // MAX ad unit ID is received.
+    func trackLoss() {
+        self.trackAll(self.response["loss_urls"] as? NSArray)
+    }
+    
     // Fires a handoff event for this AdResponse, which tracks when we've handed off control to the SSP
     // SDK and the SSP SDK is about to make an ad request to the SSP ad server.
     public func trackHandoff() {

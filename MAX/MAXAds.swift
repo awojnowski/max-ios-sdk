@@ -7,13 +7,47 @@
 
 import Foundation
 
-private var MAXPreBids : [String : MAXAdResponse] = [:]
-private var MAXPreBidErrors : [String : NSError] = [:]
+private var MAXPreBids: [String: MAXCachedAdResponse] = [:]
+private var MAXPreBidErrors: [String: NSError] = [:]
+
+class MAXCachedAdResponse {
+    let adResponse: MAXAdResponse?
+    let createdAt: Date
+    let defaultTimeoutIntervalSeconds = 60.0*60.0
+
+    init(withResponse: MAXAdResponse?) {
+        self.adResponse = withResponse
+        self.createdAt = Date()
+    }
+    
+    var timeoutIntervalSeconds: Double {
+        get {
+            if let timeoutInterval = self.adResponse?.expirationIntervalSeconds {
+                return timeoutInterval
+            } else {
+                return defaultTimeoutIntervalSeconds
+            }
+        }
+    }
+
+    var isExpired: Bool {
+        get {
+            return abs(self.createdAt.timeIntervalSinceNow) > self.timeoutIntervalSeconds
+        }
+    }
+}
 
 public class MAXAds {
     
     public class func receivedPreBid(adUnitID: String, response: MAXAdResponse?, error: NSError?) {
-        MAXPreBids[adUnitID] = response
+        if let existingResponse = MAXPreBids[adUnitID] {
+            if existingResponse.isExpired {
+                existingResponse.adResponse?.trackExpired()
+            } else {
+                existingResponse.adResponse?.trackLoss()
+            }
+        }
+        MAXPreBids[adUnitID] = MAXCachedAdResponse(withResponse: response)
         MAXPreBidErrors[adUnitID] = error
     }
     
@@ -29,12 +63,17 @@ public class MAXAds {
             return nil
         }
         
-        guard let adResponse = MAXPreBids[adUnitID] else {
+        guard let cachedAdResponse = MAXPreBids[adUnitID] else {
             MAXLog.error("Pre-bid was not found for adUnitID=\(adUnitID)")
             return nil
         }
         
-        return adResponse
+        if cachedAdResponse.isExpired {
+            cachedAdResponse.adResponse?.trackExpired()
+            return nil
+        }
+        
+        return cachedAdResponse.adResponse
     }
 }
 
