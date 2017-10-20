@@ -84,7 +84,7 @@ class MAXClientError {
 
     var browserAgent: String {
         get {
-            return UIWebView().stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
+            return MAXUserAgent.shared.value ?? ""
         }
     }
 
