@@ -70,6 +70,7 @@ public class MAXAdRequest {
             return Locale.current.identifier
         }
     }
+    
     var regionCode: String {
         get {
             return Locale.current.regionCode ?? ""
@@ -102,7 +103,7 @@ public class MAXAdRequest {
 
     var browserAgent: String {
         get {
-            return UIWebView().stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
+            return MAXUserAgent.shared.value ?? ""
         }
     }
 

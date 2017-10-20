@@ -87,7 +87,6 @@ public class MAXAdRequestManager : NSObject {
                 
                 // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
                 MAXLog.error("MAX: Error occurred \(adError), retry attempt \(self._errorCount)")
-                MAXErrorReporter.shared.logError(error: adError)
                 self.scheduleTimerWithInterval(min(pow(ERROR_RETRY_BASE, self._errorCount), MAX_ERROR_RETRY))
             }
         }
