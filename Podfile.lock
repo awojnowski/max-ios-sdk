@@ -1,21 +1,34 @@
 PODS:
+  - mopub-ios-sdk (4.17.0):
+    - mopub-ios-sdk/MoPubSDK (= 4.17.0)
+  - mopub-ios-sdk/Avid (4.17.0):
+    - mopub-ios-sdk/Core
+  - mopub-ios-sdk/Core (4.17.0)
+  - mopub-ios-sdk/Moat (4.17.0):
+    - mopub-ios-sdk/Core
+  - mopub-ios-sdk/MoPubSDK (4.17.0):
+    - mopub-ios-sdk/Avid
+    - mopub-ios-sdk/Core
+    - mopub-ios-sdk/Moat
   - MRAID (1.0.1)
   - Nimble (7.0.2)
   - Quick (1.2.0)
   - VAST (1.0.0)
 
 DEPENDENCIES:
+  - mopub-ios-sdk (~> 4.17.0)
   - MRAID (= 1.0.1)
   - Nimble
   - Quick
   - VAST (= 1.0.0)
 
 SPEC CHECKSUMS:
+  mopub-ios-sdk: f8a9967568143275bec47bbe810c241170825adf
   MRAID: 02be370be7a327e8b9580377011746c496ba836c
   Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   VAST: 77fe46c807a451d979225315afde1303d801a3fd
 
-PODFILE CHECKSUM: 6c29b7f6f96411c137dcefcd519cfe8f08f91de5
+PODFILE CHECKSUM: ce234d182caaf177dfe7f3ced3c4617e8904bd03
 
 COCOAPODS: 1.4.0.beta.1

@@ -142,13 +142,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		7E1E3C8F1F900C8E00186D15 /* Contrib */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Contrib;
-			sourceTree = "<group>";
-		};
 		7E5DCF621F8874C100B1E843 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,7 +207,6 @@
 		E8E21AC71E4E31D0003BE3BD /* MAX */ = {
 			isa = PBXGroup;
 			children = (
-				7E1E3C8F1F900C8E00186D15 /* Contrib */,
 				7E5DCF621F8874C100B1E843 /* API */,
 				E8E21AC91E4E31D0003BE3BD /* Info.plist */,
 				E8E21AC81E4E31D0003BE3BD /* MAX.h */,
@@ -381,6 +373,7 @@
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 				"${BUILT_PRODUCTS_DIR}/MRAID/MRAID.framework",
 				"${BUILT_PRODUCTS_DIR}/VAST/VAST.framework",
+				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPub.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -388,6 +381,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MRAID.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VAST.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPub.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
