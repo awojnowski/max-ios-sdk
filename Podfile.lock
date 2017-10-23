@@ -1,4 +1,5 @@
 PODS:
+  - FBAudienceNetwork (4.25.0)
   - mopub-ios-sdk (4.17.0):
     - mopub-ios-sdk/MoPubSDK (= 4.17.0)
   - mopub-ios-sdk/Avid (4.17.0):
@@ -16,6 +17,7 @@ PODS:
   - VAST (1.0.0)
 
 DEPENDENCIES:
+  - FBAudienceNetwork (= 4.25.0)
   - mopub-ios-sdk (~> 4.17.0)
   - MRAID (= 1.0.1)
   - Nimble
@@ -23,12 +25,13 @@ DEPENDENCIES:
   - VAST (= 1.0.0)
 
 SPEC CHECKSUMS:
+  FBAudienceNetwork: b0e2a46cca38ca0d17d8aebcc4765d628203ee9b
   mopub-ios-sdk: f8a9967568143275bec47bbe810c241170825adf
   MRAID: 02be370be7a327e8b9580377011746c496ba836c
   Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   VAST: 77fe46c807a451d979225315afde1303d801a3fd
 
-PODFILE CHECKSUM: ce234d182caaf177dfe7f3ced3c4617e8904bd03
+PODFILE CHECKSUM: db4cf8150804196fc9dbfd8294348f3d411b7e0a
 
 COCOAPODS: 1.4.0.beta.1

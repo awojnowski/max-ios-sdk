@@ -38,7 +38,7 @@ class MockMAXAdResponse: MAXAdResponse {
 class MAXResponseCacheSpec: QuickSpec {
     override func spec() {
         it("should call trackExpired on ads that have expired") {
-            var response = MockMAXAdResponse()
+            let response = MockMAXAdResponse()
             response.expirationIntervalSeconds = 0.0
 
             MAXAds.receivedPreBid(adUnitID: "abcd", response: response, error: nil)

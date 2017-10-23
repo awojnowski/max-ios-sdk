@@ -1,14 +1,14 @@
 import Foundation
 
-public class MAXAdResponse : NSObject {
-    private let data : Data
-    private let response : NSDictionary
+public class MAXAdResponse: NSObject {
+    private let data: Data
+    private let response: NSDictionary
     
-    public let preBidKeywords : String
+    public let preBidKeywords: String
     var autoRefreshInterval: Int?
 
-    let creativeType : String
-    var creative : String?
+    let creativeType: String
+    var creative: String?
 
     /// The ad response is only valid for `timeoutIntervalSeconds` seconds, by default set to 60 minutes.
     /// After this time period has elapsed, the ad response is no longer considered valid for rendering

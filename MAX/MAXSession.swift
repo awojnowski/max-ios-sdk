@@ -1,10 +1,9 @@
-//
-// Created by John Pena on 8/28/17.
-// Copyright (c) 2017 MAX. All rights reserved.
-//
-
 import Foundation
 
+/**
+ * MAXSession tracks session information for the app. This includes the session depth,
+ * which measures the number of ad requests that have been made since the app was opened.
+ */
 class MAXSession {
 
     static let shared = MAXSession()
@@ -22,13 +21,17 @@ class MAXSession {
     }
 
     private var _sessionDepth = 0
+    
+    /// Session depth starts at 0 and is incremented after every ad request is fired, regardless of
+    /// whether a response is received. The first ad request in the session should report a session
+    /// depth of 0.
     public var sessionDepth: Int {
         get {
             return self._sessionDepth
         }
     }
 
-    public func incrementDepth() {
+    func incrementDepth() {
         MAXLog.debug("MAXSession.incrementDepth")
         self._sessionDepth += 1
     }

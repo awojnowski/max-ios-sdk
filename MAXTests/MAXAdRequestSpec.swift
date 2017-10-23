@@ -1,8 +1,3 @@
-//
-// Created by John Pena on 8/29/17.
-// Copyright (c) 2017 MAX. All rights reserved.
-//
-
 import Quick
 import Nimble
 @testable import MAX
@@ -54,8 +49,8 @@ class MAXAdRequestSpec: QuickSpec {
     override func spec() {
 
         describe("MAXAdRequest") {
-            var adRequest: TestableMAXAdRequest = TestableMAXAdRequest(adUnitID: "1234")
-            var url = URL(string:"https://ads.maxads.io/ads/req/1234")!
+            let adRequest: TestableMAXAdRequest = TestableMAXAdRequest(adUnitID: "1234")
+            let url = URL(string:"https://ads.maxads.io/ads/req/1234")!
             let responseData = [
                 "winner": [
                     "prebid_keywords": "a,b,c",
@@ -144,9 +139,16 @@ class MAXAdRequestSpec: QuickSpec {
                         } else {
                             return .failed(reason: "Location dict expected to have horizontal accuracy but didn't.")
                         }
-                        
+                    } else {
+                        return .failed(reason: "Request dict expected to have location accuracy but didn't.")
+                    }
+                }).to(succeed())
+                
+                expect({
+                    if let locationData = reqDict["location"] as? Dictionary<String, Any> {
                         if let vAccuracy = locationData["vertical_accuracy"] as? Double {
-                            XCTAssertEqual(vAccuracy, 4.5)
+                            expect(vAccuracy).to(equal(4.5))
+                            return .succeeded
                         } else {
                             return .failed(reason: "Accuracy dict expected to have vertical accuracy but didn't.")
                         }

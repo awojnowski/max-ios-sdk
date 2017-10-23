@@ -1,10 +1,3 @@
-//
-//  MAXPreBid.swift
-//  MAX
-//
-//  Copyright © 2017 MAX. All rights reserved.
-//
-
 import Foundation
 
 private var MAXPreBids: [String: MAXCachedAdResponse] = [:]

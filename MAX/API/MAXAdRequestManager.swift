@@ -1,16 +1,5 @@
-//
-//  MAXAdRequestManager.swift
-//  Pods
-//
-//
-
 import UIKit
 import Foundation
-
-class Block<T> {
-    let f : T
-    init (_ f: T) { self.f = f }
-}
 
 let ERROR_RETRY_BASE = 2.0, MAX_ERROR_RETRY = 30.0
 

@@ -1,12 +1,7 @@
-//
-// Created by John Pena on 9/5/17.
-// Copyright (c) 2017 MAX. All rights reserved.
-//
-
 import Foundation
 import CoreLocation
 
-/*
+/**
  * MAXLocationProvider
  *
  * Provides access to the device's latitude and longitude.

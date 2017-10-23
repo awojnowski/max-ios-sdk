@@ -1,9 +1,3 @@
-//
-//  MAXAdRequest.swift
-//  Pods
-//
-//
-
 import Foundation
 import AdSupport
 import CoreTelephony
@@ -17,8 +11,6 @@ public enum MAXRequestError: Error {
     case InvalidResponse(response: URLResponse?, data: Data?)
     case RequestFailed(domain: String, statusCode: Int, userInfo: Data?)
 }
-
-public let unknownAppVersionIdentifier = "UNKNOWN"
 
 public class MAXAdRequest {
     public static let ADS_DOMAIN = "ads.maxads.io"
@@ -80,11 +72,11 @@ public class MAXAdRequest {
     var orientation: String {
         get {
             if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
-                return "portrait"
+                return MAXDeviceOrientation.Portrait
             } else if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
-                return "landscape"
+                return MAXDeviceOrientation.Landscape
             } else {
-                return "none"
+                return MAXDeviceOrientation.None
             }
         }
     }
@@ -110,11 +102,11 @@ public class MAXAdRequest {
     var connectivity: String {
         get {
             if SKReachability.forInternetConnection().isReachableViaWiFi() {
-                return "wifi"
+                return MAXConnectivity.Wifi
             } else if SKReachability.forInternetConnection().isReachableViaWWAN() {
-                return "wwan"
+                return MAXConnectivity.Wwan
             } else {
-                return "none"
+                return MAXConnectivity.None
             }
         }
     }
@@ -277,12 +269,9 @@ public class MAXAdRequest {
         return session
     }
 
-
-    //
-    // Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has completed,
-    // the callback function provided is invoked and the pre-bid ad response is made available
-    // through that callback. Timeouts and other errors are also returned through the callback.
-    //
+    /// Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has completed,
+    /// the callback function provided is invoked and the pre-bid ad response is made available
+    /// through that callback. Timeouts and other errors are also returned through the callback.
     public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd() {(response, error) in
@@ -292,14 +281,12 @@ public class MAXAdRequest {
         return adr
     }
 
-    // 
-    // Begin the ad flow by calling requestAd(), which conducts various server side 
-    // auctions and other ad logic to determine the ad plan. 
-    // 
-    // The delegate is called with the ad plan when it is ready, after which point, the
-    // plan can be executed whenever an ad needs to be shown. Once the ad is shown, 
-    // the ad request should be discarded. 
-    //
+    /// Begin the ad flow by calling requestAd(), which conducts various server side
+    /// auctions and other ad logic to determine the ad plan.
+    ///
+    /// The delegate is called with the ad plan when it is ready, after which point, the
+    /// plan can be executed whenever an ad needs to be shown. Once the ad is shown,
+    /// the ad request should be discarded.
     public func requestAd(_ completion: @escaping MAXResponseCompletion) {
         // Setup POST
         let url = self.getUrl()

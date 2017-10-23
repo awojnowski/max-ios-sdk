@@ -30,6 +30,8 @@
 		60A2DFA8B8BC073CA62F88AB /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2DCFF0C14D2D8DBDB2B5D /* MockNotificationCenter.swift */; };
 		60A2DFE897960E786454B343 /* MAXAdResponseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A2D75E92A03EBFCE03B13A /* MAXAdResponseSpec.swift */; };
 		67121A99CFBB0BB4412466C4 /* Pods_MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3AFA3E8FE198FE83D72A15 /* Pods_MAX.framework */; };
+		7E3537AD1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */; };
+		7E3537AE1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */; };
 		7E684B951F50CB980067ED0D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E684B941F50CB980067ED0D /* CoreLocation.framework */; };
 		7E8BB5CC1F9565BE00AF2EB0 /* MAXResponseCacheSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8BB5CB1F9565BE00AF2EB0 /* MAXResponseCacheSpec.swift */; };
 		7E8BB5CD1F956A4000AF2EB0 /* MAXAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E21CE31E4F668F003BE3BD /* MAXAds.swift */; };
@@ -85,6 +87,7 @@
 		60A2DECC551761DDE1492D4A /* MAXErrorReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXErrorReporter.swift; sourceTree = "<group>"; };
 		6FD626BE04F8838A51BE4D05 /* Pods-MAX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAX.release.xcconfig"; path = "Pods/Target Support Files/Pods-MAX/Pods-MAX.release.xcconfig"; sourceTree = "<group>"; };
 		793192DC61858E0E891D5F74 /* Pods_MAXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXAPIConstants.swift; sourceTree = "<group>"; };
 		7E5DCF661F88757600B1E843 /* MAXSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MAXSession.swift; path = MAX/MAXSession.swift; sourceTree = SOURCE_ROOT; };
 		7E5DCF671F88757600B1E843 /* MAXLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MAXLocationProvider.swift; path = MAX/MAXLocationProvider.swift; sourceTree = SOURCE_ROOT; };
 		7E684B941F50CB980067ED0D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -149,6 +152,7 @@
 				E8E21AFE1E4E6112003BE3BD /* MAXAdRequestManager.swift */,
 				E8E21AFF1E4E6112003BE3BD /* MAXAdResponse.swift */,
 				7EFE14BD1F997A9C00DA947C /* MAXUserAgent.swift */,
+				7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -466,6 +470,7 @@
 				E8E21CE21E4E8F22003BE3BD /* MAXLogger.swift in Sources */,
 				E8E21CE41E4F668F003BE3BD /* MAXAds.swift in Sources */,
 				E8E21B3D1E4E6113003BE3BD /* MAXAdResponse.swift in Sources */,
+				7E3537AD1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */,
 				E8E21B3B1E4E6113003BE3BD /* MAXAdRequest.swift in Sources */,
 				E8E21B3C1E4E6113003BE3BD /* MAXAdRequestManager.swift in Sources */,
 				7EFE14BE1F997A9C00DA947C /* MAXUserAgent.swift in Sources */,
@@ -487,6 +492,7 @@
 				7E8BB5CE1F956A5700AF2EB0 /* MAXAdResponse.swift in Sources */,
 				60A2DE50FA1C2C4EB33B5457 /* MAXErrorReporterSpec.swift in Sources */,
 				60A2D9AE43C19B8EB3D9FEF6 /* MAXErrorReporter.swift in Sources */,
+				7E3537AE1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */,
 				60A2D7A44EDBC8805321321F /* MAXSession.swift in Sources */,
 				7E8BB5CF1F956A7400AF2EB0 /* MAXAdRequest.swift in Sources */,
 				60A2DD59C64C8E7F4633646D /* MAXLogger.swift in Sources */,
