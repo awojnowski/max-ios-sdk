@@ -27,7 +27,7 @@ point in your existing waterfall.
   	]
   end
 
-  s.subspec 'MoPub-Utils' do |d| 
+  s.subspec 'MoPub' do |d| 
   	d.dependency 'mopub-ios-sdk', '~>4.17.0'
   	d.source_files = ['MAX/MoPub/**/*']
   end

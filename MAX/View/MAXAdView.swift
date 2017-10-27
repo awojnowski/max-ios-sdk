@@ -17,7 +17,7 @@ public protocol MAXAdViewDelegate : NSObjectProtocol {
     func adViewWillLogImpression(_ adView: MAXAdView)
 }
 
-open class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
+public class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
     // The delegate should be weak here so that if the CustomEvent object itself gets deallocated
     // due to a new request being initiated by the SSP (e.g. for a timeout or other failure) 
     // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack. 5/30/17
