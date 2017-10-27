@@ -1,6 +1,6 @@
 import Foundation
 
-let MAX_SDK_VERSION = "0.6.1"
+let MAX_SDK_VERSION = "0.7.0"
 
 public class MAXConfiguration {
 

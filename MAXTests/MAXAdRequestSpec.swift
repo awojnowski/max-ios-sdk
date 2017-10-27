@@ -185,7 +185,7 @@ class MAXAdRequestSpec: QuickSpec {
                 let reqDict = adRequest.dict
 
                 expect(reqDict["v"] as? String).to(equal("1"))
-                expect(reqDict["sdk_v"] as? String).to(equal("0.6.1"))
+                expect(reqDict["sdk_v"] as? String).to(equal("0.7.0"))
             }
 
             it("reports the app version") {

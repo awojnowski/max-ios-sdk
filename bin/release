@@ -1,0 +1,78 @@
+#!/usr/bin/env python
+
+import sys
+import os
+import subprocess
+from collections import namedtuple
+
+Result = namedtuple("Result", ['return_code', 'text'])
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def bash(command):
+	result = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+	result.poll()
+	result.wait()
+	return_code = result.returncode
+	text = result.communicate()[0].split('\n')
+	return Result(return_code, text)
+
+def check_result(command_string, success_message, failure_message):
+	result = bash(command_string)
+	print(result.return_code)
+	if result.return_code == 0:
+		print(bcolors.OKGREEN + success_message + bcolors.ENDC)
+		return result
+	else:
+		print(bcolors.FAIL + failure_message + bcolors.ENDC)
+		sys.exit(1)
+
+
+print("Running tests...")
+#check_result("make test", "Test run succeeded", "Test run failure!")
+
+print("Checking that version numbers match throughout repo")
+check_version = check_result("make check-version", "Version numbers matched", "Version numbers didn't match!")
+version = check_version.text[1]
+
+print("Checking that git tag for version {} exists".format(version))
+check_result(
+	"git rev-parse {}".format(version),
+	"Found git tag for version {}".format(version),
+	"Didn't find a git tag for version {}".format(version)
+)
+
+bash("git fetch public")
+
+contains = bash("git branch -r --contains {}".format(version))
+
+changelog = bash("git log public/master..master --format=%B")
+
+
+# # make sure git tag exists
+# # make sure git tag has been pushed to public
+
+# # if [ ! -d "~/.cocoapods/repos/MAX" ]; then
+# # 	echo "No local cocoapods spec repo found for MAX-Specs in ~/.cocoapods, cloning now."
+# # 	pod repo add MAX-Specs git@github.com:MAXAds/Specs.git
+# # fi
+
+# echo "Pushing new podspec version."
+# #pod repo push MAX-Specs MAX.podspec --allow-warnings
+
+# # echo changelog, instructions to update changelog file
+
+# # Post a release notification to slack
+# # user=$(whoami)
+# # curl -X POST \
+# #      -H 'Content-type: application/json' \
+# #      --data "{\"text\":\"Mmm... yeah... a new version of the MAX iOS SDK ($versionNumber) was just released by $user\"}" \
+# #      https://hooks.slack.com/services/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

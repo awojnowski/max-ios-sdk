@@ -9,6 +9,6 @@ if [ "$configFileVersion" != "$podFileVersion" ]
 	echo "podspec: $podFileVersion" 
 	exit 1 
 else 
-	echo "SDK Version numbers match" 
+	echo $podFileVersion
 	exit 0 
 fi
