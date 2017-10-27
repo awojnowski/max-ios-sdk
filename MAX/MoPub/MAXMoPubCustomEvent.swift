@@ -1,7 +1,3 @@
-//
-//  MAXMoPubCustomEvent.swift
-//
-
 import Foundation
 import MoPub
 import MAX

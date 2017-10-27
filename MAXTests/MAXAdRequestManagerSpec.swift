@@ -1,10 +1,6 @@
-//
-// Created by John Pena on 8/30/17.
-// Copyright (c) 2017 MAX. All rights reserved.
-//
-
 import Quick
 import Nimble
+import MoPub
 @testable import MAX
 
 class TestableMAXAdRequestManager: MAXAdRequestManager {
@@ -41,14 +37,14 @@ class MAXAdRequestManagerSpec: QuickSpec {
                     let response = MAXAdResponse()
                     response.autoRefreshInterval = 2
                     manager?.response = response
-                    manager?._errorCount = 1
+                    manager?.errorCount = 1
                     
                     let _ = manager?.refresh()
                 }
 
                 expect({
                     if let m = manager {
-                        expect(m._errorCount).to(equal(0))
+                        expect(m.errorCount).to(equal(0))
                         return .succeeded
                     } else {
                         return .failed(reason:"Ad request manager was nil")
@@ -71,7 +67,7 @@ class MAXAdRequestManagerSpec: QuickSpec {
                 
                 expect({
                     if let m = manager {
-                        expect(m._errorCount).to(equal(1))
+                        expect(m.errorCount).to(equal(1))
                         return .succeeded
                     } else {
                         return .failed(reason:"Ad request manager was nil")

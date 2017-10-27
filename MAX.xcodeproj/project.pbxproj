@@ -41,6 +41,11 @@
 		7E8BB5D11F956A8A00AF2EB0 /* MAXLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E21B021E4E6112003BE3BD /* MAXLinkHandler.swift */; };
 		7E8BB5D21F956A9200AF2EB0 /* MAXAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E21B001E4E6112003BE3BD /* MAXAdView.swift */; };
 		7E8BB5D31F956A9500AF2EB0 /* MAXInterstitialAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E21B011E4E6112003BE3BD /* MAXInterstitialAd.swift */; };
+		7EE3AE951F9D887900A16D5F /* MAXMoPubAdRequestManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE3AE941F9D887900A16D5F /* MAXMoPubAdRequestManagerSpec.swift */; };
+		7EEB74201F9AE17900A60671 /* MAXMoPubCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB741F1F9AE17900A60671 /* MAXMoPubCustomEvent.swift */; };
+		7EEB74211F9AE17900A60671 /* MAXMoPubCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB741F1F9AE17900A60671 /* MAXMoPubCustomEvent.swift */; };
+		7EEB74231F9AE19000A60671 /* MAXMoPubRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB74221F9AE19000A60671 /* MAXMoPubRequestManager.swift */; };
+		7EEB74241F9AE19000A60671 /* MAXMoPubRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEB74221F9AE19000A60671 /* MAXMoPubRequestManager.swift */; };
 		7EFE14BE1F997A9C00DA947C /* MAXUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFE14BD1F997A9C00DA947C /* MAXUserAgent.swift */; };
 		7EFE14BF1F997A9C00DA947C /* MAXUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFE14BD1F997A9C00DA947C /* MAXUserAgent.swift */; };
 		E8E21ACF1E4E31D0003BE3BD /* MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8E21AC51E4E31D0003BE3BD /* MAX.framework */; };
@@ -90,6 +95,9 @@
 		7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXAPIConstants.swift; sourceTree = "<group>"; };
 		7E684B941F50CB980067ED0D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7E8BB5CB1F9565BE00AF2EB0 /* MAXResponseCacheSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXResponseCacheSpec.swift; sourceTree = "<group>"; };
+		7EE3AE941F9D887900A16D5F /* MAXMoPubAdRequestManagerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubAdRequestManagerSpec.swift; sourceTree = "<group>"; };
+		7EEB741F1F9AE17900A60671 /* MAXMoPubCustomEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXMoPubCustomEvent.swift; sourceTree = "<group>"; };
+		7EEB74221F9AE19000A60671 /* MAXMoPubRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubRequestManager.swift; sourceTree = "<group>"; };
 		7EFE14BD1F997A9C00DA947C /* MAXUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXUserAgent.swift; sourceTree = "<group>"; };
 		911CDD35DD85B7ACE45F5DD7 /* Pods-MAX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MAX/Pods-MAX.debug.xcconfig"; sourceTree = "<group>"; };
 		E87B28561E4FDF04007EE65C /* MAX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MAX.xcconfig; sourceTree = "<group>"; };
@@ -175,6 +183,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7EEB741E1F9AE0DB00A60671 /* MoPub */ = {
+			isa = PBXGroup;
+			children = (
+				7EEB741F1F9AE17900A60671 /* MAXMoPubCustomEvent.swift */,
+				7EEB74221F9AE19000A60671 /* MAXMoPubRequestManager.swift */,
+			);
+			path = MoPub;
+			sourceTree = "<group>";
+		};
 		7EF661C11F919D06002CFD62 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +224,7 @@
 		E8E21AC71E4E31D0003BE3BD /* MAX */ = {
 			isa = PBXGroup;
 			children = (
+				7EEB741E1F9AE0DB00A60671 /* MoPub */,
 				7E5DCF621F8874C100B1E843 /* API */,
 				E8E21AC91E4E31D0003BE3BD /* Info.plist */,
 				E8E21AC81E4E31D0003BE3BD /* MAX.h */,
@@ -235,6 +253,7 @@
 				60A2D2CB6622436E4DCBA3C8 /* MAXInterstitialAdTests.swift */,
 				60A2D0AC12FE546225DE2A5B /* MAXLocationProviderSpec.swift */,
 				7E8BB5CB1F9565BE00AF2EB0 /* MAXResponseCacheSpec.swift */,
+				7EE3AE941F9D887900A16D5F /* MAXMoPubAdRequestManagerSpec.swift */,
 			);
 			path = MAXTests;
 			sourceTree = "<group>";
@@ -463,7 +482,9 @@
 			files = (
 				E8E21B3E1E4E6113003BE3BD /* MAXAdView.swift in Sources */,
 				E8E21B401E4E6113003BE3BD /* MAXLinkHandler.swift in Sources */,
+				7EEB74201F9AE17900A60671 /* MAXMoPubCustomEvent.swift in Sources */,
 				E8E21CE21E4E8F22003BE3BD /* MAXLogger.swift in Sources */,
+				7EEB74231F9AE19000A60671 /* MAXMoPubRequestManager.swift in Sources */,
 				E8E21CE41E4F668F003BE3BD /* MAXAds.swift in Sources */,
 				E8E21B3D1E4E6113003BE3BD /* MAXAdResponse.swift in Sources */,
 				7E3537AD1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */,
@@ -492,6 +513,7 @@
 				60A2D7A44EDBC8805321321F /* MAXSession.swift in Sources */,
 				7E8BB5CF1F956A7400AF2EB0 /* MAXAdRequest.swift in Sources */,
 				60A2DD59C64C8E7F4633646D /* MAXLogger.swift in Sources */,
+				7EEB74241F9AE19000A60671 /* MAXMoPubRequestManager.swift in Sources */,
 				60A2D6CA73581D6FC785F056 /* MAXSessionSpec.swift in Sources */,
 				60A2D11F0D1CD9158BD34DC8 /* MAXAdRequestSpec.swift in Sources */,
 				60A2D7F6BA4253C8305F2279 /* MockURLSession.swift in Sources */,
@@ -502,11 +524,13 @@
 				7E8BB5CD1F956A4000AF2EB0 /* MAXAds.swift in Sources */,
 				7E8BB5CC1F9565BE00AF2EB0 /* MAXResponseCacheSpec.swift in Sources */,
 				7E8BB5D31F956A9500AF2EB0 /* MAXInterstitialAd.swift in Sources */,
+				7EEB74211F9AE17900A60671 /* MAXMoPubCustomEvent.swift in Sources */,
 				60A2DBB107F20B5A121A17C8 /* MAXAdViewTests.swift in Sources */,
 				7E8BB5D11F956A8A00AF2EB0 /* MAXLinkHandler.swift in Sources */,
 				60A2D0B45043F0E74B2BB643 /* MAXInterstitialAdTests.swift in Sources */,
 				60A2DD00187AEA812C314B40 /* MAXLocationProvider.swift in Sources */,
 				60A2DB7DF12E35D5030D7660 /* MAXConfiguration.swift in Sources */,
+				7EE3AE951F9D887900A16D5F /* MAXMoPubAdRequestManagerSpec.swift in Sources */,
 				7EFE14BF1F997A9C00DA947C /* MAXUserAgent.swift in Sources */,
 				60A2D12A76C6EF30BF18E16B /* MAXLocationProviderSpec.swift in Sources */,
 			);

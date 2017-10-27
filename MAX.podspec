@@ -19,12 +19,17 @@ point in your existing waterfall.
   s.subspec 'Core' do |d| 
     d.dependency 'MRAID', '1.0.0'
     d.dependency 'VAST', '1.0.0'
-  	d.source_files = 'MAX/**/*'
+  	d.source_files = [
+  		'MAX/*.{h,m,swift}', 
+  		'MAX/API/**/*', 
+  		'MAX/Utility/**/*',
+  		'MAX/View/**/*'
+  	]
   end
 
-  s.subspec 'MoPub' do |d| 
+  s.subspec 'MoPub-Utils' do |d| 
   	d.dependency 'mopub-ios-sdk', '~>4.17.0'
-  	d.source_files = ['Adapters/mopub/*']
+  	d.source_files = ['MAX/MoPub/**/*']
   end
 
 end
