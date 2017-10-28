@@ -11,7 +11,7 @@ point in your existing waterfall.
   s.homepage         = 'https://app.maxads.io'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'MAX' => 'hello@maxads.co' }
-  s.source           = { :git => 'git@github.com:MAXAds/MAX.git', :tag => s.version.to_s }
+  s.source           = { :git => 'git@github.com:MAXAds/max-ios-sdk.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'
 
