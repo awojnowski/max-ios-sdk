@@ -35,7 +35,7 @@ def check_result(command_string, success_message, failure_message):
 
 
 p("Running tests")
-#check_result("make test", "Test run succeeded", "Test run failure!")
+check_result("make test", "Test run succeeded", "Test run failure!")
 
 p("Checking that version numbers match throughout repo")
 check_version = check_result(
@@ -77,7 +77,6 @@ check_result(
 	"Successfully pushed new podspec version",
 	"Failed trying to push new podspec version"
 )
-
 
 try:
 	slack_url = open(os.path.expanduser("~") + "/.slack_url", 'r').read()
