@@ -1,6 +1,6 @@
 # MAX
 
-[![Build Status](https://travis-ci.com/MAXAds/max-ios-sdk.svg?token=rKhr8tQCzv8jWSeVfZCR&branch=master)](https://travis-ci.com/MAXAds/max-ios-sdk)
+[![Build Status](https://travis-ci.org/MAXAds/max-ios-sdk.svg?token=rKhr8tQCzv8jWSeVfZCR&branch=master)](https://travis-ci.org/MAXAds/max-ios-sdk)
 
 ## Documentation
 
