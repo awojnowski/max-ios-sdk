@@ -23,8 +23,16 @@ class TestableMAXSession: MAXSession {
 class MAXSessionSpec: QuickSpec {
     override func spec() {
         describe("MAXSession") {
+            
+            var session = TestableMAXSession()
+            
+            beforeEach {
+                session = TestableMAXSession()
+                session.sessionExpirationIntervalSeconds = 0.0
+            }
+
             it("increments, decrements, and resets") {
-                let session = TestableMAXSession()
+                
                 expect(session.sessionDepth).to(equal(0))
 
                 session.incrementDepth()
@@ -37,20 +45,20 @@ class MAXSessionSpec: QuickSpec {
             }
 
             it("resets when the application is no longer active") {
-                let session = TestableMAXSession()
-
                 session.incrementDepth()
                 expect(session.sessionDepth).to(equal(1))
-
                 let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillResignActive)
-                expect(session.sessionDepth).to(equal(0))
-
-                session.incrementDepth()
-                session.incrementDepth()
-                expect(session.sessionDepth).to(equal(2))
-
                 let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillEnterForeground)
                 expect(session.sessionDepth).to(equal(0))
+            }
+            
+            it("won't reset if the session hasn't expired") {
+                session.sessionExpirationIntervalSeconds = 1000.0
+                session.incrementDepth()
+                expect(session.sessionDepth).to(equal(1))
+                let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillResignActive)
+                let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillEnterForeground)
+                expect(session.sessionDepth).to(equal(1))
             }
         }
     }

@@ -37,6 +37,10 @@ public class MAXAdResponse: NSObject {
         if let distanceFilter = self.response["distance_filter"] as? Double {
             MAXLocationProvider.shared.setDistanceFilter(distanceFilter)
         }
+        
+        if let sessionExpirationInterval = self.response["session_expiration_interval"] as? Double {
+            MAXSession.shared.sessionExpirationIntervalSeconds = sessionExpirationInterval
+        }
 
         // Give the ability to disable debug mode from a server response in case a client deploys
         // their app with debug mode enabled
