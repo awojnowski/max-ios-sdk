@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Installing FBAudienceNetwork-4.26.0"
+
 mkdir tmp/
 
 pushd tmp/
@@ -7,7 +9,9 @@ curl -O -J -L https://origincache.facebook.com/developers/resources/?id=FBAudien
 unzip FBAudienceNetwork-4.26.0.zip
 popd
 
-cp tmp/FBAudienceNetwork.framework/Headers/* Pods/FBAudienceNetwork/FBAudienceNetwork.framework/Headers/
-cp tmp/FBAudienceNetwork.framework/FBAudienceNetwork Pods/FBAudienceNetwork/FBAudienceNetwork.framework/
+sudo cp tmp/FBAudienceNetwork.framework/Headers/* Pods/FBAudienceNetwork/FBAudienceNetwork.framework/Headers/
+sudo cp tmp/FBAudienceNetwork.framework/FBAudienceNetwork Pods/FBAudienceNetwork/FBAudienceNetwork.framework/
 
 rm -rf tmp
+
+echo "Done Installing FBAudienceNetwork-4.26.0"

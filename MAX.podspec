@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MAX'
-  s.version          = '0.8.0-pre'
+  s.version          = '0.8.0'
   s.summary          = 'Parallel bidding wrapper for mobile ads.'
   s.description      = <<-DESC
 MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, 
@@ -35,7 +35,7 @@ point in your existing waterfall.
 
   s.subspec 'Facebook' do |d|
     d.dependency 'MAX/Core'
-    d.vendored_frameworks = 'Pods/FBAudienceNetwork/FBAudienceNetwork.framework'
+    d.vendored_frameworks = 'Vendor/FBAudienceNetwork.framework'
     d.source_files = ['MAX/Facebook/**/*']
   end
 

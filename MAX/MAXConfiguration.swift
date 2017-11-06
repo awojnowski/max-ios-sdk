@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-let MAX_SDK_VERSION = "0.8.0-pre"
+let MAX_SDK_VERSION = "0.8.0"
 
 public class MAXConfiguration {
 
