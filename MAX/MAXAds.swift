@@ -11,6 +11,8 @@ class MAXCachedAdResponse {
     init(withResponse: MAXAdResponse?) {
         self.adResponse = withResponse
         self.createdAt = Date()
+        
+        MAXLog.debug("Cached a pre-bid for partner \(withResponse?.partnerName)")
     }
     
     var timeoutIntervalSeconds: Double {
@@ -33,6 +35,9 @@ class MAXCachedAdResponse {
 public class MAXAds {
     
     public class func receivedPreBid(adUnitID: String, response: MAXAdResponse?, error: NSError?) {
+        
+        MAXLog.debug("Received pre-bid with MAX ad unit id \(adUnitID)")
+        
         if let existingResponse = MAXPreBids[adUnitID] {
             if existingResponse.isExpired {
                 existingResponse.adResponse?.trackExpired()
@@ -45,6 +50,9 @@ public class MAXAds {
     }
     
     public class func getPreBid(adUnitID: String) -> MAXAdResponse? {
+        
+        MAXLog.debug("Getting pre-bid with MAX ad unit id \(adUnitID)")
+        
         defer {
             // only allow pre-bid to be used once
             MAXPreBids[adUnitID] = nil

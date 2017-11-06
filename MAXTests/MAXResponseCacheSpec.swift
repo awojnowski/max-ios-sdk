@@ -4,7 +4,7 @@ import Nimble
 
 class MAXCachedAdResponseSpec: QuickSpec {
     override func spec() {
-        let response = MAXAdResponse()
+        let response = MAXAdResponseStub()
         response.expirationIntervalSeconds = 100.0
         let cachedResponse = MAXCachedAdResponse(withResponse: response)
 
@@ -15,7 +15,7 @@ class MAXCachedAdResponseSpec: QuickSpec {
         it("should determine when an ad response has expired") {
             expect(cachedResponse.isExpired).to(beFalse())
 
-            let expiredResponse = MAXAdResponse()
+            let expiredResponse = MAXAdResponseStub()
             expiredResponse.expirationIntervalSeconds = 0.0
             let expired = MAXCachedAdResponse(withResponse: expiredResponse)
             expect(expired.isExpired).to(beTrue())
@@ -32,6 +32,16 @@ class MockMAXAdResponse: MAXAdResponse {
     var trackExpiredCalled = false
     override func trackExpired() {
         self.trackExpiredCalled = true
+    }
+    
+    var _expirationIntervalSeconds: Double = 3600.0
+    override var expirationIntervalSeconds: Double {
+        get {
+            return _expirationIntervalSeconds
+        }
+        set {
+            _expirationIntervalSeconds = newValue
+        }
     }
 }
 

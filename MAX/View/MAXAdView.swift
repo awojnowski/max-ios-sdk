@@ -1,11 +1,10 @@
-//
-//  MAXAdView.swift
-//  Pods
-//
-//
-
 import Foundation
 import MRAID
+
+public enum MAXBannerCreativeType: String {
+    case MRAID = "html"
+    case Empty = "empty"
+}
 
 public protocol MAXAdViewDelegate : NSObjectProtocol {
     func viewControllerForPresentingModalView() -> UIViewController!
@@ -17,54 +16,114 @@ public protocol MAXAdViewDelegate : NSObjectProtocol {
     func adViewWillLogImpression(_ adView: MAXAdView)
 }
 
-public class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
+public class MAXAdView: UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate, MAXAdViewAdapterDelegate {
     // The delegate should be weak here so that if the CustomEvent object itself gets deallocated
     // due to a new request being initiated by the SSP (e.g. for a timeout or other failure) 
-    // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack. 5/30/17
+    // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack.
     open weak var delegate: MAXAdViewDelegate?
     
     private var adResponse: MAXAdResponse!
-    private var _mraidView: SKMRAIDView!
+    private var mraidView: SKMRAIDView!
+    private var adViewAdapter: MAXAdViewAdapter!
+    private var adSize: CGSize!
     
     public init(adResponse: MAXAdResponse, size: CGSize) {
         super.init(frame: CGRect(origin: CGPoint.zero, size: size))        
         self.adResponse = adResponse
+        self.adSize = size
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func loadAd() {
+    public func loadAd() {
         switch self.adResponse.creativeType {
-        case "html":
-            if let htmlData = self.adResponse.creative {
-                self._mraidView = SKMRAIDView(
-                        frame: self.frame,
-                        withHtmlData: htmlData,
-                        withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
-                        supportedFeatures: [],
-                        delegate: self,
-                        serviceDelegate: self,
-                        rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
-                )
-                self.addSubview(self._mraidView)
-                break
+            
+        case MAXBannerCreativeType.MRAID.rawValue:
+            if self.adResponse.usePartnerRendering {
+                MAXLog.debug("Loading creative using view from third party: \(String(describing: self.adResponse.partnerName))")
+                self.loadAdWithAdapter()
             } else {
-                MAXLog.error("MAX: malformed response, HTML creative type but no markup... failing")
-                MAXErrorReporter.shared.logError(message: "Malformed response, creative with type html had no markup")
-                self.delegate?.adViewDidFailWithError(self, error: nil)
-                break
+                MAXLog.debug("Loading creative using MRAID renderer")
+                self.loadAdWithMRAIDRenderer()
             }
-        case "empty":
-            MAXLog.debug("MAX: empty ad response, nothing to show")
+            
+        case MAXBannerCreativeType.Empty.rawValue:
+            MAXLog.debug("AdView had empty ad response, nothing to show")
             self.delegate?.adViewDidLoad(self)
             break
+            
         default:
-            MAXLog.error("MAX: unsupported ad creative_type=\(self.adResponse.creativeType)")
+            MAXLog.error("AdView had unsupported ad creative_type=\(self.adResponse.creativeType)")
             self.delegate?.adViewDidFailWithError(self, error: nil)
             break
         }
+    }
+
+    func loadAdWithMRAIDRenderer() {
+        guard let htmlData = self.adResponse.creative else {
+            MAXLog.error("Malformed response, HTML creative type but no markup... failing")
+            MAXErrorReporter.shared.logError(message: "Malformed response, creative with type html had no markup")
+            self.delegate?.adViewDidFailWithError(self, error: nil)
+            return
+        }
+
+        self.mraidView = SKMRAIDView(
+            frame: self.frame,
+            withHtmlData: htmlData,
+            withBaseURL: URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)"),
+            supportedFeatures: [],
+            delegate: self,
+            serviceDelegate: self,
+            rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
+        )
+
+        self.addSubview(self.mraidView)
+    }
+
+    /// Attempt to load the ad with a third party adapter. The adapter must have been registered
+    /// in MAXConfiguration's adapter registry. The third party adapter will fail to be initialized
+    /// if there's no identifiable partner in the ad response or if a generator for the adapter can't
+    /// be found. This can also fail if the adapter doesn't create a renderable ad view with the
+    /// third party's code. If for any reason `loadAdWithAdapter` fails, it will attempt to fall
+    /// back to `loadAdWithMRAIDRenderer`.
+    func loadAdWithAdapter() {
+        guard let partner = self.adResponse.partnerName else {
+            MAXLog.error("Attempted to load ad with third party renderer, but no winner was declared")
+            self.loadAdWithMRAIDRenderer()
+            return
+        }
+        
+        guard let adViewGenerator = self.getGenerator(forPartner: partner) else {
+            MAXLog.error("Tried loading ad with third party generator, but no generator for \(partner) was configured.")
+            self.loadAdWithMRAIDRenderer()
+            return
+        }
+
+        guard let adapter = adViewGenerator.getAdViewAdapter(
+            fromResponse: self.adResponse,
+            withSize: self.adSize,
+            rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
+        ) else {
+            MAXLog.error("Unable to load ad view generator, generator loadAdView returned nil")
+            self.loadAdWithMRAIDRenderer()
+            return
+        }
+        
+        self.adViewAdapter = adapter
+        self.adViewAdapter.delegate = self
+        self.adViewAdapter.loadAd()
+        
+        if let view = self.adViewAdapter.adView {
+            self.addSubview(view)
+        } else {
+            self.delegate?.adViewDidFailWithError(self, error: nil)
+        }
+    }
+    
+    func getGenerator(forPartner: String) -> MAXAdViewAdapterGenerator? {
+        return MAXConfiguration.shared.getAdViewGenerator(forPartner: forPartner)
     }
     
     func trackImpression() {
@@ -86,10 +145,32 @@ public class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
         }
     }
     
-    //
-    // SKMRAIDViewDelegate
-    //
+    /*
+     * MAXAdViewAdapterDelegate methods
+     */
+    public func adViewWasClicked(_ adView: MAXAdViewAdapter) {
+        MAXLog.debug("Generated ad view was clicked")
+        self.trackClick()
+    }
     
+    public func adViewDidLoad(_ adView: MAXAdViewAdapter) {
+        MAXLog.debug("Generated ad view was loaded")
+        self.delegate?.adViewDidLoad(self)
+    }
+    
+    public func adView(_ adView: MAXAdViewAdapter, didFailWithError error: Error) {
+        MAXLog.debug("Generated ad view failed with error: \(error.localizedDescription)")
+        self.delegate?.adViewDidFailWithError(self, error: error as NSError)
+    }
+    
+    public func adViewWillLogImpression(_ adView: MAXAdViewAdapter) {
+        MAXLog.debug("Generated ad view logged an impression")
+        self.trackImpression()
+    }
+    
+    /*
+     * SKMRAIDViewDelegate methods
+     */
     public func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdReady")
         self.trackImpression()
@@ -124,10 +205,9 @@ public class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
         return true
     }
     
-    //
-    // SKMRAIDServiceDelegate
-    //
-    
+    /*
+     * SKMRAIDServiceDelegate
+     */
     public func mraidServiceOpenBrowser(withUrlString url: String) {
         MAXLog.debug("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
         
@@ -137,6 +217,5 @@ public class MAXAdView : UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate {
             self.click(url)
         }
     }
-    
 }
 

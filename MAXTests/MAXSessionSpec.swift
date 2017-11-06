@@ -7,27 +7,15 @@ import Quick
 import Nimble
 @testable import MAX
 
-class TestableMAXSession: MAXSession {
-    var notificationCenter: MockNotificationCenter
-    init() {
-        self.notificationCenter = MockNotificationCenter()
-        super.init(notificationCenter: self.notificationCenter)
-    }
-
-    @objc
-    override func resetDepth() {
-        super.resetDepth()
-    }
-}
 
 class MAXSessionSpec: QuickSpec {
     override func spec() {
         describe("MAXSession") {
             
-            var session = TestableMAXSession()
+            var session = MAXSessionStub()
             
             beforeEach {
-                session = TestableMAXSession()
+                session = MAXSessionStub()
                 session.sessionExpirationIntervalSeconds = 0.0
             }
 

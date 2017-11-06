@@ -55,7 +55,7 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
             }
 
             let iTunesID = sessionLastURL.path[sessionLastURL.path.index(match.lowerBound, offsetBy: 3) ..< match.upperBound]
-            self.presentStoreKit(viewController, storeKitIdentifier: iTunesID, completion: completion)
+            self.presentStoreKit(viewController, storeKitIdentifier: String(iTunesID), completion: completion)
         }) 
         task?.resume()
     }

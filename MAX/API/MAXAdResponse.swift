@@ -1,40 +1,49 @@
 import Foundation
 
+public class MAXAdResponseParameters {
+    public static let winner = "winner"
+    public static let creative = "creative"
+    public static let preBidKeywords = "prebid_keywords"
+    public static let refreshRate = "refresh"
+    public static let distanceFilter = "distance_filter"
+    public static let disableDebugMode = "disable_debug"
+
+    public static let impressionUrls = "impression_urls"
+    public static let clickUrls = "click_urls"
+    public static let selectedUrls = "selected_urls"
+    public static let handoffUrls = "handoff_urls"
+    public static let expireUrls = "expire_urls"
+    public static let lossUrls = "loss_urls"
+    public static let errorUrl = "error_url"
+    
+    public class Winner {
+        public static let partnerName = "partner"
+        public static let partnerPlacementID = "partner_placement_id"
+        public static let usePartnerRendering = "use_partner_rendering"
+        public static let creativeType = "creative_type"
+    }
+}
+
 public class MAXAdResponse: NSObject {
     private let data: Data
     private let response: NSDictionary
     
-    public let preBidKeywords: String
-    var autoRefreshInterval: Int?
-
-    let creativeType: String
-    var creative: String?
-
-    /// The ad response is only valid for `timeoutIntervalSeconds` seconds, by default set to 60 minutes.
-    /// After this time period has elapsed, the ad response is no longer considered valid for rendering
-    /// and the object's `trackExpired` method will be called if an attempt is made to render this ad.
-    public var expirationIntervalSeconds: Double = 60.0*60.0
-    
-    open override var description: String { return String(describing: response) }
+    open override var description: String { 
+        return String(describing: response) 
+    }
     
     public override init() {
         self.data = Data()
         self.response = [:]
-        self.preBidKeywords = ""
-        self.creativeType = "empty"
     }
     
     public init(data: Data) throws {
         self.data = data
         self.response = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
 
-        if let refresh = self.response["refresh"] as? Int {
-            self.autoRefreshInterval = refresh
-        } else {
-            MAXLog.debug("Refresh interval not set in ad response")
-        }
-
-        if let distanceFilter = self.response["distance_filter"] as? Double {
+        // Give the ability to reset the location tracking distance filter from the server
+        if let distanceFilter = self.response[MAXAdResponseParameters.distanceFilter] as? Double {
+            MAXLog.debug("Setting the distance filter from the server response")
             MAXLocationProvider.shared.setDistanceFilter(distanceFilter)
         }
         
@@ -44,46 +53,108 @@ public class MAXAdResponse: NSObject {
 
         // Give the ability to disable debug mode from a server response in case a client deploys
         // their app with debug mode enabled
-        if let _ = self.response["disable_debug"] {
+        if let _ = self.response[MAXAdResponseParameters.disableDebugMode] {
+            MAXLog.debug("Found force shutting off debug mode parameter from server. MAX will now operate normally.")
             MAXConfiguration.shared.disableDebugMode()
         }
-        
-        if let winner = self.response["winner"] as? NSDictionary {
-            self.preBidKeywords = self.response["prebid_keywords"] as? String ?? ""
-            self.creative = self.response["creative"] as? String
-            self.creativeType = winner["creative_type"] as? String ?? "empty"
-            
-            if let expirationInterval = self.response["expiration_interval"] as? Double {
-                self.expirationIntervalSeconds = expirationInterval
-            }
-            
-            if let expirationInterval = winner["expiration_interval"] as? Int {
-                self.expirationIntervalSeconds = Double(expirationInterval)
-            }
-        } else {
-            self.preBidKeywords = ""
-            self.creativeType = "empty"
-        }
 
-        if let errorUrl = self.response["error_url"] as? String {
+        // Give the ability to reset the error url to something the server provides
+        if let errorUrl = self.response[MAXAdResponseParameters.errorUrl] as? String {
             if let url = URL(string: errorUrl) {
+                MAXLog.debug("Reset the error reporter url")
                 MAXErrorReporter.shared.setUrl(url: url)
             }
         }
     }
-
+    
+    private let defaultExpirationIntervalSeconds: Double = 60.0*60.0
+    
+    /// The ad response is only valid for `timeoutIntervalSeconds` seconds, by default set to 60 minutes.
+    /// After this time period has elapsed, the ad response is no longer considered valid for rendering
+    /// and the object's `trackExpired` method will be called if an attempt is made to render this ad.
+    public var expirationIntervalSeconds: Double {
+        if let expirationInterval = self.response["expiration_interval"] as? Double {
+            return expirationInterval
+        }
+        
+        return self.defaultExpirationIntervalSeconds
+    }
+    
+    /// `autoRefreshInterval` specifies an amount of time that should elapse after the loading of this
+    /// ad, after which a new ad should be loaded from the server.
+    public var autoRefreshInterval: Int? {
+        get {
+            if let refresh = self.response[MAXAdResponseParameters.refreshRate] as? Int {
+                return refresh
+            } else {
+                MAXLog.debug("Refresh interval not set in ad response")
+                return nil
+            }
+        }
+    }
+    
+    public var preBidKeywords: String {
+        get {
+            if let _ = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+                return self.response[MAXAdResponseParameters.preBidKeywords] as? String ?? ""
+            }
+        
+            return ""
+        }
+    }
+    
+    public var creativeType: String {
+        get {
+            if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+                return winner[MAXAdResponseParameters.Winner.creativeType] as? String ?? "empty"
+            }
+            
+            return "empty"
+        }
+    }
+    
+    public var creative: String? {
+        get {
+            return self.response[MAXAdResponseParameters.creative] as? String
+        }
+    }
+    
+    public var partnerName: String? {
+        get {
+            if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+                return winner[MAXAdResponseParameters.Winner.partnerName] as? String ?? ""
+            }
+            
+            return ""
+        }
+    }
+    
+    public var partnerPlacementID: String? {
+        get {
+            if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+                return winner[MAXAdResponseParameters.Winner.partnerPlacementID] as? String
+            }
+            
+            return nil
+        }
+    }
+    
+    public var usePartnerRendering: Bool {
+        get {
+            if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+                return winner[MAXAdResponseParameters.Winner.usePartnerRendering] as? Bool ?? false
+            }
+            
+            return false
+        }
+    }
+    
     func getSession() -> URLSession {
          return URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
     }
 
-    func getCustomEventClass(name: String) -> NSObject.Type? {
-        return NSClassFromString(name) as? NSObject.Type
-    }
-
-    //
     // Refresh operations
-    //
-    open func shouldAutoRefresh() -> Bool {
+    public func shouldAutoRefresh() -> Bool {
         if let autoRefreshInterval = self.autoRefreshInterval {
             return autoRefreshInterval > 0
         } else {
@@ -91,69 +162,46 @@ public class MAXAdResponse: NSObject {
         }
     }
     
-    //
-    // Returns a native handler instance for a network handoff creative type
-    //
-    open func networkHandlerFromCreative() -> (AnyObject?, [AnyHashable : Any]?) {
-        guard self.creativeType == "network" else {
-            return (nil, nil)
-        }
-        
-        // In this case the creative is a JSON block that we use to generate the
-        // proxy custom event and any accompanying info.
-        guard let creativeData = self.creative?.data(using: .utf8),
-            let json = try? JSONSerialization.jsonObject(with: creativeData) as? [String: Any] else {
-                MAXLog.error("MAX: proxy bid had invalid creative JSON")
-                MAXErrorReporter.shared.logError(message: "Proxy bid had invalid creative JSON")
-                return (nil, nil)
-        }
-
-        // pass along to our proxy custom event
-        guard let customEventClassName = json?["custom_event_class"] as? String,
-            let customEventClass = getCustomEventClass(name: customEventClassName),
-            let customEventInfo = json?["custom_event_info"] as? [AnyHashable : Any] else {
-                MAXLog.error("MAX: proxy bid has missing or invalid custom event properties")
-                MAXErrorReporter.shared.logError(message: "Proxy bid had missing or invalid custom event properties")
-                return (nil, nil)
-        }
-        
-        return (customEventClass.init(), customEventInfo)
-    }
-    
-    // Fires an impression tracking event for this AdResponse
+    /// Fires an impression tracking event for this AdResponse
     public func trackImpression() {
-        self.trackAll(self.response["impression_urls"] as? NSArray)
+        MAXLog.debug("trackImpression called")
+        self.trackAll(self.response[MAXAdResponseParameters.impressionUrls] as? NSArray)
     }
 
-    // Fires a click tracking event for this AdResponse
+    /// Fires a click tracking event for this AdResponse
     public func trackClick() {
-        self.trackAll(self.response["click_urls"] as? NSArray)
+        MAXLog.debug("trackClick called")
+        self.trackAll(self.response[MAXAdResponseParameters.clickUrls] as? NSArray)
     }
 
-    // Fires a selected tracking event for this AdResponse. This is used when the AdResponse is
-    // selected for display through a containing SSP.
+    /// Fires a selected tracking event for this AdResponse. This is used when the AdResponse is
+    /// selected for display through a containing SSP.
     public func trackSelected() {
-        self.trackAll(self.response["selected_urls"] as? NSArray)
+        MAXLog.debug("trackSelected called")
+        self.trackAll(self.response[MAXAdResponseParameters.selectedUrls] as? NSArray)
     }
 
-    // Fires an expire tracking event for this AdResponse. This should be used when the AdResponse value
-    // has been in the ad cache for longer than the expiry time.
+    /// Fires a handoff event for this AdResponse, which tracks when we've handed off control to the SSP
+    /// SDK and the SSP SDK is about to make an ad request to the SSP ad server.
+    public func trackHandoff() {
+        MAXLog.debug("trackHandoff called")
+        self.trackAll(self.response[MAXAdResponseParameters.handoffUrls] as? NSArray)
+    }
+
+    /// Fires an expire tracking event for this AdResponse. This should be used when the AdResponse value
+    /// has been in the ad cache for longer than the expiry time.
     func trackExpired() {
-        self.trackAll(self.response["expire_urls"] as? NSArray)
+        MAXLog.debug("trackExpired called")
+        self.trackAll(self.response[MAXAdResponseParameters.expireUrls] as? NSArray)
     }
 
-    // Fires a loss tracking event for this AdResponse. This is called when a new AdResponse for the same
-    // MAX ad unit ID is received.
+    /// Fires a loss tracking event for this AdResponse. This is called when a new AdResponse for the same
+    /// MAX ad unit ID is received.
     func trackLoss() {
-        self.trackAll(self.response["loss_urls"] as? NSArray)
+        MAXLog.debug("trackLoss called")
+        self.trackAll(self.response[MAXAdResponseParameters.lossUrls] as? NSArray)
     }
     
-    // Fires a handoff event for this AdResponse, which tracks when we've handed off control to the SSP
-    // SDK and the SSP SDK is about to make an ad request to the SSP ad server.
-    public func trackHandoff() {
-        self.trackAll(self.response["handoff_urls"] as? NSArray)
-    }
-
     private func trackAll(_ urls: NSArray?) {
         guard let trackingUrls = urls else {
             return

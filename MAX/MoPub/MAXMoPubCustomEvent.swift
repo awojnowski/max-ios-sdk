@@ -8,10 +8,11 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
     private var customEventInstance : MPBannerCustomEvent?
 
     override open func requestAd(with size: CGSize, customEventInfo info: [AnyHashable: Any]!) {
+        
         self.adView = nil
         
         guard let adUnitID = info["adunit_id"] as? String else {
-            MAXLog.error("AdUnitID not specified in adunit_id customEventInfo block: \(info)")
+            MAXLog.error("AdUnitID not specified in adunit_id customEventInfo block")
             self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
             return
         }
@@ -22,29 +23,20 @@ open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventD
             return
         }
 
-        let (customEventInstance, customEventInfo) = adResponse.networkHandlerFromCreative()
-        if let customEventInstance = customEventInstance as? MPBannerCustomEvent {
-            self.customEventInstance = customEventInstance
-            customEventInstance.delegate = self
-            customEventInstance.requestAd(with: size, customEventInfo: customEventInfo)
-            
-        } else {
-            MAXLog.debug("Banner for \(adUnitID) found, loading...")
-            
-            // Inform MAX system that we won in the waterfall
-            adResponse.trackSelected()
+        MAXLog.debug("Banner for \(adUnitID) found, loading...")
 
-            // For most creative types, we handoff internally to our own rendering layer.
-            // The loadAd() call will tell our delegate if the load succeeded or failed, 
-            // and we pass this along accordingly.
-            self.adView = MAXAdView(adResponse: adResponse, size: size)
-            if let adView = self.adView {
-                adView.delegate = self
-                adView.loadAd()
-            } else {
-                MAXLog.error("Unable to create MAXAdView, failing")
-                self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
-            }
+        // Inform MAX system that we won in the waterfall
+        adResponse.trackSelected()
+
+        // Handoff control flow back to our own rendering layer. The `loadAd()` call will tell our delegate
+        // if the load succeeded or failed and we pass this along accordingly.
+        self.adView = MAXAdView(adResponse: adResponse, size: size)
+        if let adView = self.adView {
+            adView.delegate = self
+            adView.loadAd()
+        } else {
+            MAXLog.error("Unable to create MAXAdView, failing")
+            self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
         }
 
     }
@@ -139,24 +131,16 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
             return
         }
 
-        let (customEventInstance, customEventInfo) = adResponse.networkHandlerFromCreative()
-        if let customEventInstance = customEventInstance as? MPInterstitialCustomEvent {
-            self.customEventInstance = customEventInstance
-            customEventInstance.delegate = self
-            customEventInstance.requestInterstitial(withCustomEventInfo: customEventInfo)
-            
-        } else {
-            // Inform MAX system that we won in the waterfall
-            adResponse.trackSelected()
+        // Inform MAX system that we won in the waterfall
+        adResponse.trackSelected()
 
-            // generate interstitial object from the pre-bid,
-            // connect delegate and tell MoPub SDK that the interstitial has been loaded
-            let MAXInterstitial = MAXInterstitialAd(adResponse: adResponse)
-            self.MAXInterstitial = MAXInterstitial
-            MAXInterstitial.delegate = self
-            self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
-            MAXLog.debug("Interstitial for \(adUnitID) found and loaded")
-        }
+        // generate interstitial object from the pre-bid,
+        // connect delegate and tell MoPub SDK that the interstitial has been loaded
+        let MAXInterstitial = MAXInterstitialAd(adResponse: adResponse)
+        self.MAXInterstitial = MAXInterstitial
+        MAXInterstitial.delegate = self
+        self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
+        MAXLog.debug("Interstitial for \(adUnitID) found and loaded")
     }
     
     override open func showInterstitial(fromRootViewController rootViewController: UIViewController!) {
@@ -195,6 +179,11 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
     open func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidClose")
         self.delegate.interstitialCustomEventDidDisappear(self)
+    }
+    
+    public func interstitial(_ interstitialAd: MAXInterstitialAd, didFailWithError: Error) {
+        MAXLog.debug("MAX: interstitial:didFailWithError: \(didFailWithError.localizedDescription)")
+        self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: didFailWithError)
     }
     
     // MPInterstitialCustomEventDelegate

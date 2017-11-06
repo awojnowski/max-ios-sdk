@@ -9,6 +9,7 @@ before_install:
   - pod repo add maxads https://MAXCIUser:hDemzZsFc8KPboJchRdZhuNE@github.com/MAXAds/Specs.git
 
 script:
+  - ./bin/install-fb-4.26
   - make test
   - make check-version
 

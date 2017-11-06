@@ -3,38 +3,20 @@ import Nimble
 import MoPub
 @testable import MAX
 
-class TestableMAXAdRequestManager: MAXAdRequestManager {
-    var response: MAXAdResponse? = nil
-    var error: NSError? = nil
-    var request: MAXAdRequest!
-    
-    override init(adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
-        super.init(adUnitID: adUnitID, completion: completion)
-        
-        self.request = MAXAdRequest(adUnitID: adUnitID)
-    }
-    
-    override func runPreBid(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
-        print("TestableMAXAdRequestManager.runPrebid called")
-        completion(response, error)
-        return request
-    }
-}
-
 class MAXAdRequestManagerSpec: QuickSpec {
     override func spec() {
         describe("MAXAdRequestManager") {
             
             let adUnitID = "1234"
-            var manager: TestableMAXAdRequestManager?
+            var manager: MAXAdRequestManagerStub?
             
             it("manages basic refreshes") {
                 waitUntil { done in
-                    manager = TestableMAXAdRequestManager(adUnitID: adUnitID) { (response, error) in
+                    manager = MAXAdRequestManagerStub(adUnitID: adUnitID) { (response, error) in
                         done()
                     }
                     
-                    let response = MAXAdResponse()
+                    let response = MAXAdResponseStub()
                     response.autoRefreshInterval = 2
                     manager?.response = response
                     manager?.errorCount = 1
@@ -54,7 +36,7 @@ class MAXAdRequestManagerSpec: QuickSpec {
             
             it("handles request errors") {
                 waitUntil { done in
-                    manager = TestableMAXAdRequestManager(adUnitID: adUnitID) { (response, error) in
+                    manager = MAXAdRequestManagerStub(adUnitID: adUnitID) { (response, error) in
                         done()
                     }
                     

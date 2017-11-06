@@ -10,6 +10,9 @@ target 'MAX' do
   pod 'mopub-ios-sdk', '~>4.17.0'
   pod 'FBAudienceNetwork', '= 4.25.0'
 
+  source 'https://github.com/CocoaPods/Specs.git'
+  pod 'FBAudienceNetwork', '4.25.0'
+
   target 'MAXTests' do
     inherit! :search_paths
 

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+mkdir tmp/
+
+pushd tmp/
+curl -O -J -L https://origincache.facebook.com/developers/resources/?id=FBAudienceNetwork-4.26.0.zip
+unzip FBAudienceNetwork-4.26.0.zip
+popd
+
+cp tmp/FBAudienceNetwork.framework/Headers/* Pods/FBAudienceNetwork/FBAudienceNetwork.framework/Headers/
+cp tmp/FBAudienceNetwork.framework/FBAudienceNetwork Pods/FBAudienceNetwork/FBAudienceNetwork.framework/
+
+rm -rf tmp

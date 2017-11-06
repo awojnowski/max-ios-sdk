@@ -64,7 +64,7 @@ class MAXMoPubAdRequestManagerSpec: QuickSpec {
                 // no after effects
             }
             
-            let response = MAXAdResponse()
+            let response = MAXAdResponseStub()
             response.autoRefreshInterval = 1
             manager.lastResponse = response
             

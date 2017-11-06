@@ -2,54 +2,11 @@ import Quick
 import Nimble
 @testable import MAX
 
-class TestableMAXAdRequest: MAXAdRequest {
-    let mockSession = MockURLSession()
-    override func getSession() -> URLSession {
-        return mockSession
-    }
-
-    var locationTrackingEnabled = false
-
-    override var latitude: Double? {
-        if self.locationTrackingEnabled {
-            return 10.01
-        }
-        return nil
-    }
-    override var longitude: Double? {
-        if self.locationTrackingEnabled {
-            return 11.02
-        }
-        return nil
-    }
-
-    override var locationHorizontalAccuracy: Double? {
-        if self.locationTrackingEnabled {
-            return 3.4
-        }
-        return nil
-    }
-
-    override var locationVerticalAccuracy: Double? {
-        if self.locationTrackingEnabled {
-            return 4.5
-        }
-        return nil
-    }
-
-    override var locationTrackingTimestamp: String? {
-        if self.locationTrackingEnabled {
-            return "pretty recently"
-        }
-        return nil
-    }
-}
-
 class MAXAdRequestSpec: QuickSpec {
     override func spec() {
 
         describe("MAXAdRequest") {
-            let adRequest: TestableMAXAdRequest = TestableMAXAdRequest(adUnitID: "1234")
+            let adRequest: MAXAdRequestStub = MAXAdRequestStub(adUnitID: "1234")
             let url = URL(string:"https://ads.maxads.io/ads/req/1234")!
             let responseData = [
                 "winner": [
@@ -185,7 +142,7 @@ class MAXAdRequestSpec: QuickSpec {
                 let reqDict = adRequest.dict
 
                 expect(reqDict["v"] as? String).to(equal("1"))
-                expect(reqDict["sdk_v"] as? String).to(equal("0.7.0"))
+                expect(reqDict["sdk_v"] as? String).to(equal("0.8.0-pre"))
             }
 
             it("reports the app version") {

@@ -213,6 +213,18 @@ public class MAXAdRequest {
             return identifier
         }
     }
+    
+    var tokens: Dictionary<String, String> {
+        get {
+            var tokenData: Dictionary<String, String> = [:]
+            
+            for (_, tokenProvider) in MAXConfiguration.shared.tokenRegistrar.tokens {
+                tokenData[tokenProvider.identifier] = tokenProvider.generateToken()
+            }
+            
+            return tokenData
+        }
+    }
 
     // All interesting things about this particular device
     var dict: Dictionary<String, Any> {
@@ -236,6 +248,7 @@ public class MAXAdRequest {
                 "session_depth": MAXSession.shared.sessionDepth,
                 "location_tracking": self.locationTrackingAvailability,
                 "location": self.locationData,
+                "tokens": self.tokens
             ]
 
             MAXLog.debug(d.description)

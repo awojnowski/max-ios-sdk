@@ -1,22 +1,6 @@
-//
-// Created by John Pena on 8/25/17.
-// Copyright (c) 2017 MAX. All rights reserved.
-//
-
 import Quick
 import Nimble
 @testable import MAX
-
-class MockErrorReporter: MAXErrorReporter {
-    var data: Data?
-    init() {
-        super.init()
-    }
-
-    override func record(data: Data) {
-        self.data = data
-    }
-}
 
 class MAXErrorReporterSpec: QuickSpec {
     override func spec() {
@@ -39,7 +23,7 @@ class MAXErrorReporterSpec: QuickSpec {
             }
 
             it("properly serializes data") {
-                let recorder = MockErrorReporter()
+                let recorder = MAXErrorReporterStub()
                 recorder.logError(message: "Something broke")
 
                 expect({
