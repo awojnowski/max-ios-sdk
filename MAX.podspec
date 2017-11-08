@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MAX'
-  s.version          = '0.8.0'
+  s.version          = '0.8.1'
   s.summary          = 'Parallel bidding wrapper for mobile ads.'
   s.description      = <<-DESC
 MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, 
@@ -29,7 +29,7 @@ point in your existing waterfall.
 
   s.subspec 'MoPub' do |d| 
     d.dependency 'MAX/Core'
-  	d.dependency 'mopub-ios-sdk', '~>4.17.0'
+  	d.dependency 'mopub-ios-sdk', '>= 4.17.0'
   	d.source_files = ['MAX/MoPub/**/*']
   end
 

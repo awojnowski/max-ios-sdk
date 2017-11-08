@@ -7,7 +7,7 @@ target 'MAX' do
 
   pod 'MRAID', '1.0.1'
   pod 'VAST', '1.0.0'
-  pod 'mopub-ios-sdk', '~>4.17.0'
+  pod 'mopub-ios-sdk', '>= 4.17.0'
   pod 'FBAudienceNetwork', '= 4.25.0'
 
   target 'MAXTests' do
