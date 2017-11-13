@@ -73,7 +73,7 @@ else:
 
 p("Pushing new podspec version for {}".format(version))
 check_result(
-	"pod repo push MAX-Specs MAX.podspec --allow-warnings",
+	"pod repo push MAX-Specs MAX.podspec --allow-warnings --swift-version=3.2",
 	"Successfully pushed new podspec version",
 	"Failed trying to push new podspec version"
 )
