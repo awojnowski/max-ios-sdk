@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MAXAdRequest Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/MAXAdRequest" class="dashAnchor"></a>
+    <a title="MAXAdRequest Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">MAX Docs</a> (16% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">MAX Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        MAXAdRequest Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/FacebookBannerGenerator.html">FacebookBannerGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FacebookBannerView.html">FacebookBannerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FacebookInterstitialGenerator.html">FacebookInterstitialGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FacebookInterstitialView.html">FacebookInterstitialView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FacebookTokenProvider.html">FacebookTokenProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXAdRequest.html">MAXAdRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXAdRequestManager.html">MAXAdRequestManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXAdResponse.html">MAXAdResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXAdResponseParameters.html">MAXAdResponseParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXAdResponseParameters/Winner.html">– Winner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXAdView.html">MAXAdView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXAdViewAdapter.html">MAXAdViewAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXAds.html">MAXAds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXConfiguration.html">MAXConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXErrorReporter.html">MAXErrorReporter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXInterstitialAd.html">MAXInterstitialAd</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXInterstitialAdapter.html">MAXInterstitialAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXLogger.html">MAXLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXMoPubAdRequestManager.html">MAXMoPubAdRequestManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXMoPubBannerCustomEvent.html">MAXMoPubBannerCustomEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXMoPubInterstitialCustomEvent.html">MAXMoPubInterstitialCustomEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:3MAX9MAXPreBidC">MAXPreBid</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MAXTokenRegistrar.html">MAXTokenRegistrar</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:3MAX6MAXLogAA9MAXLoggerCv">MAXLog</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:3MAX18facebookIdentifierSSv">facebookIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:3MAX27unknownAppVersionIdentifierSSv">unknownAppVersionIdentifier</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/MAXBannerCreativeType.html">MAXBannerCreativeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MAXInterstitialAdError.html">MAXInterstitialAdError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MAXInterstitialCreativeType.html">MAXInterstitialCreativeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MAXRequestError.html">MAXRequestError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:3MAX16MAXLogLevelDebugyyF">MAXLogLevelDebug()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:3MAX16MAXLogLevelErroryyF">MAXLogLevelError()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:3MAX15MAXLogLevelInfoyyF">MAXLogLevelInfo()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:3MAX15MAXLogLevelWarnyyF">MAXLogLevelWarn()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/MAXAdViewAdapterDelegate.html">MAXAdViewAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MAXAdViewAdapterGenerator.html">MAXAdViewAdapterGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MAXAdViewDelegate.html">MAXAdViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MAXInterstitialAdDelegate.html">MAXInterstitialAdDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MAXInterstitialAdapterDelegate.html">MAXInterstitialAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MAXInterstitialAdapterGenerator.html">MAXInterstitialAdapterGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MAXTokenProvider.html">MAXTokenProvider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/MAXConnectivity.html">MAXConnectivity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MAXDeviceOrientation.html">MAXDeviceOrientation</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:3MAX21MAXResponseCompletiona">MAXResponseCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>MAXAdRequest</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MAXAdRequest</span></code></pre>
+
+                </div>
+              </div>
+            <p>Core API type that packages all of the parameters needed to request a MAX bid.
+Contains utility functions for making requests to the MAX ad server.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3MAX12MAXAdRequestC10ADS_DOMAINSSvZ"></a>
+                    <a name="//apple_ref/swift/Variable/ADS_DOMAIN" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3MAX12MAXAdRequestC10ADS_DOMAINSSvZ">ADS_DOMAIN</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>MAX&rsquo;s ad server domain, ads.maxads.io</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">ADS_DOMAIN</span> <span class="o">=</span> <span class="s">"ads.maxads.io"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3MAX12MAXAdRequestC11API_VERSIONSSvZ"></a>
+                    <a name="//apple_ref/swift/Variable/API_VERSION" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3MAX12MAXAdRequestC11API_VERSIONSSvZ">API_VERSION</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The current version of the MAX API</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">API_VERSION</span> <span class="o">=</span> <span class="s">"1"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3MAX12MAXAdRequestC8adUnitIDSQySSGv"></a>
+                    <a name="//apple_ref/swift/Property/adUnitID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3MAX12MAXAdRequestC8adUnitIDSQySSGv">adUnitID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The MAX ad unit ID. This string can be found in the MAX UI.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">adUnitID</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3MAX12MAXAdRequestC10adResponseAA0bE0CSgv"></a>
+                    <a name="//apple_ref/swift/Property/adResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3MAX12MAXAdRequestC10adResponseAA0bE0CSgv">adResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If <code>MAXAdRequest.requestAd</code> completes successfully, <code>adResponse</code> will be defined as the response value</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">adResponse</span><span class="p">:</span> <span class="kt"><a href="../Classes/MAXAdResponse.html">MAXAdResponse</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3MAX12MAXAdRequestC7adErrorSo7NSErrorCSgv"></a>
+                    <a name="//apple_ref/swift/Property/adError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3MAX12MAXAdRequestC7adErrorSo7NSErrorCSgv">adError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If <code>MAXAdRequest.requestAd</code> completes with an error, <code>adError</code> will be defined as the error returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">adError</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3MAX12MAXAdRequestCACSS8adUnitID_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(adUnitID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3MAX12MAXAdRequestCACSS8adUnitID_tcfc">init(adUnitID:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">adUnitID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>adUnitID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the MAX ad unit ID. This string can be found in the MAX UI.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3MAX12MAXAdRequestC010preBidWithB4UnitACSS_yAA0B8ResponseCSg_So7NSErrorCSgtc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/preBidWithMAXAdUnit(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3MAX12MAXAdRequestC010preBidWithB4UnitACSS_yAA0B8ResponseCSg_So7NSErrorCSgtc10completiontFZ">preBidWithMAXAdUnit(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Conducts a pre-bid request for a given MAX AdUnit. When the pre-bid has completed,
+the callback function provided is invoked and the pre-bid ad response is made available
+through that callback. Timeouts and other errors are also returned through the callback.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">preBidWithMAXAdUnit</span><span class="p">(</span><span class="n">_</span> <span class="nv">adUnitID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:3MAX21MAXResponseCompletiona">MAXResponseCompletion</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">MAXAdRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>adUnitID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the MAX ad unit ID string</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a callback function that will be executed when the response has completed or errored</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the MAXAdRequest object representing the request being made</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3MAX12MAXAdRequestC9requestAdyyAA0B8ResponseCSg_So7NSErrorCSgtcF"></a>
+                    <a name="//apple_ref/swift/Method/requestAd(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3MAX12MAXAdRequestC9requestAdyyAA0B8ResponseCSg_So7NSErrorCSgtcF">requestAd(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Begin the ad flow by calling <code>requestAd()</code>, which conducts various server side
+auctions and other ad logic to determine the ad plan.</p>
+
+<p>The delegate is called with the ad plan when it is ready, after which point, the
+plan can be executed whenever an ad needs to be shown. Once the ad is shown,
+the ad request should be discarded.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">requestAd</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:3MAX21MAXResponseCompletiona">MAXResponseCompletion</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a <code><a href="../Typealiases.html#/s:3MAX21MAXResponseCompletiona">MAXResponseCompletion</a></code> callback to be called when the request completes.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://app.maxads.io" target="_blank" rel="external">MAX</a>. All rights reserved. (Last updated: 2017-11-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

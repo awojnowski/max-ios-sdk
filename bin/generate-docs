@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+rm -rf docs/
+
+jazzy
+
+sleep 3 && open http://localhost:8000 &
+
+pushd docs/
+python -m SimpleHTTPServer
+popd

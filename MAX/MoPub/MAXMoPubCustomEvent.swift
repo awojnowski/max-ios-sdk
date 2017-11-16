@@ -1,11 +1,15 @@
 import Foundation
 import MoPub
 
+/// `MAXMoPubBannerCustomEvent` provides a MoPub custom event for banner ads.
+/// MoPub will use this class to hand control back to the MAX SDK when MAX has won in the MoPub waterfall.
+/// See the documentation on [SSP Integration](http://docs.maxads.io/documentation/integration/ssp_integration/)
+/// to ensure you integrate this properly in your waterfall.
 @objc(MAXMoPubBannerCustomEvent)
-open class MAXMoPubBannerCustomEvent : MPBannerCustomEvent, MPBannerCustomEventDelegate, MAXAdViewDelegate {
+open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDelegate, MAXAdViewDelegate {
 
-    private var adView : MAXAdView?
-    private var customEventInstance : MPBannerCustomEvent?
+    private var adView: MAXAdView?
+    private var customEventInstance: MPBannerCustomEvent?
 
     override open func requestAd(with size: CGSize, customEventInfo info: [AnyHashable: Any]!) {
         

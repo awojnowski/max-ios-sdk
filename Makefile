@@ -1,5 +1,7 @@
 SHELL=/bin/bash
 
+.PHONY: docs
+
 test: 
 	set -o pipefail && xcodebuild -workspace MAX.xcworkspace -scheme MAX -destination 'platform=iOS Simulator,name=iPhone 7' test | xcpretty
 
@@ -11,3 +13,6 @@ check-version:
 
 deploy:
 	bin/deploy
+
+docs:
+	bin/generate-docs

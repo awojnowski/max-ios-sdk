@@ -5,21 +5,37 @@ import UIKit
 import CoreLocation
 import MRAID
 
+/// `MAXAdRequest`s will call a callback upon ad request completion. The callback function will be passed the
+/// result of the ad request, either a response of type MAXAdResponse, or an error of type NSError. Both are
+/// optionals, but only one will be defined, the response xor the error.
 public typealias MAXResponseCompletion = (MAXAdResponse?, NSError?) -> Void
 
+/// `MAXAdRequest.requestAd` will pass an error to the completion function in
 public enum MAXRequestError: Error {
     case InvalidResponse(response: URLResponse?, data: Data?)
     case RequestFailed(domain: String, statusCode: Int, userInfo: Data?)
 }
 
+/// Core API type that packages all of the parameters needed to request a MAX bid.
+/// Contains utility functions for making requests to the MAX ad server.
 public class MAXAdRequest {
+
+    /// MAX's ad server domain, ads.maxads.io
     public static let ADS_DOMAIN = "ads.maxads.io"
+
+    /// The current version of the MAX API
     public static let API_VERSION = "1"
 
+    /// The MAX ad unit ID. This string can be found in the MAX UI.
     public var adUnitID: String!
+
+    /// If `MAXAdRequest.requestAd` completes successfully, `adResponse` will be defined as the response value
     public var adResponse: MAXAdResponse?
+
+    /// If `MAXAdRequest.requestAd` completes with an error, `adError` will be defined as the error returned.
     public var adError: NSError?
 
+    /// - Parameter adUnitID: the MAX ad unit ID. This string can be found in the MAX UI.
     public init(adUnitID: String) {
         self.adUnitID = adUnitID
     }
@@ -226,7 +242,6 @@ public class MAXAdRequest {
         }
     }
 
-    // All interesting things about this particular device
     var dict: Dictionary<String, Any> {
         get {
             let d: Dictionary<String, Any> = [
@@ -282,9 +297,12 @@ public class MAXAdRequest {
         return session
     }
 
-    /// Conducts a pre-bid for a given MAX AdUnit. When the pre-bid has completed,
+    /// Conducts a pre-bid request for a given MAX AdUnit. When the pre-bid has completed,
     /// the callback function provided is invoked and the pre-bid ad response is made available
     /// through that callback. Timeouts and other errors are also returned through the callback.
+    /// - Parameter adUnitID: the MAX ad unit ID string
+    /// - Parameter completion: a callback function that will be executed when the response has completed or errored
+    /// - Returns: the MAXAdRequest object representing the request being made
     public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd() {(response, error) in
@@ -294,12 +312,13 @@ public class MAXAdRequest {
         return adr
     }
 
-    /// Begin the ad flow by calling requestAd(), which conducts various server side
+    /// Begin the ad flow by calling `requestAd()`, which conducts various server side
     /// auctions and other ad logic to determine the ad plan.
     ///
     /// The delegate is called with the ad plan when it is ready, after which point, the
     /// plan can be executed whenever an ad needs to be shown. Once the ad is shown,
     /// the ad request should be discarded.
+    /// - Parameter completion: a `MAXResponseCompletion` callback to be called when the request completes.
     public func requestAd(_ completion: @escaping MAXResponseCompletion) {
         // Setup POST
         let url = self.getUrl()

@@ -24,14 +24,16 @@ public class MAXAdResponseParameters {
     }
 }
 
-public class MAXAdResponse: NSObject {
-    private let data: Data
-    private let response: NSDictionary
-    
-    open override var description: String { 
-        return String(describing: response) 
+/// Core API type that will contain the result of a bid request call to the MAX ad server.
+public class MAXAdResponse : NSObject {
+
+    private let data : Data
+    private let response : NSDictionary
+
+    public override var description: String {
+        return String(describing: response)
     }
-    
+
     public override init() {
         self.data = Data()
         self.response = [:]
@@ -69,7 +71,7 @@ public class MAXAdResponse: NSObject {
     
     private let defaultExpirationIntervalSeconds: Double = 60.0*60.0
     
-    /// The ad response is only valid for `timeoutIntervalSeconds` seconds, by default set to 60 minutes.
+    /// The ad response is only valid for `expirationIntervalSeconds` seconds, by default set to 60 minutes.
     /// After this time period has elapsed, the ad response is no longer considered valid for rendering
     /// and the object's `trackExpired` method will be called if an attempt is made to render this ad.
     public var expirationIntervalSeconds: Double {
@@ -93,6 +95,8 @@ public class MAXAdResponse: NSObject {
         }
     }
     
+    /// `preBidKeywords` will contain the set of keywords that will allow this response to be matched with
+    /// a line item or campaign in an SSP.
     public var preBidKeywords: String {
         get {
             if let _ = self.response[MAXAdResponseParameters.winner] as? NSDictionary {

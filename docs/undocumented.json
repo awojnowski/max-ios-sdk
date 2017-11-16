@@ -1,0 +1,1545 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 3,
+      "symbol": "MAXDeviceOrientation",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 4,
+      "symbol": "MAXDeviceOrientation.Portrait",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 5,
+      "symbol": "MAXDeviceOrientation.Landscape",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 6,
+      "symbol": "MAXDeviceOrientation.None",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 9,
+      "symbol": "MAXConnectivity",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 10,
+      "symbol": "MAXConnectivity.Wwan",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 11,
+      "symbol": "MAXConnectivity.Wifi",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 12,
+      "symbol": "MAXConnectivity.None",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAPIConstants.swift",
+      "line": 15,
+      "symbol": "unknownAppVersionIdentifier",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequest.swift",
+      "line": 15,
+      "symbol": "MAXRequestError.InvalidResponse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequest.swift",
+      "line": 16,
+      "symbol": "MAXRequestError.RequestFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequestManager.swift",
+      "line": 12,
+      "symbol": "MAXAdRequestManager.lastRequest",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequestManager.swift",
+      "line": 13,
+      "symbol": "MAXAdRequestManager.lastResponse",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequestManager.swift",
+      "line": 14,
+      "symbol": "MAXAdRequestManager.lastError",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequestManager.swift",
+      "line": 25,
+      "symbol": "MAXAdRequestManager.init(adUnitID:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequestManager.swift",
+      "line": 89,
+      "symbol": "MAXAdRequestManager.startRefresh()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequestManager.swift",
+      "line": 94,
+      "symbol": "MAXAdRequestManager.stopRefresh()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 3,
+      "symbol": "MAXAdResponseParameters",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 4,
+      "symbol": "MAXAdResponseParameters.winner",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 5,
+      "symbol": "MAXAdResponseParameters.creative",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 6,
+      "symbol": "MAXAdResponseParameters.preBidKeywords",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 7,
+      "symbol": "MAXAdResponseParameters.refreshRate",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 8,
+      "symbol": "MAXAdResponseParameters.distanceFilter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 9,
+      "symbol": "MAXAdResponseParameters.disableDebugMode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 11,
+      "symbol": "MAXAdResponseParameters.impressionUrls",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 12,
+      "symbol": "MAXAdResponseParameters.clickUrls",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 13,
+      "symbol": "MAXAdResponseParameters.selectedUrls",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 14,
+      "symbol": "MAXAdResponseParameters.handoffUrls",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 15,
+      "symbol": "MAXAdResponseParameters.expireUrls",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 16,
+      "symbol": "MAXAdResponseParameters.lossUrls",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 17,
+      "symbol": "MAXAdResponseParameters.errorUrl",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 19,
+      "symbol": "MAXAdResponseParameters.Winner",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 20,
+      "symbol": "MAXAdResponseParameters.Winner.partnerName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 21,
+      "symbol": "MAXAdResponseParameters.Winner.partnerPlacementID",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 22,
+      "symbol": "MAXAdResponseParameters.Winner.usePartnerRendering",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 23,
+      "symbol": "MAXAdResponseParameters.Winner.creativeType",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 33,
+      "symbol": "MAXAdResponse.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 37,
+      "symbol": "MAXAdResponse.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 42,
+      "symbol": "MAXAdResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 110,
+      "symbol": "MAXAdResponse.creativeType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 120,
+      "symbol": "MAXAdResponse.creative",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 126,
+      "symbol": "MAXAdResponse.partnerName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 136,
+      "symbol": "MAXAdResponse.partnerPlacementID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 146,
+      "symbol": "MAXAdResponse.usePartnerRendering",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdResponse.swift",
+      "line": 161,
+      "symbol": "MAXAdResponse.shouldAutoRefresh()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXAdViewAdapter.swift",
+      "line": 37,
+      "symbol": "MAXAdViewAdapter.loadAd()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXAdViewAdapter.swift",
+      "line": 46,
+      "symbol": "MAXAdViewAdapterDelegate.adViewWasClicked(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXAdViewAdapter.swift",
+      "line": 47,
+      "symbol": "MAXAdViewAdapterDelegate.adViewDidLoad(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXAdViewAdapter.swift",
+      "line": 48,
+      "symbol": "MAXAdViewAdapterDelegate.adView(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXAdViewAdapter.swift",
+      "line": 49,
+      "symbol": "MAXAdViewAdapterDelegate.adViewWillLogImpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXInterstitialAdapter.swift",
+      "line": 32,
+      "symbol": "MAXInterstitialAdapter.loadAd()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXInterstitialAdapter.swift",
+      "line": 36,
+      "symbol": "MAXInterstitialAdapter.showAd(fromRootViewController:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXInterstitialAdapter.swift",
+      "line": 45,
+      "symbol": "MAXInterstitialAdapterDelegate.interstitialWasClicked(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXInterstitialAdapter.swift",
+      "line": 46,
+      "symbol": "MAXInterstitialAdapterDelegate.interstitialDidClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXInterstitialAdapter.swift",
+      "line": 47,
+      "symbol": "MAXInterstitialAdapterDelegate.interstitialWillClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXInterstitialAdapter.swift",
+      "line": 48,
+      "symbol": "MAXInterstitialAdapterDelegate.interstitialDidLoad(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXInterstitialAdapter.swift",
+      "line": 49,
+      "symbol": "MAXInterstitialAdapterDelegate.interstitialWillLogImpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXInterstitialAdapter.swift",
+      "line": 50,
+      "symbol": "MAXInterstitialAdapterDelegate.interstitial(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXTokenProvider.swift",
+      "line": 16,
+      "symbol": "MAXTokenProvider.identifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXTokenProvider.swift",
+      "line": 17,
+      "symbol": "MAXTokenProvider.generateToken()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXTokenProvider.swift",
+      "line": 20,
+      "symbol": "MAXTokenRegistrar",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXTokenProvider.swift",
+      "line": 22,
+      "symbol": "MAXTokenRegistrar.tokens",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXTokenProvider.swift",
+      "line": 24,
+      "symbol": "MAXTokenRegistrar.registerTokenProvider(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Adapters/MAXTokenProvider.swift",
+      "line": 28,
+      "symbol": "MAXTokenRegistrar.generateToken(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookAdapter.swift",
+      "line": 3,
+      "symbol": "facebookIdentifier",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookAdapter.swift",
+      "line": 5,
+      "symbol": "FacebookTokenProvider",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookAdapter.swift",
+      "line": 6,
+      "symbol": "FacebookTokenProvider.identifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookAdapter.swift",
+      "line": 7,
+      "symbol": "FacebookTokenProvider.generateToken()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookAdapter.swift",
+      "line": 13,
+      "symbol": "MAXConfiguration.initializeFacebookIntegration()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 4,
+      "symbol": "FacebookBannerView",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 6,
+      "symbol": "FacebookBannerView.fbAdView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 7,
+      "symbol": "FacebookBannerView.bidPayload",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 22,
+      "symbol": "FacebookBannerView.init(placementID:fbAdSize:rootViewController:bidPayload:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 29,
+      "symbol": "FacebookBannerView.loadAd()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 37,
+      "symbol": "FacebookBannerView.adViewDidClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 42,
+      "symbol": "FacebookBannerView.adViewDidFinishHandlingClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 46,
+      "symbol": "FacebookBannerView.adViewDidLoad(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 51,
+      "symbol": "FacebookBannerView.adView(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 56,
+      "symbol": "FacebookBannerView.adViewWillLogImpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookBannerAdapter.swift",
+      "line": 62,
+      "symbol": "FacebookBannerGenerator",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 4,
+      "symbol": "FacebookInterstitialView",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 6,
+      "symbol": "FacebookInterstitialView.fbInterstitial",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 7,
+      "symbol": "FacebookInterstitialView.bidPayload",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 22,
+      "symbol": "FacebookInterstitialView.init(placementID:bidPayload:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 29,
+      "symbol": "FacebookInterstitialView.loadAd()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 33,
+      "symbol": "FacebookInterstitialView.showAd(fromRootViewController:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 40,
+      "symbol": "FacebookInterstitialView.interstitialAdDidClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 45,
+      "symbol": "FacebookInterstitialView.interstitialAdDidClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 50,
+      "symbol": "FacebookInterstitialView.interstitialAdWillClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 55,
+      "symbol": "FacebookInterstitialView.interstitialAdDidLoad(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 60,
+      "symbol": "FacebookInterstitialView.interstitialAdWillLogImpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 65,
+      "symbol": "FacebookInterstitialView.interstitialAd(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Facebook/MAXFacebookInterstitialAdapter.swift",
+      "line": 71,
+      "symbol": "FacebookInterstitialGenerator",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXAds.swift",
+      "line": 35,
+      "symbol": "MAXAds",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXAds.swift",
+      "line": 37,
+      "symbol": "MAXAds.receivedPreBid(adUnitID:response:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXAds.swift",
+      "line": 52,
+      "symbol": "MAXAds.getPreBid(adUnitID:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXAds.swift",
+      "line": 82,
+      "symbol": "MAXPreBid",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": null,
+      "symbol": "MAXConfiguration",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 6,
+      "symbol": "MAXConfiguration",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 8,
+      "symbol": "MAXConfiguration.shared",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 31,
+      "symbol": "MAXConfiguration.enableLocationTracking()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 35,
+      "symbol": "MAXConfiguration.disableLocationTracking()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 52,
+      "symbol": "MAXConfiguration.enableDebugMode()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 56,
+      "symbol": "MAXConfiguration.disableDebugMode()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 63,
+      "symbol": "MAXConfiguration.tokenRegistrar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 66,
+      "symbol": "MAXConfiguration.registerAdViewGenerator(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 70,
+      "symbol": "MAXConfiguration.getAdViewGenerator(forPartner:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 75,
+      "symbol": "MAXConfiguration.registerInterstitialGenerator(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MAXConfiguration.swift",
+      "line": 79,
+      "symbol": "MAXConfiguration.getInterstitialGenerator(forPartner:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 14,
+      "symbol": "MAXMoPubBannerCustomEvent.requestAd(with:customEventInfo:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 48,
+      "symbol": "MAXMoPubBannerCustomEvent.enableAutomaticImpressionAndClickTracking()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 54,
+      "symbol": "MAXMoPubBannerCustomEvent.adViewDidFailWithError(_:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 58,
+      "symbol": "MAXMoPubBannerCustomEvent.adViewDidLoad(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 63,
+      "symbol": "MAXMoPubBannerCustomEvent.adViewDidClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 68,
+      "symbol": "MAXMoPubBannerCustomEvent.adViewDidFinishHandlingClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 72,
+      "symbol": "MAXMoPubBannerCustomEvent.adViewWillLogImpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 75,
+      "symbol": "MAXMoPubBannerCustomEvent.viewControllerForPresentingModalView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 83,
+      "symbol": "MAXMoPubBannerCustomEvent.location()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 87,
+      "symbol": "MAXMoPubBannerCustomEvent.bannerCustomEvent(_:didLoadAd:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 91,
+      "symbol": "MAXMoPubBannerCustomEvent.bannerCustomEvent(_:didFailToLoadAdWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 95,
+      "symbol": "MAXMoPubBannerCustomEvent.bannerCustomEventWillBeginAction(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 99,
+      "symbol": "MAXMoPubBannerCustomEvent.bannerCustomEventDidFinishAction(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 103,
+      "symbol": "MAXMoPubBannerCustomEvent.bannerCustomEventWillLeaveApplication(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 107,
+      "symbol": "MAXMoPubBannerCustomEvent.trackImpression()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 111,
+      "symbol": "MAXMoPubBannerCustomEvent.trackClick()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 118,
+      "symbol": "MAXMoPubInterstitialCustomEvent",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 123,
+      "symbol": "MAXMoPubInterstitialCustomEvent.requestInterstitial(withCustomEventInfo:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 150,
+      "symbol": "MAXMoPubInterstitialCustomEvent.showInterstitial(fromRootViewController:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 173,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialAdDidClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 178,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialAdWillClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 183,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialAdDidClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 188,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitial(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 195,
+      "symbol": "MAXMoPubInterstitialCustomEvent.location()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 199,
+      "symbol": "MAXMoPubInterstitialCustomEvent.trackClick()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 203,
+      "symbol": "MAXMoPubInterstitialCustomEvent.trackImpression()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 207,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEventDidAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 211,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEventDidExpire(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 215,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEventWillAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 219,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEventDidDisappear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 223,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEventDidReceiveTap(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 227,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEventWillDisappear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 231,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEvent(_:didLoadAd:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 235,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEventWillLeaveApplication(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubCustomEvent.swift",
+      "line": 239,
+      "symbol": "MAXMoPubInterstitialCustomEvent.interstitialCustomEvent(_:didFailToLoadAdWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
+      "line": 5,
+      "symbol": "MAXMoPubAdRequestManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
+      "line": 61,
+      "symbol": "MAXMoPubAdRequestManager.viewControllerForPresentingModalView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
+      "line": 84,
+      "symbol": "MAXMoPubAdRequestManager.willPresentModalView(forAd:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
+      "line": 89,
+      "symbol": "MAXMoPubAdRequestManager.didDismissModalView(forAd:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
+      "line": 94,
+      "symbol": "MAXMoPubAdRequestManager.willLeaveApplication(fromAd:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXErrorReporter.swift",
+      "line": 6,
+      "symbol": "MAXErrorReporter",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXErrorReporter.swift",
+      "line": 12,
+      "symbol": "MAXErrorReporter.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXErrorReporter.swift",
+      "line": 16,
+      "symbol": "MAXErrorReporter.init(errorUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXErrorReporter.swift",
+      "line": 20,
+      "symbol": "MAXErrorReporter.setUrl(url:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXErrorReporter.swift",
+      "line": 24,
+      "symbol": "MAXErrorReporter.logError(error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXErrorReporter.swift",
+      "line": 28,
+      "symbol": "MAXErrorReporter.logError(message:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 14,
+      "symbol": "MAXLog",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 19,
+      "symbol": "MAXLogLevelDebug()",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 23,
+      "symbol": "MAXLogLevelInfo()",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 27,
+      "symbol": "MAXLogLevelWarn()",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 31,
+      "symbol": "MAXLogLevelError()",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 35,
+      "symbol": "MAXLogger",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 40,
+      "symbol": "MAXLogger.logger",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 42,
+      "symbol": "MAXLogger.init(identifier:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 47,
+      "symbol": "MAXLogger.setLogLevelDebug()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 52,
+      "symbol": "MAXLogger.setLogLevelInfo()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 57,
+      "symbol": "MAXLogger.setLogLevelWarn()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 62,
+      "symbol": "MAXLogger.setLogLevelError()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 66,
+      "symbol": "MAXLogger.error(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 70,
+      "symbol": "MAXLogger.warn(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 75,
+      "symbol": "MAXLogger.info(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/Utility/MAXLogger.swift",
+      "line": 80,
+      "symbol": "MAXLogger.debug(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 4,
+      "symbol": "MAXBannerCreativeType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 5,
+      "symbol": "MAXBannerCreativeType.MRAID",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 6,
+      "symbol": "MAXBannerCreativeType.Empty",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 9,
+      "symbol": "MAXAdViewDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 10,
+      "symbol": "MAXAdViewDelegate.viewControllerForPresentingModalView()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 12,
+      "symbol": "MAXAdViewDelegate.adViewDidFailWithError(_:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 13,
+      "symbol": "MAXAdViewDelegate.adViewDidClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 14,
+      "symbol": "MAXAdViewDelegate.adViewDidFinishHandlingClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 15,
+      "symbol": "MAXAdViewDelegate.adViewDidLoad(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 16,
+      "symbol": "MAXAdViewDelegate.adViewWillLogImpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 19,
+      "symbol": "MAXAdView",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 23,
+      "symbol": "MAXAdView.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 30,
+      "symbol": "MAXAdView.init(adResponse:size:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 36,
+      "symbol": "MAXAdView.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 40,
+      "symbol": "MAXAdView.loadAd()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 151,
+      "symbol": "MAXAdView.adViewWasClicked(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 156,
+      "symbol": "MAXAdView.adViewDidLoad(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 161,
+      "symbol": "MAXAdView.adView(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 166,
+      "symbol": "MAXAdView.adViewWillLogImpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 174,
+      "symbol": "MAXAdView.mraidViewAdReady(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 180,
+      "symbol": "MAXAdView.mraidViewAdFailed(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 185,
+      "symbol": "MAXAdView.mraidViewDidClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 189,
+      "symbol": "MAXAdView.mraidViewWillExpand(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 196,
+      "symbol": "MAXAdView.mraidViewNavigate(_:with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 203,
+      "symbol": "MAXAdView.mraidViewShouldResize(_:toPosition:allowOffscreen:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXAdView.swift",
+      "line": 211,
+      "symbol": "MAXAdView.mraidServiceOpenBrowser(withUrlString:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 5,
+      "symbol": "MAXInterstitialCreativeType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 6,
+      "symbol": "MAXInterstitialCreativeType.VAST",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 7,
+      "symbol": "MAXInterstitialCreativeType.HTML",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 8,
+      "symbol": "MAXInterstitialCreativeType.Native",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 9,
+      "symbol": "MAXInterstitialCreativeType.Empty",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 12,
+      "symbol": "MAXInterstitialAdDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 13,
+      "symbol": "MAXInterstitialAdDelegate.interstitialAdDidClick(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 14,
+      "symbol": "MAXInterstitialAdDelegate.interstitialAdWillClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 15,
+      "symbol": "MAXInterstitialAdDelegate.interstitialAdDidClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 16,
+      "symbol": "MAXInterstitialAdDelegate.interstitial(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 19,
+      "symbol": "MAXInterstitialAdError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 20,
+      "symbol": "MAXInterstitialAdError.adapterFailure",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 21,
+      "symbol": "MAXInterstitialAdError.creativeTypeNotFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 24,
+      "symbol": "MAXInterstitialAd",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 27,
+      "symbol": "MAXInterstitialAd.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 39,
+      "symbol": "MAXInterstitialAd.init(adResponse:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 45,
+      "symbol": "MAXInterstitialAd.showAdFromRootViewController(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 110,
+      "symbol": "MAXInterstitialAd.interstitialWasClicked(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 116,
+      "symbol": "MAXInterstitialAd.interstitialDidClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 121,
+      "symbol": "MAXInterstitialAd.interstitialWillClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 126,
+      "symbol": "MAXInterstitialAd.interstitialDidLoad(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 131,
+      "symbol": "MAXInterstitialAd.interstitialWillLogImpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/View/MAXInterstitialAd.swift",
+      "line": 136,
+      "symbol": "MAXInterstitialAd.interstitial(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/jpena/workspace/MAXAds/max-ios-sdk"
+}

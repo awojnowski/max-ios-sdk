@@ -1,17 +1,8 @@
-//
-//  MAXLogger.swift
-//  MAX
-//
-//  Copyright © 2017 MAX. All rights reserved.
-//
-
 import Foundation
 
-//
-// Centralized MAX logging
-// By default, only ERROR messages are logged to the console. To see debug
-// messages, call MAXLogLevelDebug()
-//
+/// Centralized MAX logging
+/// By default, only ERROR messages are logged to the console. To see debug
+/// messages, call MAXLogLevelDebug()
 
 enum MAXLogLevel {
     case Debug
@@ -19,6 +10,7 @@ enum MAXLogLevel {
     case Warn
     case Error
 }
+
 public let MAXLog: MAXLogger = {
     let log = MAXLogger(identifier: "MAX")
     return log
@@ -40,7 +32,7 @@ public func MAXLogLevelError() {
     MAXLog.setLogLevelError()
 }
 
-public class MAXLogger : NSObject {
+public class MAXLogger: NSObject {
     var identifier: String
     var logLevel: MAXLogLevel = .Info
     
