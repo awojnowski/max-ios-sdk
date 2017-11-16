@@ -202,6 +202,9 @@ private class MRAIDDelegate: NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServi
     
     fileprivate func mraidInterstitialNavigate(_ mraidInterstitial: SKMRAIDInterstitial!, with url: URL!) {
         MAXLog.debug("MAX: mraidInterstitialNavigate")
+        
+        self.parent.adResponse.trackClick()
+        MAXLinkHandler().openURL(parent.rootViewController!, url: url, completion: nil)
     }
     
     fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
