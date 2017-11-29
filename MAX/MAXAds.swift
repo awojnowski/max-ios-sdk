@@ -12,7 +12,7 @@ class MAXCachedAdResponse {
         self.adResponse = withResponse
         self.createdAt = Date()
         
-        MAXLog.debug("Cached a pre-bid for partner \(withResponse?.partnerName)")
+        MAXLog.debug("Cached a pre-bid for partner \(String(describing: withResponse?.partnerName))")
     }
     
     var timeoutIntervalSeconds: Double {

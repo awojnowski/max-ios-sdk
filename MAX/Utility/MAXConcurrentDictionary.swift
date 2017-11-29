@@ -3,15 +3,17 @@ import Foundation
 /// A thread-safe dictionary that ensures synchronous access to key-value pairs.
 /// This can be used in place of Swift's Dictionary in cases where access might
 /// happen off the main thread, e.g. in an HTTP request.
-final class MAXConcurrentDictionary<KeyType:Hashable,ValueType>: NSObject, SequenceType, DictionaryLiteralConvertible {
+final class MAXConcurrentDictionary<KeyType: Hashable, ValueType>: Sequence, ExpressibleByDictionaryLiteral {
 
-    private var internalDictionary: [KeyType:ValueType]
-    private let queue = dispatch_queue_create("dictionary access", DISPATCH_QUEUE_CONCURRENT)
+    private var internalDictionary: Dictionary<KeyType, ValueType>
+    private let queue = DispatchQueue(label: "MAXConcurrentDictionary", attributes: .concurrent)
+    
+    typealias Iterator = Dictionary<KeyType, ValueType>.Iterator
     
     /// The number of key-value pairs in the dictionary
     var count: Int {
         var count = 0
-        dispatch_sync(self.queue) { () -> Void in
+        self.queue.sync { () -> Void in
             count = self.internalDictionary.count
         }
         return count
@@ -21,7 +23,7 @@ final class MAXConcurrentDictionary<KeyType:Hashable,ValueType>: NSObject, Seque
     var dictionary: [KeyType:ValueType] {
         get {
             var dictionaryCopy: [KeyType:ValueType]?
-            dispatch_sync(self.queue) { () -> Void in
+            self.queue.sync { () -> Void in
                 dictionaryCopy = self.dictionary
             }
             return dictionaryCopy!
@@ -29,14 +31,14 @@ final class MAXConcurrentDictionary<KeyType:Hashable,ValueType>: NSObject, Seque
         
         set {
             let dictionaryCopy = newValue // create a local copy on the current thread
-            dispatch_async(self.queue) { () -> Void in
+            self.queue.async { () -> Void in
                 self.internalDictionary = dictionaryCopy
             }
         }
     }
     
     /// Initialize with an empty dictionary
-    override convenience init() {
+    convenience init() {
         self.init(dictionary: [KeyType:ValueType]())
     }
     
@@ -52,7 +54,7 @@ final class MAXConcurrentDictionary<KeyType:Hashable,ValueType>: NSObject, Seque
     }
     
     /// Initialize the dictionary from a pre-existing non-thread safe dictionary.
-    init( dictionary: [KeyType:ValueType] ) {
+    init(dictionary: [KeyType:ValueType]) {
         self.internalDictionary = dictionary
     }
     
@@ -60,40 +62,38 @@ final class MAXConcurrentDictionary<KeyType:Hashable,ValueType>: NSObject, Seque
     subscript(key: KeyType) -> ValueType? {
         get {
             var value: ValueType?
-            dispatch_sync(self.queue) { () -> Void in
+            self.queue.sync { () -> Void in
                 value = self.internalDictionary[key]
             }
             return value
         }
         
         set {
-            setValue(newValue, forKey: key)
+            self.setValue(value: newValue, forKey: key)
         }
     }
     
     /// Assign the specified value while synchronizing writes for consistent modifications
     func setValue(value: ValueType?, forKey key: KeyType) {
-        dispatch_barrier_async(self.queue) { () -> Void in
+        self.queue.sync { () -> Void in
             self.internalDictionary[key] = value
         }
     }
     
     /// Remove a value while synchronizing removal for consistent modifications
-    func removeValueForKey(key: KeyType) -> ValueType? {
+    func removeValue(forKey key: KeyType) -> ValueType? {
         var oldValue: ValueType? = nil
-        dispatch_barrier_sync(self.queue) { () -> Void in
-            oldValue = self.internalDictionary.removeValueForKey(key)
+        self.queue.sync { () -> Void in
+            oldValue = self.internalDictionary.removeValue(forKey: key)
         }
         return oldValue
     }
     
-    
-    /// Generator key-value pairs synchronously for for...in loops.
-    func generate() -> Dictionary<KeyType,ValueType>.Generator {
-        var generator : Dictionary<KeyType,ValueType>.Generator!
-        dispatch_sync(self.queue) { () -> Void in
-            generator = self.internalDictionary.generate()
+    func makeIterator() -> MAXConcurrentDictionary<KeyType, ValueType>.Iterator {
+        var iterator: Dictionary<KeyType, ValueType>.Iterator!
+        self.queue.sync { () -> Void in
+            iterator = self.internalDictionary.makeIterator()
         }
-        return generator
+        return iterator
     }
 }
