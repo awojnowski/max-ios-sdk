@@ -1,7 +1,7 @@
 import Foundation
 
-private var MAXPreBids: MAXConcurrentDictionary<String, MAXCachedAdResponse> = [:]
-private var MAXPreBidErrors: MAXConcurrentDictionary<String, NSError> = [:]
+private var MAXPreBids: Dictionary<String, MAXCachedAdResponse> = [:]
+private var MAXPreBidErrors: Dictionary<String, NSError> = [:]
 
 class MAXCachedAdResponse {
     let adResponse: MAXAdResponse?
