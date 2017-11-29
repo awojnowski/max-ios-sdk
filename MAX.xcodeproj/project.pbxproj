@@ -32,6 +32,8 @@
 		67121A99CFBB0BB4412466C4 /* Pods_MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3AFA3E8FE198FE83D72A15 /* Pods_MAX.framework */; };
 		7E03B5EF1F9B0955007F1901 /* MAXFacebookAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E03B5EE1F9B0955007F1901 /* MAXFacebookAdapter.swift */; };
 		7E03B5F01F9B0955007F1901 /* MAXFacebookAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E03B5EE1F9B0955007F1901 /* MAXFacebookAdapter.swift */; };
+		7E09A2BC1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E09A2BB1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift */; };
+		7E09A2BD1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E09A2BB1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift */; };
 		7E3537AD1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */; };
 		7E3537AE1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */; };
 		7E684B951F50CB980067ED0D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E684B941F50CB980067ED0D /* CoreLocation.framework */; };
@@ -114,6 +116,7 @@
 		6FD626BE04F8838A51BE4D05 /* Pods-MAX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAX.release.xcconfig"; path = "Pods/Target Support Files/Pods-MAX/Pods-MAX.release.xcconfig"; sourceTree = "<group>"; };
 		793192DC61858E0E891D5F74 /* Pods_MAXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E03B5EE1F9B0955007F1901 /* MAXFacebookAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXFacebookAdapter.swift; sourceTree = "<group>"; };
+		7E09A2BB1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXConcurrentDictionary.swift; sourceTree = "<group>"; };
 		7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXAPIConstants.swift; sourceTree = "<group>"; };
 		7E684B941F50CB980067ED0D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7E68D7F61F9FA28400472560 /* MAXFacebookBannerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXFacebookBannerAdapter.swift; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 				60A2DECC551761DDE1492D4A /* MAXErrorReporter.swift */,
 				E8E21B021E4E6112003BE3BD /* MAXLinkHandler.swift */,
 				E8E21CE11E4E8F22003BE3BD /* MAXLogger.swift */,
+				7E09A2BB1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -594,6 +598,7 @@
 				7E68D7FA1F9FA29A00472560 /* MAXFacebookInterstitialAdapter.swift in Sources */,
 				7EDDCF881F9E9B57006946D0 /* MAXAds.swift in Sources */,
 				7E03B5EF1F9B0955007F1901 /* MAXFacebookAdapter.swift in Sources */,
+				7E09A2BC1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift in Sources */,
 				7EEB74231F9AE19000A60671 /* MAXMoPubRequestManager.swift in Sources */,
 				E8E21B3D1E4E6113003BE3BD /* MAXAdResponse.swift in Sources */,
 				7E3537AD1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */,
@@ -633,6 +638,7 @@
 				7E03B5F01F9B0955007F1901 /* MAXFacebookAdapter.swift in Sources */,
 				7EFB2F7D1FA94E2E005ECD44 /* MAXFacebookInterstitialAdapterSpec.swift in Sources */,
 				7EEB74241F9AE19000A60671 /* MAXMoPubRequestManager.swift in Sources */,
+				7E09A2BD1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift in Sources */,
 				7EFB2F8A1FA9532F005ECD44 /* MAXLocationProviderStub.swift in Sources */,
 				60A2D6CA73581D6FC785F056 /* MAXSessionSpec.swift in Sources */,
 				60A2D11F0D1CD9158BD34DC8 /* MAXAdRequestSpec.swift in Sources */,
