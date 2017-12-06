@@ -6,7 +6,9 @@ let MAX_SDK_VERSION = "0.8.3"
 public class MAXConfiguration {
 
     public static let shared = MAXConfiguration()
-    private init() {}
+    private init() {
+        MAXLog.info("You are using MAX iOS SDK version \(MAX_SDK_VERSION)")
+    }
 
     /// Get the current version of the SDK. This is reported in ad requests.
     public func getSDKVersion() -> String {
