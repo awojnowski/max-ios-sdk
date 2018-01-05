@@ -6,7 +6,7 @@ import Foundation
 final class MAXConcurrentDictionary<KeyType: Hashable, ValueType>: Sequence, ExpressibleByDictionaryLiteral {
 
     private var internalDictionary: Dictionary<KeyType, ValueType>
-    private let queue = DispatchQueue(label: "MAXConcurrentDictionary", attributes: .concurrent)
+    private let queue = DispatchQueue(label: "MAXConcurrentDictionary")
     
     typealias Iterator = Dictionary<KeyType, ValueType>.Iterator
     
@@ -31,7 +31,7 @@ final class MAXConcurrentDictionary<KeyType: Hashable, ValueType>: Sequence, Exp
         
         set {
             let dictionaryCopy = newValue // create a local copy on the current thread
-            self.queue.async { () -> Void in
+            self.queue.sync { () -> Void in
                 self.internalDictionary = dictionaryCopy
             }
         }
