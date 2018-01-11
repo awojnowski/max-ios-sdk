@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MAX'
-  s.version          = '0.8.3'
+  s.version          = '0.8.4'
   s.summary          = 'Parallel bidding wrapper for mobile ads.'
   s.description      = <<-DESC
 MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls, 
@@ -13,8 +13,9 @@ point in your existing waterfall.
   s.source           = { :git => 'git@github.com:MAXAds/max-ios-sdk.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'
-
+  s.static_framework = true # required if we have any dependencies on static libraries (FBAudienceNetwork et al)
   s.default_subspec = 'Core'
+
   s.subspec 'Core' do |d| 
     d.dependency 'MRAID', '>= 1.0.1'
     d.dependency 'VAST', '>= 1.0.0'
@@ -35,7 +36,7 @@ point in your existing waterfall.
 
   s.subspec 'Facebook' do |d|
     d.dependency 'MAX/Core'
-    d.vendored_frameworks = 'Vendor/FBAudienceNetwork.framework'
+    d.dependency 'FBAudienceNetwork', '4.27.2'
     d.source_files = ['MAX/Facebook/**/*']
   end
 

@@ -1,13 +1,16 @@
 language: swift
-osx_image: xcode9.1
+osx_image: xcode9.2
 xcode_project: MAX.xcodeproj
 xcode_scheme: MAXTests
 xcode_sdk: iphonesimulator10.0
 
 sudo: required
 
+before_script:
+  - sudo gem install cocoapods --pre
+  - pod repo update
+
 script:
-  - ./bin/install-fb-4.26
   - make test
   - make check-version
 
