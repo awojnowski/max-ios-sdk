@@ -6,9 +6,10 @@ xcode_sdk: iphonesimulator10.0
 
 sudo: required
 
-before_script:
+install:
   - sudo gem install cocoapods --pre
   - pod repo update
+  - pod install
 
 script:
   - make test
