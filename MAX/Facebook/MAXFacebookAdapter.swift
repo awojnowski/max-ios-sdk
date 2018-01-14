@@ -15,7 +15,7 @@ extension MAXConfiguration {
         // when it's called before anything else has been initialized. We create and
         // immediately throw out this view to force the initialization to happen.
         MAXLog.debug("Initializing FBAudienceNetwork integration")
-        let _ = FBAdView()
+        _ = FBAdView()
         self.tokenRegistrar.registerTokenProvider(FacebookTokenProvider())
         self.registerAdViewGenerator(FacebookBannerGenerator())
         self.registerInterstitialGenerator(FacebookInterstitialGenerator())

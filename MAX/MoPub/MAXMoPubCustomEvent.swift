@@ -12,9 +12,9 @@ open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDe
     private var customEventInstance: MPBannerCustomEvent?
 
     override open func requestAd(with size: CGSize, customEventInfo info: [AnyHashable: Any]!) {
-        
+
         self.adView = nil
-        
+
         guard let adUnitID = info["adunit_id"] as? String else {
             MAXLog.error("AdUnitID not specified in adunit_id customEventInfo block")
             self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
@@ -48,7 +48,7 @@ open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDe
     open override func enableAutomaticImpressionAndClickTracking() -> Bool {
         return false
     }
-    
+
     // MAXAdViewDelegate
     // This is used to handle callbacks from native creative rendering by MAX internally.
     open func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
@@ -75,19 +75,21 @@ open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDe
     public func viewControllerForPresentingModalView() -> UIViewController! {
         return self.delegate.viewControllerForPresentingModalView()
     }
-    
+
     // MPBannerCustomEventDelegate
     // This is used to handle callbacks from another embedded custom event. In these cases,
     // we pass along directly. 
-    
+
     public func location() -> CLLocation! {
         return self.delegate.location()
     }
-    
+
+    // swiftlint:disable identifier_name
     public func bannerCustomEvent(_ event: MPBannerCustomEvent!, didLoadAd ad: UIView!) {
         self.delegate.bannerCustomEvent(event, didLoadAd: ad)
     }
-    
+    // swiftlint:enable identifier_name
+
     public func bannerCustomEvent(_ event: MPBannerCustomEvent!, didFailToLoadAdWithError error: Error!) {
         self.delegate.bannerCustomEvent(event, didFailToLoadAdWithError: error)
     }
@@ -95,40 +97,40 @@ open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDe
     public func bannerCustomEventWillBeginAction(_ event: MPBannerCustomEvent!) {
         self.delegate.bannerCustomEventWillBeginAction(event)
     }
-    
+
     public func bannerCustomEventDidFinishAction(_ event: MPBannerCustomEvent!) {
         self.delegate.bannerCustomEventDidFinishAction(event)
     }
-    
+
     public func bannerCustomEventWillLeaveApplication(_ event: MPBannerCustomEvent!) {
         self.delegate.bannerCustomEventWillLeaveApplication(event)
     }
-    
+
     public func trackImpression() {
         self.delegate.trackImpression()
     }
-    
+
     public func trackClick() {
         self.delegate.trackClick()
     }
-    
+
 }
 
 @objc(MAXMoPubInterstitialCustomEvent)
-open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInterstitialAdDelegate, MPInterstitialCustomEventDelegate {
+open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInterstitialAdDelegate, MPInterstitialCustomEventDelegate {
 
-    private var MAXInterstitial : MAXInterstitialAd?
-    private var customEventInstance : MPInterstitialCustomEvent?
-    
+    private var MAXInterstitial: MAXInterstitialAd?
+    private var customEventInstance: MPInterstitialCustomEvent?
+
     override open func requestInterstitial(withCustomEventInfo info: [AnyHashable: Any]!) {
         self.MAXInterstitial = nil
-        
+
         guard let adUnitID = info["adunit_id"] as? String else {
             MAXLog.error("AdUnitID not specified in adunit_id customEventInfo block: \(info)")
             self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: nil)
             return
         }
-        
+
         guard let adResponse = MAXAds.getPreBid(adUnitID: adUnitID) else {
             MAXLog.error("Pre-bid not found for adUnitId: \(adUnitID)")
             self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: nil)
@@ -146,7 +148,7 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
         self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
         MAXLog.debug("Interstitial for \(adUnitID) found and loaded")
     }
-    
+
     override open func showInterstitial(fromRootViewController rootViewController: UIViewController!) {
         MAXLog.debug("MAXMoPubInterstitialCustomEvent.showInterstitial()")
         if let customEventInstance = self.customEventInstance {
@@ -157,85 +159,87 @@ open class MAXMoPubInterstitialCustomEvent : MPInterstitialCustomEvent, MAXInter
                 self.delegate.interstitialCustomEventDidExpire(self)
                 return
             }
-            
-            MAXLog.debug("InterstitialCustomEventWillAppear");
+
+            MAXLog.debug("InterstitialCustomEventWillAppear")
             self.delegate.interstitialCustomEventWillAppear(self)
-            
+
             interstitial.showAdFromRootViewController(rootViewController)
-            
-            MAXLog.debug("InterstitialCustomEventDidAppear");
+
+            MAXLog.debug("InterstitialCustomEventDidAppear")
             self.delegate.interstitialCustomEventDidAppear(self)
         }
     }
-    
+
     // MAXInterstitialAdDelegate
-    
+
     open func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidClick")
         self.delegate.interstitialCustomEventDidReceiveTap(self)
     }
-    
+
     open func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdWillClose")
         self.delegate.interstitialCustomEventWillDisappear(self)
     }
-    
+
     open func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidClose")
         self.delegate.interstitialCustomEventDidDisappear(self)
     }
-    
+
     public func interstitial(_ interstitialAd: MAXInterstitialAd, didFailWithError: Error) {
         MAXLog.debug("MAX: interstitial:didFailWithError: \(didFailWithError.localizedDescription)")
         self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: didFailWithError)
     }
-    
+
     // MPInterstitialCustomEventDelegate
     @available(iOS 2.0, *)
     public func location() -> CLLocation! {
         return self.delegate.location()
     }
-    
+
     public func trackClick() {
         self.delegate.trackClick()
     }
-    
+
     public func trackImpression() {
         self.delegate.trackImpression()
     }
-    
+
     public func interstitialCustomEventDidAppear(_ customEvent: MPInterstitialCustomEvent!) {
         self.delegate.interstitialCustomEventDidAppear(customEvent)
     }
-    
+
     public func interstitialCustomEventDidExpire(_ customEvent: MPInterstitialCustomEvent!) {
         self.delegate.interstitialCustomEventDidExpire(customEvent)
     }
-    
+
     public func interstitialCustomEventWillAppear(_ customEvent: MPInterstitialCustomEvent!) {
         self.delegate.interstitialCustomEventWillAppear(customEvent)
     }
-    
+
     public func interstitialCustomEventDidDisappear(_ customEvent: MPInterstitialCustomEvent!) {
         self.delegate.interstitialCustomEventDidDisappear(customEvent)
     }
-    
+
     public func interstitialCustomEventDidReceiveTap(_ customEvent: MPInterstitialCustomEvent!) {
         self.delegate.interstitialCustomEventDidReceiveTap(customEvent)
     }
-    
+
     public func interstitialCustomEventWillDisappear(_ customEvent: MPInterstitialCustomEvent!) {
         self.delegate.interstitialCustomEventWillDisappear(customEvent)
     }
-    
+
+    // swiftlint:disable identifier_name
     public func interstitialCustomEvent(_ customEvent: MPInterstitialCustomEvent!, didLoadAd ad: Any!) {
         self.delegate.interstitialCustomEvent(customEvent, didLoadAd: ad)
     }
-    
+    // swiftlint:enable identifier_name
+
     public func interstitialCustomEventWillLeaveApplication(_ customEvent: MPInterstitialCustomEvent!) {
         self.delegate.interstitialCustomEventWillLeaveApplication(customEvent)
     }
-    
+
     public func interstitialCustomEvent(_ customEvent: MPInterstitialCustomEvent!, didFailToLoadAdWithError error: Error!) {
         self.delegate.interstitialCustomEvent(customEvent, didFailToLoadAdWithError: error)
     }

@@ -5,10 +5,10 @@ import Foundation
 /// messages, call MAXLogLevelDebug()
 
 enum MAXLogLevel {
-    case Debug
-    case Info
-    case Warn
-    case Error
+    case debug
+    case info
+    case warn
+    case error
 }
 
 public let MAXLog: MAXLogger = {
@@ -34,52 +34,52 @@ public func MAXLogLevelError() {
 
 public class MAXLogger: NSObject {
     var identifier: String
-    var logLevel: MAXLogLevel = .Info
-    
+    var logLevel: MAXLogLevel = .info
+
     @objc
     public static var logger = MAXLog
-    
+
     public init(identifier: String) {
         self.identifier = identifier
     }
-    
+
     @objc
     public func setLogLevelDebug() {
-        self.logLevel = .Debug
+        self.logLevel = .debug
     }
 
     @objc
     public func setLogLevelInfo() {
-        self.logLevel = .Info
+        self.logLevel = .info
     }
 
     @objc
     public func setLogLevelWarn() {
-        self.logLevel = .Warn
+        self.logLevel = .warn
     }
 
     @objc
     public func setLogLevelError() {
-        self.logLevel = .Error
+        self.logLevel = .error
     }
 
-    public func error(_ x: String) {
-        NSLog("\(identifier) [ERROR]: \(x)")
+    public func error(_ message: String) {
+        NSLog("\(identifier) [ERROR]: \(message)")
     }
 
-    public func warn(_ x: String) {
-        guard [MAXLogLevel.Warn, MAXLogLevel.Info, MAXLogLevel.Debug].contains(self.logLevel) else { return }
-        NSLog("\(identifier) [WARN]: \(x)")
+    public func warn(_ message: String) {
+        guard [MAXLogLevel.warn, MAXLogLevel.info, MAXLogLevel.debug].contains(self.logLevel) else { return }
+        NSLog("\(identifier) [WARN]: \(message)")
     }
 
-    public func info(_ x: String) {
-        guard [MAXLogLevel.Info, MAXLogLevel.Debug].contains(self.logLevel) else { return }
-        NSLog("\(identifier) [INFO]: \(x)")
+    public func info(_ message: String) {
+        guard [MAXLogLevel.info, MAXLogLevel.debug].contains(self.logLevel) else { return }
+        NSLog("\(identifier) [INFO]: \(message)")
     }
 
-    public func debug(_ x: String) {
-        if self.logLevel == .Debug {
-            NSLog("\(identifier) [DEBUG]: \(x)")
+    public func debug(_ message: String) {
+        if self.logLevel == .debug {
+            NSLog("\(identifier) [DEBUG]: \(message)")
         }
     }
 }

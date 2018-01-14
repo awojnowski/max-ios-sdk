@@ -9,12 +9,12 @@ import UIKit
 /// themselves with MAX by calling `MAXConfiguration.shared.registerAdViewGenerator`
 /// with an instance of the class.
 public protocol MAXAdViewAdapterGenerator {
-    
+
     /// `identifier` should be the same String that the MAX auction server uses to
     /// identify the bidder. See `MAXAdResponse.partnerName`. This String will be used
     /// to retrieve the generator.
     var identifier: String { get }
-    
+
     /// `getAdViewAdapter` is what `MAXAdView` will call to get a `MAXAdViewAdapter`
     /// instance so that it can render the creative using the third party view. This
     /// method should be implemented to use information from the ad response to create
@@ -32,8 +32,8 @@ public protocol MAXAdViewAdapterGenerator {
 /// a `delegate` to receive events from the underlying `adView`.
 public class MAXAdViewAdapter: NSObject {
     var adView: UIView?
-    var delegate: MAXAdViewAdapterDelegate?
-    
+    weak var delegate: MAXAdViewAdapterDelegate?
+
     public func loadAd() {
         MAXLog.error("MAXAdapterAdView.loadAd not implemented")
     }
@@ -42,7 +42,7 @@ public class MAXAdViewAdapter: NSObject {
 /// `MAXAdViewAdapterDelegate` will send common events from the `MAXAdViewAdapter`'s
 /// wrapped `adView` to the delegate, usually a `MAXAdView` instance. See `MAXAdView`
 /// for examples.
-public protocol MAXAdViewAdapterDelegate {
+public protocol MAXAdViewAdapterDelegate: class {
     func adViewWasClicked(_ adView: MAXAdViewAdapter)
     func adViewDidLoad(_ adView: MAXAdViewAdapter)
     func adView(_ adView: MAXAdViewAdapter, didFailWithError error: Error)

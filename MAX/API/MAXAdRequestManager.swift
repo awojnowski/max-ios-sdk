@@ -1,7 +1,7 @@
 import UIKit
 import Foundation
 
-let ERROR_RETRY_BASE = 2.0, MAX_ERROR_RETRY = 30.0
+let minErrorRetrySeconds = 2.0, maxErrorRetrySeconds = 30.0
 
 /// Use a MAXAdRequestManager to coordinate refreshing static ad units (banners)
 /// in the following circumstances:
@@ -12,16 +12,16 @@ public class MAXAdRequestManager: NSObject {
     public var lastRequest: MAXAdRequest?
     public var lastResponse: MAXAdResponse?
     public var lastError: NSError?
-    
+
     var adUnitID: String
     var completion: (MAXAdResponse?, NSError?) -> Void
-    
+
     var shouldRefresh = false
     var timer: Timer?
     var errorCount = 0.0
 
     var appObserver: NSObjectProtocol!
-    
+
     public init(adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         self.adUnitID = adUnitID
         self.completion = completion
@@ -34,14 +34,14 @@ public class MAXAdRequestManager: NSObject {
                 object: nil,
                 queue: OperationQueue.main
         ) {
-            notification in
+            _ in
             if self.shouldRefresh {
                 MAXLog.debug("MAX: got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
                 self.scheduleTimerImmediately()
             }
         }
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self.appObserver)
     }
@@ -55,7 +55,7 @@ public class MAXAdRequestManager: NSObject {
     public func refresh() -> MAXAdRequest {
         MAXLog.debug("refresh() called")
 
-        return self.runPreBid() { (response, error) in
+        return self.runPreBid { (response, error) in
             MAXLog.debug("preBidWithMAXAdUnit() returned")
             self.lastResponse = response
             self.lastError = error
@@ -73,30 +73,30 @@ public class MAXAdRequestManager: NSObject {
                 if let autoRefreshInterval = adResponse.autoRefreshInterval {
                     self.scheduleTimerWithInterval(Double(autoRefreshInterval))
                 }
-            }  
+            }
         } else if let adError = self.lastError {
             self.errorCount += 1
-            
+
             // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
             MAXLog.error("MAX: Error occurred \(adError), retry attempt \(self.errorCount)")
             MAXErrorReporter.shared.logError(error: adError)
-            self.scheduleTimerWithInterval(min(pow(ERROR_RETRY_BASE, self.errorCount), MAX_ERROR_RETRY))
+            self.scheduleTimerWithInterval(min(pow(minErrorRetrySeconds, self.errorCount), maxErrorRetrySeconds))
         } else {
             MAXLog.warn("Tried to schedule a new refresh, but couldn't find an ad response or error. No refresh will be scheduled.")
         }
     }
-    
+
     public func startRefresh() {
         self.shouldRefresh = true
         self.scheduleTimerImmediately()
     }
-    
+
     public func stopRefresh() {
         self.shouldRefresh = false
         self.timer?.invalidate()
         self.timer = nil
     }
-    
+
     private func scheduleTimerWithInterval(_ interval: Double) {
         MAXLog.debug("MAX: Scheduling auto-refresh in \(interval) seconds")
         DispatchQueue.main.async(execute: {
@@ -118,7 +118,7 @@ public class MAXAdRequestManager: NSObject {
     private func scheduleTimerImmediately() {
         self.scheduleTimerWithInterval(0)
     }
-    
+
     @objc func refreshTimerDidFire(_ timer: Timer!) {
         self.timer = nil
         guard self.shouldRefresh else {
@@ -132,8 +132,6 @@ public class MAXAdRequestManager: NSObject {
             return
         }
 
-        let _ = self.refresh()
+        _ = self.refresh()
     }
 }
-
-

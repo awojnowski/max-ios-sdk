@@ -8,7 +8,7 @@ public class MAXErrorReporter {
     static let shared = MAXErrorReporter()
     static let defaultErrorUrl = URL(string: "https://ads.maxads.io/events/client-error")!
     var errorUrl: URL
-    
+
     public init() {
         self.errorUrl = MAXErrorReporter.defaultErrorUrl
     }

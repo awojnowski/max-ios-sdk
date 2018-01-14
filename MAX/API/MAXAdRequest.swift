@@ -12,8 +12,8 @@ public typealias MAXResponseCompletion = (MAXAdResponse?, NSError?) -> Void
 
 /// `MAXAdRequest.requestAd` will pass an error to the completion function in
 public enum MAXRequestError: Error {
-    case InvalidResponse(response: URLResponse?, data: Data?)
-    case RequestFailed(domain: String, statusCode: Int, userInfo: Data?)
+    case invalidResponse(response: URLResponse?, data: Data?)
+    case requestFailed(domain: String, statusCode: Int, userInfo: Data?)
 }
 
 /// Core API type that packages all of the parameters needed to request a MAX bid.
@@ -21,10 +21,10 @@ public enum MAXRequestError: Error {
 public class MAXAdRequest {
 
     /// MAX's ad server domain, ads.maxads.io
-    public static let ADS_DOMAIN = "ads.maxads.io"
+    public static let adsDomain = "ads.maxads.io"
 
     /// The current version of the MAX API
-    public static let API_VERSION = "1"
+    public static let apiVersion = "1"
 
     /// The MAX ad unit ID. This string can be found in the MAX UI.
     public var adUnitID: String!
@@ -39,255 +39,204 @@ public class MAXAdRequest {
     public init(adUnitID: String) {
         self.adUnitID = adUnitID
     }
-    
+
     var appVersion: String {
-        get {
-            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-                return version
-            }
-            return unknownAppVersionIdentifier
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
         }
+        return unknownAppVersionIdentifier
     }
 
     var ifa: String {
-        get {
-            return ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        }
+        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
 
     var lmt: Bool {
-        get {
-            return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true
-        }
+        return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true
     }
 
     var vendorId: String {
-        get {
-            return UIDevice.current.identifierForVendor?.uuidString ?? ""
-        }
+        return UIDevice.current.identifierForVendor?.uuidString ?? ""
     }
 
     var timeZone: String {
-        get {
-            return NSTimeZone.system.abbreviation() ?? ""
-        }
+        return NSTimeZone.system.abbreviation() ?? ""
     }
 
     var locale: String {
-        get {
-            return Locale.current.identifier
-        }
+        return Locale.current.identifier
     }
-    
+
     var regionCode: String {
-        get {
-            return Locale.current.regionCode ?? ""
-        }
+        return Locale.current.regionCode ?? ""
     }
 
     var orientation: String {
-        get {
-            if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
-                return MAXDeviceOrientation.Portrait
-            } else if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
-                return MAXDeviceOrientation.Landscape
-            } else {
-                return MAXDeviceOrientation.None
-            }
+        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+            return MAXDeviceOrientation.Portrait
+        } else if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+            return MAXDeviceOrientation.Landscape
+        } else {
+            return MAXDeviceOrientation.None
         }
     }
 
     var deviceWidth: CGFloat {
-        get {
-            return floor(UIScreen.main.bounds.size.width)
-        }
+        return floor(UIScreen.main.bounds.size.width)
     }
 
     var deviceHeight: CGFloat {
-        get {
-            return floor(UIScreen.main.bounds.size.height)
-        }
+        return floor(UIScreen.main.bounds.size.height)
     }
 
     var browserAgent: String {
-        get {
-            return MAXUserAgent.shared.value ?? ""
-        }
+        return MAXUserAgent.shared.value ?? ""
     }
 
     var connectivity: String {
-        get {
-            if SKReachability.forInternetConnection().isReachableViaWiFi() {
-                return MAXConnectivity.Wifi
-            } else if SKReachability.forInternetConnection().isReachableViaWWAN() {
-                return MAXConnectivity.Wwan
-            } else {
-                return MAXConnectivity.None
-            }
+        if SKReachability.forInternetConnection().isReachableViaWiFi() {
+            return MAXConnectivity.Wifi
+        } else if SKReachability.forInternetConnection().isReachableViaWWAN() {
+            return MAXConnectivity.Wwan
+        } else {
+            return MAXConnectivity.None
         }
     }
 
     var carrier: String {
-        get {
-            return CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""
-        }
+        return CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""
     }
 
     var latitude: Double? {
-        get {
-            if let location = MAXLocationProvider.shared.getLocation() {
-                return location.coordinate.latitude
-            }
-
-            return nil
+        if let location = MAXLocationProvider.shared.getLocation() {
+            return location.coordinate.latitude
         }
+        return nil
     }
 
     var longitude: Double? {
-        get {
-            if let location = MAXLocationProvider.shared.getLocation() {
-                return location.coordinate.longitude
-            }
-
-            return nil
+        if let location = MAXLocationProvider.shared.getLocation() {
+            return location.coordinate.longitude
         }
+
+        return nil
     }
 
     var locationTrackingAvailability: String {
-        get {
-            return MAXLocationProvider.shared.locationTrackingAvailability()
-        }
+        return MAXLocationProvider.shared.locationTrackingAvailability()
     }
 
     var sdkVersion: String {
-        get {
-            return MAXConfiguration.shared.getSDKVersion()
-        }
+        return MAXConfiguration.shared.getSDKVersion()
     }
 
     var locationHorizontalAccuracy: Double? {
-        get {
-            return MAXLocationProvider.shared.getLocationHorizontalAccuracy()
-        }
+        return MAXLocationProvider.shared.getLocationHorizontalAccuracy()
     }
 
     var locationVerticalAccuracy: Double? {
-        get {
-            return MAXLocationProvider.shared.getLocationVerticalAccuracy()
-        }
+        return MAXLocationProvider.shared.getLocationVerticalAccuracy()
     }
 
     var locationTrackingTimestamp: String? {
-        get {
-            if let dt = MAXLocationProvider.shared.getLocationUpdateTimestamp() {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                return dateFormatter.string(from: dt)
-            } else {
-                return nil
-            }
+        if let dt = MAXLocationProvider.shared.getLocationUpdateTimestamp() {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            return dateFormatter.string(from: dt)
+        } else {
+            return nil
         }
     }
 
     var locationData: Dictionary<String, Any> {
-        get {
-            var locationData: Dictionary<String, Any> = [:]
+        var locationData: Dictionary<String, Any> = [:]
 
-            if let latitude = self.latitude {
-                locationData["latitude"] = latitude
-            }
-
-            if let longitude = self.longitude {
-                locationData["longitude"] = longitude
-            }
-
-            if let vAccuracy = self.locationVerticalAccuracy {
-                locationData["vertical_accuracy"] = vAccuracy
-            }
-
-            if let hAccuracy = self.locationHorizontalAccuracy {
-                locationData["horizontal_accuracy"] = hAccuracy
-            }
-
-            if let locationTimestamp = self.locationTrackingTimestamp {
-                locationData["timestamp"] = locationTimestamp
-            }
-
-            return locationData
+        if let latitude = self.latitude {
+            locationData["latitude"] = latitude
         }
+
+        if let longitude = self.longitude {
+            locationData["longitude"] = longitude
+        }
+
+        if let vAccuracy = self.locationVerticalAccuracy {
+            locationData["vertical_accuracy"] = vAccuracy
+        }
+
+        if let hAccuracy = self.locationHorizontalAccuracy {
+            locationData["horizontal_accuracy"] = hAccuracy
+        }
+
+        if let locationTimestamp = self.locationTrackingTimestamp {
+            locationData["timestamp"] = locationTimestamp
+        }
+
+        return locationData
     }
 
     var model: String {
-        get {
-            var systemInfo = utsname()
-            uname(&systemInfo)
-            let machineMirror = Mirror(reflecting: systemInfo.machine)
-            let identifier = machineMirror.children.reduce("") { identifier, element in
-                guard let value = element.value as? Int8, value != 0 else { return identifier }
-                return identifier + String(UnicodeScalar(UInt8(value)))
-            }
-            return identifier
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
         }
+        return identifier
     }
-    
+
     var tokens: Dictionary<String, String> {
-        get {
-            var tokenData: Dictionary<String, String> = [:]
-            
-            for (_, tokenProvider) in MAXConfiguration.shared.tokenRegistrar.tokens {
-                tokenData[tokenProvider.identifier] = tokenProvider.generateToken()
-            }
-            
-            return tokenData
+        var tokenData: Dictionary<String, String> = [:]
+
+        for (_, tokenProvider) in MAXConfiguration.shared.tokenRegistrar.tokens {
+            tokenData[tokenProvider.identifier] = tokenProvider.generateToken()
         }
+
+        return tokenData
     }
 
     var dict: Dictionary<String, Any> {
-        get {
-            let d: Dictionary<String, Any> = [
-                "v": MAXAdRequest.API_VERSION,
-                "sdk_v": self.sdkVersion,
-                "app_v": self.appVersion,
-                "ifa": self.ifa,
-                "lmt": self.lmt,
-                "vendor_id": self.vendorId,
-                "tz": self.timeZone,
-                "locale": self.locale,
-                "orientation": self.orientation,
-                "w": self.deviceWidth,
-                "h": self.deviceHeight,
-                "browser_agent": self.browserAgent,
-                "model": self.model,
-                "connectivity": self.connectivity,
-                "carrier": self.carrier,
-                "session_depth": MAXSession.shared.sessionDepth,
-                "location_tracking": self.locationTrackingAvailability,
-                "location": self.locationData,
-                "tokens": self.tokens
-            ]
+        let d: Dictionary<String, Any> = [
+            "v": MAXAdRequest.apiVersion,
+            "sdk_v": self.sdkVersion,
+            "app_v": self.appVersion,
+            "ifa": self.ifa,
+            "lmt": self.lmt,
+            "vendor_id": self.vendorId,
+            "tz": self.timeZone,
+            "locale": self.locale,
+            "orientation": self.orientation,
+            "w": self.deviceWidth,
+            "h": self.deviceHeight,
+            "browser_agent": self.browserAgent,
+            "model": self.model,
+            "connectivity": self.connectivity,
+            "carrier": self.carrier,
+            "session_depth": MAXSession.shared.sessionDepth,
+            "location_tracking": self.locationTrackingAvailability,
+            "location": self.locationData,
+            "tokens": self.tokens
+        ]
 
-            MAXLog.debug(d.description)
-            return d
-        }
+        MAXLog.debug(d.description)
+        return d
     }
 
     var asJSONObject: Data? {
-        get {
-            let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
+        let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
 
-            if MAXConfiguration.shared.debugModeEnabled,
-               let json = String(data: data!, encoding: String.Encoding.utf8) as String! {
-                MAXLog.debug(json)
-            }
-            return data
+        if MAXConfiguration.shared.debugModeEnabled,
+           let json = String(data: data!, encoding: String.Encoding.utf8) as String! {
+            MAXLog.debug(json)
         }
+        return data
     }
 
     func getUrl() -> URL {
         if MAXConfiguration.shared.debugModeEnabled {
-            return URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/debug/ads/req/\(self.adUnitID!)")!
+            return URL(string: "https://\(MAXAdRequest.adsDomain)/debug/ads/req/\(self.adUnitID!)")!
         } else {
-            return URL(string: "https://\(MAXAdRequest.ADS_DOMAIN)/ads/req/\(self.adUnitID!)")!
+            return URL(string: "https://\(MAXAdRequest.adsDomain)/ads/req/\(self.adUnitID!)")!
         }
     }
 
@@ -305,7 +254,7 @@ public class MAXAdRequest {
     /// - Returns: the MAXAdRequest object representing the request being made
     public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
-        adr.requestAd() {(response, error) in
+        adr.requestAd {(response, error) in
             MAXAds.receivedPreBid(adUnitID: adUnitID, response: response, error: error)
             completion(response, error)
         }
@@ -326,14 +275,14 @@ public class MAXAdRequest {
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
 
-        session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (_data, _response, _error) in
+        session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (respData, resp, err) in
             MAXSession.shared.incrementDepth()
             do {
-                guard let data = _data, let response = _response as? HTTPURLResponse else {
-                    if let error = _error {
+                guard let data = respData, let response = resp as? HTTPURLResponse else {
+                    if let error = err {
                         throw error
                     } else {
-                        throw MAXRequestError.InvalidResponse(response: _response, data: _data)
+                        throw MAXRequestError.invalidResponse(response: resp, data: respData)
                     }
                 }
 
@@ -344,8 +293,8 @@ public class MAXAdRequest {
                     self.adResponse = MAXAdResponse()
                     completion(self.adResponse, nil)
                 } else {
-                    throw MAXRequestError.RequestFailed(
-                            domain: MAXAdRequest.ADS_DOMAIN,
+                    throw MAXRequestError.requestFailed(
+                            domain: MAXAdRequest.adsDomain,
                             statusCode: response.statusCode,
                             userInfo: nil
                     )

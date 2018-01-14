@@ -1,0 +1,11 @@
+disabled_rules:
+  - syntactic_sugar
+  - switch_case_alignment
+  - closure_parameter_position
+  - unused_optional_binding
+  - line_length
+included:
+  - MAX
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Pods
+  - MAXTests

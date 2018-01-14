@@ -404,6 +404,7 @@
 				E8E21AC21E4E31D0003BE3BD /* Headers */,
 				E8E21AC31E4E31D0003BE3BD /* Resources */,
 				EE56A2FE9D12A3510B1A7B17 /* [CP] Copy Pods Resources */,
+				7E8EB197200ACE0000149B0E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -532,6 +533,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MAXTests/Pods-MAXTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7E8EB197200ACE0000149B0E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
 		};
 		CC397B8B543E11AD593314AE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

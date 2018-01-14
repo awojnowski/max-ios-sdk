@@ -15,7 +15,7 @@ public class MAXAdResponseParameters {
     public static let expireUrls = "expire_urls"
     public static let lossUrls = "loss_urls"
     public static let errorUrl = "error_url"
-    
+
     public class Winner {
         public static let partnerName = "partner"
         public static let partnerPlacementID = "partner_placement_id"
@@ -25,10 +25,10 @@ public class MAXAdResponseParameters {
 }
 
 /// Core API type that will contain the result of a bid request call to the MAX ad server.
-public class MAXAdResponse : NSObject {
+public class MAXAdResponse: NSObject {
 
-    private let data : Data
-    private let response : NSDictionary
+    private let data: Data
+    private let response: NSDictionary
 
     public override var description: String {
         return String(describing: response)
@@ -38,17 +38,20 @@ public class MAXAdResponse : NSObject {
         self.data = Data()
         self.response = [:]
     }
-    
+
     public init(data: Data) throws {
         self.data = data
+
+        // swiftlint:disable force_cast
         self.response = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
+        // swiftlint:enable force_cast
 
         // Give the ability to reset the location tracking distance filter from the server
         if let distanceFilter = self.response[MAXAdResponseParameters.distanceFilter] as? Double {
             MAXLog.debug("Setting the distance filter from the server response")
             MAXLocationProvider.shared.setDistanceFilter(distanceFilter)
         }
-        
+
         if let sessionExpirationInterval = self.response["session_expiration_interval"] as? Double {
             MAXSession.shared.sessionExpirationIntervalSeconds = sessionExpirationInterval
         }
@@ -68,9 +71,9 @@ public class MAXAdResponse : NSObject {
             }
         }
     }
-    
+
     private let defaultExpirationIntervalSeconds: Double = 60.0*60.0
-    
+
     /// The ad response is only valid for `expirationIntervalSeconds` seconds, by default set to 60 minutes.
     /// After this time period has elapsed, the ad response is no longer considered valid for rendering
     /// and the object's `trackExpired` method will be called if an attempt is made to render this ad.
@@ -78,81 +81,67 @@ public class MAXAdResponse : NSObject {
         if let expirationInterval = self.response["expiration_interval"] as? Double {
             return expirationInterval
         }
-        
+
         return self.defaultExpirationIntervalSeconds
     }
-    
+
     /// `autoRefreshInterval` specifies an amount of time that should elapse after the loading of this
     /// ad, after which a new ad should be loaded from the server.
     public var autoRefreshInterval: Int? {
-        get {
-            if let refresh = self.response[MAXAdResponseParameters.refreshRate] as? Int {
-                return refresh
-            } else {
-                MAXLog.debug("Refresh interval not set in ad response")
-                return nil
-            }
-        }
-    }
-    
-    /// `preBidKeywords` will contain the set of keywords that will allow this response to be matched with
-    /// a line item or campaign in an SSP.
-    public var preBidKeywords: String {
-        get {
-            if let _ = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
-                return self.response[MAXAdResponseParameters.preBidKeywords] as? String ?? ""
-            }
-        
-            return ""
-        }
-    }
-    
-    public var creativeType: String {
-        get {
-            if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
-                return winner[MAXAdResponseParameters.Winner.creativeType] as? String ?? "empty"
-            }
-            
-            return "empty"
-        }
-    }
-    
-    public var creative: String? {
-        get {
-            return self.response[MAXAdResponseParameters.creative] as? String
-        }
-    }
-    
-    public var partnerName: String? {
-        get {
-            if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
-                return winner[MAXAdResponseParameters.Winner.partnerName] as? String ?? ""
-            }
-            
-            return ""
-        }
-    }
-    
-    public var partnerPlacementID: String? {
-        get {
-            if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
-                return winner[MAXAdResponseParameters.Winner.partnerPlacementID] as? String
-            }
-            
+        if let refresh = self.response[MAXAdResponseParameters.refreshRate] as? Int {
+            return refresh
+        } else {
+            MAXLog.debug("Refresh interval not set in ad response")
             return nil
         }
     }
-    
-    public var usePartnerRendering: Bool {
-        get {
-            if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
-                return winner[MAXAdResponseParameters.Winner.usePartnerRendering] as? Bool ?? false
-            }
-            
-            return false
+
+    /// `preBidKeywords` will contain the set of keywords that will allow this response to be matched with
+    /// a line item or campaign in an SSP.
+    public var preBidKeywords: String {
+        if let _ = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+            return self.response[MAXAdResponseParameters.preBidKeywords] as? String ?? ""
         }
+
+        return ""
     }
-    
+
+    public var creativeType: String {
+        if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+            return winner[MAXAdResponseParameters.Winner.creativeType] as? String ?? "empty"
+        }
+
+        return "empty"
+    }
+
+    public var creative: String? {
+        return self.response[MAXAdResponseParameters.creative] as? String
+    }
+
+    public var partnerName: String? {
+        if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+            return winner[MAXAdResponseParameters.Winner.partnerName] as? String ?? ""
+        }
+
+        return ""
+    }
+
+    public var partnerPlacementID: String? {
+        if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+            return winner[MAXAdResponseParameters.Winner.partnerPlacementID] as? String
+        }
+
+        return nil
+    }
+
+    public var usePartnerRendering: Bool {
+        if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+            return winner[MAXAdResponseParameters.Winner.usePartnerRendering] as? Bool ?? false
+        }
+
+        return false
+    }
+
     func getSession() -> URLSession {
          return URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
     }
@@ -165,7 +154,7 @@ public class MAXAdResponse : NSObject {
             return false
         }
     }
-    
+
     /// Fires an impression tracking event for this AdResponse
     public func trackImpression() {
         MAXLog.debug("trackImpression called")
@@ -205,7 +194,7 @@ public class MAXAdResponse : NSObject {
         MAXLog.debug("trackLoss called")
         self.trackAll(self.response[MAXAdResponseParameters.lossUrls] as? NSArray)
     }
-    
+
     private func trackAll(_ urls: NSArray?) {
         guard let trackingUrls = urls else {
             return
@@ -216,7 +205,7 @@ public class MAXAdResponse : NSObject {
             }
         }
     }
-    
+
     private func track(_ url: URL) {
         MAXLog.debug("MAX: tracking URL fired ==> \(url)")
         getSession().dataTask(with: url).resume()

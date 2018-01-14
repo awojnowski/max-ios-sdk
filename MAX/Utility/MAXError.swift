@@ -18,100 +18,74 @@ class MAXClientError {
     }
 
     var ifa: String {
-        get {
-            return ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        }
+        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
 
     var lmt: Bool {
-        get {
-            return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true
-        }
+        return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true
     }
 
     var vendorId: String {
-        get {
-            return UIDevice.current.identifierForVendor?.uuidString ?? ""
-        }
+        return UIDevice.current.identifierForVendor?.uuidString ?? ""
     }
 
     var timeZone: String {
-        get {
-            return NSTimeZone.system.abbreviation() ?? ""
-        }
+        return NSTimeZone.system.abbreviation() ?? ""
     }
 
     var locale: String {
-        get {
-            return Locale.current.identifier
-        }
+        return Locale.current.identifier
     }
 
     var regionCode: String {
-        get {
-            return Locale.current.regionCode ?? ""
-        }
+        return Locale.current.regionCode ?? ""
     }
 
     var orientation: String {
-        get {
-            if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
-                return "portrait"
-            } else if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
-                return "landscape"
-            } else {
-                return "none"
-            }
+        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+            return "portrait"
+        } else if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+            return "landscape"
+        } else {
+            return "none"
         }
     }
 
     var deviceWidth: CGFloat {
-        get {
-            return floor(UIScreen.main.bounds.size.width)
-        }
+        return floor(UIScreen.main.bounds.size.width)
     }
 
     var deviceHeight: CGFloat {
-        get {
-            return floor(UIScreen.main.bounds.size.height)
-        }
+        return floor(UIScreen.main.bounds.size.height)
     }
 
     var browserAgent: String {
-        get {
-            return MAXUserAgent.shared.value ?? ""
-        }
+        return MAXUserAgent.shared.value ?? ""
     }
 
     var connectivity: String {
-        get {
-            if SKReachability.forInternetConnection().isReachableViaWiFi() {
-                return "wifi"
-            } else if SKReachability.forInternetConnection().isReachableViaWWAN() {
-                return "wwan"
-            } else {
-                return "none"
-            }
+        if SKReachability.forInternetConnection().isReachableViaWiFi() {
+            return "wifi"
+        } else if SKReachability.forInternetConnection().isReachableViaWWAN() {
+            return "wwan"
+        } else {
+            return "none"
         }
     }
 
     var carrier: String {
-        get {
-            return CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""
-        }
+        return CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""
     }
 
     var model: String {
-        get {
-            var systemInfo = utsname()
-            uname(&systemInfo)
-            let machineMirror = Mirror(reflecting: systemInfo.machine)
-            let identifier = machineMirror.children.reduce("") { identifier, element in
-                guard let value = element.value as? Int8, value != 0 else { return identifier }
-                return identifier + String(UnicodeScalar(UInt8(value)))
-            }
-            return identifier
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
         }
+        return identifier
     }
 
     var data: Dictionary<String, Any> {

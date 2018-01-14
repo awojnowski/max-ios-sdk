@@ -20,10 +20,10 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
     static let shared = MAXLocationProvider()
 
     var locationManager = CLLocationManager()
-    var foregroundObserver: NSObjectProtocol? = nil
-    var backgroundObserver: NSObjectProtocol? = nil
+    var foregroundObserver: NSObjectProtocol?
+    var backgroundObserver: NSObjectProtocol?
 
-    var lastLocation: CLLocation? = nil
+    var lastLocation: CLLocation?
 
     override init() {
         super.init()
@@ -41,7 +41,7 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
                 object: nil,
                 queue: OperationQueue.main
         ) {
-            notification in self.stopLocationUpdates()
+            _ in self.stopLocationUpdates()
         }
 
         // Restart location updates when the app moves into the foreground
@@ -50,7 +50,7 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
                 object: nil,
                 queue: OperationQueue.main
         ) {
-            notification in self.startLocationUpdates()
+            _ in self.startLocationUpdates()
         }
 
         self.startLocationUpdates()

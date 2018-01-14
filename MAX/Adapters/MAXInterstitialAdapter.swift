@@ -9,12 +9,12 @@ import UIKit
 /// themselves with MAX by calling `MAXConfiguration.shared.registerInterstitialGenerator`
 /// with an instance of the class.
 public protocol MAXInterstitialAdapterGenerator {
-    
+
     /// `identifier` should be the same String that the MAX auction server uses to
     /// identify the bidder. See `MAXAdResponse.partnerName`. This String will be used
     /// to retrieve the generator.
     var identifier: String { get }
-    
+
     /// `getInterstitialAdapter` is what `MAXInterstitialAd` will call to get a `MAXInterstitialAdapter`
     /// instance so that it can render the creative using the third party view.
     func getInterstitialAdapter(fromResponse: MAXAdResponse) -> MAXInterstitialAdapter?
@@ -27,12 +27,12 @@ public protocol MAXInterstitialAdapterGenerator {
 /// should also register a `delegate` to receive events from the underlying interstitial.
 public class MAXInterstitialAdapter: NSObject {
     var interstitialAd: NSObject?
-    var delegate: MAXInterstitialAdapterDelegate?
-    
+    weak var delegate: MAXInterstitialAdapterDelegate?
+
     public func loadAd() {
         MAXLog.error("MAXInterstitialAdapter.loadAd not implemented")
     }
-    
+
     public func showAd(fromRootViewController rvc: UIViewController?) {
         MAXLog.error("MAXInterstitialAdapter.showAd not implemented")
     }
@@ -41,7 +41,7 @@ public class MAXInterstitialAdapter: NSObject {
 /// `MAXInterstitialAdapterDelegate` will send comon events from the `MAXInterstitialAdapter`'s
 /// wrapped `adView` to the delegate, usually a `MAXInterstitialAd` instance. See `MAXInterstitialAd`
 /// for examples.
-public protocol MAXInterstitialAdapterDelegate {
+public protocol MAXInterstitialAdapterDelegate: class {
     func interstitialWasClicked(_ interstitial: MAXInterstitialAdapter)
     func interstitialDidClose(_ interstitial: MAXInterstitialAdapter)
     func interstitialWillClose(_ interstitial: MAXInterstitialAdapter)

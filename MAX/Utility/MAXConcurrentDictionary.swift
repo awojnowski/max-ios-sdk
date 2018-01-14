@@ -7,9 +7,9 @@ final class MAXConcurrentDictionary<KeyType: Hashable, ValueType>: Sequence, Exp
 
     private var internalDictionary: Dictionary<KeyType, ValueType>
     private let queue = DispatchQueue(label: "MAXConcurrentDictionary")
-    
+
     typealias Iterator = Dictionary<KeyType, ValueType>.Iterator
-    
+
     /// The number of key-value pairs in the dictionary
     var count: Int {
         var count = 0
@@ -18,17 +18,17 @@ final class MAXConcurrentDictionary<KeyType: Hashable, ValueType>: Sequence, Exp
         }
         return count
     }
-    
+
     /// Safely get or set a copy of the internal dictionary value
-    var dictionary: [KeyType:ValueType] {
+    var dictionary: [KeyType: ValueType] {
         get {
-            var dictionaryCopy: [KeyType:ValueType]?
+            var dictionaryCopy: [KeyType: ValueType]?
             self.queue.sync { () -> Void in
                 dictionaryCopy = self.dictionary
             }
             return dictionaryCopy!
         }
-        
+
         set {
             let dictionaryCopy = newValue // create a local copy on the current thread
             self.queue.sync { () -> Void in
@@ -36,28 +36,28 @@ final class MAXConcurrentDictionary<KeyType: Hashable, ValueType>: Sequence, Exp
             }
         }
     }
-    
+
     /// Initialize with an empty dictionary
     convenience init() {
-        self.init(dictionary: [KeyType:ValueType]())
+        self.init(dictionary: [KeyType: ValueType]())
     }
-    
+
     /// Initialize the dictionary with a key-value literal, e.g. ["A": "B", "C": "D"]
     convenience required init(dictionaryLiteral elements: (KeyType, ValueType)...) {
-        var dictionary = Dictionary<KeyType,ValueType>()
-        
-        for (key,value) in elements {
+        var dictionary = Dictionary<KeyType, ValueType>()
+
+        for (key, value) in elements {
             dictionary[key] = value
         }
-        
+
         self.init(dictionary: dictionary)
     }
-    
+
     /// Initialize the dictionary from a pre-existing non-thread safe dictionary.
-    init(dictionary: [KeyType:ValueType]) {
+    init(dictionary: [KeyType: ValueType]) {
         self.internalDictionary = dictionary
     }
-    
+
     /// Provide subscript access to the dictionary, e.g. let a = dict["a"] and dict["a"] = someVar
     subscript(key: KeyType) -> ValueType? {
         get {
@@ -67,19 +67,19 @@ final class MAXConcurrentDictionary<KeyType: Hashable, ValueType>: Sequence, Exp
             }
             return value
         }
-        
+
         set {
             self.setValue(value: newValue, forKey: key)
         }
     }
-    
+
     /// Assign the specified value while synchronizing writes for consistent modifications
     func setValue(value: ValueType?, forKey key: KeyType) {
         self.queue.sync { () -> Void in
             self.internalDictionary[key] = value
         }
     }
-    
+
     /// Remove a value while synchronizing removal for consistent modifications
     func removeValue(forKey key: KeyType) -> ValueType? {
         var oldValue: ValueType? = nil
@@ -88,7 +88,7 @@ final class MAXConcurrentDictionary<KeyType: Hashable, ValueType>: Sequence, Exp
         }
         return oldValue
     }
-    
+
     func makeIterator() -> MAXConcurrentDictionary<KeyType, ValueType>.Iterator {
         var iterator: Dictionary<KeyType, ValueType>.Iterator!
         self.queue.sync { () -> Void in

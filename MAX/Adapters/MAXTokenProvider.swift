@@ -20,16 +20,16 @@ public protocol MAXTokenProvider {
 public class MAXTokenRegistrar {
 
     public var tokens: Dictionary<String, MAXTokenProvider> = [:]
-    
+
     public func registerTokenProvider(_ tokenProvider: MAXTokenProvider) {
         self.tokens[tokenProvider.identifier] = tokenProvider
     }
-    
+
     public func generateToken(_ withIdentifier: String) -> String? {
         if let provider = tokens[withIdentifier] {
             return provider.generateToken()
         }
-        
+
         return nil
     }
 }
