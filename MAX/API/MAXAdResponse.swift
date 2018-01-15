@@ -56,13 +56,6 @@ public class MAXAdResponse: NSObject {
             MAXSession.shared.sessionExpirationIntervalSeconds = sessionExpirationInterval
         }
 
-        // Give the ability to disable debug mode from a server response in case a client deploys
-        // their app with debug mode enabled
-        if let _ = self.response[MAXAdResponseParameters.disableDebugMode] {
-            MAXLog.debug("Found force shutting off debug mode parameter from server. MAX will now operate normally.")
-            MAXConfiguration.shared.disableDebugMode()
-        }
-
         // Give the ability to reset the error url to something the server provides
         if let errorUrl = self.response[MAXAdResponseParameters.errorUrl] as? String {
             if let url = URL(string: errorUrl) {

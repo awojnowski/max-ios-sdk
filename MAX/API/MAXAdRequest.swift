@@ -225,19 +225,14 @@ public class MAXAdRequest {
     var asJSONObject: Data? {
         let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
 
-        if MAXConfiguration.shared.debugModeEnabled,
-           let json = String(data: data!, encoding: String.Encoding.utf8) as String! {
+        if let json = String(data: data!, encoding: String.Encoding.utf8) as String! {
             MAXLog.debug(json)
         }
         return data
     }
 
     func getUrl() -> URL {
-        if MAXConfiguration.shared.debugModeEnabled {
-            return URL(string: "https://\(MAXAdRequest.adsDomain)/debug/ads/req/\(self.adUnitID!)")!
-        } else {
-            return URL(string: "https://\(MAXAdRequest.adsDomain)/ads/req/\(self.adUnitID!)")!
-        }
+        return URL(string: "https://\(MAXAdRequest.adsDomain)/ads/req/\(self.adUnitID!)")!
     }
 
     func getSession() -> URLSession {

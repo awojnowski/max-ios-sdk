@@ -37,25 +37,6 @@ public class MAXConfiguration {
     }
 
     /*
-     * Debug mode
-     *
-     * Enabling debug mode
-     */
-    private var _debugMode: Bool = false
-
-    var debugModeEnabled: Bool {
-        return _debugMode
-    }
-
-    public func enableDebugMode() {
-        self._debugMode = true
-    }
-
-    public func disableDebugMode() {
-        self._debugMode = false
-    }
-
-    /*
      * Third party hooks
      */
     public var tokenRegistrar = MAXTokenRegistrar()
