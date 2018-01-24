@@ -69,7 +69,7 @@ public class MAXAdView: UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate, MAX
         }
 
         self.mraidView = SKMRAIDView(
-            frame: self.frame,
+            frame: self.bounds,
             withHtmlData: htmlData,
             withBaseURL: URL(string: "https://\(MAXAdRequest.adsDomain)"),
             supportedFeatures: [],
