@@ -55,13 +55,6 @@ class MAXInterstitialAdSpec: QuickSpec {
                 ad = MAXInterstitialAdStub(adResponse: response)
             }
             
-            it("should render using MRAID when the ad response has usePartnerRendering set to false") {
-                response._usePartnerRendering = false
-                ad.showAdFromRootViewController(rvc)
-                expect(ad.didLoadUsingMRAID).to(beTrue())
-                expect(ad.didLoadFromAdapter).to(beFalse())
-            }
-            
             it("should render using a third party renderer when the ad response has usePartnerRendering set to true") {
                 response._usePartnerRendering = true
                 response._partner = "test"

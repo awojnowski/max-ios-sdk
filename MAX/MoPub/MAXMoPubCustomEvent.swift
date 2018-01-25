@@ -145,7 +145,7 @@ open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInters
         let MAXInterstitial = MAXInterstitialAd(adResponse: adResponse)
         self.MAXInterstitial = MAXInterstitial
         MAXInterstitial.delegate = self
-        self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
+        MAXInterstitial.loadAdWithMRAIDRenderer()
         MAXLog.debug("Interstitial for \(adUnitID) found and loaded")
     }
 
@@ -170,8 +170,14 @@ open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInters
         }
     }
 
-    // MAXInterstitialAdDelegate
+    
+    //MARK: MAXInterstitialAdDelegate
 
+    open func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd) {
+        MAXLog.debug("MAX: interstitialAdDidLoad")
+        self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
+    }
+    
     open func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidClick")
         self.delegate.interstitialCustomEventDidReceiveTap(self)
@@ -187,12 +193,14 @@ open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInters
         self.delegate.interstitialCustomEventDidDisappear(self)
     }
 
-    public func interstitial(_ interstitialAd: MAXInterstitialAd, didFailWithError: Error) {
-        MAXLog.debug("MAX: interstitial:didFailWithError: \(didFailWithError.localizedDescription)")
-        self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: didFailWithError)
+    public func interstitial(_ interstitialAd: MAXInterstitialAd, didFailWithError error: Error) {
+        MAXLog.debug("MAX: interstitial:didFailWithError: \(error.localizedDescription)")
+        self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: error)
     }
 
-    // MPInterstitialCustomEventDelegate
+    
+    //MARK: MPInterstitialCustomEventDelegate
+    
     @available(iOS 2.0, *)
     public func location() -> CLLocation! {
         return self.delegate.location()
