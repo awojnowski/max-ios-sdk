@@ -149,13 +149,15 @@ private class VASTDelegate: NSObject, SKVASTViewControllerDelegate {
 
     fileprivate func vastReady(_ vastVC: SKVASTViewController!) {
         MAXLog.debug("MAX: vastReady")
-        parent.adResponse.trackImpression()
         vastVC.play()
         parent.delegate?.interstitialAdDidLoad(parent)
     }
 
     fileprivate func vastTrackingEvent(_ eventName: String!) {
         MAXLog.debug("MAX: vastTrackingEvent(\(eventName!))")
+        if eventName == "start"{
+            parent.adResponse.trackImpression()
+        }
         if eventName == "close" {
             parent.delegate?.interstitialAdWillClose(parent)
         }
