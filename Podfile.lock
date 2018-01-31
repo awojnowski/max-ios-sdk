@@ -1,5 +1,6 @@
 PODS:
   - FBAudienceNetwork (4.27.2)
+  - MAXBase (1.0.1)
   - mopub-ios-sdk (4.19.0):
     - mopub-ios-sdk/MoPubSDK (= 4.19.0)
   - mopub-ios-sdk/Avid (4.19.0):
@@ -11,44 +12,35 @@ PODS:
     - mopub-ios-sdk/Avid
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/Moat
-  - MRAID (1.0.1)
   - Nimble (7.0.3)
   - Quick (1.2.0)
   - SwiftLint (0.24.2)
-  - VAST (1.0.0)
 
 DEPENDENCIES:
   - FBAudienceNetwork (= 4.27.2)
+  - MAXBase (from `git@github.com:MAXAds/max-ios-base-internal`)
   - mopub-ios-sdk (>= 4.18.0)
-  - MRAID (from `git@github.com:MAXAds/max-mraid-ios-internal`)
   - Nimble
   - Quick
   - SwiftLint
-  - VAST (from `git@github.com:MAXAds/max-vast-ios-internal`)
 
 EXTERNAL SOURCES:
-  MRAID:
-    :git: git@github.com:MAXAds/max-mraid-ios-internal
-  VAST:
-    :git: git@github.com:MAXAds/max-vast-ios-internal
+  MAXBase:
+    :git: git@github.com:MAXAds/max-ios-base-internal
 
 CHECKOUT OPTIONS:
-  MRAID:
-    :commit: 57973c5a3c6b4442b5056c6f8c2df6eb8834b914
-    :git: git@github.com:MAXAds/max-mraid-ios-internal
-  VAST:
-    :commit: 354809790137645dd4a09ab0ae2cfb21e73c0935
-    :git: git@github.com:MAXAds/max-vast-ios-internal
+  MAXBase:
+    :commit: 146f722b678a469dc3ad52e7dfff7de501bf3935
+    :git: git@github.com:MAXAds/max-ios-base-internal
 
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
+  MAXBase: b5bf650b4240b27a87a923a5dc4868ad6a9ff0bd
   mopub-ios-sdk: ffbe414adf2fb7717d999020a3ff51d908da599f
-  MRAID: b815ebf7fecd2f6e7596e4329572982c8e4a8a32
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   SwiftLint: 2aa21b96c8d13396a051bc1cb659d2ce1e0075b0
-  VAST: 669b0ca32154e658b9612c00f2be8bb9fd49c395
 
-PODFILE CHECKSUM: 16ac53aef70a5380ed36e738fba09929d9cb192f
+PODFILE CHECKSUM: fc1efea56f523fd5030408625550609551e3b2a2
 
 COCOAPODS: 1.4.0.rc.1

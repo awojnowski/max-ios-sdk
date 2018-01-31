@@ -1,5 +1,5 @@
 import Foundation
-import MRAID
+import MAXBase
 
 public enum MAXBannerCreativeType: String {
     case MRAID = "html"
