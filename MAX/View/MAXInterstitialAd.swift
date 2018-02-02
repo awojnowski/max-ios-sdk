@@ -1,6 +1,6 @@
 import Foundation
-import MRAID
-import VAST
+import MAXBase
+import MAXBase
 
 public enum MAXInterstitialCreativeType: String {
     case VAST = "vast3"
