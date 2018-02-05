@@ -20,7 +20,12 @@ public class MAXAdRequestManager: NSObject {
     var timer: Timer?
     var errorCount = 0.0
 
-    var appObserver: NSObjectProtocol!
+    var appActiveObserver: NSObjectProtocol!
+    
+    // Lock access to shouldRefresh variable to ensure only a single refresh cycle happens at a time.
+    // While a number of steps in the refresh cycle are asynchronous, the chain of events in a single
+    // complete cycle will happen in order, making refresh calls threadsafe.
+    let refreshQueue = DispatchQueue(label: "RefreshQueue")
 
     public init(adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         self.adUnitID = adUnitID
@@ -29,34 +34,33 @@ public class MAXAdRequestManager: NSObject {
         // App lifecycle: when the app is in the background, we will automatically ignore a 
         // request to refresh, so when the app comes back to the foreground, we need to resurrect the timer
         // so that the refresh begins again.
-        self.appObserver = NotificationCenter.default.addObserver(
+        self.appActiveObserver = NotificationCenter.default.addObserver(
                 forName: NSNotification.Name.UIApplicationDidBecomeActive,
                 object: nil,
                 queue: OperationQueue.main
         ) {
             _ in
             if self.shouldRefresh {
-                MAXLog.debug("MAX: got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
+                MAXLog.debug("\(String(describing: self)): got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
                 self.scheduleTimerImmediately()
             }
         }
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self.appObserver)
+        NotificationCenter.default.removeObserver(self.appActiveObserver)
     }
 
-    func runPreBid(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
+    public func runPreBid(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         return MAXAdRequest.preBidWithMAXAdUnit(self.adUnitID, completion: completion)
     }
 
     /// Performs an ad request and then calls the completion handler once it is done.
     /// If an error occurs, a new ad request is generated on an exponential backoff strategy, and retried.
-    public func refresh() -> MAXAdRequest {
-        MAXLog.debug("refresh() called")
-
+    internal func refresh() -> MAXAdRequest {
+        MAXLog.debug("\(String(describing: self)) internal refresh() called")
         return self.runPreBid { (response, error) in
-            MAXLog.debug("preBidWithMAXAdUnit() returned")
+            MAXLog.debug("\(String(describing: self)).runPreBid() returned with error: \(String(describing: error))")
             self.lastResponse = response
             self.lastError = error
             self.completion(response, error)
@@ -66,7 +70,7 @@ public class MAXAdRequestManager: NSObject {
 
     /// Auto-refresh the same pre-bid and execution logic if we successfully retrieved a pre-bid.
     /// NOTE that the SSP refresh should be disabled if pre-bid refresh is being used.
-    func scheduleNewRefresh() {
+    internal func scheduleNewRefresh() {
         if let adResponse = self.lastResponse {
             self.errorCount = 0
             if adResponse.shouldAutoRefresh() {
@@ -76,29 +80,43 @@ public class MAXAdRequestManager: NSObject {
             }
         } else if let adError = self.lastError {
             self.errorCount += 1
-
             // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
-            MAXLog.error("MAX: Error occurred \(adError), retry attempt \(self.errorCount)")
+            MAXLog.error("\(String(describing: self)): Error occurred \(adError), retry attempt \(self.errorCount)")
             MAXErrorReporter.shared.logError(error: adError)
             self.scheduleTimerWithInterval(min(pow(minErrorRetrySeconds, self.errorCount), maxErrorRetrySeconds))
         } else {
-            MAXLog.warn("Tried to schedule a new refresh, but couldn't find an ad response or error. No refresh will be scheduled.")
+            MAXLog.warn("\(String(describing: self)): tried to schedule a new refresh, but couldn't find an ad response or error. No refresh will be scheduled.")
         }
     }
 
     public func startRefresh() {
-        self.shouldRefresh = true
-        self.scheduleTimerImmediately()
+        MAXLog.debug("\(String(describing: self)).startRefresh() called")
+        // See refreshQueue decsription at variable declaration
+        refreshQueue.async {
+            if !self.shouldRefresh {
+                self.shouldRefresh = true
+                self.scheduleTimerImmediately()
+            }
+        }
     }
 
     public func stopRefresh() {
-        self.shouldRefresh = false
-        self.timer?.invalidate()
-        self.timer = nil
+        MAXLog.debug("\(String(describing: self)).stopRefresh() called")
+        // See refreshQueue decsription at variable declaration
+        refreshQueue.async {
+            self.shouldRefresh = false
+            // Guarantee timer is invalidated in same thread on which it was scheduled
+            DispatchQueue.main.async {
+                MAXLog.debug("\(String(describing: self)) refresh timer invalidated")
+                self.timer?.invalidate()
+                self.timer = nil
+            }
+        }
     }
 
     private func scheduleTimerWithInterval(_ interval: Double) {
-        MAXLog.debug("MAX: Scheduling auto-refresh in \(interval) seconds")
+        MAXLog.debug("\(String(describing: self)): Scheduling auto-refresh in \(interval) seconds")
+        // Ensure timer is sheduled on main queue (Timers are added to main run loop by default)
         DispatchQueue.main.async(execute: {
             // if there is an existing timer, we first cancel it
             if let timer = self.timer {
@@ -128,7 +146,7 @@ public class MAXAdRequestManager: NSObject {
             // in this case, the user has stopped refresh for this ad manager explicitly,
             // or the application is backgrounded, in which case we should not attempt to continue
             // loading new ads
-            MAXLog.debug("MAX: auto-refresh cancelled, app is not active")
+            MAXLog.debug("\(String(describing: self)): auto-refresh cancelled, app is not active")
             return
         }
 

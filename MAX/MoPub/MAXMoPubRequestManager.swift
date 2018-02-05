@@ -31,12 +31,11 @@ public class MAXMoPubAdRequestManager: MAXAdRequestManager, MPAdViewDelegate {
     ///
     /// The request manager will also handle attaching MAX pre-bid keywords to the MoPub ad request,
     /// tracking handoffs events to MoPub, and the `adView.loadAd()` call.
-    override public func refresh() -> MAXAdRequest {
-
-        MAXLog.debug("MAXMoPubAdRequestManager.refresh() called")
-
+    /// NOTE: refresh() method is NOT threadsafe. Refreshes should be initiated by calling public startRefresh() method
+    override internal func refresh() -> MAXAdRequest {
+        MAXLog.debug("\(String(describing: self)) internal refresh() called")
         return self.runPreBid { (response, error) in
-            MAXLog.debug("preBidWithMAXAdUnit() returned")
+            MAXLog.debug("\(String(describing: self)).runPreBid() returned with error: \(String(describing: error))")
             self.lastResponse = response
             self.lastError = error
             self.completion(response, error)
