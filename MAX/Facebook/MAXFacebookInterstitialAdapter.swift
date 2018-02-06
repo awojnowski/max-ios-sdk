@@ -66,7 +66,7 @@ public class FacebookInterstitialView: MAXInterstitialAdapter, FBInterstitialAdD
 
     public func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
         MAXLog.debug("Facebook interstitial ad failed: \(error.localizedDescription)")
-        self.delegate?.interstitial(self, didFailWithError: error)
+        self.delegate?.interstitial(self, didFailWithError: MAXClientError(message: error.localizedDescription))
     }
 }
 

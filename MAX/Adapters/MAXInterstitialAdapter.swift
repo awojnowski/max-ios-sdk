@@ -47,5 +47,5 @@ public protocol MAXInterstitialAdapterDelegate: class {
     func interstitialWillClose(_ interstitial: MAXInterstitialAdapter)
     func interstitialDidLoad(_ interstitial: MAXInterstitialAdapter)
     func interstitialWillLogImpression(_ interstitial: MAXInterstitialAdapter)
-    func interstitial(_ interstitial: MAXInterstitialAdapter, didFailWithError error: Error)
+    func interstitial(_ interstitial: MAXInterstitialAdapter, didFailWithError error: MAXClientError)
 }
