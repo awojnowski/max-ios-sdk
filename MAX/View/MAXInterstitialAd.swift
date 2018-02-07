@@ -214,8 +214,9 @@ private class MRAIDDelegate: NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServi
         parent.delegate?.interstitialAdDidClose(parent)
     }
 
-    fileprivate func mraidInterstitialAdFailed(_ mraidInterstitial: SKMRAIDInterstitial!) {
-        MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidInterstitialAdFailed")
+    fileprivate func mraidInterstitialAdFailed(_ mraidInterstitial: SKMRAIDInterstitial!, error: Error!) {
+        MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidInterstitialAdFailed with error - \(error.localizedDescription)")
+        parent.delegate?.interstitial(parent, didFailWithError: MAXClientError(message: error.localizedDescription))
     }
 
     fileprivate func mraidInterstitialWillShow(_ mraidInterstitial: SKMRAIDInterstitial!) {
@@ -225,9 +226,9 @@ private class MRAIDDelegate: NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServi
 
     fileprivate func mraidInterstitialNavigate(_ mraidInterstitial: SKMRAIDInterstitial!, with url: URL!) {
         MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidInterstitialNavigate")
-
         parent.adResponse.trackClick()
         MAXLinkHandler().openURL(parent.rootViewController!, url: url, completion: nil)
+        parent.delegate?.interstitialAdDidClick(parent)
     }
 
     fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
