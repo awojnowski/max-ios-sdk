@@ -4,13 +4,13 @@ import CoreTelephony
 import UIKit
 import MAXBase
 
-class MAXClientError {
-    var appId: Int64?
-    var adUnitID: Int64?
-    var adUnitType: String?
-    var adSourceId: Int64?
-    var createdAt: String
-    var message: String
+public class MAXClientError {
+    public private(set) var appId: Int64?
+    public private(set) var adUnitID: Int64?
+    public private(set) var adUnitType: String?
+    public private(set) var adSourceId: Int64?
+    public private(set) var createdAt: String
+    public private(set) var message: String
 
     init(message: String) {
         self.message = message
