@@ -8,7 +8,7 @@ let minErrorRetrySeconds = 2.0, maxErrorRetrySeconds = 30.0
 /// 1) Auto-refresh periodically (e.g. every 30 seconds)
 /// 2) Auto-retry of failed ad requests
 /// 3) Lifecycle management (e.g. automatically load a new ad when app is brought to foreground)
-public class MAXAdRequestManager: NSObject {
+open class MAXAdRequestManager: NSObject {
     public var lastRequest: MAXAdRequest?
     public var lastResponse: MAXAdResponse?
     public var lastError: NSError?
