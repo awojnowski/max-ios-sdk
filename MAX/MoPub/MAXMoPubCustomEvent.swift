@@ -195,9 +195,7 @@ open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInters
 
     public func interstitial(_ interstitialAd: MAXInterstitialAd, didFailWithError error: MAXClientError) {
         MAXLog.debug("MAX: interstitial:didFailWithError: \(error.message)")
-        let userInfo: [String : Any] = [NSLocalizedDescriptionKey :  NSLocalizedString("MAXClientError", value: error.message, comment: "")]
-        let errorTemp = NSError(domain:"MAXClientError", code:0, userInfo:userInfo)
-        self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: errorTemp)
+        self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: error.asNSError())
     }
 
     
