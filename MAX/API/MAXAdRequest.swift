@@ -94,9 +94,9 @@ public class MAXAdRequest {
     }
 
     var connectivity: String {
-        if SKReachability.forInternetConnection().isReachableViaWiFi() {
+        if MaxReachability.forInternetConnection().isReachableViaWiFi() {
             return MAXConnectivity.Wifi
-        } else if SKReachability.forInternetConnection().isReachableViaWWAN() {
+        } else if MaxReachability.forInternetConnection().isReachableViaWWAN() {
             return MAXConnectivity.Wwan
         } else {
             return MAXConnectivity.None

@@ -29,10 +29,10 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
     fileprivate var rootViewController: UIViewController?
 
     private var vastDelegate: VASTDelegate!
-    private var vastViewController: SKVASTViewController?
+    private var vastViewController: MaxVASTViewController?
 
     private var mraidDelegate: MRAIDDelegate!
-    private var mraidInterstitial: SKMRAIDInterstitial?
+    private var mraidInterstitial: MaxMRAIDInterstitial?
 
     private var interstitialAdapter: MAXInterstitialAdapter?
 
@@ -68,7 +68,7 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
 
     public func loadAdWithMRAIDRenderer() {
         MAXLog.debug("\(String(describing: self)): attempting to load ad with MRAID renderer")
-        mraidInterstitial = SKMRAIDInterstitial(
+        mraidInterstitial = MaxMRAIDInterstitial(
             supportedFeatures: [],
             withHtmlData: adResponse.creative!,
             withBaseURL: URL(string: "https://\(MAXAdRequest.adsDomain)"),
@@ -83,7 +83,7 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
         MAXLog.debug("\(String(describing: self)): attempting to load ad with VAST renderer")
         if let creative = adResponse.creative {
             if let videoData = creative.data(using: String.Encoding.utf8) {
-                vastViewController = SKVASTViewController(delegate: vastDelegate, with: rootViewController)
+                vastViewController = MaxVASTViewController(delegate: vastDelegate, with: rootViewController)
                 vastViewController!.loadVideo(with: videoData)
             } else {
                 MAXLog.debug("\(String(describing: self)): ERROR: VAST ad response creative had no video data")
@@ -152,7 +152,7 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
     }
 }
 
-private class VASTDelegate: NSObject, SKVASTViewControllerDelegate {
+private class VASTDelegate: NSObject, MaxVASTViewControllerDelegate {
 
     weak private var parent: MAXInterstitialAd!
 
@@ -160,13 +160,13 @@ private class VASTDelegate: NSObject, SKVASTViewControllerDelegate {
         self.parent = parent
     }
 
-    fileprivate func vastReady(_ vastVC: SKVASTViewController!) {
-        MAXLog.debug("MAXInterstitialAd SKVASTViewControllerDelegate: vastReady")
+    fileprivate func vastReady(_ vastVC: MaxVASTViewController!) {
+        MAXLog.debug("MAXInterstitialAd MaxVASTViewControllerDelegate: vastReady")
         parent.delegate?.interstitialAdDidLoad(parent)
     }
 
     fileprivate func vastTrackingEvent(_ eventName: String!) {
-        MAXLog.debug("MAXInterstitialAd SKVASTViewControllerDelegate: vastTrackingEvent(\(eventName!))")
+        MAXLog.debug("MAXInterstitialAd MaxVASTViewControllerDelegate: vastTrackingEvent(\(eventName!))")
         if eventName == "start"{
             parent.adResponse.trackImpression()
         }
@@ -175,13 +175,13 @@ private class VASTDelegate: NSObject, SKVASTViewControllerDelegate {
         }
     }
 
-    fileprivate func vastDidDismissFullScreen(_ vastVC: SKVASTViewController!) {
-        MAXLog.debug("MAXInterstitialAd SKVASTViewControllerDelegate: vastDidDismissFullScreen")
+    fileprivate func vastDidDismissFullScreen(_ vastVC: MaxVASTViewController!) {
+        MAXLog.debug("MAXInterstitialAd MaxVASTViewControllerDelegate: vastDidDismissFullScreen")
         parent.delegate?.interstitialAdDidClose(parent)
     }
 
-    fileprivate func vastOpenBrowse(with url: URL!, vastVC: SKVASTViewController!) {
-        MAXLog.debug("MAXInterstitialAd SKVASTViewControllerDelegate: vastOpenBrowse")
+    fileprivate func vastOpenBrowse(with url: URL!, vastVC: MaxVASTViewController!) {
+        MAXLog.debug("MAXInterstitialAd MaxVASTViewControllerDelegate: vastOpenBrowse")
         parent.delegate?.interstitialAdDidClick(parent)
         vastVC.dismiss(animated: false) {
             MAXLinkHandler().openURL(vastVC, url: url, completion: nil)
@@ -189,50 +189,50 @@ private class VASTDelegate: NSObject, SKVASTViewControllerDelegate {
         vastVC.close()
     }
     
-    fileprivate func vastError(_ vastVC: SKVASTViewController!, error: SKVASTError) {
-        MAXLog.debug("MAXInterstitialAd SKVASTViewControllerDelegate: failedToLoadAd - Code:\(error.rawValue)")
-        let tmpError = MAXClientError(message: "SKVASTError - \(error.rawValue)")
+    fileprivate func vastError(_ vastVC: MaxVASTViewController!, error: MaxVASTError) {
+        MAXLog.debug("MAXInterstitialAd MaxVASTViewControllerDelegate: failedToLoadAd - Code:\(error.rawValue)")
+        let tmpError = MAXClientError(message: "MaxVASTError - \(error.rawValue)")
         parent.delegate?.interstitial(parent, didFailWithError: tmpError)
     }
 }
 
-private class MRAIDDelegate: NSObject, SKMRAIDInterstitialDelegate, SKMRAIDServiceDelegate {
+private class MRAIDDelegate: NSObject, MaxMRAIDInterstitialDelegate, MaxMRAIDServiceDelegate {
     weak private var parent: MAXInterstitialAd!
 
     init(parent: MAXInterstitialAd) {
         self.parent = parent
     }
 
-    fileprivate func mraidInterstitialAdReady(_ mraidInterstitial: SKMRAIDInterstitial!) {
-        MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidInterstitialAdReady")
+    fileprivate func mraidInterstitialAdReady(_ mraidInterstitial: MaxMRAIDInterstitial!) {
+        MAXLog.debug("MAXInterstitialAd MaxMRAIDInterstitialDelegate: mraidInterstitialAdReady")
         parent.delegate?.interstitialAdDidLoad(parent)
     }
 
-    fileprivate func mraidInterstitialDidHide(_ mraidInterstitial: SKMRAIDInterstitial!) {
-        MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidInterstitialDidHide")
+    fileprivate func mraidInterstitialDidHide(_ mraidInterstitial: MaxMRAIDInterstitial!) {
+        MAXLog.debug("MAXInterstitialAd MaxMRAIDInterstitialDelegate: mraidInterstitialDidHide")
         parent.delegate?.interstitialAdWillClose(parent)
         parent.delegate?.interstitialAdDidClose(parent)
     }
 
-    fileprivate func mraidInterstitialAdFailed(_ mraidInterstitial: SKMRAIDInterstitial!, error: Error!) {
-        MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidInterstitialAdFailed with error - \(error.localizedDescription)")
+    fileprivate func mraidInterstitialAdFailed(_ mraidInterstitial: MaxMRAIDInterstitial!, error: Error!) {
+        MAXLog.debug("MAXInterstitialAd MaxMRAIDInterstitialDelegate: mraidInterstitialAdFailed with error - \(error.localizedDescription)")
         parent.delegate?.interstitial(parent, didFailWithError: MAXClientError(message: error.localizedDescription))
     }
 
-    fileprivate func mraidInterstitialWillShow(_ mraidInterstitial: SKMRAIDInterstitial!) {
-        MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidInterstitialWillShow")
+    fileprivate func mraidInterstitialWillShow(_ mraidInterstitial: MaxMRAIDInterstitial!) {
+        MAXLog.debug("MAXInterstitialAd MaxMRAIDInterstitialDelegate: mraidInterstitialWillShow")
         parent.adResponse.trackImpression()
     }
 
-    fileprivate func mraidInterstitialNavigate(_ mraidInterstitial: SKMRAIDInterstitial!, with url: URL!) {
-        MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidInterstitialNavigate")
+    fileprivate func mraidInterstitialNavigate(_ mraidInterstitial: MaxMRAIDInterstitial!, with url: URL!) {
+        MAXLog.debug("MAXInterstitialAd MaxMRAIDInterstitialDelegate: mraidInterstitialNavigate")
         parent.adResponse.trackClick()
         MAXLinkHandler().openURL(parent.rootViewController!, url: url, completion: nil)
         parent.delegate?.interstitialAdDidClick(parent)
     }
 
     fileprivate func mraidServiceOpenBrowser(withUrlString url: String) {
-        MAXLog.debug("MAXInterstitialAd SKMRAIDInterstitialDelegate: mraidServiceOpenBrowserWithUrlString")
+        MAXLog.debug("MAXInterstitialAd MaxMRAIDInterstitialDelegate: mraidServiceOpenBrowserWithUrlString")
 
         // This method is called when the MRAID creative requests a native browser to be opened. This is
         // considered to be a click event

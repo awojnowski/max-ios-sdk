@@ -66,9 +66,9 @@ public class MAXClientError {
     }
 
     var connectivity: String {
-        if SKReachability.forInternetConnection().isReachableViaWiFi() {
+        if MaxReachability.forInternetConnection().isReachableViaWiFi() {
             return "wifi"
-        } else if SKReachability.forInternetConnection().isReachableViaWWAN() {
+        } else if MaxReachability.forInternetConnection().isReachableViaWWAN() {
             return "wwan"
         } else {
             return "none"
