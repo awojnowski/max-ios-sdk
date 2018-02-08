@@ -16,14 +16,14 @@ public protocol MAXAdViewDelegate: NSObjectProtocol {
     func adViewWillLogImpression(_ adView: MAXAdView)
 }
 
-public class MAXAdView: UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate, MAXAdViewAdapterDelegate {
+public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, MAXAdViewAdapterDelegate {
     // The delegate should be weak here so that if the CustomEvent object itself gets deallocated
     // due to a new request being initiated by the SSP (e.g. for a timeout or other failure) 
     // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack.
     open weak var delegate: MAXAdViewDelegate?
 
     private var adResponse: MAXAdResponse!
-    private var mraidView: SKMRAIDView!
+    private var mraidView: MaxMRAIDView!
     private var adViewAdapter: MAXAdViewAdapter!
     private var adSize: CGSize!
 
@@ -68,7 +68,7 @@ public class MAXAdView: UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate, MAX
             return
         }
 
-        self.mraidView = SKMRAIDView(
+        self.mraidView = MaxMRAIDView(
             frame: self.bounds,
             withHtmlData: htmlData,
             withBaseURL: URL(string: "https://\(MAXAdRequest.adsDomain)"),
@@ -168,44 +168,44 @@ public class MAXAdView: UIView, SKMRAIDViewDelegate, SKMRAIDServiceDelegate, MAX
     }
 
     /*
-     * SKMRAIDViewDelegate methods
+     * MaxMRAIDViewDelegate methods
      */
-    public func mraidViewAdReady(_ mraidView: SKMRAIDView!) {
+    public func mraidViewAdReady(_ mraidView: MaxMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdReady")
         self.trackImpression()
         self.delegate?.adViewDidLoad(self)
     }
 
-    public func mraidViewAdFailed(_ mraidView: SKMRAIDView!) {
+    public func mraidViewAdFailed(_ mraidView: MaxMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdFailed")
         self.delegate?.adViewDidFailWithError(self, error: nil)
     }
 
-    public func mraidViewDidClose(_ mraidView: SKMRAIDView!) {
+    public func mraidViewDidClose(_ mraidView: MaxMRAIDView!) {
         MAXLog.debug("MAX: mraidViewDidClose")
     }
 
-    public func mraidViewWillExpand(_ mraidView: SKMRAIDView!) {
+    public func mraidViewWillExpand(_ mraidView: MaxMRAIDView!) {
         MAXLog.debug("MAX: mraidViewWillExpand")
 
         // An MRAID expand action is considered to be a click for tracking purposes. 
         self.trackClick()
     }
 
-    public func mraidViewNavigate(_ mraidView: SKMRAIDView!, with url: URL!) {
+    public func mraidViewNavigate(_ mraidView: MaxMRAIDView!, with url: URL!) {
         MAXLog.debug("MAX: mraidViewNavigate \(url)")
 
         // The main mechanism for MRAID banners to request a navigation out to an external browser
         self.click(url)
     }
 
-    public func mraidViewShouldResize(_ mraidView: SKMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
+    public func mraidViewShouldResize(_ mraidView: MaxMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
         MAXLog.debug("MAX: mraidViewShouldResize to \(position) offscreen=\(allowOffscreen)")
         return true
     }
 
     /*
-     * SKMRAIDServiceDelegate
+     * MaxMRAIDServiceDelegate
      */
     public func mraidServiceOpenBrowser(withUrlString url: String) {
         MAXLog.debug("MAX: mraidServiceOpenBrowserWithUrlString \(url)")
