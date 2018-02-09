@@ -140,9 +140,7 @@ public class MAXAdRequest {
 
     var locationTrackingTimestamp: String? {
         if let dt = MAXLocationProvider.shared.getLocationUpdateTimestamp() {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-            return dateFormatter.string(from: dt)
+            return MaxDateFormatter.rfc3339DateTimeStringForDate(dt)
         } else {
             return nil
         }

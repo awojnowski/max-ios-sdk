@@ -170,14 +170,13 @@ open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInters
         }
     }
 
-    
-    //MARK: MAXInterstitialAdDelegate
+    // MARK: MAXInterstitialAdDelegate
 
     open func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidLoad")
         self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
     }
-    
+
     open func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidClick")
         self.delegate.interstitialCustomEventDidReceiveTap(self)
@@ -198,9 +197,8 @@ open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInters
         self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: error.asNSError())
     }
 
-    
-    //MARK: MPInterstitialCustomEventDelegate
-    
+    // MARK: MPInterstitialCustomEventDelegate
+
     @available(iOS 2.0, *)
     public func location() -> CLLocation! {
         return self.delegate.location()

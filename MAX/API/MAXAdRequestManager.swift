@@ -21,7 +21,7 @@ open class MAXAdRequestManager: NSObject {
     var errorCount = 0.0
 
     var appActiveObserver: NSObjectProtocol!
-    
+
     // Lock access to shouldRefresh variable to ensure only a single refresh cycle happens at a time.
     // While a number of steps in the refresh cycle are asynchronous, the chain of events in a single
     // complete cycle will happen in order, making refresh calls threadsafe.

@@ -78,7 +78,7 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
             rootViewController: nil
         )
     }
-    
+
     public func loadAdWithVASTRenderer() {
         MAXLog.debug("\(String(describing: self)): attempting to load ad with VAST renderer")
         if let creative = adResponse.creative {
@@ -188,7 +188,7 @@ private class VASTDelegate: NSObject, MaxVASTViewControllerDelegate {
         }
         vastVC.close()
     }
-    
+
     fileprivate func vastError(_ vastVC: MaxVASTViewController!, error: MaxVASTError) {
         MAXLog.debug("MAXInterstitialAd MaxVASTViewControllerDelegate: failedToLoadAd - Code:\(error.rawValue)")
         let tmpError = MAXClientError(message: "MaxVASTError - \(error.rawValue)")

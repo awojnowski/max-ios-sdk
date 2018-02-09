@@ -13,7 +13,7 @@ public class MAXClientError {
     public private(set) var message: String
 
     private let MAXErrorDomain = "MAXErrorDomain"
-    
+
     init(message: String) {
         self.message = message
         self.createdAt = Date().description
@@ -111,10 +111,10 @@ public class MAXClientError {
     var jsonData: Data? {
         return try? JSONSerialization.data(withJSONObject: self.data, options: [])
     }
-    
+
     public func asNSError() -> NSError {
-        let userInfo: [String : Any] = [NSLocalizedDescriptionKey :  message]
-        let errorTemp = NSError(domain:MAXErrorDomain, code:0, userInfo:userInfo)
+        let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
+        let errorTemp = NSError(domain: MAXErrorDomain, code:0, userInfo:userInfo)
         return errorTemp
     }
 }

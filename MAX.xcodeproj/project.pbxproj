@@ -36,6 +36,9 @@
 		7E09A2BD1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E09A2BB1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift */; };
 		7E3537AD1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */; };
 		7E3537AE1F9D67AF001F0877 /* MAXAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */; };
+		7E40C1A1202D22180002829C /* MAXDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E40C1A0202D22180002829C /* MAXDateFormatter.swift */; };
+		7E40C1A2202D22180002829C /* MAXDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E40C1A0202D22180002829C /* MAXDateFormatter.swift */; };
+		7E40C1A4202D31B10002829C /* MAXDateFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E40C1A3202D31B10002829C /* MAXDateFormatterSpec.swift */; };
 		7E684B951F50CB980067ED0D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E684B941F50CB980067ED0D /* CoreLocation.framework */; };
 		7E68D7F71F9FA28400472560 /* MAXFacebookBannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E68D7F61F9FA28400472560 /* MAXFacebookBannerAdapter.swift */; };
 		7E68D7F81F9FA28400472560 /* MAXFacebookBannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E68D7F61F9FA28400472560 /* MAXFacebookBannerAdapter.swift */; };
@@ -118,6 +121,8 @@
 		7E03B5EE1F9B0955007F1901 /* MAXFacebookAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXFacebookAdapter.swift; sourceTree = "<group>"; };
 		7E09A2BB1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXConcurrentDictionary.swift; sourceTree = "<group>"; };
 		7E3537AC1F9D67AF001F0877 /* MAXAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXAPIConstants.swift; sourceTree = "<group>"; };
+		7E40C1A0202D22180002829C /* MAXDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXDateFormatter.swift; sourceTree = "<group>"; };
+		7E40C1A3202D31B10002829C /* MAXDateFormatterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXDateFormatterSpec.swift; sourceTree = "<group>"; };
 		7E684B941F50CB980067ED0D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7E68D7F61F9FA28400472560 /* MAXFacebookBannerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXFacebookBannerAdapter.swift; sourceTree = "<group>"; };
 		7E68D7F91F9FA29A00472560 /* MAXFacebookInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXFacebookInterstitialAdapter.swift; sourceTree = "<group>"; };
@@ -220,6 +225,7 @@
 				E8E21B021E4E6112003BE3BD /* MAXLinkHandler.swift */,
 				E8E21CE11E4E8F22003BE3BD /* MAXLogger.swift */,
 				7E09A2BB1FCF5B1B006B1B4F /* MAXConcurrentDictionary.swift */,
+				7E40C1A0202D22180002829C /* MAXDateFormatter.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -257,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				60A2D352D6D62F6A240F9D7E /* MAXErrorReporterSpec.swift */,
+				7E40C1A3202D31B10002829C /* MAXDateFormatterSpec.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -622,6 +629,7 @@
 				60A2D42EBC414FC3663BF45F /* MAXErrorReporter.swift in Sources */,
 				7EB5BB981F95196F0097DBB9 /* MAXTokenProvider.swift in Sources */,
 				60A2D66D16B610A50D2ECC02 /* MAXError.swift in Sources */,
+				7E40C1A1202D22180002829C /* MAXDateFormatter.swift in Sources */,
 				7E68D7F71F9FA28400472560 /* MAXFacebookBannerAdapter.swift in Sources */,
 				60A2DFA332C87BFC496C701E /* MAXSession.swift in Sources */,
 				7EFB2F771FA94598005ECD44 /* MAXInterstitialAdapter.swift in Sources */,
@@ -636,6 +644,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60A2D592A112EC7C1989064C /* MAXError.swift in Sources */,
+				7E40C1A2202D22180002829C /* MAXDateFormatter.swift in Sources */,
 				7E68D7F81F9FA28400472560 /* MAXFacebookBannerAdapter.swift in Sources */,
 				7EFB2F7A1FA94E03005ECD44 /* MAXFacebookBannerAdapterSpec.swift in Sources */,
 				60A2DE50FA1C2C4EB33B5457 /* MAXErrorReporterSpec.swift in Sources */,
@@ -679,6 +688,7 @@
 				7EE3AE951F9D887900A16D5F /* MAXMoPubAdRequestManagerSpec.swift in Sources */,
 				7EFE14BF1F997A9C00DA947C /* MAXUserAgent.swift in Sources */,
 				7EFB2F881FA952ED005ECD44 /* MAXErrorReporterStub.swift in Sources */,
+				7E40C1A4202D31B10002829C /* MAXDateFormatterSpec.swift in Sources */,
 				60A2D12A76C6EF30BF18E16B /* MAXLocationProviderSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
