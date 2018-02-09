@@ -17,15 +17,15 @@ point in your existing waterfall.
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |d| 
-    d.dependency 'MAXBase', '>= 1.0.1'
+    d.dependency 'MAXBase', '>= 1.0.0'
     d.source_files = [
-	'MAX/*.{h,m,swift}',
-	'MAX/Adapters/**/*',
-	'MAX/API/**/*',
-	'MAX/Utility/**/*',
-	'MAX/View/**/*'
-  	]
-  end
+     'MAX/*.{h,m,swift}',
+     'MAX/Adapters/**/*',
+     'MAX/API/**/*',
+     'MAX/Utility/**/*',
+     'MAX/View/**/*'
+   ]
+ end
 
   s.subspec 'MoPub' do |d| 
     d.dependency 'MAX/Core'
