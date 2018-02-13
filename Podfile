@@ -8,9 +8,7 @@ target 'MAX' do
 
 # MAX repos
 	
-#  pod 'MAXBase', :git => 'git@github.com:MAXAds/max-ios-base'
-  pod 'MAXBase', :git => 'git@github.com:MAXAds/max-ios-base-internal'
-#  pod 'MAXBase', :path => '../max-ios-base'
+  pod 'MAXBase', '1.0.0'
 
 # Third party repos
 
