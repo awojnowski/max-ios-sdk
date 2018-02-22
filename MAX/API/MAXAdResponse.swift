@@ -21,6 +21,7 @@ public class MAXAdResponseParameters {
         public static let partnerPlacementID = "partner_placement_id"
         public static let usePartnerRendering = "use_partner_rendering"
         public static let creativeType = "creative_type"
+        public static let auctionPrice = "auction_price"
     }
 }
 
@@ -133,6 +134,14 @@ public class MAXAdResponse: NSObject {
         }
 
         return false
+    }
+    
+    public var winningPrice: Int {
+        if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
+            return winner[MAXAdResponseParameters.Winner.auctionPrice] as? Int ?? 0
+        }
+        
+        return 0
     }
 
     func getSession() -> URLSession {

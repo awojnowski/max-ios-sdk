@@ -12,7 +12,8 @@ class MAXAdResponseSpec: QuickSpec {
                     "creative_type": "html",
                     "partner": "MAX",
                     "partner_placement_id": "one_great_id",
-                    "use_partner_rendering": true
+                    "use_partner_rendering": true,
+                    "auction_price": 1234
                 ],
                 "creative": "<img src='http://a.com/b.png' />",
                 "prebid_keywords": "a,b,c",
@@ -42,6 +43,7 @@ class MAXAdResponseSpec: QuickSpec {
                 expect(r.partnerName).to(equal("MAX"))
                 expect(r.partnerPlacementID).to(equal("one_great_id"))
                 expect(r.usePartnerRendering).to(beTrue())
+                expect(r.winningPrice).to(equal(1234))
             }
 
             it("can be created from an empty response body") {
@@ -49,6 +51,7 @@ class MAXAdResponseSpec: QuickSpec {
                 expect(emptyResponse.preBidKeywords).to(equal(""))
                 expect(emptyResponse.creativeType).to(equal("empty"))
                 expect(emptyResponse.autoRefreshInterval).to(beNil())
+                expect(emptyResponse.winningPrice).to(equal(0))
             }
 
             it("should auto refresh") {
