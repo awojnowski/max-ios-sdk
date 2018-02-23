@@ -1,6 +1,4 @@
-import Foundation
-import MAXBase
-import MAXBase
+import UIKit
 
 public enum MAXInterstitialCreativeType: String {
     case VAST = "vast3"
@@ -189,7 +187,7 @@ private class VASTDelegate: NSObject, MaxVASTViewControllerDelegate {
         vastVC.close()
     }
 
-    fileprivate func vastError(_ vastVC: MaxVASTViewController!, error: MaxVASTError) {
+    fileprivate func vastError(_ vastVC: MaxVASTViewController!,_ error: MaxVASTError) {
         MAXLog.debug("MAXInterstitialAd MaxVASTViewControllerDelegate: failedToLoadAd - Code:\(error.rawValue)")
         let tmpError = MAXClientError(message: "MaxVASTError - \(error.rawValue)")
         parent.delegate?.interstitial(parent, didFailWithError: tmpError)

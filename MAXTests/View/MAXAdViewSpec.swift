@@ -1,6 +1,5 @@
 import Quick
 import Nimble
-import MAXBase
 @testable import MAX
 
 class MAXAdViewAdapterStub: MAXAdViewAdapter {

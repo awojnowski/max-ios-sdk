@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "193BFA55203799EA006D86DC"
-               BuildableName = "MAX.framework"
-               BlueprintName = "MAX"
+               BlueprintIdentifier = "193BF9FB203797CE006D86DC"
+               BuildableName = "libMAXLib.a"
+               BlueprintName = "MAXLib"
                ReferencedContainer = "container:MAX.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,26 +29,7 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "193BFA5D203799EA006D86DC"
-               BuildableName = "MAXTests.xctest"
-               BlueprintName = "MAXTests"
-               ReferencedContainer = "container:MAX.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "193BFA55203799EA006D86DC"
-            BuildableName = "MAX.framework"
-            BlueprintName = "MAX"
-            ReferencedContainer = "container:MAX.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -66,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "193BFA55203799EA006D86DC"
-            BuildableName = "MAX.framework"
-            BlueprintName = "MAX"
+            BlueprintIdentifier = "193BF9FB203797CE006D86DC"
+            BuildableName = "libMAXLib.a"
+            BlueprintName = "MAXLib"
             ReferencedContainer = "container:MAX.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -84,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "193BFA55203799EA006D86DC"
-            BuildableName = "MAX.framework"
-            BlueprintName = "MAX"
+            BlueprintIdentifier = "193BF9FB203797CE006D86DC"
+            BuildableName = "libMAXLib.a"
+            BlueprintName = "MAXLib"
             ReferencedContainer = "container:MAX.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

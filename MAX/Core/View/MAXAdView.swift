@@ -1,5 +1,4 @@
-import Foundation
-import MAXBase
+import UIKit
 
 public enum MAXBannerCreativeType: String {
     case MRAID = "html"

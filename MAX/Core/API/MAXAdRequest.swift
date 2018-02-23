@@ -3,7 +3,6 @@ import AdSupport
 import CoreTelephony
 import UIKit
 import CoreLocation
-import MAXBase
 
 /// `MAXAdRequest`s will call a callback upon ad request completion. The callback function will be passed the
 /// result of the ad request, either a response of type MAXAdResponse, or an error of type NSError. Both are

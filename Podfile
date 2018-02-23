@@ -1,26 +1,37 @@
-platform :ios, '9.0'
-use_frameworks!
+platform :ios, '8.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/MAXAds/Specs.git'
 
+def common_deps
+
+  use_frameworks!
+
+  pod 'SwiftLint'
+  pod 'mopub-ios-sdk', '>= 4.18.0'
+  pod 'FBAudienceNetwork', '= 4.27.2'
+ 
+end
+
+
 target 'MAX' do
+ 
+  common_deps
 
-# MAX repos
-	
-  pod 'MAXBase', '1.0.0'
+  target 'MAXTests' do
+    inherit! :search_paths
 
-# Third party repos
+    pod 'Quick'
+    pod 'Nimble'
+  end
+ 
+end
 
-	pod 'SwiftLint' 
-	pod 'mopub-ios-sdk', '>= 4.18.0'
-	pod 'FBAudienceNetwork', '= 4.27.2'
+target 'MAXLib' do
 
-	target 'MAXTests' do
-		inherit! :search_paths
-
-		pod 'Quick'
-		pod 'Nimble'
-	end
+  common_deps
 
 end
+
+
+

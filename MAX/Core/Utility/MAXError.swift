@@ -2,7 +2,6 @@ import Foundation
 import AdSupport
 import CoreTelephony
 import UIKit
-import MAXBase
 
 public class MAXClientError {
     public private(set) var appId: Int64?
