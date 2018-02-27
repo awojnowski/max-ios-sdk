@@ -1,10 +1,10 @@
 import Foundation
 import FBAudienceNetwork
 
-public class FacebookBannerView: MAXAdViewAdapter, FBAdViewDelegate {
+internal class FacebookBannerView: MAXAdViewAdapter, FBAdViewDelegate {
 
-    public var fbAdView: FBAdView
-    public var bidPayload: String
+    internal var fbAdView: FBAdView
+    internal var bidPayload: String
 
     override var adView: UIView? {
         get {
@@ -21,14 +21,14 @@ public class FacebookBannerView: MAXAdViewAdapter, FBAdViewDelegate {
         }
     }
 
-    public init(placementID: String, fbAdSize: FBAdSize, rootViewController: UIViewController?, bidPayload: String) {
+    internal init(placementID: String, fbAdSize: FBAdSize, rootViewController: UIViewController?, bidPayload: String) {
         self.fbAdView = FBAdView(placementID: placementID, adSize: fbAdSize, rootViewController: rootViewController)
         self.bidPayload = bidPayload
         super.init()
         self.fbAdView.delegate = self
     }
 
-    override public func loadAd() {
+    override internal func loadAd() {
         MAXLog.debug("Calling loadAd on Facebook Banner")
         self.fbAdView.loadAd(withBidPayload: self.bidPayload)
     }
@@ -61,11 +61,11 @@ public class FacebookBannerView: MAXAdViewAdapter, FBAdViewDelegate {
     }
 }
 
-public class FacebookBannerGenerator: NSObject, MAXAdViewAdapterGenerator {
+internal class FacebookBannerGenerator: MAXAdViewAdapterGenerator {
 
-    public var identifier: String = facebookIdentifier
+    internal var identifier: String = facebookIdentifier
 
-    public func getAdViewAdapter(fromResponse response: MAXAdResponse,
+    internal func getAdViewAdapter(fromResponse response: MAXAdResponse,
                                  withSize size: CGSize,
                                  rootViewController: UIViewController?) -> MAXAdViewAdapter? {
         guard let placementID = response.partnerPlacementID else {

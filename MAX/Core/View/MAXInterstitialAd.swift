@@ -6,12 +6,12 @@ public enum MAXInterstitialCreativeType: String {
     case empty = "empty"
 }
 
-public protocol MAXInterstitialAdDelegate: class {
-    func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd)
-    func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd)
-    func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd)
-    func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd)
-    func interstitial(_ interstitialAd: MAXInterstitialAd, didFailWithError error: MAXClientError)
+@objc public protocol MAXInterstitialAdDelegate: class {
+    @objc func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd)
+    @objc func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd)
+    @objc func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd)
+    @objc func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd)
+    @objc func interstitial(_ interstitialAd: MAXInterstitialAd, didFailWithError error: MAXClientError)
 }
 
 public enum MAXInterstitialAdError: Error {
@@ -19,10 +19,10 @@ public enum MAXInterstitialAdError: Error {
     case creativeTypeNotFound
 }
 
-open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
+open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate {
     fileprivate var adResponse: MAXAdResponse!
 
-    public weak var delegate: MAXInterstitialAdDelegate?
+    @objc public weak var delegate: MAXInterstitialAdDelegate?
 
     fileprivate var rootViewController: UIViewController?
 
@@ -34,13 +34,14 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
 
     private var interstitialAdapter: MAXInterstitialAdapter?
 
-    public init(adResponse: MAXAdResponse) {
+    @objc public init(adResponse: MAXAdResponse) {
+        super.init()
         self.adResponse = adResponse
         self.vastDelegate = VASTDelegate(parent: self)
         self.mraidDelegate = MRAIDDelegate(parent: self)
     }
 
-    public func showAdFromRootViewController(_ rootViewController: UIViewController) {
+    @objc public func showAdFromRootViewController(_ rootViewController: UIViewController) {
         self.rootViewController = rootViewController
         switch adResponse.creativeType {
             case MAXInterstitialCreativeType.VAST.rawValue:
@@ -64,7 +65,7 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
         }
     }
 
-    public func loadAdWithMRAIDRenderer() {
+    @objc public func loadAdWithMRAIDRenderer() {
         MAXLog.debug("\(String(describing: self)): attempting to load ad with MRAID renderer")
         mraidInterstitial = MaxMRAIDInterstitial(
             supportedFeatures: [],
@@ -77,7 +78,7 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
         )
     }
 
-    public func loadAdWithVASTRenderer() {
+    @objc public func loadAdWithVASTRenderer() {
         MAXLog.debug("\(String(describing: self)): attempting to load ad with VAST renderer")
         if let creative = adResponse.creative {
             if let videoData = creative.data(using: String.Encoding.utf8) {
@@ -91,7 +92,7 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
         }
     }
 
-    func loadAdWithAdapter() {
+    @objc public func loadAdWithAdapter() {
         guard let partner = adResponse.partnerName else {
             MAXLog.error("\(String(describing: self)): Attempted to load interstitial with third party renderer, but no partner was declared")
             self.loadAdWithMRAIDRenderer()
@@ -111,7 +112,7 @@ open class MAXInterstitialAd: MAXInterstitialAdapterDelegate {
         interstitialAdapter?.loadAd()
     }
 
-    func getGenerator(forPartner partner: String) -> MAXInterstitialAdapterGenerator? {
+    internal func getGenerator(forPartner partner: String) -> MAXInterstitialAdapterGenerator? {
         return MAXConfiguration.shared.getInterstitialGenerator(forPartner: partner)
     }
 

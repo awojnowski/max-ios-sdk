@@ -17,13 +17,13 @@ import CoreLocation
  */
 class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
 
-    static let shared = MAXLocationProvider()
+    public static let shared = MAXLocationProvider()
 
-    var locationManager = CLLocationManager()
-    var foregroundObserver: NSObjectProtocol?
-    var backgroundObserver: NSObjectProtocol?
-
-    var lastLocation: CLLocation?
+    internal var lastLocation: CLLocation?
+    
+    private var locationManager = CLLocationManager()
+    private var foregroundObserver: NSObjectProtocol?
+    private var backgroundObserver: NSObjectProtocol?
 
     override init() {
         super.init()
@@ -66,17 +66,17 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         self.stopLocationUpdates()
     }
 
-    func locationTrackingEnabled() -> Bool {
+    @objc public func locationTrackingEnabled() -> Bool {
         return MAXConfiguration.shared.locationTrackingEnabled
     }
 
-    func locationTrackingAuthorized() -> Bool {
+    @objc public func locationTrackingAuthorized() -> Bool {
         let authorizationStatus = CLLocationManager.authorizationStatus()
         return authorizationStatus == .authorizedWhenInUse ||
                authorizationStatus == .authorizedAlways
     }
 
-    func locationTrackingAvailability() -> String {
+    @objc public func locationTrackingAvailability() -> String {
         if !self.locationTrackingEnabled() {
             return "disabled"
         } else if !self.locationTrackingAuthorized() {
@@ -86,7 +86,7 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    func startLocationUpdates() {
+    @objc public func startLocationUpdates() {
         guard self.locationTrackingEnabled() else {
             MAXLog.debug("Location tracking disabled in MAXConfiguration, skipping location updates")
             return
@@ -101,30 +101,30 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         self.locationManager.startUpdatingLocation()
     }
 
-    func stopLocationUpdates() {
+    @objc public func stopLocationUpdates() {
         MAXLog.debug("MAXLocationProvider will stop updating it's location.")
         self.locationManager.stopUpdatingLocation()
     }
 
-    @objc func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    @objc public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         MAXLog.debug("MAXLocationProvider updated with new location")
         let location = locations.last!
 
         self.lastLocation = location
     }
 
-    @objc func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    @objc public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         MAXLog.error("MAXLocationProvider failed to update location")
     }
 
-    public func setDistanceFilter(_ distanceFilter: Double) {
+    @objc public func setDistanceFilter(_ distanceFilter: Double) {
         MAXLog.debug("MAXLocationProvider distance filter updated from \(self.locationManager.distanceFilter) to \(distanceFilter)")
         self.locationManager.distanceFilter = distanceFilter
         self.stopLocationUpdates()
         self.startLocationUpdates()
     }
 
-    func getLocation() -> CLLocation? {
+    @objc public func getLocation() -> CLLocation? {
         guard self.locationTrackingEnabled() else {
             MAXLog.warn("MAXLocationProvider getLocation called but location tracking is disabled")
             return nil
@@ -132,7 +132,7 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         return self.lastLocation
     }
 
-    func getLocationUpdateTimestamp() -> Date? {
+    @objc public func getLocationUpdateTimestamp() -> Date? {
         guard self.locationTrackingEnabled() else {
             MAXLog.warn("MAXLocationProvider getLastLocationUpdateTimestamp called but location tracking is disabled.")
             return nil
@@ -146,7 +146,8 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         return nil
     }
 
-    func getLocationHorizontalAccuracy() -> CLLocationAccuracy? {
+    // TODO - Bryan: 'Method cannot be marked @objc because its result type cannot be represented in Objective-C'
+    public func getLocationHorizontalAccuracy() -> CLLocationAccuracy? {
         guard self.locationTrackingEnabled() else {
             MAXLog.warn("MAXLocationProvider getLocationHorizontalAccuracy called but location tracking is disabled")
             return nil
@@ -160,7 +161,8 @@ class MAXLocationProvider: NSObject, CLLocationManagerDelegate {
         return nil
     }
 
-    func getLocationVerticalAccuracy() -> CLLocationAccuracy? {
+    // TODO - Bryan: 'Method cannot be marked @objc because its result type cannot be represented in Objective-C'
+    public func getLocationVerticalAccuracy() -> CLLocationAccuracy? {
         guard self.locationTrackingEnabled() else {
             MAXLog.warn("MAXLocationProvider getLocationVerticalAccuracy called but location tracking is disabled")
             return nil

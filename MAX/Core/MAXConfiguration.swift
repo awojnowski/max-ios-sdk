@@ -3,15 +3,15 @@ import UIKit
 
 let maxSDKVersion = "0.9.0"
 
-public class MAXConfiguration {
+public class MAXConfiguration: NSObject {
 
     public static let shared = MAXConfiguration()
-    private init() {
+    private override init() {
         MAXLog.info("You are using MAX iOS SDK version \(maxSDKVersion)")
     }
 
     /// Get the current version of the SDK. This is reported in ad requests.
-    public func getSDKVersion() -> String {
+    @objc public func getSDKVersion() -> String {
         return maxSDKVersion
     }
 
@@ -24,29 +24,30 @@ public class MAXConfiguration {
 
     private var _locationTrackingEnabled: Bool = false
 
-    var locationTrackingEnabled: Bool {
+    @objc public var locationTrackingEnabled: Bool {
         return _locationTrackingEnabled
     }
 
-    public func enableLocationTracking() {
+    @objc public func enableLocationTracking() {
         self._locationTrackingEnabled = true
     }
 
-    public func disableLocationTracking() {
+   @objc public func disableLocationTracking() {
         self._locationTrackingEnabled = false
     }
 
     /*
      * Third party hooks
      */
-    public var tokenRegistrar = MAXTokenRegistrar()
+    @objc public var tokenRegistrar = MAXTokenRegistrar()
 
     private var partnerAdViewGenerators: Dictionary<String, MAXAdViewAdapterGenerator> = [:]
-    public func registerAdViewGenerator(_ generator: MAXAdViewAdapterGenerator) {
+    
+    @objc public func registerAdViewGenerator(_ generator: MAXAdViewAdapterGenerator) {
         self.partnerAdViewGenerators[generator.identifier] = generator
     }
 
-    public func getAdViewGenerator(forPartner: String) -> MAXAdViewAdapterGenerator? {
+    @objc public func getAdViewGenerator(forPartner: String) -> MAXAdViewAdapterGenerator? {
         return self.partnerAdViewGenerators[forPartner]
     }
 
@@ -55,7 +56,7 @@ public class MAXConfiguration {
         self.partnerInterstitialGenerators[generator.identifier] = generator
     }
 
-    public func getInterstitialGenerator(forPartner: String) -> MAXInterstitialAdapterGenerator? {
+    @objc public func getInterstitialGenerator(forPartner: String) -> MAXInterstitialAdapterGenerator? {
         return self.partnerInterstitialGenerators[forPartner]
     }
 }

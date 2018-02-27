@@ -12,20 +12,20 @@ import Foundation
 /// ```swift
 /// MAXConfiguration.shared.tokenRegistrar.registerTokenProvider(SomeTokenProvider())
 /// ```
-public protocol MAXTokenProvider {
+@objc public protocol MAXTokenProvider {
     var identifier: String { get }
     func generateToken() -> String
 }
 
-public class MAXTokenRegistrar {
+public class MAXTokenRegistrar: NSObject {
 
-    public var tokens: Dictionary<String, MAXTokenProvider> = [:]
+    @objc public var tokens: Dictionary<String, MAXTokenProvider> = [:]
 
-    public func registerTokenProvider(_ tokenProvider: MAXTokenProvider) {
+    @objc public func registerTokenProvider(_ tokenProvider: MAXTokenProvider) {
         self.tokens[tokenProvider.identifier] = tokenProvider
     }
 
-    public func generateToken(_ withIdentifier: String) -> String? {
+    @objc public func generateToken(_ withIdentifier: String) -> String? {
         if let provider = tokens[withIdentifier] {
             return provider.generateToken()
         }

@@ -6,13 +6,13 @@ let RFC3339DateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssXXX"
 /// avoid thread safety issues that can arise using DateFormatter.
 class MaxDateFormatter {
     /// Parse RFC 3339 date string to NSDate
-    public class func dateForRFC3339DateTimeString(rfc3339DateTimeString: String) -> Date? {
+    internal class func dateForRFC3339DateTimeString(rfc3339DateTimeString: String) -> Date? {
         let formatter = getThreadLocalRFC3339DateFormatter()
         return formatter.date(from: rfc3339DateTimeString)
     }
 
     /// Generate RFC 3339 date string for an NSDate
-    public class func rfc3339DateTimeStringForDate(_ date: Date) -> String {
+    internal class func rfc3339DateTimeStringForDate(_ date: Date) -> String {
         let formatter = getThreadLocalRFC3339DateFormatter()
         return formatter.string(from: date)
     }

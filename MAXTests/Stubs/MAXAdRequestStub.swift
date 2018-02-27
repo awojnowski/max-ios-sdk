@@ -8,27 +8,27 @@ class MAXAdRequestStub: MAXAdRequest {
     
     var locationTrackingEnabled = false
     
-    override var latitude: Double? {
+    override var latitude: NSNumber? {
         if self.locationTrackingEnabled {
             return 10.01
         }
         return nil
     }
-    override var longitude: Double? {
+    override var longitude: NSNumber? {
         if self.locationTrackingEnabled {
             return 11.02
         }
         return nil
     }
     
-    override var locationHorizontalAccuracy: Double? {
+    override var locationHorizontalAccuracy: NSNumber? {
         if self.locationTrackingEnabled {
             return 3.4
         }
         return nil
     }
     
-    override var locationVerticalAccuracy: Double? {
+    override var locationVerticalAccuracy: NSNumber? {
         if self.locationTrackingEnabled {
             return 4.5
         }

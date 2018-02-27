@@ -1,15 +1,15 @@
 import Foundation
 
-public struct MAXDeviceOrientation {
-    public static let Portrait = "portrait"
-    public static let Landscape = "landscape"
-    public static let None = "none"
+public class MAXDeviceOrientation: NSObject {
+    @objc public static let Portrait = "portrait"
+    @objc public static let Landscape = "landscape"
+    @objc public static let None = "none"
 }
 
-public struct MAXConnectivity {
-    public static let Wwan = "wwan"
-    public static let Wifi = "wifi"
-    public static let None = "none"
+public class MAXConnectivity: NSObject {
+    @objc public static let Wwan = "wwan"
+    @objc public static let Wifi = "wifi"
+    @objc public static let None = "none"
 }
 
 public let unknownAppVersionIdentifier = "UNKNOWN"

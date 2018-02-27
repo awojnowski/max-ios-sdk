@@ -45,33 +45,38 @@ open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDe
 
     }
 
-    open override func enableAutomaticImpressionAndClickTracking() -> Bool {
+    override open func enableAutomaticImpressionAndClickTracking() -> Bool {
         return false
     }
 
     // MAXAdViewDelegate
     // This is used to handle callbacks from native creative rendering by MAX internally.
-    open func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
+    public func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
         MAXLog.debug("adViewDidFailWithError")
         delegate?.bannerCustomEvent(self, didFailToLoadAdWithError: error)
     }
-    open func adViewDidLoad(_ adView: MAXAdView) {
+    
+    public func adViewDidLoad(_ adView: MAXAdView) {
         MAXLog.debug("adViewDidLoad")
         delegate?.trackImpression()
         delegate?.bannerCustomEvent(self, didLoadAd: adView)
     }
-    open func adViewDidClick(_ adView: MAXAdView) {
+    
+    public func adViewDidClick(_ adView: MAXAdView) {
         MAXLog.debug("adViewDidClick")
         delegate?.trackClick()
         delegate?.bannerCustomEventWillBeginAction(self)
     }
-    open func adViewDidFinishHandlingClick(_ adView: MAXAdView) {
+    
+    public func adViewDidFinishHandlingClick(_ adView: MAXAdView) {
         MAXLog.debug("adViewDidFinishHandlingClick")
         delegate?.bannerCustomEventDidFinishAction(self)
     }
-    open func adViewWillLogImpression(_ adView: MAXAdView) {
+    
+    public func adViewWillLogImpression(_ adView: MAXAdView) {
         MAXLog.debug("adViewWillLogImpression")
     }
+    
     public func viewControllerForPresentingModalView() -> UIViewController! {
         return self.delegate.viewControllerForPresentingModalView()
     }
@@ -172,22 +177,22 @@ open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInters
 
     // MARK: MAXInterstitialAdDelegate
 
-    open func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd) {
+    public func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidLoad")
         self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
     }
 
-    open func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {
+    public func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidClick")
         self.delegate.interstitialCustomEventDidReceiveTap(self)
     }
 
-    open func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd) {
+    public func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdWillClose")
         self.delegate.interstitialCustomEventWillDisappear(self)
     }
 
-    open func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd) {
+    public func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidClose")
         self.delegate.interstitialCustomEventDidDisappear(self)
     }

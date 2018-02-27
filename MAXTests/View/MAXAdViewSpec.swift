@@ -22,12 +22,12 @@ class MAXAdViewAdapterGeneratorStub: MAXAdViewAdapterGenerator {
 
 class MAXAdViewStub: MAXAdView {
     var didLoadUsingMRAID = false
-    override func loadAdWithMRAIDRenderer() {
+    override internal func loadAdWithMRAIDRenderer() {
         didLoadUsingMRAID = true
     }
     
     var generator: MAXAdViewAdapterGenerator?
-    override func getGenerator(forPartner partner: String) -> MAXAdViewAdapterGenerator? {
+    override internal func getGenerator(forPartner partner: String) -> MAXAdViewAdapterGenerator? {
         return generator
     }
     

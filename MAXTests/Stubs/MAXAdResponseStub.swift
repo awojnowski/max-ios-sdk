@@ -7,8 +7,8 @@ class MAXAdResponseStub: MAXAdResponse {
         return mockSession
     }
     
-    var _autoRefreshInterval: Int? = nil
-    override var autoRefreshInterval: Int? {
+    var _autoRefreshInterval: NSNumber? = nil
+    override var autoRefreshInterval: NSNumber? {
         get {
             return _autoRefreshInterval
         }

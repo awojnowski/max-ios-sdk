@@ -17,60 +17,60 @@ public enum MAXRequestError: Error {
 
 /// Core API type that packages all of the parameters needed to request a MAX bid.
 /// Contains utility functions for making requests to the MAX ad server.
-public class MAXAdRequest {
+public class MAXAdRequest: NSObject {
 
     /// MAX's ad server domain, ads.maxads.io
-    public static let adsDomain = "ads.maxads.io"
+    @objc public static let adsDomain = "ads.maxads.io"
 
     /// The current version of the MAX API
-    public static let apiVersion = "1"
+    @objc public static let apiVersion = "1"
 
     /// The MAX ad unit ID. This string can be found in the MAX UI.
-    public var adUnitID: String!
+    @objc public var adUnitID: String!
 
     /// If `MAXAdRequest.requestAd` completes successfully, `adResponse` will be defined as the response value
-    public var adResponse: MAXAdResponse?
+    @objc public var adResponse: MAXAdResponse?
 
     /// If `MAXAdRequest.requestAd` completes with an error, `adError` will be defined as the error returned.
-    public var adError: NSError?
+    @objc public var adError: NSError?
 
     /// - Parameter adUnitID: the MAX ad unit ID. This string can be found in the MAX UI.
-    public init(adUnitID: String) {
+    @objc public init(adUnitID: String) {
         self.adUnitID = adUnitID
     }
 
-    var appVersion: String {
+    @objc public var appVersion: String {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             return version
         }
         return unknownAppVersionIdentifier
     }
 
-    var ifa: String {
+    @objc public var ifa: String {
         return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
 
-    var lmt: Bool {
+    @objc public var lmt: Bool {
         return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true
     }
 
-    var vendorId: String {
+    @objc public var vendorId: String {
         return UIDevice.current.identifierForVendor?.uuidString ?? ""
     }
 
-    var timeZone: String {
+    @objc public var timeZone: String {
         return NSTimeZone.system.abbreviation() ?? ""
     }
 
-    var locale: String {
+    @objc public var locale: String {
         return Locale.current.identifier
     }
 
-    var regionCode: String {
+    @objc public var regionCode: String {
         return Locale.current.regionCode ?? ""
     }
 
-    var orientation: String {
+    @objc public var orientation: String {
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
             return MAXDeviceOrientation.Portrait
         } else if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
@@ -80,19 +80,19 @@ public class MAXAdRequest {
         }
     }
 
-    var deviceWidth: CGFloat {
+    @objc public var deviceWidth: CGFloat {
         return floor(UIScreen.main.bounds.size.width)
     }
 
-    var deviceHeight: CGFloat {
+    @objc public var deviceHeight: CGFloat {
         return floor(UIScreen.main.bounds.size.height)
     }
 
-    var browserAgent: String {
+    @objc public var browserAgent: String {
         return MAXUserAgent.shared.value ?? ""
     }
 
-    var connectivity: String {
+    @objc public var connectivity: String {
         if MaxReachability.forInternetConnection().isReachableViaWiFi() {
             return MAXConnectivity.Wifi
         } else if MaxReachability.forInternetConnection().isReachableViaWWAN() {
@@ -102,42 +102,42 @@ public class MAXAdRequest {
         }
     }
 
-    var carrier: String {
+    @objc public var carrier: String {
         return CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""
     }
 
-    var latitude: Double? {
+    @objc public var latitude: NSNumber? {
         if let location = MAXLocationProvider.shared.getLocation() {
-            return location.coordinate.latitude
+            return NSNumber(value: location.coordinate.latitude)
         }
         return nil
     }
 
-    var longitude: Double? {
+    @objc public var longitude: NSNumber? {
         if let location = MAXLocationProvider.shared.getLocation() {
-            return location.coordinate.longitude
+            return NSNumber(value: location.coordinate.longitude)
         }
 
         return nil
     }
 
-    var locationTrackingAvailability: String {
+    @objc public var locationTrackingAvailability: String {
         return MAXLocationProvider.shared.locationTrackingAvailability()
     }
 
-    var sdkVersion: String {
+    @objc public var sdkVersion: String {
         return MAXConfiguration.shared.getSDKVersion()
     }
 
-    var locationHorizontalAccuracy: Double? {
-        return MAXLocationProvider.shared.getLocationHorizontalAccuracy()
+    @objc public var locationHorizontalAccuracy: NSNumber? {
+        return NSNumber(value: MAXLocationProvider.shared.getLocationHorizontalAccuracy() ?? 0)
     }
 
-    var locationVerticalAccuracy: Double? {
-        return MAXLocationProvider.shared.getLocationVerticalAccuracy()
+    @objc public var locationVerticalAccuracy: NSNumber? {
+        return NSNumber(value: MAXLocationProvider.shared.getLocationVerticalAccuracy() ?? 0)
     }
 
-    var locationTrackingTimestamp: String? {
+    @objc public var locationTrackingTimestamp: String? {
         if let dt = MAXLocationProvider.shared.getLocationUpdateTimestamp() {
             return MaxDateFormatter.rfc3339DateTimeStringForDate(dt)
         } else {
@@ -145,7 +145,7 @@ public class MAXAdRequest {
         }
     }
 
-    var locationData: Dictionary<String, Any> {
+    @objc public var locationData: Dictionary<String, Any> {
         var locationData: Dictionary<String, Any> = [:]
 
         if let latitude = self.latitude {
@@ -171,7 +171,7 @@ public class MAXAdRequest {
         return locationData
     }
 
-    var model: String {
+    @objc public var model: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -182,7 +182,7 @@ public class MAXAdRequest {
         return identifier
     }
 
-    var tokens: Dictionary<String, String> {
+    @objc public var tokens: Dictionary<String, String> {
         var tokenData: Dictionary<String, String> = [:]
 
         for (_, tokenProvider) in MAXConfiguration.shared.tokenRegistrar.tokens {
@@ -192,7 +192,7 @@ public class MAXAdRequest {
         return tokenData
     }
 
-    var dict: Dictionary<String, Any> {
+    @objc public var dict: Dictionary<String, Any> {
         let d: Dictionary<String, Any> = [
             "v": MAXAdRequest.apiVersion,
             "sdk_v": self.sdkVersion,
@@ -219,7 +219,7 @@ public class MAXAdRequest {
         return d
     }
 
-    var asJSONObject: Data? {
+    @objc public var asJSONObject: Data? {
         let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
 
         if let json = String(data: data!, encoding: String.Encoding.utf8) as String! {
@@ -228,11 +228,11 @@ public class MAXAdRequest {
         return data
     }
 
-    func getUrl() -> URL {
+    @objc public func getUrl() -> URL {
         return URL(string: "https://\(MAXAdRequest.adsDomain)/ads/req/\(self.adUnitID!)")!
     }
 
-    func getSession() -> URLSession {
+    @objc public func getSession() -> URLSession {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         return session
@@ -244,7 +244,7 @@ public class MAXAdRequest {
     /// - Parameter adUnitID: the MAX ad unit ID string
     /// - Parameter completion: a callback function that will be executed when the response has completed or errored
     /// - Returns: the MAXAdRequest object representing the request being made
-    public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
+    @objc public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd {(response, error) in
             MAXAds.receivedPreBid(adUnitID: adUnitID, response: response, error: error)
@@ -260,7 +260,7 @@ public class MAXAdRequest {
     /// plan can be executed whenever an ad needs to be shown. Once the ad is shown,
     /// the ad request should be discarded.
     /// - Parameter completion: a `MAXResponseCompletion` callback to be called when the request completes.
-    public func requestAd(_ completion: @escaping MAXResponseCompletion) {
+    @objc public func requestAd(_ completion: @escaping MAXResponseCompletion) {
         // Setup POST
         let url = self.getUrl()
         let session = getSession()

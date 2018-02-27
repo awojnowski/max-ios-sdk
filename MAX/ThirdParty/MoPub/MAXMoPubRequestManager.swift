@@ -6,12 +6,12 @@ public class MAXMoPubAdRequestManager: MAXAdRequestManager, MPAdViewDelegate {
 
     /// MAXMoPubAdRequestManager will manage the refresh interval of this MPAdView
     /// and listens to ad display events to trigger refreshes.
-    public var adView: MPAdView
+    @objc public var adView: MPAdView
 
     /// The refresh manager only cares about listening to ad display events.
     /// `MAXMoPubAdRequestManager` proxies the view presentation events
     /// to whatever delegate the user had previously set. 
-    weak public var bannerProxyDelegate: MPAdViewDelegate!
+    @objc public weak var bannerProxyDelegate: MPAdViewDelegate!
 
     /// Initializes a `MAXMoPubAdRequestManager` with a MAX ad unit ID and a MoPub banner ad view.
     /// A completion callback should be provided, which fires after the
@@ -56,21 +56,18 @@ public class MAXMoPubAdRequestManager: MAXAdRequestManager, MPAdViewDelegate {
         }
     }
 
-    @objc
-    public func viewControllerForPresentingModalView() -> UIViewController! {
+    @objc public func viewControllerForPresentingModalView() -> UIViewController! {
         return bannerProxyDelegate.viewControllerForPresentingModalView()
     }
 
     /// Trigger a refresh on impressions rather than immediately rescheduling after a response.
-    @objc
-    public func adViewDidLoadAd(_ view: MPAdView!) {
+    @objc public func adViewDidLoadAd(_ view: MPAdView!) {
         self.scheduleNewRefresh()
         self.bannerProxyDelegate.adViewDidLoadAd?(view)
     }
 
     /// Trigger a refresh on a display error.
-    @objc
-    public func adViewDidFail(toLoadAd view: MPAdView!) {
+    @objc public func adViewDidFail(toLoadAd view: MPAdView!) {
         self.scheduleNewRefresh()
         self.bannerProxyDelegate.adViewDidFail?(toLoadAd: view)
     }
@@ -79,18 +76,15 @@ public class MAXMoPubAdRequestManager: MAXAdRequestManager, MPAdViewDelegate {
      * Proxy changes back to the bannerProxyDelegate.
      */
 
-    @objc
-    public func willPresentModalView(forAd view: MPAdView!) {
+    @objc public func willPresentModalView(forAd view: MPAdView!) {
         self.bannerProxyDelegate.willPresentModalView?(forAd: view)
     }
 
-    @objc
-    public func didDismissModalView(forAd view: MPAdView!) {
+    @objc public func didDismissModalView(forAd view: MPAdView!) {
         self.bannerProxyDelegate.didDismissModalView?(forAd: view)
     }
 
-    @objc
-    public func willLeaveApplication(fromAd view: MPAdView!) {
+    @objc public func willLeaveApplication(fromAd view: MPAdView!) {
         self.bannerProxyDelegate.willLeaveApplication?(fromAd: view)
     }
 }

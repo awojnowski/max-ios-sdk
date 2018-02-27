@@ -5,28 +5,28 @@ public enum MAXBannerCreativeType: String {
     case empty = "empty"
 }
 
-public protocol MAXAdViewDelegate: NSObjectProtocol {
-    func viewControllerForPresentingModalView() -> UIViewController!
+@objc public protocol MAXAdViewDelegate {
+    @objc func viewControllerForPresentingModalView() -> UIViewController!
 
-    func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?)
-    func adViewDidClick(_ adView: MAXAdView)
-    func adViewDidFinishHandlingClick(_ adView: MAXAdView)
-    func adViewDidLoad(_ adView: MAXAdView)
-    func adViewWillLogImpression(_ adView: MAXAdView)
+    @objc func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?)
+    @objc func adViewDidClick(_ adView: MAXAdView)
+    @objc func adViewDidFinishHandlingClick(_ adView: MAXAdView)
+    @objc func adViewDidLoad(_ adView: MAXAdView)
+    @objc func adViewWillLogImpression(_ adView: MAXAdView)
 }
 
 public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, MAXAdViewAdapterDelegate {
     // The delegate should be weak here so that if the CustomEvent object itself gets deallocated
     // due to a new request being initiated by the SSP (e.g. for a timeout or other failure) 
     // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack.
-    open weak var delegate: MAXAdViewDelegate?
+    @objc public weak var delegate: MAXAdViewDelegate?
 
     private var adResponse: MAXAdResponse!
     private var mraidView: MaxMRAIDView!
     private var adViewAdapter: MAXAdViewAdapter!
     private var adSize: CGSize!
 
-    public init(adResponse: MAXAdResponse, size: CGSize) {
+    @objc public init(adResponse: MAXAdResponse, size: CGSize) {
         super.init(frame: CGRect(origin: CGPoint.zero, size: size))
         self.adResponse = adResponse
         self.adSize = size
@@ -36,7 +36,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func loadAd() {
+    @objc public func loadAd() {
         switch self.adResponse.creativeType {
 
         case MAXBannerCreativeType.MRAID.rawValue:
@@ -59,7 +59,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
         }
     }
 
-    func loadAdWithMRAIDRenderer() {
+    internal func loadAdWithMRAIDRenderer() {
         guard let htmlData = self.adResponse.creative else {
             MAXLog.error("Malformed response, HTML creative type but no markup... failing")
             MAXErrorReporter.shared.logError(message: "Malformed response, creative with type html had no markup")
@@ -86,7 +86,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     /// be found. This can also fail if the adapter doesn't create a renderable ad view with the
     /// third party's code. If for any reason `loadAdWithAdapter` fails, it will attempt to fall
     /// back to `loadAdWithMRAIDRenderer`.
-    func loadAdWithAdapter() {
+    internal func loadAdWithAdapter() {
         guard let partner = self.adResponse.partnerName else {
             MAXLog.error("Attempted to load ad with third party renderer, but no winner was declared")
             self.loadAdWithMRAIDRenderer()
@@ -120,21 +120,21 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
         }
     }
 
-    func getGenerator(forPartner: String) -> MAXAdViewAdapterGenerator? {
+    internal func getGenerator(forPartner: String) -> MAXAdViewAdapterGenerator? {
         return MAXConfiguration.shared.getAdViewGenerator(forPartner: forPartner)
     }
 
-    func trackImpression() {
+    @objc public func trackImpression() {
         self.delegate?.adViewWillLogImpression(self)
         self.adResponse.trackImpression()
     }
 
-    func trackClick() {
+    @objc public func trackClick() {
         self.adResponse.trackClick()
         self.delegate?.adViewDidClick(self)
     }
 
-    func click(_ url: URL) {
+    @objc public func click(_ url: URL) {
         self.trackClick()
 
         let vc = self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController

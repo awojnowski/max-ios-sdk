@@ -1,15 +1,16 @@
 import FBAudienceNetwork
 
-public let facebookIdentifier = "facebook"
+internal let facebookIdentifier = "facebook"
 
-public class FacebookTokenProvider: MAXTokenProvider {
-    public let identifier: String = facebookIdentifier
-    public func generateToken() -> String {
+internal class FacebookTokenProvider: MAXTokenProvider {
+    @objc public let identifier: String = facebookIdentifier
+    @objc public func generateToken() -> String {
         return FBAdSettings.bidderToken
     }
 }
 
-extension MAXConfiguration {
+// Make MAXConfiguration extension public because MAXConfiguration is public
+public extension MAXConfiguration {
     public func initializeFacebookIntegration() {
         // FBAudienceNetwork has a race condition in their bidderToken method
         // when it's called before anything else has been initialized. We create and

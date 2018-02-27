@@ -31,7 +31,7 @@ class MAXInterstitialAdStub: MAXInterstitialAd {
     }
     
     var generator: MAXInterstitialAdapterGenerator?
-    override func getGenerator(forPartner partner: String) -> MAXInterstitialAdapterGenerator? {
+    override internal func getGenerator(forPartner partner: String) -> MAXInterstitialAdapterGenerator? {
         return generator
     }
     

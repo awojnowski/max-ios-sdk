@@ -9,25 +9,25 @@ let minErrorRetrySeconds = 2.0, maxErrorRetrySeconds = 30.0
 /// 2) Auto-retry of failed ad requests
 /// 3) Lifecycle management (e.g. automatically load a new ad when app is brought to foreground)
 open class MAXAdRequestManager: NSObject {
-    public var lastRequest: MAXAdRequest?
-    public var lastResponse: MAXAdResponse?
-    public var lastError: NSError?
+    @objc public var lastRequest: MAXAdRequest?
+    @objc public var lastResponse: MAXAdResponse?
+    @objc public var lastError: NSError?
 
-    var adUnitID: String
-    var completion: (MAXAdResponse?, NSError?) -> Void
+    internal var completion: (MAXAdResponse?, NSError?) -> Void
+    internal var errorCount = 0.0
+    internal var adUnitID: String
+    
+    private var shouldRefresh = false
+    private var timer: Timer?
 
-    var shouldRefresh = false
-    var timer: Timer?
-    var errorCount = 0.0
-
-    var appActiveObserver: NSObjectProtocol!
+    private var appActiveObserver: NSObjectProtocol!
 
     // Lock access to shouldRefresh variable to ensure only a single refresh cycle happens at a time.
     // While a number of steps in the refresh cycle are asynchronous, the chain of events in a single
     // complete cycle will happen in order, making refresh calls threadsafe.
-    let refreshQueue = DispatchQueue(label: "RefreshQueue")
+    private let refreshQueue = DispatchQueue(label: "RefreshQueue")
 
-    public init(adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
+    @objc public init(adUnitID: String, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
         self.adUnitID = adUnitID
         self.completion = completion
         super.init()
@@ -51,7 +51,7 @@ open class MAXAdRequestManager: NSObject {
         NotificationCenter.default.removeObserver(self.appActiveObserver)
     }
 
-    public func runPreBid(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
+    @objc public func runPreBid(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         return MAXAdRequest.preBidWithMAXAdUnit(self.adUnitID, completion: completion)
     }
 
@@ -75,7 +75,7 @@ open class MAXAdRequestManager: NSObject {
             self.errorCount = 0
             if adResponse.shouldAutoRefresh() {
                 if let autoRefreshInterval = adResponse.autoRefreshInterval {
-                    self.scheduleTimerWithInterval(Double(autoRefreshInterval))
+                    self.scheduleTimerWithInterval(Double(truncating: autoRefreshInterval))
                 }
             }
         } else if let adError = self.lastError {
@@ -89,7 +89,7 @@ open class MAXAdRequestManager: NSObject {
         }
     }
 
-    public func startRefresh() {
+    @objc public func startRefresh() {
         MAXLog.debug("\(String(describing: self)).startRefresh() called")
         // See refreshQueue decsription at variable declaration
         refreshQueue.async {
@@ -100,7 +100,7 @@ open class MAXAdRequestManager: NSObject {
         }
     }
 
-    public func stopRefresh() {
+    @objc public func stopRefresh() {
         MAXLog.debug("\(String(describing: self)).stopRefresh() called")
         // See refreshQueue decsription at variable declaration
         refreshQueue.async {
@@ -137,7 +137,7 @@ open class MAXAdRequestManager: NSObject {
         self.scheduleTimerWithInterval(0)
     }
 
-    @objc func refreshTimerDidFire(_ timer: Timer!) {
+    @objc private func refreshTimerDidFire(_ timer: Timer!) {
         self.timer = nil
         guard self.shouldRefresh else {
             return

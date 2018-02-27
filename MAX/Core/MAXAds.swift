@@ -3,19 +3,19 @@ import Foundation
 private var MAXPreBids: MAXConcurrentDictionary<String, MAXCachedAdResponse> = [:]
 private var MAXPreBidErrors: MAXConcurrentDictionary<String, NSError> = [:]
 
-class MAXCachedAdResponse {
-    let adResponse: MAXAdResponse?
-    let createdAt: Date
-    let defaultTimeoutIntervalSeconds = 60.0*60.0
+internal class MAXCachedAdResponse {
+    internal let adResponse: MAXAdResponse?
+    internal let createdAt: Date
+    internal let defaultTimeoutIntervalSeconds = 60.0*60.0
 
-    init(withResponse: MAXAdResponse?) {
+    internal init(withResponse: MAXAdResponse?) {
         self.adResponse = withResponse
         self.createdAt = Date()
 
         MAXLog.debug("Cached a pre-bid for partner \(String(describing: withResponse?.partnerName))")
     }
 
-    var timeoutIntervalSeconds: Double {
+    internal var timeoutIntervalSeconds: Double {
         if let timeoutInterval = self.adResponse?.expirationIntervalSeconds {
             return timeoutInterval
         } else {
@@ -23,14 +23,14 @@ class MAXCachedAdResponse {
         }
     }
 
-    var isExpired: Bool {
+    internal var isExpired: Bool {
         return abs(self.createdAt.timeIntervalSinceNow) > self.timeoutIntervalSeconds
     }
 }
 
-public class MAXAds {
+public class MAXAds: NSObject {
 
-    public class func receivedPreBid(adUnitID: String, response: MAXAdResponse?, error: NSError?) {
+    @objc public class func receivedPreBid(adUnitID: String, response: MAXAdResponse?, error: NSError?) {
         MAXLog.debug("Received pre-bid with MAX ad unit id \(adUnitID)")
 
         if let existingResponse = MAXPreBids[adUnitID] {
@@ -44,7 +44,7 @@ public class MAXAds {
         MAXPreBidErrors[adUnitID] = error
     }
 
-    public class func getPreBid(adUnitID: String) -> MAXAdResponse? {
+    @objc public class func getPreBid(adUnitID: String) -> MAXAdResponse? {
         MAXLog.debug("Getting pre-bid with MAX ad unit id \(adUnitID)")
 
         defer {

@@ -1,10 +1,10 @@
 import Foundation
 import FBAudienceNetwork
 
-public class FacebookInterstitialView: MAXInterstitialAdapter, FBInterstitialAdDelegate {
+internal class FacebookInterstitialView: MAXInterstitialAdapter, FBInterstitialAdDelegate {
 
-    public var fbInterstitial: FBInterstitialAd
-    public var bidPayload: String
+    internal var fbInterstitial: FBInterstitialAd
+    internal var bidPayload: String
 
     override var interstitialAd: NSObject? {
         get {
@@ -21,60 +21,60 @@ public class FacebookInterstitialView: MAXInterstitialAdapter, FBInterstitialAdD
         }
     }
 
-    public init(placementID: String, bidPayload: String) {
+    internal init(placementID: String, bidPayload: String) {
         self.fbInterstitial = FBInterstitialAd(placementID: placementID)
         self.bidPayload = bidPayload
         super.init()
         self.fbInterstitial.delegate = self
     }
 
-    override public func loadAd() {
+    override internal func loadAd() {
         self.fbInterstitial.load(withBidPayload: bidPayload)
     }
 
-    override public func showAd(fromRootViewController rvc: UIViewController?) {
+    override internal func showAd(fromRootViewController rvc: UIViewController?) {
         self.fbInterstitial.show(fromRootViewController: rvc)
     }
 
     /*
      * FBInterstitialAdDelegate methods
      */
-    public func interstitialAdDidClick(_ interstitialAd: FBInterstitialAd) {
+    internal func interstitialAdDidClick(_ interstitialAd: FBInterstitialAd) {
         MAXLog.debug("Facebook interstitial ad was clicked")
         self.delegate?.interstitialWasClicked(self)
     }
 
-    public func interstitialAdDidClose(_ interstitialAd: FBInterstitialAd) {
+    internal func interstitialAdDidClose(_ interstitialAd: FBInterstitialAd) {
         MAXLog.debug("Facebook interstitial ad was closed")
         self.delegate?.interstitialDidClose(self)
     }
 
-    public func interstitialAdWillClose(_ interstitialAd: FBInterstitialAd) {
+    internal func interstitialAdWillClose(_ interstitialAd: FBInterstitialAd) {
         MAXLog.debug("Facebook interstitial ad will close")
         self.delegate?.interstitialWillClose(self)
     }
 
-    public func interstitialAdDidLoad(_ interstitialAd: FBInterstitialAd) {
+    internal func interstitialAdDidLoad(_ interstitialAd: FBInterstitialAd) {
         MAXLog.debug("Facebook interstitial ad was loaded")
         self.delegate?.interstitialDidLoad(self)
     }
 
-    public func interstitialAdWillLogImpression(_ interstitialAd: FBInterstitialAd) {
+    internal func interstitialAdWillLogImpression(_ interstitialAd: FBInterstitialAd) {
         MAXLog.debug("Facebook interstitial ad will log an impression")
         self.delegate?.interstitialWillLogImpression(self)
     }
 
-    public func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
+    internal func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
         MAXLog.debug("Facebook interstitial ad failed: \(error.localizedDescription)")
         self.delegate?.interstitial(self, didFailWithError: MAXClientError(message: error.localizedDescription))
     }
 }
 
-public class FacebookInterstitialGenerator: NSObject, MAXInterstitialAdapterGenerator {
+internal class FacebookInterstitialGenerator: MAXInterstitialAdapterGenerator {
 
-    public var identifier: String = facebookIdentifier
+    internal var identifier: String = facebookIdentifier
 
-    public func getInterstitialAdapter(fromResponse: MAXAdResponse) -> MAXInterstitialAdapter? {
+    internal func getInterstitialAdapter(fromResponse: MAXAdResponse) -> MAXInterstitialAdapter? {
         guard let placementID = fromResponse.partnerPlacementID else {
             MAXLog.warn("Tried to load an interstitial ad for Facebook but couldn't find placement ID in the response")
             return nil

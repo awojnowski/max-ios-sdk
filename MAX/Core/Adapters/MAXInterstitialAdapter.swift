@@ -8,16 +8,16 @@ import UIKit
 /// Classes that implement the `MAXInterstitialAdapterGenerator` protocol should also register
 /// themselves with MAX by calling `MAXConfiguration.shared.registerInterstitialGenerator`
 /// with an instance of the class.
-public protocol MAXInterstitialAdapterGenerator {
+@objc public protocol MAXInterstitialAdapterGenerator {
 
     /// `identifier` should be the same String that the MAX auction server uses to
     /// identify the bidder. See `MAXAdResponse.partnerName`. This String will be used
     /// to retrieve the generator.
-    var identifier: String { get }
+    @objc var identifier: String { get }
 
     /// `getInterstitialAdapter` is what `MAXInterstitialAd` will call to get a `MAXInterstitialAdapter`
     /// instance so that it can render the creative using the third party view.
-    func getInterstitialAdapter(fromResponse: MAXAdResponse) -> MAXInterstitialAdapter?
+    @objc func getInterstitialAdapter(fromResponse: MAXAdResponse) -> MAXInterstitialAdapter?
 }
 
 /// `MAXInterstitialAdapter` classes wrap interstitial instances from a third party SDK, providing
@@ -26,14 +26,14 @@ public protocol MAXInterstitialAdapterGenerator {
 /// `interstitialAd` property to ensure `MAXInterstitialAd` can render the ad properly. Instances
 /// should also register a `delegate` to receive events from the underlying interstitial.
 public class MAXInterstitialAdapter: NSObject {
-    var interstitialAd: NSObject?
-    weak var delegate: MAXInterstitialAdapterDelegate?
+    @objc var interstitialAd: NSObject?
+    @objc weak var delegate: MAXInterstitialAdapterDelegate?
 
-    public func loadAd() {
+    @objc public func loadAd() {
         MAXLog.error("MAXInterstitialAdapter.loadAd not implemented")
     }
 
-    public func showAd(fromRootViewController rvc: UIViewController?) {
+    @objc public func showAd(fromRootViewController rvc: UIViewController?) {
         MAXLog.error("MAXInterstitialAdapter.showAd not implemented")
     }
 }
@@ -41,11 +41,12 @@ public class MAXInterstitialAdapter: NSObject {
 /// `MAXInterstitialAdapterDelegate` will send comon events from the `MAXInterstitialAdapter`'s
 /// wrapped `adView` to the delegate, usually a `MAXInterstitialAd` instance. See `MAXInterstitialAd`
 /// for examples.
-public protocol MAXInterstitialAdapterDelegate: class {
-    func interstitialWasClicked(_ interstitial: MAXInterstitialAdapter)
-    func interstitialDidClose(_ interstitial: MAXInterstitialAdapter)
-    func interstitialWillClose(_ interstitial: MAXInterstitialAdapter)
-    func interstitialDidLoad(_ interstitial: MAXInterstitialAdapter)
-    func interstitialWillLogImpression(_ interstitial: MAXInterstitialAdapter)
-    func interstitial(_ interstitial: MAXInterstitialAdapter, didFailWithError error: MAXClientError)
+/// TODO - Bryan: Expose this protocol to ObjC. Currently it can't be exposed because MAXClientError
+@objc public protocol MAXInterstitialAdapterDelegate: class {
+    @objc func interstitialWasClicked(_ interstitial: MAXInterstitialAdapter)
+    @objc func interstitialDidClose(_ interstitial: MAXInterstitialAdapter)
+    @objc func interstitialWillClose(_ interstitial: MAXInterstitialAdapter)
+    @objc func interstitialDidLoad(_ interstitial: MAXInterstitialAdapter)
+    @objc func interstitialWillLogImpression(_ interstitial: MAXInterstitialAdapter)
+    @objc func interstitial(_ interstitial: MAXInterstitialAdapter, didFailWithError error: MAXClientError)
 }

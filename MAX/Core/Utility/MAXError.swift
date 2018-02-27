@@ -3,46 +3,53 @@ import AdSupport
 import CoreTelephony
 import UIKit
 
-public class MAXClientError {
-    public private(set) var appId: Int64?
-    public private(set) var adUnitID: Int64?
-    public private(set) var adUnitType: String?
-    public private(set) var adSourceId: Int64?
-    public private(set) var createdAt: String
-    public private(set) var message: String
+public class MAXClientError: NSError {
+    
+    @objc public private(set) var appId: NSNumber?
+    @objc public private(set) var adUnitID: NSNumber?
+    @objc public private(set) var adUnitType: String?
+    @objc public private(set) var adSourceId: NSNumber?
+    @objc public private(set) var createdAt: String
+    @objc public private(set) var message: String
 
     private let MAXErrorDomain = "MAXErrorDomain"
 
-    init(message: String) {
+    @objc public init(message: String) {
         self.message = message
         self.createdAt = Date().description
+        // Use only error code 0 for now
+        super.init(domain: MAXErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey : message])
     }
-
-    var ifa: String {
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc public var ifa: String {
         return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
 
-    var lmt: Bool {
+    @objc public var lmt: Bool {
         return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? false : true
     }
 
-    var vendorId: String {
+    @objc public var vendorId: String {
         return UIDevice.current.identifierForVendor?.uuidString ?? ""
     }
 
-    var timeZone: String {
+    @objc public var timeZone: String {
         return NSTimeZone.system.abbreviation() ?? ""
     }
 
-    var locale: String {
+    @objc public var locale: String {
         return Locale.current.identifier
     }
 
-    var regionCode: String {
+    @objc public var regionCode: String {
         return Locale.current.regionCode ?? ""
     }
 
-    var orientation: String {
+    @objc public var orientation: String {
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
             return "portrait"
         } else if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
@@ -52,19 +59,19 @@ public class MAXClientError {
         }
     }
 
-    var deviceWidth: CGFloat {
+    @objc public var deviceWidth: CGFloat {
         return floor(UIScreen.main.bounds.size.width)
     }
 
-    var deviceHeight: CGFloat {
+    @objc public var deviceHeight: CGFloat {
         return floor(UIScreen.main.bounds.size.height)
     }
 
-    var browserAgent: String {
+    @objc public var browserAgent: String {
         return MAXUserAgent.shared.value ?? ""
     }
 
-    var connectivity: String {
+    @objc public var connectivity: String {
         if MaxReachability.forInternetConnection().isReachableViaWiFi() {
             return "wifi"
         } else if MaxReachability.forInternetConnection().isReachableViaWWAN() {
@@ -74,11 +81,11 @@ public class MAXClientError {
         }
     }
 
-    var carrier: String {
+    @objc public var carrier: String {
         return CTTelephonyNetworkInfo.init().subscriberCellularProvider?.carrierName ?? ""
     }
 
-    var model: String {
+    @objc public var model: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -89,7 +96,7 @@ public class MAXClientError {
         return identifier
     }
 
-    var data: Dictionary<String, Any> {
+    @objc public var data: Dictionary<String, Any> {
         return [
             "message": self.message,
             "lmt": self.lmt,
@@ -107,11 +114,11 @@ public class MAXClientError {
         ]
     }
 
-    var jsonData: Data? {
+    @objc public var jsonData: Data? {
         return try? JSONSerialization.data(withJSONObject: self.data, options: [])
     }
 
-    public func asNSError() -> NSError {
+    @objc public func asNSError() -> NSError {
         let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
         let errorTemp = NSError(domain: MAXErrorDomain, code:0, userInfo:userInfo)
         return errorTemp

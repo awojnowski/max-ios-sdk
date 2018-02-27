@@ -1,27 +1,27 @@
 import Foundation
 
-public class MAXAdResponseParameters {
-    public static let winner = "winner"
-    public static let creative = "creative"
-    public static let preBidKeywords = "prebid_keywords"
-    public static let refreshRate = "refresh"
-    public static let distanceFilter = "distance_filter"
-    public static let disableDebugMode = "disable_debug"
+public class MAXAdResponseParameters: NSObject {
+    @objc public static let winner = "winner"
+    @objc public static let creative = "creative"
+    @objc public static let preBidKeywords = "prebid_keywords"
+    @objc public static let refreshRate = "refresh"
+    @objc public static let distanceFilter = "distance_filter"
+    @objc public static let disableDebugMode = "disable_debug"
 
-    public static let impressionUrls = "impression_urls"
-    public static let clickUrls = "click_urls"
-    public static let selectedUrls = "selected_urls"
-    public static let handoffUrls = "handoff_urls"
-    public static let expireUrls = "expire_urls"
-    public static let lossUrls = "loss_urls"
-    public static let errorUrl = "error_url"
+    @objc public static let impressionUrls = "impression_urls"
+    @objc public static let clickUrls = "click_urls"
+    @objc public static let selectedUrls = "selected_urls"
+    @objc public static let handoffUrls = "handoff_urls"
+    @objc public static let expireUrls = "expire_urls"
+    @objc public static let lossUrls = "loss_urls"
+    @objc public static let errorUrl = "error_url"
 
-    public class Winner {
-        public static let partnerName = "partner"
-        public static let partnerPlacementID = "partner_placement_id"
-        public static let usePartnerRendering = "use_partner_rendering"
-        public static let creativeType = "creative_type"
-        public static let auctionPrice = "auction_price"
+    public class Winner: NSObject {
+        @objc public static let partnerName = "partner"
+        @objc public static let partnerPlacementID = "partner_placement_id"
+        @objc public static let usePartnerRendering = "use_partner_rendering"
+        @objc public static let creativeType = "creative_type"
+        @objc public static let auctionPrice = "auction_price"
     }
 }
 
@@ -31,16 +31,16 @@ public class MAXAdResponse: NSObject {
     private let data: Data
     private let response: NSDictionary
 
-    public override var description: String {
+    @objc public override var description: String {
         return String(describing: response)
     }
 
-    public override init() {
+    @objc public override init() {
         self.data = Data()
         self.response = [:]
     }
 
-    public init(data: Data) throws {
+    @objc public init(data: Data) throws {
         self.data = data
 
         // swiftlint:disable force_cast
@@ -71,7 +71,7 @@ public class MAXAdResponse: NSObject {
     /// The ad response is only valid for `expirationIntervalSeconds` seconds, by default set to 60 minutes.
     /// After this time period has elapsed, the ad response is no longer considered valid for rendering
     /// and the object's `trackExpired` method will be called if an attempt is made to render this ad.
-    public var expirationIntervalSeconds: Double {
+    @objc public var expirationIntervalSeconds: Double {
         if let expirationInterval = self.response["expiration_interval"] as? Double {
             return expirationInterval
         }
@@ -81,9 +81,9 @@ public class MAXAdResponse: NSObject {
 
     /// `autoRefreshInterval` specifies an amount of time that should elapse after the loading of this
     /// ad, after which a new ad should be loaded from the server.
-    public var autoRefreshInterval: Int? {
+    @objc public var autoRefreshInterval: NSNumber? {
         if let refresh = self.response[MAXAdResponseParameters.refreshRate] as? Int {
-            return refresh
+            return NSNumber(value: refresh)
         } else {
             MAXLog.debug("Refresh interval not set in ad response")
             return nil
@@ -92,7 +92,7 @@ public class MAXAdResponse: NSObject {
 
     /// `preBidKeywords` will contain the set of keywords that will allow this response to be matched with
     /// a line item or campaign in an SSP.
-    public var preBidKeywords: String {
+    @objc public var preBidKeywords: String {
         if let _ = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
             return self.response[MAXAdResponseParameters.preBidKeywords] as? String ?? ""
         }
@@ -100,7 +100,7 @@ public class MAXAdResponse: NSObject {
         return ""
     }
 
-    public var creativeType: String {
+    @objc public var creativeType: String {
         if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
             return winner[MAXAdResponseParameters.Winner.creativeType] as? String ?? "empty"
         }
@@ -108,11 +108,11 @@ public class MAXAdResponse: NSObject {
         return "empty"
     }
 
-    public var creative: String? {
+    @objc public var creative: String? {
         return self.response[MAXAdResponseParameters.creative] as? String
     }
 
-    public var partnerName: String? {
+    @objc public var partnerName: String? {
         if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
             return winner[MAXAdResponseParameters.Winner.partnerName] as? String ?? ""
         }
@@ -120,7 +120,7 @@ public class MAXAdResponse: NSObject {
         return ""
     }
 
-    public var partnerPlacementID: String? {
+    @objc public var partnerPlacementID: String? {
         if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
             return winner[MAXAdResponseParameters.Winner.partnerPlacementID] as? String
         }
@@ -128,7 +128,7 @@ public class MAXAdResponse: NSObject {
         return nil
     }
 
-    public var usePartnerRendering: Bool {
+    @objc public var usePartnerRendering: Bool {
         if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
             return winner[MAXAdResponseParameters.Winner.usePartnerRendering] as? Bool ?? false
         }
@@ -136,7 +136,7 @@ public class MAXAdResponse: NSObject {
         return false
     }
     
-    public var winningPrice: Int {
+    @objc public var winningPrice: Int {
         if let winner = self.response[MAXAdResponseParameters.winner] as? NSDictionary {
             return winner[MAXAdResponseParameters.Winner.auctionPrice] as? Int ?? 0
         }
@@ -144,55 +144,55 @@ public class MAXAdResponse: NSObject {
         return 0
     }
 
-    func getSession() -> URLSession {
+    @objc public func getSession() -> URLSession {
          return URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "MAXAdResponse"))
     }
 
     // Refresh operations
-    public func shouldAutoRefresh() -> Bool {
+    @objc public func shouldAutoRefresh() -> Bool {
         if let autoRefreshInterval = self.autoRefreshInterval {
-            return autoRefreshInterval > 0
+            return autoRefreshInterval.intValue > 0
         } else {
             return false
         }
     }
 
     /// Fires an impression tracking event for this AdResponse
-    public func trackImpression() {
+    @objc public func trackImpression() {
         MAXLog.debug("trackImpression called")
         self.trackAll(self.response[MAXAdResponseParameters.impressionUrls] as? NSArray)
     }
 
     /// Fires a click tracking event for this AdResponse
-    public func trackClick() {
+    @objc public func trackClick() {
         MAXLog.debug("trackClick called")
         self.trackAll(self.response[MAXAdResponseParameters.clickUrls] as? NSArray)
     }
 
     /// Fires a selected tracking event for this AdResponse. This is used when the AdResponse is
     /// selected for display through a containing SSP.
-    public func trackSelected() {
+    @objc public func trackSelected() {
         MAXLog.debug("trackSelected called")
         self.trackAll(self.response[MAXAdResponseParameters.selectedUrls] as? NSArray)
     }
 
     /// Fires a handoff event for this AdResponse, which tracks when we've handed off control to the SSP
     /// SDK and the SSP SDK is about to make an ad request to the SSP ad server.
-    public func trackHandoff() {
+    @objc public func trackHandoff() {
         MAXLog.debug("trackHandoff called")
         self.trackAll(self.response[MAXAdResponseParameters.handoffUrls] as? NSArray)
     }
 
     /// Fires an expire tracking event for this AdResponse. This should be used when the AdResponse value
     /// has been in the ad cache for longer than the expiry time.
-    func trackExpired() {
+    @objc public func trackExpired() {
         MAXLog.debug("trackExpired called")
         self.trackAll(self.response[MAXAdResponseParameters.expireUrls] as? NSArray)
     }
 
     /// Fires a loss tracking event for this AdResponse. This is called when a new AdResponse for the same
     /// MAX ad unit ID is received.
-    func trackLoss() {
+    @objc public func trackLoss() {
         MAXLog.debug("trackLoss called")
         self.trackAll(self.response[MAXAdResponseParameters.lossUrls] as? NSArray)
     }
