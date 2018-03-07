@@ -59,9 +59,7 @@ static NSString *MaxMRAIDUtilErrorDomain = @"MaxMRAIDUtilErrorDomain";
                          "<head>\n"
                          "</head>\n"
                          "<body>\n"
-                         "<div align='center'>\n"
                          "%@"
-                         "</div>\n"
                          "</body>\n"
                          "</html>",
                          processedHtml
