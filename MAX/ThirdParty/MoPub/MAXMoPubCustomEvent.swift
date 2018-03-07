@@ -6,7 +6,7 @@ import MoPub
 /// See the documentation on [SSP Integration](http://docs.maxads.io/documentation/integration/ssp_integration/)
 /// to ensure you integrate this properly in your waterfall.
 @objc(MAXMoPubBannerCustomEvent)
-open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDelegate, MAXAdViewDelegate {
+public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDelegate, MAXAdViewDelegate {
 
     private var adView: MAXAdView?
     private var customEventInstance: MPBannerCustomEvent?
@@ -49,8 +49,10 @@ open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDe
         return false
     }
 
-    // MAXAdViewDelegate
+    //MARK: MAXAdViewDelegate
+    // Called after a MAX line item won in the MoPub waterfall
     // This is used to handle callbacks from native creative rendering by MAX internally.
+    
     public func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?) {
         MAXLog.debug("adViewDidFailWithError")
         delegate?.bannerCustomEvent(self, didFailToLoadAdWithError: error)
@@ -60,6 +62,9 @@ open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDe
         MAXLog.debug("adViewDidLoad")
         delegate?.trackImpression()
         delegate?.bannerCustomEvent(self, didLoadAd: adView)
+        
+        // A banner loaded because a MAX line item in the MoPub waterfall was selected
+        MAXSessionManager.shared.incrementSSPSessionDepth(adUnitId: adView.adUnitId)
     }
     
     public func adViewDidClick(_ adView: MAXAdView) {
@@ -122,7 +127,7 @@ open class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDe
 }
 
 @objc(MAXMoPubInterstitialCustomEvent)
-open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInterstitialAdDelegate, MPInterstitialCustomEventDelegate {
+public class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInterstitialAdDelegate, MPInterstitialCustomEventDelegate {
 
     private var MAXInterstitial: MAXInterstitialAd?
     private var customEventInstance: MPInterstitialCustomEvent?
@@ -180,6 +185,9 @@ open class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInters
     public func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd) {
         MAXLog.debug("MAX: interstitialAdDidLoad")
         self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
+        
+        // An interstitial loaded because a non-MAX line item in the MoPub waterfall was selected
+        MAXSessionManager.shared.incrementSSPSessionDepth(adUnitId: interstitialAd.adUnitId)
     }
 
     public func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {

@@ -120,7 +120,7 @@ public class MAXClientError: NSError {
 
     @objc public func asNSError() -> NSError {
         let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
-        let errorTemp = NSError(domain: MAXErrorDomain, code:0, userInfo:userInfo)
+        let errorTemp = NSError(domain: MAXErrorDomain, code: 0, userInfo:userInfo)
         return errorTemp
     }
 }

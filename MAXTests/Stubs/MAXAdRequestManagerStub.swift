@@ -12,7 +12,7 @@ class MAXAdRequestManagerStub: MAXAdRequestManager {
         self.request = MAXAdRequest(adUnitID: adUnitID)
     }
     
-    override func runPreBid(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
+    override func requestAd(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         print("MAXAdRequestManagerStub.runPrebid called")
         completion(response, error)
         return request

@@ -15,6 +15,7 @@ public class MAXAdResponseParameters: NSObject {
     @objc public static let expireUrls = "expire_urls"
     @objc public static let lossUrls = "loss_urls"
     @objc public static let errorUrl = "error_url"
+    @objc public static let reserved = "reserved"
 
     public class Winner: NSObject {
         @objc public static let partnerName = "partner"
@@ -28,6 +29,8 @@ public class MAXAdResponseParameters: NSObject {
 /// Core API type that will contain the result of a bid request call to the MAX ad server.
 public class MAXAdResponse: NSObject {
 
+    @objc public let adUnitId: String
+    
     private let data: Data
     private let response: NSDictionary
 
@@ -36,11 +39,13 @@ public class MAXAdResponse: NSObject {
     }
 
     @objc public override init() {
+        self.adUnitId = ""
         self.data = Data()
         self.response = [:]
     }
 
-    @objc public init(data: Data) throws {
+    @objc public init(adUnitId: String, data: Data) throws {
+        self.adUnitId = adUnitId
         self.data = data
 
         // swiftlint:disable force_cast
@@ -54,7 +59,7 @@ public class MAXAdResponse: NSObject {
         }
 
         if let sessionExpirationInterval = self.response["session_expiration_interval"] as? Double {
-            MAXSession.shared.sessionExpirationIntervalSeconds = sessionExpirationInterval
+            MAXSessionManager.shared.sessionExpirationIntervalSeconds = sessionExpirationInterval
         }
 
         // Give the ability to reset the error url to something the server provides
@@ -142,6 +147,14 @@ public class MAXAdResponse: NSObject {
         }
         
         return 0
+    }
+
+    public var isReserved: Bool {
+        if let reserved = self.response[MAXAdResponseParameters.reserved] as? Bool {
+            return reserved
+        }
+        
+        return false
     }
 
     @objc public func getSession() -> URLSession {

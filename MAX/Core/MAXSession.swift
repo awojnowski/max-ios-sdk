@@ -1,74 +1,78 @@
+//
+//  MAXSession.swift
+//  MAX
+//
+//  Created by Bryan Boyko on 2/27/18.
+//  Copyright © 2018 Bryan Boyko. All rights reserved.
+//
+
 import Foundation
 
-/**
- * MAXSession tracks session information for the app. This includes the session depth,
- * which measures the number of ad requests that have been made since the app was opened.
- */
-// TODO - Bryan: Consider if MAXSession should be internal or public
+// TODO - Bryan: Consider making either/both and all/some MAXSession and MAXAdUnitScore internal. It may be more harm than help to have these classes avialable to third parties.
+
 public class MAXSession: NSObject {
-
-    public static let shared = MAXSession()
-
-    /// After the user spends `sessionExpirationIntervalSeconds` seconds outside of the app, the session will reset.
-    /// Initially set to 30 seconds. This value can be reset from the server.
-    internal var sessionExpirationIntervalSeconds = 30.0
-
-    /// `leftAppTimestamp` will be recorded when the user leaves the app
-    private var leftAppTimestamp: Date?
-    private var enterForegroundObserver: NSObjectProtocol?
-    private var willResignActiveObserver: NSObjectProtocol?
-    private var notificationCenter: NotificationCenter?
     
-    @objc public private(set) var sessionDepth = 0
-
-    @objc public init(notificationCenter: NotificationCenter = NotificationCenter.default) {
-        MAXLog.debug("MAXSession initialized")
-        self.notificationCenter = notificationCenter
+    @objc public internal(set) var scores = [String : MAXAdUnitScore]()
+    @objc public internal(set) var sessionId: String
+    
+    internal init(sessionId: String) {
+        self.sessionId = sessionId
         super.init()
-        self.addObservers()
     }
     
-    private func addObservers() {
-        
-        self.enterForegroundObserver = self.notificationCenter?.addObserver(
-            forName: Notification.Name.UIApplicationWillEnterForeground,
-            object: nil,
-            queue: OperationQueue.main
-        ) { _ in
-            if self.isExpired {
-                self.resetDepth()
-            } else {
-                MAXLog.debug("MAXSession won't reset since user came back to app within \(self.sessionExpirationIntervalSeconds) seconds")
-            }
+    @objc public func incrementMaxSessionDepth(adUnitId: String) {
+        var score = scores[adUnitId]
+        if score == nil {
+            score = MAXAdUnitScore(adUnitId: adUnitId)
+            scores[adUnitId] = score
         }
-        
-        self.willResignActiveObserver = self.notificationCenter?.addObserver(
-            forName: Notification.Name.UIApplicationWillResignActive,
-            object: nil,
-            queue: OperationQueue.main
-        ) { _ in
-            self.leftAppTimestamp = Date()
-            MAXLog.debug("MAXSession recorded user leaving app at \(String(describing: self.leftAppTimestamp))")
+        score!.maxSessionDepth = NSNumber(value: score!.maxSessionDepth.intValue + 1)
+    }
+    
+    @objc public func incrementSSPSessionDepth(adUnitId: String) {
+        var score = scores[adUnitId]
+        if score == nil {
+            score = MAXAdUnitScore(adUnitId: adUnitId)
+            scores[adUnitId] = score
         }
+        score!.sspSessionDepth = NSNumber(value: score!.sspSessionDepth.intValue + 1)
     }
-
-    private var isExpired: Bool {
-        if let timestamp = leftAppTimestamp {
-            return abs(timestamp.timeIntervalSinceNow) > self.sessionExpirationIntervalSeconds
+    
+    @objc public func combinedDepthForAd(adUnitId: String) -> NSNumber {
+        let maxScore = scores[adUnitId]?.maxSessionDepth ?? 0
+        let sspScore = scores[adUnitId]?.sspSessionDepth ?? 0
+        return NSNumber(value: maxScore.intValue + sspScore.intValue)
+    }
+    
+    @objc public func combinedDepthForAllAds() -> NSNumber {
+        var totalScore = 0
+        for (_, adUnitScore) in scores {
+            totalScore += adUnitScore.maxSessionDepth.intValue
+            totalScore += adUnitScore.sspSessionDepth.intValue
         }
-        return true
+        return NSNumber(value: totalScore)
     }
-
-    /// Session depth starts at 0 and is incremented after every ad request is fired, regardless of
-    /// whether a response is received. The first ad request in the session should report a session
-    /// depth of 0.
-    @objc public func incrementDepth() {
-        MAXLog.debug("MAXSession.incrementDepth")
-        sessionDepth += 1
+    
+    @objc public var dict: Dictionary<String, Any> {
+        let d: Dictionary<String, Any> = [
+            "id" : sessionId,
+            "scores" : scoresDict
+        ]
+        return d
     }
-
-    @objc public func resetDepth() {
-        MAXLog.debug("MAXSession.resetDepth")
-        sessionDepth = 0
+    
+    private var scoresDict: [String: Dictionary<String, Any>] {
+        var scoresDict = [String: Dictionary<String, Any>]()
+        for (adUnitId, adUnitScore) in scores {
+            scoresDict[adUnitId] = adUnitScore.dict
+        }
+        return scoresDict
+    }
+    
+    
+    //MARK: Overrides
+    
+    public override var description: String {
+        return "SessionId: \(sessionId)\n Scores: \(scores)"
     }
 }

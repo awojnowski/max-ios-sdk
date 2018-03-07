@@ -152,7 +152,7 @@ class MAXAdRequestSpec: QuickSpec {
             
             it("should request an ad and complete with a normal response") {
                 waitUntil { done in
-                    adRequest.requestAd { (_response, _error) in
+                    adRequest.requestAd(adUnitId: "", { (_response, _error) in
                         expect(_error).to(beNil())
                         expect(_response).notTo(beNil())
                         
@@ -160,7 +160,7 @@ class MAXAdRequestSpec: QuickSpec {
                         
                         expect(response.creativeType).to(equal("html"))
                         done()
-                    }
+                    })
                 }
             }
             
@@ -173,7 +173,7 @@ class MAXAdRequestSpec: QuickSpec {
                 )
                 
                 waitUntil { done in
-                    adRequest.requestAd { (_response, _error) in
+                    adRequest.requestAd(adUnitId: "", { (_response, _error) in
                         expect(_error).to(beNil())
                         expect(_response).notTo(beNil())
                         
@@ -183,7 +183,7 @@ class MAXAdRequestSpec: QuickSpec {
                         expect(response.preBidKeywords).to(equal(""))
                         
                         done()
-                    }
+                    })
                 }
             }
             
@@ -197,11 +197,11 @@ class MAXAdRequestSpec: QuickSpec {
                 )
                 
                 waitUntil { done in
-                    adRequest.requestAd { (_response, _error) in
+                    adRequest.requestAd(adUnitId: "", { (_response, _error) in
                         expect(_error).notTo(beNil())
                         expect(_response).to(beNil())
                         done()
-                    }
+                    })
                 }
             }
         }

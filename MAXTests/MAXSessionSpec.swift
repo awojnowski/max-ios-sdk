@@ -8,45 +8,62 @@ import Nimble
 @testable import MAX
 
 
-class MAXSessionSpec: QuickSpec {
+class MAXSessionManagerSpec: QuickSpec {
     override func spec() {
-        describe("MAXSession") {
+        describe("MAXSessionManager") {
             
-            var session = MAXSessionStub()
+            var sessionManager = MAXSessionManagerStub()
             
             beforeEach {
-                session = MAXSessionStub()
-                session.sessionExpirationIntervalSeconds = 0.0
+                sessionManager = MAXSessionManagerStub()
+                sessionManager.sessionExpirationIntervalSeconds = 0.0
             }
 
             it("increments, decrements, and resets") {
                 
-                expect(session.sessionDepth).to(equal(0))
+                let adUnitId1 = "1"
+                let adUnitId2 = "2"
+                
+                expect(sessionManager.session.combinedDepthForAllAds().intValue).to(equal(0))
 
-                session.incrementDepth()
-                session.incrementDepth()
-                session.incrementDepth()
-                expect(session.sessionDepth).to(equal(3))
+                sessionManager.incrementMaxSessionDepth(adUnitId: adUnitId1)
+                sessionManager.incrementSSPSessionDepth(adUnitId: adUnitId1)
+                expect(sessionManager.session.combinedDepthForAd(adUnitId: adUnitId1).intValue).to(equal(2))
+                expect(sessionManager.session.combinedDepthForAllAds().intValue).to(equal(2))
+                
+                sessionManager.incrementMaxSessionDepth(adUnitId: adUnitId2)
+                sessionManager.incrementSSPSessionDepth(adUnitId: adUnitId2)
+                expect(sessionManager.session.combinedDepthForAd(adUnitId: adUnitId1).intValue).to(equal(2))
+                expect(sessionManager.session.combinedDepthForAd(adUnitId: adUnitId2).intValue).to(equal(2))
+                expect(sessionManager.session.combinedDepthForAllAds().intValue).to(equal(4))
 
-                session.resetDepth()
-                expect(session.sessionDepth).to(equal(0))
+                sessionManager.reset()
+                expect(sessionManager.session.combinedDepthForAllAds().intValue).to(equal(0))
             }
 
             it("resets when the application is no longer active") {
-                session.incrementDepth()
-                expect(session.sessionDepth).to(equal(1))
-                let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillResignActive)
-                let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillEnterForeground)
-                expect(session.sessionDepth).to(equal(0))
+                let adUnitId1 = "1"
+                sessionManager.incrementMaxSessionDepth(adUnitId: adUnitId1)
+                expect(sessionManager.session.combinedDepthForAllAds()).to(equal(1))
+                let _ = sessionManager.notificationCenter.trigger(name: Notification.Name.UIApplicationWillResignActive)
+                let _ = sessionManager.notificationCenter.trigger(name: Notification.Name.UIApplicationWillEnterForeground)
+                expect(sessionManager.session.combinedDepthForAllAds()).to(equal(0))
             }
             
             it("won't reset if the session hasn't expired") {
-                session.sessionExpirationIntervalSeconds = 1000.0
-                session.incrementDepth()
-                expect(session.sessionDepth).to(equal(1))
-                let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillResignActive)
-                let _ = session.notificationCenter.trigger(name: Notification.Name.UIApplicationWillEnterForeground)
-                expect(session.sessionDepth).to(equal(1))
+                sessionManager.sessionExpirationIntervalSeconds = 1000.0
+                let adUnitId1 = "1"
+                sessionManager.incrementMaxSessionDepth(adUnitId: adUnitId1)
+                expect(sessionManager.session.combinedDepthForAllAds()).to(equal(1))
+                let _ = sessionManager.notificationCenter.trigger(name: Notification.Name.UIApplicationWillResignActive)
+                let _ = sessionManager.notificationCenter.trigger(name: Notification.Name.UIApplicationWillEnterForeground)
+                expect(sessionManager.session.combinedDepthForAllAds()).to(equal(1))
+            }
+            
+            it("resets the session ID when reset() is called") {
+                let id1 = sessionManager.session.sessionId
+                sessionManager.reset()
+                expect(sessionManager.session.sessionId).notTo(equal(id1))
             }
         }
     }

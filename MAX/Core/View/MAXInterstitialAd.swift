@@ -28,11 +28,13 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate {
 
     private var vastDelegate: VASTDelegate!
     private var vastViewController: MaxVASTViewController?
-
     private var mraidDelegate: MRAIDDelegate!
     private var mraidInterstitial: MaxMRAIDInterstitial?
-
     private var interstitialAdapter: MAXInterstitialAdapter?
+    
+    @objc public var adUnitId: String {
+        return adResponse.adUnitId
+    }
 
     @objc public init(adResponse: MAXAdResponse) {
         super.init()
@@ -167,7 +169,13 @@ private class VASTDelegate: NSObject, MaxVASTViewControllerDelegate {
     fileprivate func vastTrackingEvent(_ eventName: String!) {
         MAXLog.debug("MAXInterstitialAd MaxVASTViewControllerDelegate: vastTrackingEvent(\(eventName!))")
         if eventName == "start"{
+            
             parent.adResponse.trackImpression()
+            
+            // An interstitial will be shown because a MAX response was ‘reserved,’ so MAX bypassed any SSP and directly rendered an ad response
+            if parent.adResponse.isReserved {
+                MAXSessionManager.shared.incrementMaxSessionDepth(adUnitId: parent.adUnitId)
+            }
         }
         if eventName == "close" {
             parent.delegate?.interstitialAdWillClose(parent)
@@ -221,6 +229,11 @@ private class MRAIDDelegate: NSObject, MaxMRAIDInterstitialDelegate, MaxMRAIDSer
     fileprivate func mraidInterstitialWillShow(_ mraidInterstitial: MaxMRAIDInterstitial!) {
         MAXLog.debug("MAXInterstitialAd MaxMRAIDInterstitialDelegate: mraidInterstitialWillShow")
         parent.adResponse.trackImpression()
+        
+        // An interstitial will be shown because a MAX response was ‘reserved,’ so MAX bypassed any SSP and directly rendered an ad response
+        if parent.adResponse.isReserved {
+            MAXSessionManager.shared.incrementMaxSessionDepth(adUnitId: parent.adUnitId)
+        }
     }
 
     fileprivate func mraidInterstitialNavigate(_ mraidInterstitial: MaxMRAIDInterstitial!, with url: URL!) {

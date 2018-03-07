@@ -30,11 +30,11 @@ class MAXAdResponseSpec: QuickSpec {
             var response: MAXAdResponseStub?
             
             beforeEach {
-                response = try! MAXAdResponseStub(data:jsonData)
+                response = try! MAXAdResponseStub(adUnitId: "", data:jsonData)
             }
 
             it("can be created with JSON data") {
-                let r = try! MAXAdResponse(data: jsonData)
+                let r = try! MAXAdResponse(adUnitId: "", data: jsonData)
                 expect(r.preBidKeywords).to(equal("a,b,c"))
                 expect(r.autoRefreshInterval).to(equal(10))
                 expect(r.expirationIntervalSeconds).to(equal(10.0*60.0))
@@ -103,7 +103,7 @@ class MAXAdResponseSpec: QuickSpec {
             
             it("should track select handoff") {
                 let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
-                let response = try! MAXAdResponseStub(data:jsonData)
+                let response = try! MAXAdResponseStub(adUnitId: "", data:jsonData)
                 let url = URL(string:"https://ads.maxads.io/event/handoff/abcd")!
                 
                 response.mockSession.onRequest(
@@ -118,7 +118,7 @@ class MAXAdResponseSpec: QuickSpec {
             
             it("should track loss events") {
                 let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
-                let response = try! MAXAdResponseStub(data:jsonData)
+                let response = try! MAXAdResponseStub(adUnitId: "", data:jsonData)
                 let url = URL(string:"https://ads.maxads.io/event/loss/abcd")!
                 
                 response.mockSession.onRequest(
@@ -133,7 +133,7 @@ class MAXAdResponseSpec: QuickSpec {
             
             it("should track expire events") {
                 let jsonData = try! JSONSerialization.data(withJSONObject: responseData)
-                let response = try! MAXAdResponseStub(data:jsonData)
+                let response = try! MAXAdResponseStub(adUnitId: "", data:jsonData)
                 let url = URL(string:"https://ads.maxads.io/event/expire/abcd")!
                 
                 response.mockSession.onRequest(

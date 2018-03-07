@@ -108,7 +108,7 @@
     {
       "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/API/MAXAdRequestManager.swift",
       "line": 89,
-      "symbol": "MAXAdRequestManager.startRefresh()",
+      "symbol": "MAXAdRequestManager.startRefreshTimer()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -1011,35 +1011,35 @@
     {
       "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
       "line": 5,
-      "symbol": "MAXMoPubAdRequestManager",
+      "symbol": "MAXMoPubBannerAdRequestManager",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
       "line": 61,
-      "symbol": "MAXMoPubAdRequestManager.viewControllerForPresentingModalView()",
+      "symbol": "MAXMoPubBannerAdRequestManager.viewControllerForPresentingModalView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
       "line": 84,
-      "symbol": "MAXMoPubAdRequestManager.willPresentModalView(forAd:)",
+      "symbol": "MAXMoPubBannerAdRequestManager.willPresentModalView(forAd:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
       "line": 89,
-      "symbol": "MAXMoPubAdRequestManager.didDismissModalView(forAd:)",
+      "symbol": "MAXMoPubBannerAdRequestManager.didDismissModalView(forAd:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jpena/workspace/MAXAds/max-ios-sdk/MAX/MoPub/MAXMoPubRequestManager.swift",
       "line": 94,
-      "symbol": "MAXMoPubAdRequestManager.willLeaveApplication(fromAd:)",
+      "symbol": "MAXMoPubBannerAdRequestManager.willLeaveApplication(fromAd:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },

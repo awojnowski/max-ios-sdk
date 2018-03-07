@@ -209,7 +209,8 @@ public class MAXAdRequest: NSObject {
             "model": self.model,
             "connectivity": self.connectivity,
             "carrier": self.carrier,
-            "session_depth": MAXSession.shared.sessionDepth,
+            "session_depth": MAXSessionManager.shared.session.combinedDepthForAllAds().intValue,
+            "session": MAXSessionManager.shared.session.dict,
             "location_tracking": self.locationTrackingAvailability,
             "location": self.locationData,
             "tokens": self.tokens
@@ -221,10 +222,6 @@ public class MAXAdRequest: NSObject {
 
     @objc public var asJSONObject: Data? {
         let data = try? JSONSerialization.data(withJSONObject: self.dict, options: [])
-
-        if let json = String(data: data!, encoding: String.Encoding.utf8) as String! {
-            MAXLog.debug(json)
-        }
         return data
     }
 
@@ -246,10 +243,10 @@ public class MAXAdRequest: NSObject {
     /// - Returns: the MAXAdRequest object representing the request being made
     @objc public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
-        adr.requestAd {(response, error) in
+        adr.requestAd(adUnitId: adUnitID, {(response, error) in
             MAXAds.receivedPreBid(adUnitID: adUnitID, response: response, error: error)
             completion(response, error)
-        }
+        })
         return adr
     }
 
@@ -260,7 +257,7 @@ public class MAXAdRequest: NSObject {
     /// plan can be executed whenever an ad needs to be shown. Once the ad is shown,
     /// the ad request should be discarded.
     /// - Parameter completion: a `MAXResponseCompletion` callback to be called when the request completes.
-    @objc public func requestAd(_ completion: @escaping MAXResponseCompletion) {
+    @objc public func requestAd(adUnitId: String, _ completion: @escaping MAXResponseCompletion) {
         // Setup POST
         let url = self.getUrl()
         let session = getSession()
@@ -268,7 +265,6 @@ public class MAXAdRequest: NSObject {
         request.httpMethod = "POST"
 
         session.uploadTask(with: request as URLRequest, from: self.asJSONObject, completionHandler: { (respData, resp, err) in
-            MAXSession.shared.incrementDepth()
             do {
                 guard let data = respData, let response = resp as? HTTPURLResponse else {
                     if let error = err {
@@ -279,9 +275,10 @@ public class MAXAdRequest: NSObject {
                 }
 
                 if response.statusCode == 200 {
-                    self.adResponse = try MAXAdResponse(data: data)
+                    self.adResponse = try MAXAdResponse(adUnitId: adUnitId, data: data)
                     completion(self.adResponse, nil)
                 } else if response.statusCode == 204 {
+                    print("\(String(describing: MAXAdRequest.self)) returned with statusCode = 204, which means nobody bid on this request - adUnitId: \(self.adUnitID)")
                     self.adResponse = MAXAdResponse()
                     completion(self.adResponse, nil)
                 } else {

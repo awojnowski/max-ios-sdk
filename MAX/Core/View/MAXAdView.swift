@@ -6,7 +6,7 @@ public enum MAXBannerCreativeType: String {
 }
 
 @objc public protocol MAXAdViewDelegate {
-    @objc func viewControllerForPresentingModalView() -> UIViewController!
+    @objc optional func viewControllerForMaxPresentingModalView() -> UIViewController?
 
     @objc func adViewDidFailWithError(_ adView: MAXAdView, error: NSError?)
     @objc func adViewDidClick(_ adView: MAXAdView)
@@ -25,6 +25,10 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     private var mraidView: MaxMRAIDView!
     private var adViewAdapter: MAXAdViewAdapter!
     private var adSize: CGSize!
+    
+    @objc public var adUnitId: String {
+        return adResponse.adUnitId
+    }
 
     @objc public init(adResponse: MAXAdResponse, size: CGSize) {
         super.init(frame: CGRect(origin: CGPoint.zero, size: size))
@@ -74,7 +78,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
             supportedFeatures: [],
             delegate: self,
             serviceDelegate: self,
-            rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
+            rootViewController: self.delegate?.viewControllerForMaxPresentingModalView?() ?? self.window?.rootViewController
         )
 
         self.addSubview(self.mraidView)
@@ -102,7 +106,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
         guard let adapter = adViewGenerator.getAdViewAdapter(
             fromResponse: self.adResponse,
             withSize: self.adSize,
-            rootViewController: self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
+            rootViewController: self.delegate?.viewControllerForMaxPresentingModalView?() ?? self.window?.rootViewController
         ) else {
             MAXLog.error("Unable to load ad view generator, generator loadAdView returned nil")
             self.loadAdWithMRAIDRenderer()
@@ -116,6 +120,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
         if let view = self.adViewAdapter.adView {
             self.addSubview(view)
         } else {
+            // TODO - Bryan: Add an error to be passed back in adViewDidFailWithError
             self.delegate?.adViewDidFailWithError(self, error: nil)
         }
     }
@@ -137,7 +142,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     @objc public func click(_ url: URL) {
         self.trackClick()
 
-        let vc = self.delegate?.viewControllerForPresentingModalView() ?? self.window?.rootViewController
+        let vc = self.delegate?.viewControllerForMaxPresentingModalView?() ?? self.window?.rootViewController
         MAXLinkHandler().openURL(vc, url: url) {
             self.delegate?.adViewDidFinishHandlingClick(self)
         }
@@ -171,6 +176,11 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
      */
     public func mraidViewAdReady(_ mraidView: MaxMRAIDView!) {
         MAXLog.debug("MAX: mraidViewAdReady")
+        
+        if adResponse.isReserved {
+            MAXSessionManager.shared.incrementMaxSessionDepth(adUnitId: adUnitId)
+        }
+        
         self.trackImpression()
         self.delegate?.adViewDidLoad(self)
     }

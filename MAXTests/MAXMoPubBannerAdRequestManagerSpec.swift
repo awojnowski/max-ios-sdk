@@ -1,22 +1,30 @@
+//
+//  MAXMoPubBannerAdRequestManager.swift
+//  MAX
+//
+//  Created by Bryan Boyko on 3/5/18.
+//  Copyright © 2018 Bryan Boyko. All rights reserved.
+//
+
+
 import Quick
 import Nimble
 import MoPub
 @testable import MAX
 
-class TestableMAXMoPubAdRequestManager: MAXMoPubAdRequestManager {
+class TestableMAXMoPubBannerAdRequestManager: MAXMoPubBannerAdRequestManager {
     var response: MAXAdResponse? = nil
     var error: NSError? = nil
     var request: MAXAdRequest!
     var refreshed = false
     
-    override init(maxAdUnitID: String, adView: MPAdView, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
-        super.init(maxAdUnitID: maxAdUnitID, adView: adView, completion: completion)
-        
+    override init(maxAdUnitID: String, mpAdView: MPAdView, completion: @escaping (MAXAdResponse?, NSError?) -> Void) {
+        super.init(maxAdUnitID: maxAdUnitID, mpAdView: mpAdView, completion: completion)
         self.request = MAXAdRequest(adUnitID: adUnitID)
     }
     
-    override func runPreBid(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
-        print("TestableMAXMoPubAdRequestManager.runPrebid called")
+    override func requestAd(completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
+        print("TestableMAXMoPubBannerAdRequestManager.runPrebid called")
         completion(response, error)
         return request
     }
@@ -27,6 +35,16 @@ class TestableMAXMoPubAdRequestManager: MAXMoPubAdRequestManager {
 }
 
 class TestMPAdView: MPAdView {
+    
+    override public var adUnitId: String! {
+        get {
+            return super.adUnitId ?? "testId"
+        }
+        set {
+            super.adUnitId = newValue
+        }
+    }
+    
     override func loadAd() {
         self.delegate.adViewDidLoadAd?(self)
     }
@@ -52,15 +70,15 @@ class TestMPAdViewListener: NSObject, MPAdViewDelegate {
     }
 }
 
-class MAXMoPubAdRequestManagerSpec: QuickSpec {
+class MAXMoPubBannerAdRequestManagerSpec: QuickSpec {
     override func spec() {
-        describe("MAXMoPubAdRequestManager") {
+        describe("MAXMoPubBannerAdRequestManager") {
             let adUnitID = "1234"
             let mpAd = TestMPAdView()
             let listener = TestMPAdViewListener()
             mpAd.delegate = listener
             
-            let manager = TestableMAXMoPubAdRequestManager(maxAdUnitID: adUnitID, adView: mpAd) { (response, error) in
+            let manager = TestableMAXMoPubBannerAdRequestManager(maxAdUnitID: adUnitID, mpAdView: mpAd) { (response, error) in
                 // no after effects
             }
             
@@ -80,7 +98,7 @@ class MAXMoPubAdRequestManagerSpec: QuickSpec {
                 expect(listener.hadFailure).to(beFalse())
                 
                 mpAd.loadAd()
-
+                
                 // the manager should have received a call to refresh after the impression
                 expect(manager.refreshed).to(beTrue())
                 
@@ -108,4 +126,3 @@ class MAXMoPubAdRequestManagerSpec: QuickSpec {
         }
     }
 }
-
