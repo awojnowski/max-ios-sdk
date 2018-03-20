@@ -39,15 +39,20 @@ import Foundation
 
 public class MAXBaseLogger: NSObject {
     
+    private var _logLevel: MAXBaseLogLevel
     @objc public var logLevel: MAXBaseLogLevel {
-        willSet(newLogLevel) {
+        get {
+            return self._logLevel
+        }
+        set(newLogLevel) {
+            _logLevel = newLogLevel
             print("MAXBaseLogger: Log level set to \(newLogLevel.description)")
             MaxCommonLogger.setLogLevel(SourceKitLogLevel(rawValue: SourceKitLogLevel.RawValue(logLevel.rawValue)))
         }
     }
     
     public override init() {
-        logLevel = MAXBaseLogLevel.none
+        _logLevel = MAXBaseLogLevel.none
     }
     
     @objc public func error(tag: String, message: String) {

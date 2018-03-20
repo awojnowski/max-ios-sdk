@@ -21,6 +21,7 @@ point in your existing waterfall.
   s.static_framework = true
 
   s.subspec 'Core' do |d|
+    d.dependency 'SnapKit', '4.0'
     d.source_files = [
      'MAX/*.{h,m,swift}',
      'MAX/Core/**/*.{h,m,swift}'

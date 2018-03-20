@@ -209,11 +209,14 @@ public class MAXAdRequest: NSObject {
             "model": self.model,
             "connectivity": self.connectivity,
             "carrier": self.carrier,
-            "session_depth": MAXSessionManager.shared.session.combinedDepthForAllAds().intValue,
+            "session_depth": MAXSessionManager.shared.combinedDepthForAllAds().intValue,
             "session": MAXSessionManager.shared.session.dict,
             "location_tracking": self.locationTrackingAvailability,
             "location": self.locationData,
-            "tokens": self.tokens
+            "tokens": self.tokens,
+            
+            // ADD ONLY FOR TESTING
+            "reserved": true
         ]
 
         MAXLog.debug(d.description)

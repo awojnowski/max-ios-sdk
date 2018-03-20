@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		191329102046385100C99F05 /* MAXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1913290F2046385100C99F05 /* MAXSession.swift */; };
-		1913291220463E2800C99F05 /* MAXSessionManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1913291120463E2800C99F05 /* MAXSessionManagerStub.swift */; };
 		1913291320463E8300C99F05 /* MAXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1913290F2046385100C99F05 /* MAXSession.swift */; };
 		193BFA05203797E2006D86DC /* MAXAdViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BAF3203639E7000D06DE /* MAXAdViewAdapter.swift */; };
 		193BFA06203797E2006D86DC /* MAXInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BAF4203639E7000D06DE /* MAXInterstitialAdapter.swift */; };
@@ -32,7 +31,7 @@
 		193BFA19203797E2006D86DC /* MAXFacebookAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB59203639E7000D06DE /* MAXFacebookAdapter.swift */; };
 		193BFA1A203797E2006D86DC /* MAXFacebookBannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5A203639E7000D06DE /* MAXFacebookBannerAdapter.swift */; };
 		193BFA1B203797E2006D86DC /* MAXFacebookInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5B203639E7000D06DE /* MAXFacebookInterstitialAdapter.swift */; };
-		193BFA1C203797E2006D86DC /* MAXMoPubCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5D203639E7000D06DE /* MAXMoPubCustomEvent.swift */; };
+		193BFA1C203797E2006D86DC /* MAXMoPubBannerCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5D203639E7000D06DE /* MAXMoPubBannerCustomEvent.swift */; };
 		193BFA1E203797EB006D86DC /* MaxBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB14203639E7000D06DE /* MaxBrowser.m */; };
 		193BFA1F203797EB006D86DC /* MaxBrowserControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB16203639E7000D06DE /* MaxBrowserControlsView.m */; };
 		193BFA20203797EB006D86DC /* MaxCommonLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB1A203639E7000D06DE /* MaxCommonLogger.m */; };
@@ -79,7 +78,7 @@
 		193BFA812037A049006D86DC /* MAXFacebookAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB59203639E7000D06DE /* MAXFacebookAdapter.swift */; };
 		193BFA822037A049006D86DC /* MAXFacebookBannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5A203639E7000D06DE /* MAXFacebookBannerAdapter.swift */; };
 		193BFA832037A049006D86DC /* MAXFacebookInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5B203639E7000D06DE /* MAXFacebookInterstitialAdapter.swift */; };
-		193BFA842037A049006D86DC /* MAXMoPubCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5D203639E7000D06DE /* MAXMoPubCustomEvent.swift */; };
+		193BFA842037A049006D86DC /* MAXMoPubBannerCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5D203639E7000D06DE /* MAXMoPubBannerCustomEvent.swift */; };
 		193BFA872037A057006D86DC /* MaxBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB14203639E7000D06DE /* MaxBrowser.m */; };
 		193BFA882037A057006D86DC /* MaxBrowserControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB16203639E7000D06DE /* MaxBrowserControlsView.m */; };
 		193BFA892037A057006D86DC /* MaxCommonLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB1A203639E7000D06DE /* MaxCommonLogger.m */; };
@@ -132,36 +131,53 @@
 		193BFB1E2037A650006D86DC /* MAXFacebookAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB59203639E7000D06DE /* MAXFacebookAdapter.swift */; };
 		193BFB1F2037A650006D86DC /* MAXFacebookBannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5A203639E7000D06DE /* MAXFacebookBannerAdapter.swift */; };
 		193BFB202037A650006D86DC /* MAXFacebookInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5B203639E7000D06DE /* MAXFacebookInterstitialAdapter.swift */; };
-		193BFB212037A650006D86DC /* MAXMoPubCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5D203639E7000D06DE /* MAXMoPubCustomEvent.swift */; };
-		193BFB232037A650006D86DC /* MAXAdRequestManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAD12037A2D0006D86DC /* MAXAdRequestManagerSpec.swift */; };
-		193BFB242037A650006D86DC /* MAXAdRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAD22037A2D0006D86DC /* MAXAdRequestSpec.swift */; };
-		193BFB252037A650006D86DC /* MAXAdResponseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAD32037A2D0006D86DC /* MAXAdResponseSpec.swift */; };
-		193BFB262037A650006D86DC /* MAXFacebookBannerAdapterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFABE2037A2D0006D86DC /* MAXFacebookBannerAdapterSpec.swift */; };
-		193BFB272037A650006D86DC /* MAXFacebookInterstitialAdapterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFABF2037A2D0006D86DC /* MAXFacebookInterstitialAdapterSpec.swift */; };
-		193BFB282037A650006D86DC /* MAXLocationProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAC02037A2D0006D86DC /* MAXLocationProviderSpec.swift */; };
-		193BFB2A2037A650006D86DC /* MAXResponseCacheSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAC12037A2D0006D86DC /* MAXResponseCacheSpec.swift */; };
-		193BFB2B2037A650006D86DC /* MAXSessionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAD82037A2D1006D86DC /* MAXSessionSpec.swift */; };
-		193BFB2C2037A650006D86DC /* MAXTokenProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAD42037A2D1006D86DC /* MAXTokenProviderSpec.swift */; };
-		193BFB2D2037A650006D86DC /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAC32037A2D0006D86DC /* MockNotificationCenter.swift */; };
-		193BFB2E2037A650006D86DC /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAC42037A2D0006D86DC /* MockURLSession.swift */; };
-		193BFB2F2037A650006D86DC /* MAXAdRequestManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAC62037A2D0006D86DC /* MAXAdRequestManagerStub.swift */; };
-		193BFB302037A650006D86DC /* MAXAdRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAC72037A2D0006D86DC /* MAXAdRequestStub.swift */; };
-		193BFB312037A650006D86DC /* MAXAdResponseStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAC82037A2D0006D86DC /* MAXAdResponseStub.swift */; };
-		193BFB322037A650006D86DC /* MAXErrorReporterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAC92037A2D0006D86DC /* MAXErrorReporterStub.swift */; };
-		193BFB332037A650006D86DC /* MAXLocationProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFACA2037A2D0006D86DC /* MAXLocationProviderStub.swift */; };
-		193BFB352037A650006D86DC /* MAXDateFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFACD2037A2D0006D86DC /* MAXDateFormatterSpec.swift */; };
-		193BFB362037A650006D86DC /* MAXErrorReporterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFACE2037A2D0006D86DC /* MAXErrorReporterSpec.swift */; };
-		193BFB372037A650006D86DC /* MAXAdViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAD62037A2D1006D86DC /* MAXAdViewSpec.swift */; };
-		193BFB382037A650006D86DC /* MAXInterstitialAdSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BFAD72037A2D1006D86DC /* MAXInterstitialAdSpec.swift */; };
+		193BFB212037A650006D86DC /* MAXMoPubBannerCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB5D203639E7000D06DE /* MAXMoPubBannerCustomEvent.swift */; };
 		193BFB3A2037A786006D86DC /* MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 193BFA56203799EA006D86DC /* MAX.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		195D83E820477D4200BA3330 /* MAXAdUnitScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195D83E720477D4200BA3330 /* MAXAdUnitScore.swift */; };
-		19A1E9E0204E1877009BF93E /* MAXMoPubBannerAdRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXMoPubBannerAdRequestManager.swift */; };
-		19A1E9E1204E1877009BF93E /* MAXMoPubBannerAdRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXMoPubBannerAdRequestManager.swift */; };
-		19A1E9E2204E1877009BF93E /* MAXMoPubBannerAdRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXMoPubBannerAdRequestManager.swift */; };
-		19A1E9E3204E1877009BF93E /* MAXMoPubInterstitialAdRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DF204E1876009BF93E /* MAXMoPubInterstitialAdRequestManager.swift */; };
-		19A1E9E4204E1877009BF93E /* MAXMoPubInterstitialAdRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DF204E1876009BF93E /* MAXMoPubInterstitialAdRequestManager.swift */; };
-		19A1E9E5204E1877009BF93E /* MAXMoPubInterstitialAdRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DF204E1876009BF93E /* MAXMoPubInterstitialAdRequestManager.swift */; };
-		19A1E9E9204E1B6D009BF93E /* MAXMoPubBannerAdRequestManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9E6204E1B6D009BF93E /* MAXMoPubBannerAdRequestManagerSpec.swift */; };
+		1996F6BB204F2233005204D1 /* MAXMoPubBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6BA204F2233005204D1 /* MAXMoPubBanner.swift */; };
+		1996F6BC204F2233005204D1 /* MAXMoPubBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6BA204F2233005204D1 /* MAXMoPubBanner.swift */; };
+		1996F6BD204F2233005204D1 /* MAXMoPubBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6BA204F2233005204D1 /* MAXMoPubBanner.swift */; };
+		1996F6C320509A27005204D1 /* MAXMoPubInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */; };
+		1996F6C420509A27005204D1 /* MAXMoPubInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */; };
+		1996F6C520509A27005204D1 /* MAXMoPubInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */; };
+		1996F7472050CE81005204D1 /* MAXBannerAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7462050CE81005204D1 /* MAXBannerAdView.swift */; };
+		1996F7482050CE81005204D1 /* MAXBannerAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7462050CE81005204D1 /* MAXBannerAdView.swift */; };
+		1996F7492050CE81005204D1 /* MAXBannerAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7462050CE81005204D1 /* MAXBannerAdView.swift */; };
+		1996F7DC205374C5005204D1 /* MAXFacebookBannerAdapterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7A5205374C5005204D1 /* MAXFacebookBannerAdapterSpec.swift */; };
+		1996F7DD205374C5005204D1 /* MAXFacebookInterstitialAdapterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7A6205374C5005204D1 /* MAXFacebookInterstitialAdapterSpec.swift */; };
+		1996F7DE205374C5005204D1 /* MPAdViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7AA205374C5005204D1 /* MPAdViewMock.swift */; };
+		1996F7DF205374C5005204D1 /* MAXMoPubBannerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7AC205374C5005204D1 /* MAXMoPubBannerSpec.swift */; };
+		1996F7E0205374C5005204D1 /* MAXMoPubInterstitialSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7AD205374C5005204D1 /* MAXMoPubInterstitialSpec.swift */; };
+		1996F7E1205374C5005204D1 /* MAXAdViewAdapterGeneratorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7B4205374C5005204D1 /* MAXAdViewAdapterGeneratorStub.swift */; };
+		1996F7E2205374C5005204D1 /* MAXAdViewAdapterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7B5205374C5005204D1 /* MAXAdViewAdapterStub.swift */; };
+		1996F7E3205374C5005204D1 /* MAXAdRequestManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7B8205374C5005204D1 /* MAXAdRequestManagerMock.swift */; };
+		1996F7E4205374C5005204D1 /* MAXAdRequestManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7BA205374C5005204D1 /* MAXAdRequestManagerSpec.swift */; };
+		1996F7E5205374C5005204D1 /* MAXAdRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7BB205374C5005204D1 /* MAXAdRequestSpec.swift */; };
+		1996F7E6205374C5005204D1 /* MAXAdResponseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7BC205374C5005204D1 /* MAXAdResponseSpec.swift */; };
+		1996F7E7205374C5005204D1 /* MAXAdRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7BE205374C5005204D1 /* MAXAdRequestStub.swift */; };
+		1996F7E8205374C5005204D1 /* MAXAdResponseStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7BF205374C5005204D1 /* MAXAdResponseStub.swift */; };
+		1996F7E9205374C5005204D1 /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7C1205374C5005204D1 /* MockNotificationCenter.swift */; };
+		1996F7EA205374C5005204D1 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7C2205374C5005204D1 /* MockURLSession.swift */; };
+		1996F7EB205374C5005204D1 /* MAXLocationProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7C4205374C5005204D1 /* MAXLocationProviderSpec.swift */; };
+		1996F7EC205374C5005204D1 /* MAXResponseCacheSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7C5205374C5005204D1 /* MAXResponseCacheSpec.swift */; };
+		1996F7ED205374C5005204D1 /* MAXSessionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7C6205374C5005204D1 /* MAXSessionSpec.swift */; };
+		1996F7EE205374C5005204D1 /* MAXTokenProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7C7205374C5005204D1 /* MAXTokenProviderSpec.swift */; };
+		1996F7EF205374C5005204D1 /* MAXErrorReporterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7C9205374C5005204D1 /* MAXErrorReporterStub.swift */; };
+		1996F7F0205374C5005204D1 /* MAXLocationProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7CA205374C5005204D1 /* MAXLocationProviderStub.swift */; };
+		1996F7F1205374C5005204D1 /* MAXSessionManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7CB205374C5005204D1 /* MAXSessionManagerStub.swift */; };
+		1996F7F2205374C5005204D1 /* MAXDateFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7CF205374C5005204D1 /* MAXDateFormatterSpec.swift */; };
+		1996F7F3205374C5005204D1 /* MAXErrorReporterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7D0205374C5005204D1 /* MAXErrorReporterSpec.swift */; };
+		1996F7F4205374C5005204D1 /* MAXAdViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7D4205374C5005204D1 /* MAXAdViewMock.swift */; };
+		1996F7F5205374C5005204D1 /* MAXBannerAdViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7D5205374C5005204D1 /* MAXBannerAdViewMock.swift */; };
+		1996F7F6205374C5005204D1 /* MAXBannerControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7D6205374C5005204D1 /* MAXBannerControllerMock.swift */; };
+		1996F7F7205374C5005204D1 /* MAXAdViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7D8205374C5005204D1 /* MAXAdViewSpec.swift */; };
+		1996F7F8205374C5005204D1 /* MAXBannerControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7D9205374C5005204D1 /* MAXBannerControllerSpec.swift */; };
+		1996F7F9205374C5005204D1 /* MAXInterstitialAdSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7DA205374C5005204D1 /* MAXInterstitialAdSpec.swift */; };
+		1996F7FB205377B8005204D1 /* MPInterstitialAdControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7FA205377B8005204D1 /* MPInterstitialAdControllerMock.swift */; };
+		1996F7FD205379F5005204D1 /* MAXInterstitialAdMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7FC205379F5005204D1 /* MAXInterstitialAdMock.swift */; };
+		19A1E9E0204E1877009BF93E /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXBannerController.swift */; };
+		19A1E9E1204E1877009BF93E /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXBannerController.swift */; };
+		19A1E9E2204E1877009BF93E /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXBannerController.swift */; };
 		19A3DFDA2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */; };
 		19A3DFDB2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */; };
 		19A3DFDC2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */; };
@@ -169,10 +185,14 @@
 		19A3DFDF2037B71900D1CAF0 /* MAXAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3DFDD2037B71900D1CAF0 /* MAXAds.swift */; };
 		19A3DFE02037B71900D1CAF0 /* MAXAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3DFDD2037B71900D1CAF0 /* MAXAds.swift */; };
 		19B49A022048C12A00C7A495 /* MAXAdUnitScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195D83E720477D4200BA3330 /* MAXAdUnitScore.swift */; };
-		19D5E80C2059A502005C038C /* MaxUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 19D5E80A2059A502005C038C /* MaxUtils.h */; };
-		19D5E80D2059A502005C038C /* MaxUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E80B2059A502005C038C /* MaxUtils.m */; };
-		19D5E80E2059A502005C038C /* MaxUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E80B2059A502005C038C /* MaxUtils.m */; };
-		19D5E80F2059A502005C038C /* MaxUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E80B2059A502005C038C /* MaxUtils.m */; };
+		19D5E7BA2057011C005C038C /* MAXMoPubBannerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E7B92057011C005C038C /* MAXMoPubBannerMock.swift */; };
+		19D5E7FD20574516005C038C /* MAXMoPubInterstitialMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E7FC20574516005C038C /* MAXMoPubInterstitialMock.swift */; };
+		19D5E7FF205859CD005C038C /* MAXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E7FE205859CD005C038C /* MAXExtensions.swift */; };
+		19D5E800205859CD005C038C /* MAXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E7FE205859CD005C038C /* MAXExtensions.swift */; };
+		19D5E801205859CD005C038C /* MAXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E7FE205859CD005C038C /* MAXExtensions.swift */; };
+		19D5E803205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */; };
+		19D5E804205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */; };
+		19D5E805205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */; };
 		2CBE02FA97EB468BBECFF44F /* Pods_MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53060C259F3AB4781C0321CB /* Pods_MAX.framework */; };
 		70E144D05B6D64868E1610C4 /* Pods_MAXLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A879746A94A313A557EA6E8F /* Pods_MAXLib.framework */; };
 		F3EBC2E22DCD0004E60CE90A /* Pods_MAXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE3AC258AF05842F8D0A8C3 /* Pods_MAXTests.framework */; };
@@ -203,7 +223,6 @@
 /* Begin PBXFileReference section */
 		0BE3AC258AF05842F8D0A8C3 /* Pods_MAXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1913290F2046385100C99F05 /* MAXSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXSession.swift; sourceTree = "<group>"; };
-		1913291120463E2800C99F05 /* MAXSessionManagerStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXSessionManagerStub.swift; sourceTree = "<group>"; };
 		1917BAF3203639E7000D06DE /* MAXAdViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXAdViewAdapter.swift; sourceTree = "<group>"; };
 		1917BAF4203639E7000D06DE /* MAXInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdapter.swift; sourceTree = "<group>"; };
 		1917BAF5203639E7000D06DE /* MAXTokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXTokenProvider.swift; sourceTree = "<group>"; };
@@ -290,7 +309,7 @@
 		1917BB59203639E7000D06DE /* MAXFacebookAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXFacebookAdapter.swift; sourceTree = "<group>"; };
 		1917BB5A203639E7000D06DE /* MAXFacebookBannerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXFacebookBannerAdapter.swift; sourceTree = "<group>"; };
 		1917BB5B203639E7000D06DE /* MAXFacebookInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXFacebookInterstitialAdapter.swift; sourceTree = "<group>"; };
-		1917BB5D203639E7000D06DE /* MAXMoPubCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubCustomEvent.swift; sourceTree = "<group>"; };
+		1917BB5D203639E7000D06DE /* MAXMoPubBannerCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerCustomEvent.swift; sourceTree = "<group>"; };
 		191AB5B720363ED700501922 /* MAX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MAX-Bridging-Header.h"; sourceTree = "<group>"; };
 		193BF9FC203797CE006D86DC /* libMAXLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMAXLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		193BFA56203799EA006D86DC /* MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -298,34 +317,49 @@
 		193BFA59203799EA006D86DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		193BFA5E203799EA006D86DC /* MAXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MAXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		193BFA65203799EB006D86DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		193BFABE2037A2D0006D86DC /* MAXFacebookBannerAdapterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXFacebookBannerAdapterSpec.swift; sourceTree = "<group>"; };
-		193BFABF2037A2D0006D86DC /* MAXFacebookInterstitialAdapterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXFacebookInterstitialAdapterSpec.swift; sourceTree = "<group>"; };
-		193BFAC02037A2D0006D86DC /* MAXLocationProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXLocationProviderSpec.swift; sourceTree = "<group>"; };
-		193BFAC12037A2D0006D86DC /* MAXResponseCacheSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXResponseCacheSpec.swift; sourceTree = "<group>"; };
-		193BFAC32037A2D0006D86DC /* MockNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNotificationCenter.swift; sourceTree = "<group>"; };
-		193BFAC42037A2D0006D86DC /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
-		193BFAC62037A2D0006D86DC /* MAXAdRequestManagerStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestManagerStub.swift; sourceTree = "<group>"; };
-		193BFAC72037A2D0006D86DC /* MAXAdRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestStub.swift; sourceTree = "<group>"; };
-		193BFAC82037A2D0006D86DC /* MAXAdResponseStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdResponseStub.swift; sourceTree = "<group>"; };
-		193BFAC92037A2D0006D86DC /* MAXErrorReporterStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXErrorReporterStub.swift; sourceTree = "<group>"; };
-		193BFACA2037A2D0006D86DC /* MAXLocationProviderStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXLocationProviderStub.swift; sourceTree = "<group>"; };
-		193BFACD2037A2D0006D86DC /* MAXDateFormatterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXDateFormatterSpec.swift; sourceTree = "<group>"; };
-		193BFACE2037A2D0006D86DC /* MAXErrorReporterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXErrorReporterSpec.swift; sourceTree = "<group>"; };
-		193BFAD12037A2D0006D86DC /* MAXAdRequestManagerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestManagerSpec.swift; sourceTree = "<group>"; };
-		193BFAD22037A2D0006D86DC /* MAXAdRequestSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestSpec.swift; sourceTree = "<group>"; };
-		193BFAD32037A2D0006D86DC /* MAXAdResponseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdResponseSpec.swift; sourceTree = "<group>"; };
-		193BFAD42037A2D1006D86DC /* MAXTokenProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXTokenProviderSpec.swift; sourceTree = "<group>"; };
-		193BFAD62037A2D1006D86DC /* MAXAdViewSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdViewSpec.swift; sourceTree = "<group>"; };
-		193BFAD72037A2D1006D86DC /* MAXInterstitialAdSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdSpec.swift; sourceTree = "<group>"; };
-		193BFAD82037A2D1006D86DC /* MAXSessionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXSessionSpec.swift; sourceTree = "<group>"; };
 		195D83E720477D4200BA3330 /* MAXAdUnitScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXAdUnitScore.swift; sourceTree = "<group>"; };
-		19A1E9DE204E1876009BF93E /* MAXMoPubBannerAdRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerAdRequestManager.swift; sourceTree = "<group>"; };
-		19A1E9DF204E1876009BF93E /* MAXMoPubInterstitialAdRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXMoPubInterstitialAdRequestManager.swift; sourceTree = "<group>"; };
-		19A1E9E6204E1B6D009BF93E /* MAXMoPubBannerAdRequestManagerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerAdRequestManagerSpec.swift; sourceTree = "<group>"; };
+		1996F6BA204F2233005204D1 /* MAXMoPubBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubBanner.swift; sourceTree = "<group>"; };
+		1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubInterstitial.swift; sourceTree = "<group>"; };
+		1996F7462050CE81005204D1 /* MAXBannerAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXBannerAdView.swift; sourceTree = "<group>"; };
+		1996F7A5205374C5005204D1 /* MAXFacebookBannerAdapterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXFacebookBannerAdapterSpec.swift; sourceTree = "<group>"; };
+		1996F7A6205374C5005204D1 /* MAXFacebookInterstitialAdapterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXFacebookInterstitialAdapterSpec.swift; sourceTree = "<group>"; };
+		1996F7AA205374C5005204D1 /* MPAdViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPAdViewMock.swift; sourceTree = "<group>"; };
+		1996F7AC205374C5005204D1 /* MAXMoPubBannerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerSpec.swift; sourceTree = "<group>"; };
+		1996F7AD205374C5005204D1 /* MAXMoPubInterstitialSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXMoPubInterstitialSpec.swift; sourceTree = "<group>"; };
+		1996F7B4205374C5005204D1 /* MAXAdViewAdapterGeneratorStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdViewAdapterGeneratorStub.swift; sourceTree = "<group>"; };
+		1996F7B5205374C5005204D1 /* MAXAdViewAdapterStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdViewAdapterStub.swift; sourceTree = "<group>"; };
+		1996F7B8205374C5005204D1 /* MAXAdRequestManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestManagerMock.swift; sourceTree = "<group>"; };
+		1996F7BA205374C5005204D1 /* MAXAdRequestManagerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestManagerSpec.swift; sourceTree = "<group>"; };
+		1996F7BB205374C5005204D1 /* MAXAdRequestSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestSpec.swift; sourceTree = "<group>"; };
+		1996F7BC205374C5005204D1 /* MAXAdResponseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdResponseSpec.swift; sourceTree = "<group>"; };
+		1996F7BE205374C5005204D1 /* MAXAdRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdRequestStub.swift; sourceTree = "<group>"; };
+		1996F7BF205374C5005204D1 /* MAXAdResponseStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdResponseStub.swift; sourceTree = "<group>"; };
+		1996F7C1205374C5005204D1 /* MockNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNotificationCenter.swift; sourceTree = "<group>"; };
+		1996F7C2205374C5005204D1 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		1996F7C4205374C5005204D1 /* MAXLocationProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXLocationProviderSpec.swift; sourceTree = "<group>"; };
+		1996F7C5205374C5005204D1 /* MAXResponseCacheSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXResponseCacheSpec.swift; sourceTree = "<group>"; };
+		1996F7C6205374C5005204D1 /* MAXSessionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXSessionSpec.swift; sourceTree = "<group>"; };
+		1996F7C7205374C5005204D1 /* MAXTokenProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXTokenProviderSpec.swift; sourceTree = "<group>"; };
+		1996F7C9205374C5005204D1 /* MAXErrorReporterStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXErrorReporterStub.swift; sourceTree = "<group>"; };
+		1996F7CA205374C5005204D1 /* MAXLocationProviderStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXLocationProviderStub.swift; sourceTree = "<group>"; };
+		1996F7CB205374C5005204D1 /* MAXSessionManagerStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXSessionManagerStub.swift; sourceTree = "<group>"; };
+		1996F7CF205374C5005204D1 /* MAXDateFormatterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXDateFormatterSpec.swift; sourceTree = "<group>"; };
+		1996F7D0205374C5005204D1 /* MAXErrorReporterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXErrorReporterSpec.swift; sourceTree = "<group>"; };
+		1996F7D4205374C5005204D1 /* MAXAdViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdViewMock.swift; sourceTree = "<group>"; };
+		1996F7D5205374C5005204D1 /* MAXBannerAdViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXBannerAdViewMock.swift; sourceTree = "<group>"; };
+		1996F7D6205374C5005204D1 /* MAXBannerControllerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXBannerControllerMock.swift; sourceTree = "<group>"; };
+		1996F7D8205374C5005204D1 /* MAXAdViewSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAdViewSpec.swift; sourceTree = "<group>"; };
+		1996F7D9205374C5005204D1 /* MAXBannerControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXBannerControllerSpec.swift; sourceTree = "<group>"; };
+		1996F7DA205374C5005204D1 /* MAXInterstitialAdSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdSpec.swift; sourceTree = "<group>"; };
+		1996F7FA205377B8005204D1 /* MPInterstitialAdControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPInterstitialAdControllerMock.swift; sourceTree = "<group>"; };
+		1996F7FC205379F5005204D1 /* MAXInterstitialAdMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdMock.swift; sourceTree = "<group>"; };
+		19A1E9DE204E1876009BF93E /* MAXBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXBannerController.swift; sourceTree = "<group>"; };
 		19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXBaseLogger.swift; sourceTree = "<group>"; };
 		19A3DFDD2037B71900D1CAF0 /* MAXAds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAds.swift; sourceTree = "<group>"; };
-		19D5E80A2059A502005C038C /* MaxUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxUtils.h; sourceTree = "<group>"; };
-		19D5E80B2059A502005C038C /* MaxUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxUtils.m; sourceTree = "<group>"; };
+		19D5E7B92057011C005C038C /* MAXMoPubBannerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerMock.swift; sourceTree = "<group>"; };
+		19D5E7FC20574516005C038C /* MAXMoPubInterstitialMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubInterstitialMock.swift; sourceTree = "<group>"; };
+		19D5E7FE205859CD005C038C /* MAXExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXExtensions.swift; sourceTree = "<group>"; };
+		19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubInterstitialCustomEvent.swift; sourceTree = "<group>"; };
 		1E6EE64A8199E37E629B3039 /* Pods-MAX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAX.release.xcconfig"; path = "Pods/Target Support Files/Pods-MAX/Pods-MAX.release.xcconfig"; sourceTree = "<group>"; };
 		4EE3C88EDC57AC7094510C2C /* Pods-MAX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MAX/Pods-MAX.debug.xcconfig"; sourceTree = "<group>"; };
 		53060C259F3AB4781C0321CB /* Pods_MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -574,8 +608,6 @@
 				1917BB45203639E7000D06DE /* MaxVASTViewController.m */,
 				1917BB46203639E7000D06DE /* MaxVASTXMLUtil.h */,
 				1917BB47203639E7000D06DE /* MaxVASTXMLUtil.m */,
-				19D5E80A2059A502005C038C /* MaxUtils.h */,
-				19D5E80B2059A502005C038C /* MaxUtils.m */,
 				191AB5B720363ED700501922 /* MAX-Bridging-Header.h */,
 			);
 			path = ObjC;
@@ -590,6 +622,7 @@
 				1917BB51203639E7000D06DE /* MAXErrorReporter.swift */,
 				1917BB52203639E7000D06DE /* MAXLinkHandler.swift */,
 				1917BB53203639E7000D06DE /* MAXLogger.swift */,
+				19D5E7FE205859CD005C038C /* MAXExtensions.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -599,6 +632,7 @@
 			children = (
 				1917BB55203639E7000D06DE /* MAXAdView.swift */,
 				1917BB56203639E7000D06DE /* MAXInterstitialAd.swift */,
+				1996F7462050CE81005204D1 /* MAXBannerAdView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -625,9 +659,11 @@
 		1917BB5C203639E7000D06DE /* MoPub */ = {
 			isa = PBXGroup;
 			children = (
-				1917BB5D203639E7000D06DE /* MAXMoPubCustomEvent.swift */,
-				19A1E9DE204E1876009BF93E /* MAXMoPubBannerAdRequestManager.swift */,
-				19A1E9DF204E1876009BF93E /* MAXMoPubInterstitialAdRequestManager.swift */,
+				1917BB5D203639E7000D06DE /* MAXMoPubBannerCustomEvent.swift */,
+				19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */,
+				19A1E9DE204E1876009BF93E /* MAXBannerController.swift */,
+				1996F6BA204F2233005204D1 /* MAXMoPubBanner.swift */,
+				1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */,
 			);
 			path = MoPub;
 			sourceTree = "<group>";
@@ -635,79 +671,275 @@
 		193BFA62203799EB006D86DC /* MAXTests */ = {
 			isa = PBXGroup;
 			children = (
-				193BFAD02037A2D0006D86DC /* API */,
-				193BFABD2037A2D0006D86DC /* Facebook */,
-				193BFAC02037A2D0006D86DC /* MAXLocationProviderSpec.swift */,
-				193BFAC12037A2D0006D86DC /* MAXResponseCacheSpec.swift */,
-				193BFAD82037A2D1006D86DC /* MAXSessionSpec.swift */,
-				193BFAD42037A2D1006D86DC /* MAXTokenProviderSpec.swift */,
-				19A1E9E6204E1B6D009BF93E /* MAXMoPubBannerAdRequestManagerSpec.swift */,
-				193BFAC22037A2D0006D86DC /* Mocks */,
-				193BFAC52037A2D0006D86DC /* Stubs */,
-				193BFACC2037A2D0006D86DC /* Utility */,
-				193BFAD52037A2D1006D86DC /* View */,
+				1996F7AF205374C5005204D1 /* Core */,
+				1996F7A1205374C5005204D1 /* ThirdParty */,
 				193BFA65203799EB006D86DC /* Info.plist */,
 			);
 			path = MAXTests;
 			sourceTree = "<group>";
 		};
-		193BFABD2037A2D0006D86DC /* Facebook */ = {
+		1996F7A1205374C5005204D1 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				193BFABE2037A2D0006D86DC /* MAXFacebookBannerAdapterSpec.swift */,
-				193BFABF2037A2D0006D86DC /* MAXFacebookInterstitialAdapterSpec.swift */,
+				1996F7A2205374C5005204D1 /* Facebook */,
+				1996F7A8205374C5005204D1 /* MoPub */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		1996F7A2205374C5005204D1 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7A3205374C5005204D1 /* Mocks */,
+				1996F7A4205374C5005204D1 /* Specs */,
+				1996F7A7205374C5005204D1 /* Stubs */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
 		};
-		193BFAC22037A2D0006D86DC /* Mocks */ = {
+		1996F7A3205374C5005204D1 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				193BFAC32037A2D0006D86DC /* MockNotificationCenter.swift */,
-				193BFAC42037A2D0006D86DC /* MockURLSession.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		193BFAC52037A2D0006D86DC /* Stubs */ = {
+		1996F7A4205374C5005204D1 /* Specs */ = {
 			isa = PBXGroup;
 			children = (
-				193BFAC62037A2D0006D86DC /* MAXAdRequestManagerStub.swift */,
-				193BFAC72037A2D0006D86DC /* MAXAdRequestStub.swift */,
-				193BFAC82037A2D0006D86DC /* MAXAdResponseStub.swift */,
-				193BFAC92037A2D0006D86DC /* MAXErrorReporterStub.swift */,
-				193BFACA2037A2D0006D86DC /* MAXLocationProviderStub.swift */,
-				1913291120463E2800C99F05 /* MAXSessionManagerStub.swift */,
+				1996F7A5205374C5005204D1 /* MAXFacebookBannerAdapterSpec.swift */,
+				1996F7A6205374C5005204D1 /* MAXFacebookInterstitialAdapterSpec.swift */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		1996F7A7205374C5005204D1 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Stubs;
 			sourceTree = "<group>";
 		};
-		193BFACC2037A2D0006D86DC /* Utility */ = {
+		1996F7A8205374C5005204D1 /* MoPub */ = {
 			isa = PBXGroup;
 			children = (
-				193BFACD2037A2D0006D86DC /* MAXDateFormatterSpec.swift */,
-				193BFACE2037A2D0006D86DC /* MAXErrorReporterSpec.swift */,
+				1996F7A9205374C5005204D1 /* Mocks */,
+				1996F7AB205374C5005204D1 /* Specs */,
+				1996F7AE205374C5005204D1 /* Stubs */,
 			);
-			path = Utility;
+			path = MoPub;
 			sourceTree = "<group>";
 		};
-		193BFAD02037A2D0006D86DC /* API */ = {
+		1996F7A9205374C5005204D1 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				193BFAD12037A2D0006D86DC /* MAXAdRequestManagerSpec.swift */,
-				193BFAD22037A2D0006D86DC /* MAXAdRequestSpec.swift */,
-				193BFAD32037A2D0006D86DC /* MAXAdResponseSpec.swift */,
+				1996F7AA205374C5005204D1 /* MPAdViewMock.swift */,
+				1996F7FA205377B8005204D1 /* MPInterstitialAdControllerMock.swift */,
+				19D5E7B92057011C005C038C /* MAXMoPubBannerMock.swift */,
+				19D5E7FC20574516005C038C /* MAXMoPubInterstitialMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1996F7AB205374C5005204D1 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7AC205374C5005204D1 /* MAXMoPubBannerSpec.swift */,
+				1996F7AD205374C5005204D1 /* MAXMoPubInterstitialSpec.swift */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		1996F7AE205374C5005204D1 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		1996F7AF205374C5005204D1 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7B0205374C5005204D1 /* Adapters */,
+				1996F7B6205374C5005204D1 /* API */,
+				1996F7C0205374C5005204D1 /* Mocks */,
+				1996F7C3205374C5005204D1 /* Specs */,
+				1996F7C8205374C5005204D1 /* Stubs */,
+				1996F7CC205374C5005204D1 /* Utility */,
+				1996F7D2205374C5005204D1 /* View */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1996F7B0205374C5005204D1 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7B1205374C5005204D1 /* Mocks */,
+				1996F7B2205374C5005204D1 /* Specs */,
+				1996F7B3205374C5005204D1 /* Stubs */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
+		1996F7B1205374C5005204D1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1996F7B2205374C5005204D1 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		1996F7B3205374C5005204D1 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7B4205374C5005204D1 /* MAXAdViewAdapterGeneratorStub.swift */,
+				1996F7B5205374C5005204D1 /* MAXAdViewAdapterStub.swift */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		1996F7B6205374C5005204D1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7B7205374C5005204D1 /* Mocks */,
+				1996F7B9205374C5005204D1 /* Specs */,
+				1996F7BD205374C5005204D1 /* Stubs */,
 			);
 			path = API;
 			sourceTree = "<group>";
 		};
-		193BFAD52037A2D1006D86DC /* View */ = {
+		1996F7B7205374C5005204D1 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				193BFAD62037A2D1006D86DC /* MAXAdViewSpec.swift */,
-				193BFAD72037A2D1006D86DC /* MAXInterstitialAdSpec.swift */,
+				1996F7B8205374C5005204D1 /* MAXAdRequestManagerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1996F7B9205374C5005204D1 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7BA205374C5005204D1 /* MAXAdRequestManagerSpec.swift */,
+				1996F7BB205374C5005204D1 /* MAXAdRequestSpec.swift */,
+				1996F7BC205374C5005204D1 /* MAXAdResponseSpec.swift */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		1996F7BD205374C5005204D1 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7BE205374C5005204D1 /* MAXAdRequestStub.swift */,
+				1996F7BF205374C5005204D1 /* MAXAdResponseStub.swift */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		1996F7C0205374C5005204D1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7C1205374C5005204D1 /* MockNotificationCenter.swift */,
+				1996F7C2205374C5005204D1 /* MockURLSession.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1996F7C3205374C5005204D1 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7C4205374C5005204D1 /* MAXLocationProviderSpec.swift */,
+				1996F7C5205374C5005204D1 /* MAXResponseCacheSpec.swift */,
+				1996F7C6205374C5005204D1 /* MAXSessionSpec.swift */,
+				1996F7C7205374C5005204D1 /* MAXTokenProviderSpec.swift */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		1996F7C8205374C5005204D1 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7C9205374C5005204D1 /* MAXErrorReporterStub.swift */,
+				1996F7CA205374C5005204D1 /* MAXLocationProviderStub.swift */,
+				1996F7CB205374C5005204D1 /* MAXSessionManagerStub.swift */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		1996F7CC205374C5005204D1 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7CD205374C5005204D1 /* Mocks */,
+				1996F7CE205374C5005204D1 /* Specs */,
+				1996F7D1205374C5005204D1 /* Stubs */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		1996F7CD205374C5005204D1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1996F7CE205374C5005204D1 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7CF205374C5005204D1 /* MAXDateFormatterSpec.swift */,
+				1996F7D0205374C5005204D1 /* MAXErrorReporterSpec.swift */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		1996F7D1205374C5005204D1 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		1996F7D2205374C5005204D1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7D3205374C5005204D1 /* Mocks */,
+				1996F7D7205374C5005204D1 /* Specs */,
+				1996F7DB205374C5005204D1 /* Stubs */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1996F7D3205374C5005204D1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7D4205374C5005204D1 /* MAXAdViewMock.swift */,
+				1996F7D5205374C5005204D1 /* MAXBannerAdViewMock.swift */,
+				1996F7D6205374C5005204D1 /* MAXBannerControllerMock.swift */,
+				1996F7FC205379F5005204D1 /* MAXInterstitialAdMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1996F7D7205374C5005204D1 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				1996F7D8205374C5005204D1 /* MAXAdViewSpec.swift */,
+				1996F7D9205374C5005204D1 /* MAXBannerControllerSpec.swift */,
+				1996F7DA205374C5005204D1 /* MAXInterstitialAdSpec.swift */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		1996F7DB205374C5005204D1 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Stubs;
 			sourceTree = "<group>";
 		};
 		1DFE40C601E2E27314A83D46 /* Frameworks */ = {
@@ -732,7 +964,6 @@
 				193BFA66203799EB006D86DC /* MAX.h in Headers */,
 				193BFABC2037A0F4006D86DC /* MaxCommonLogger.h in Headers */,
 				193BFAA62037A0AE006D86DC /* MaxMRAIDInterstitial.h in Headers */,
-				19D5E80C2059A502005C038C /* MaxUtils.h in Headers */,
 				193BFAAE2037A0AE006D86DC /* MaxMRAIDView.h in Headers */,
 				193BFAAB2037A0AE006D86DC /* MaxMRAIDServiceDelegate.h in Headers */,
 				193BFAB22037A0AE006D86DC /* MaxVASTError.h in Headers */,
@@ -903,12 +1134,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MAXTests/Pods-MAXTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPub.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPub.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -993,7 +1226,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				193BFA1E203797EB006D86DC /* MaxBrowser.m in Sources */,
-				19A1E9E3204E1877009BF93E /* MAXMoPubInterstitialAdRequestManager.swift in Sources */,
 				193BFA1F203797EB006D86DC /* MaxBrowserControlsView.m in Sources */,
 				193BFA20203797EB006D86DC /* MaxCommonLogger.m in Sources */,
 				193BFA21203797EB006D86DC /* MaxCommonSettings.m in Sources */,
@@ -1001,6 +1233,7 @@
 				193BFA23203797EB006D86DC /* MaxMRAIDModalViewController.m in Sources */,
 				193BFA24203797EB006D86DC /* MaxMRAIDOrientationProperties.m in Sources */,
 				193BFA25203797EB006D86DC /* MaxMRAIDParser.m in Sources */,
+				1996F6C320509A27005204D1 /* MAXMoPubInterstitial.swift in Sources */,
 				19A3DFDE2037B71900D1CAF0 /* MAXAds.swift in Sources */,
 				193BFA26203797EB006D86DC /* MaxMRAIDResizeProperties.m in Sources */,
 				193BFA27203797EB006D86DC /* MaxMRAIDSettings.m in Sources */,
@@ -1021,28 +1254,31 @@
 				193BFA06203797E2006D86DC /* MAXInterstitialAdapter.swift in Sources */,
 				193BFA07203797E2006D86DC /* MAXTokenProvider.swift in Sources */,
 				193BFA08203797E2006D86DC /* MAXAdRequest.swift in Sources */,
+				1996F7472050CE81005204D1 /* MAXBannerAdView.swift in Sources */,
 				193BFA09203797E2006D86DC /* MAXAdRequestManager.swift in Sources */,
+				19D5E803205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift in Sources */,
 				193BFA0A203797E2006D86DC /* MAXAdResponse.swift in Sources */,
 				193BFA0B203797E2006D86DC /* MAXAPIConstants.swift in Sources */,
 				193BFA0C203797E2006D86DC /* MAXUserAgent.swift in Sources */,
 				193BFA0D203797E2006D86DC /* MAXConfiguration.swift in Sources */,
 				193BFA0E203797E2006D86DC /* MAXLocationProvider.swift in Sources */,
 				193BFA10203797E2006D86DC /* MAXSessionManager.swift in Sources */,
-				19D5E80D2059A502005C038C /* MaxUtils.m in Sources */,
 				193BFA11203797E2006D86DC /* MAXConcurrentDictionary.swift in Sources */,
 				193BFA12203797E2006D86DC /* MAXDateFormatter.swift in Sources */,
 				193BFA13203797E2006D86DC /* MAXError.swift in Sources */,
 				193BFA14203797E2006D86DC /* MAXErrorReporter.swift in Sources */,
 				193BFA15203797E2006D86DC /* MAXLinkHandler.swift in Sources */,
 				19A3DFDA2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */,
-				19A1E9E0204E1877009BF93E /* MAXMoPubBannerAdRequestManager.swift in Sources */,
+				19A1E9E0204E1877009BF93E /* MAXBannerController.swift in Sources */,
 				193BFA16203797E2006D86DC /* MAXLogger.swift in Sources */,
 				193BFA17203797E2006D86DC /* MAXAdView.swift in Sources */,
 				193BFA18203797E2006D86DC /* MAXInterstitialAd.swift in Sources */,
+				19D5E7FF205859CD005C038C /* MAXExtensions.swift in Sources */,
 				193BFA19203797E2006D86DC /* MAXFacebookAdapter.swift in Sources */,
 				193BFA1A203797E2006D86DC /* MAXFacebookBannerAdapter.swift in Sources */,
 				193BFA1B203797E2006D86DC /* MAXFacebookInterstitialAdapter.swift in Sources */,
-				193BFA1C203797E2006D86DC /* MAXMoPubCustomEvent.swift in Sources */,
+				193BFA1C203797E2006D86DC /* MAXMoPubBannerCustomEvent.swift in Sources */,
+				1996F6BB204F2233005204D1 /* MAXMoPubBanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,10 +1293,10 @@
 				193BFA8B2037A057006D86DC /* MaxMRAIDInterstitial.m in Sources */,
 				193BFA8C2037A057006D86DC /* MaxMRAIDModalViewController.m in Sources */,
 				193BFA8D2037A057006D86DC /* MaxMRAIDOrientationProperties.m in Sources */,
-				19D5E80E2059A502005C038C /* MaxUtils.m in Sources */,
+				1996F7482050CE81005204D1 /* MAXBannerAdView.swift in Sources */,
 				193BFA8E2037A057006D86DC /* MaxMRAIDParser.m in Sources */,
 				19A3DFDF2037B71900D1CAF0 /* MAXAds.swift in Sources */,
-				19A1E9E1204E1877009BF93E /* MAXMoPubBannerAdRequestManager.swift in Sources */,
+				19A1E9E1204E1877009BF93E /* MAXBannerController.swift in Sources */,
 				193BFA8F2037A057006D86DC /* MaxMRAIDResizeProperties.m in Sources */,
 				193BFA902037A057006D86DC /* MaxMRAIDSettings.m in Sources */,
 				193BFA912037A057006D86DC /* MaxMRAIDUtil.m in Sources */,
@@ -1073,6 +1309,7 @@
 				193BFA972037A057006D86DC /* MaxVASTMediaFile.m in Sources */,
 				193BFA982037A057006D86DC /* MaxVASTMediaFilePicker.m in Sources */,
 				193BFA992037A057006D86DC /* MaxVASTModel.m in Sources */,
+				19D5E804205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift in Sources */,
 				193BFA9A2037A057006D86DC /* MaxVASTSettings.m in Sources */,
 				193BFA9B2037A057006D86DC /* MaxVASTUrlWithId.m in Sources */,
 				193BFA9C2037A057006D86DC /* MaxVASTViewController.m in Sources */,
@@ -1082,7 +1319,6 @@
 				193BFA6E2037A049006D86DC /* MAXInterstitialAdapter.swift in Sources */,
 				193BFA6F2037A049006D86DC /* MAXTokenProvider.swift in Sources */,
 				193BFA702037A049006D86DC /* MAXAdRequest.swift in Sources */,
-				19A1E9E4204E1877009BF93E /* MAXMoPubInterstitialAdRequestManager.swift in Sources */,
 				193BFA712037A049006D86DC /* MAXAdRequestManager.swift in Sources */,
 				193BFA722037A049006D86DC /* MAXAdResponse.swift in Sources */,
 				193BFA732037A049006D86DC /* MAXAPIConstants.swift in Sources */,
@@ -1099,10 +1335,13 @@
 				193BFA7E2037A049006D86DC /* MAXLogger.swift in Sources */,
 				193BFA7F2037A049006D86DC /* MAXAdView.swift in Sources */,
 				193BFA802037A049006D86DC /* MAXInterstitialAd.swift in Sources */,
+				19D5E800205859CD005C038C /* MAXExtensions.swift in Sources */,
+				1996F6BC204F2233005204D1 /* MAXMoPubBanner.swift in Sources */,
 				193BFA812037A049006D86DC /* MAXFacebookAdapter.swift in Sources */,
 				193BFA822037A049006D86DC /* MAXFacebookBannerAdapter.swift in Sources */,
 				193BFA832037A049006D86DC /* MAXFacebookInterstitialAdapter.swift in Sources */,
-				193BFA842037A049006D86DC /* MAXMoPubCustomEvent.swift in Sources */,
+				193BFA842037A049006D86DC /* MAXMoPubBannerCustomEvent.swift in Sources */,
+				1996F6C420509A27005204D1 /* MAXMoPubInterstitial.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,58 +1349,73 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1996F7DE205374C5005204D1 /* MPAdViewMock.swift in Sources */,
 				19B49A022048C12A00C7A495 /* MAXAdUnitScore.swift in Sources */,
 				1913291320463E8300C99F05 /* MAXSession.swift in Sources */,
 				193BFB0A2037A650006D86DC /* MAXAdViewAdapter.swift in Sources */,
 				193BFB0B2037A650006D86DC /* MAXInterstitialAdapter.swift in Sources */,
+				1996F7F9205374C5005204D1 /* MAXInterstitialAdSpec.swift in Sources */,
+				1996F7F3205374C5005204D1 /* MAXErrorReporterSpec.swift in Sources */,
+				1996F7E6205374C5005204D1 /* MAXAdResponseSpec.swift in Sources */,
+				1996F7492050CE81005204D1 /* MAXBannerAdView.swift in Sources */,
 				193BFB0C2037A650006D86DC /* MAXTokenProvider.swift in Sources */,
+				1996F7F0205374C5005204D1 /* MAXLocationProviderStub.swift in Sources */,
 				193BFB0D2037A650006D86DC /* MAXAdRequest.swift in Sources */,
+				1996F7EC205374C5005204D1 /* MAXResponseCacheSpec.swift in Sources */,
+				1996F6BD204F2233005204D1 /* MAXMoPubBanner.swift in Sources */,
 				193BFB0E2037A650006D86DC /* MAXAdRequestManager.swift in Sources */,
+				1996F7F5205374C5005204D1 /* MAXBannerAdViewMock.swift in Sources */,
+				1996F7E7205374C5005204D1 /* MAXAdRequestStub.swift in Sources */,
+				1996F7FB205377B8005204D1 /* MPInterstitialAdControllerMock.swift in Sources */,
+				1996F7E4205374C5005204D1 /* MAXAdRequestManagerSpec.swift in Sources */,
 				19A3DFE02037B71900D1CAF0 /* MAXAds.swift in Sources */,
+				1996F7DF205374C5005204D1 /* MAXMoPubBannerSpec.swift in Sources */,
+				1996F7F8205374C5005204D1 /* MAXBannerControllerSpec.swift in Sources */,
+				1996F7EB205374C5005204D1 /* MAXLocationProviderSpec.swift in Sources */,
+				1996F7E2205374C5005204D1 /* MAXAdViewAdapterStub.swift in Sources */,
+				1996F7FD205379F5005204D1 /* MAXInterstitialAdMock.swift in Sources */,
 				193BFB0F2037A650006D86DC /* MAXAdResponse.swift in Sources */,
+				19D5E801205859CD005C038C /* MAXExtensions.swift in Sources */,
 				193BFB102037A650006D86DC /* MAXAPIConstants.swift in Sources */,
 				193BFB112037A650006D86DC /* MAXUserAgent.swift in Sources */,
+				19D5E7BA2057011C005C038C /* MAXMoPubBannerMock.swift in Sources */,
 				193BFB122037A650006D86DC /* MAXConfiguration.swift in Sources */,
+				1996F7EF205374C5005204D1 /* MAXErrorReporterStub.swift in Sources */,
+				1996F7F2205374C5005204D1 /* MAXDateFormatterSpec.swift in Sources */,
 				193BFB132037A650006D86DC /* MAXLocationProvider.swift in Sources */,
+				19D5E7FD20574516005C038C /* MAXMoPubInterstitialMock.swift in Sources */,
 				193BFB142037A650006D86DC /* MAXSessionManager.swift in Sources */,
+				1996F7E8205374C5005204D1 /* MAXAdResponseStub.swift in Sources */,
 				193BFB162037A650006D86DC /* MAXConcurrentDictionary.swift in Sources */,
-				19A1E9E5204E1877009BF93E /* MAXMoPubInterstitialAdRequestManager.swift in Sources */,
+				1996F7F4205374C5005204D1 /* MAXAdViewMock.swift in Sources */,
 				193BFB172037A650006D86DC /* MAXDateFormatter.swift in Sources */,
 				193BFB182037A650006D86DC /* MAXError.swift in Sources */,
-				19A1E9E9204E1B6D009BF93E /* MAXMoPubBannerAdRequestManagerSpec.swift in Sources */,
+				1996F7E0205374C5005204D1 /* MAXMoPubInterstitialSpec.swift in Sources */,
 				19A3DFDC2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */,
+				1996F7EE205374C5005204D1 /* MAXTokenProviderSpec.swift in Sources */,
+				1996F7F7205374C5005204D1 /* MAXAdViewSpec.swift in Sources */,
+				19D5E805205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift in Sources */,
+				1996F7E9205374C5005204D1 /* MockNotificationCenter.swift in Sources */,
 				193BFB192037A650006D86DC /* MAXErrorReporter.swift in Sources */,
+				1996F7DD205374C5005204D1 /* MAXFacebookInterstitialAdapterSpec.swift in Sources */,
 				193BFB1A2037A650006D86DC /* MAXLinkHandler.swift in Sources */,
 				193BFB1B2037A650006D86DC /* MAXLogger.swift in Sources */,
+				1996F7E1205374C5005204D1 /* MAXAdViewAdapterGeneratorStub.swift in Sources */,
+				1996F7E3205374C5005204D1 /* MAXAdRequestManagerMock.swift in Sources */,
 				193BFB1C2037A650006D86DC /* MAXAdView.swift in Sources */,
 				193BFB1D2037A650006D86DC /* MAXInterstitialAd.swift in Sources */,
 				193BFB1E2037A650006D86DC /* MAXFacebookAdapter.swift in Sources */,
 				193BFB1F2037A650006D86DC /* MAXFacebookBannerAdapter.swift in Sources */,
+				1996F7DC205374C5005204D1 /* MAXFacebookBannerAdapterSpec.swift in Sources */,
+				1996F7F1205374C5005204D1 /* MAXSessionManagerStub.swift in Sources */,
+				1996F7E5205374C5005204D1 /* MAXAdRequestSpec.swift in Sources */,
 				193BFB202037A650006D86DC /* MAXFacebookInterstitialAdapter.swift in Sources */,
-				193BFB212037A650006D86DC /* MAXMoPubCustomEvent.swift in Sources */,
-				1913291220463E2800C99F05 /* MAXSessionManagerStub.swift in Sources */,
-				193BFB232037A650006D86DC /* MAXAdRequestManagerSpec.swift in Sources */,
-				193BFB242037A650006D86DC /* MAXAdRequestSpec.swift in Sources */,
-				193BFB252037A650006D86DC /* MAXAdResponseSpec.swift in Sources */,
-				193BFB262037A650006D86DC /* MAXFacebookBannerAdapterSpec.swift in Sources */,
-				193BFB272037A650006D86DC /* MAXFacebookInterstitialAdapterSpec.swift in Sources */,
-				193BFB282037A650006D86DC /* MAXLocationProviderSpec.swift in Sources */,
-				19D5E80F2059A502005C038C /* MaxUtils.m in Sources */,
-				19A1E9E2204E1877009BF93E /* MAXMoPubBannerAdRequestManager.swift in Sources */,
-				193BFB2A2037A650006D86DC /* MAXResponseCacheSpec.swift in Sources */,
-				193BFB2B2037A650006D86DC /* MAXSessionSpec.swift in Sources */,
-				193BFB2C2037A650006D86DC /* MAXTokenProviderSpec.swift in Sources */,
-				193BFB2D2037A650006D86DC /* MockNotificationCenter.swift in Sources */,
-				193BFB2E2037A650006D86DC /* MockURLSession.swift in Sources */,
-				193BFB2F2037A650006D86DC /* MAXAdRequestManagerStub.swift in Sources */,
-				193BFB302037A650006D86DC /* MAXAdRequestStub.swift in Sources */,
-				193BFB312037A650006D86DC /* MAXAdResponseStub.swift in Sources */,
-				193BFB322037A650006D86DC /* MAXErrorReporterStub.swift in Sources */,
-				193BFB332037A650006D86DC /* MAXLocationProviderStub.swift in Sources */,
-				193BFB352037A650006D86DC /* MAXDateFormatterSpec.swift in Sources */,
-				193BFB362037A650006D86DC /* MAXErrorReporterSpec.swift in Sources */,
-				193BFB372037A650006D86DC /* MAXAdViewSpec.swift in Sources */,
-				193BFB382037A650006D86DC /* MAXInterstitialAdSpec.swift in Sources */,
+				1996F7F6205374C5005204D1 /* MAXBannerControllerMock.swift in Sources */,
+				1996F7ED205374C5005204D1 /* MAXSessionSpec.swift in Sources */,
+				1996F7EA205374C5005204D1 /* MockURLSession.swift in Sources */,
+				193BFB212037A650006D86DC /* MAXMoPubBannerCustomEvent.swift in Sources */,
+				19A1E9E2204E1877009BF93E /* MAXBannerController.swift in Sources */,
+				1996F6C520509A27005204D1 /* MAXMoPubInterstitial.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

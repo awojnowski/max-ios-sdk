@@ -2,6 +2,9 @@ import Foundation
 @testable import MAX
 
 class MAXAdResponseStub: MAXAdResponse {
+    
+    internal static let maxPreBidKeywords = "maxKeywords"
+    
     let mockSession = MockURLSession()
     override func getSession() -> URLSession {
         return mockSession
@@ -48,6 +51,20 @@ class MAXAdResponseStub: MAXAdResponse {
     override var creativeType: String {
         get {
             return _creativeType
+        }
+    }
+    
+    var _preBidKeywords = maxPreBidKeywords
+    override var preBidKeywords: String {
+        get {
+            return _preBidKeywords
+        }
+    }
+    
+    var _isReserved = false
+    override var isReserved: Bool {
+        get {
+            return _isReserved
         }
     }
 }

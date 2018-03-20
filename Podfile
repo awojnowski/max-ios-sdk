@@ -10,6 +10,7 @@ def common_deps
   pod 'SwiftLint'
   pod 'mopub-ios-sdk', '>= 4.18.0'
   pod 'FBAudienceNetwork', '= 4.27.2'
+  pod 'SnapKit', '~> 4.0'
  
 end
 

@@ -8,19 +8,19 @@
 
 import Foundation
 
-public class MAXAdUnitScore: NSObject {
+internal class MAXAdUnitScore: NSObject {
     
     let adUnitId: String
     
-    public init(adUnitId: String) {
+    internal init(adUnitId: String) {
         self.adUnitId = adUnitId
         super.init()
     }
     
-    @objc public internal(set) var maxSessionDepth = NSNumber()
-    @objc public internal(set) var sspSessionDepth = NSNumber()
+    internal var maxSessionDepth = NSNumber()
+    internal var sspSessionDepth = NSNumber()
     
-    @objc public var dict: Dictionary<String, Any> {
+    internal var dict: Dictionary<String, Any> {
         let d: Dictionary<String, Any> = [
             "max_score" : maxSessionDepth.intValue,
             "ssp_score" : sspSessionDepth.intValue
@@ -30,7 +30,7 @@ public class MAXAdUnitScore: NSObject {
     
     //MARK: Overrides
     
-    public override var description: String {
+    internal override var description: String {
         return "adUnitId: \(adUnitId)\n maxSessionDepth: \(maxSessionDepth.intValue)\n sspSessionDepth: \(sspSessionDepth.intValue)"
     }
 }
