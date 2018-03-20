@@ -5,7 +5,8 @@ let maxSDKVersion = "0.9.0"
 
 public class MAXConfiguration: NSObject {
 
-    public static let shared = MAXConfiguration()
+    @objc public static let shared = MAXConfiguration()
+    
     private override init() {
         MAXLog.info("You are using MAX iOS SDK version \(maxSDKVersion)")
     }

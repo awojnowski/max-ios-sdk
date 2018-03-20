@@ -11,7 +11,7 @@ internal class FacebookTokenProvider: MAXTokenProvider {
 
 // Make MAXConfiguration extension public because MAXConfiguration is public
 public extension MAXConfiguration {
-    public func initializeFacebookIntegration() {
+    @objc public func initializeFacebookIntegration() {
         // FBAudienceNetwork has a race condition in their bidderToken method
         // when it's called before anything else has been initialized. We create and
         // immediately throw out this view to force the initialization to happen.
