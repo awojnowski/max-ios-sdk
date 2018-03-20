@@ -67,4 +67,11 @@ class MAXAdResponseStub: MAXAdResponse {
             return _isReserved
         }
     }
+    
+    var _creative = "creative_string"
+    override var creative: String? {
+        get {
+            return _creative
+        }
+    }
 }

@@ -30,11 +30,11 @@ public class MAXInterstitialAdapter: NSObject {
     @objc weak var delegate: MAXInterstitialAdapterDelegate?
 
     @objc public func loadAd() {
-        MAXLog.error("MAXInterstitialAdapter.loadAd not implemented")
+        MAXLogger.error("MAXInterstitialAdapter.loadAd not implemented")
     }
 
     @objc public func showAd(fromRootViewController rvc: UIViewController?) {
-        MAXLog.error("MAXInterstitialAdapter.showAd not implemented")
+        MAXLogger.error("MAXInterstitialAdapter.showAd not implemented")
     }
 }
 

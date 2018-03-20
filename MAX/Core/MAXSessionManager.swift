@@ -32,7 +32,7 @@ public class MAXSessionManager: NSObject {
         self.session = MAXSession(sessionId: MAXSessionManager.generateSessionId())
         super.init()
         self.addObservers()
-        MAXLog.debug("\(String(describing: self)): session initialized")
+        MAXLogger.debug("\(String(describing: self)): session initialized")
     }
     
     private func addObservers() {
@@ -45,7 +45,7 @@ public class MAXSessionManager: NSObject {
             if self.isExpired {
                 self.reset()
             } else {
-                MAXLog.debug("\(String(describing: self)): won't reset since user came back to app within \(self.sessionExpirationIntervalSeconds) seconds")
+                MAXLogger.debug("\(String(describing: self)): won't reset since user came back to app within \(self.sessionExpirationIntervalSeconds) seconds")
             }
         }
         
@@ -55,7 +55,7 @@ public class MAXSessionManager: NSObject {
             queue: OperationQueue.main
         ) { _ in
             self.leftAppTimestamp = Date()
-            MAXLog.debug("\(String(describing: self)): recorded user leaving app at \(String(describing: self.leftAppTimestamp))")
+            MAXLogger.debug("\(String(describing: self)): recorded user leaving app at \(String(describing: self.leftAppTimestamp))")
         }
     }
 
@@ -85,10 +85,10 @@ public class MAXSessionManager: NSObject {
     @objc public func incrementMaxSessionDepth(adUnitId: String?) {
         
         let id = adUnitId ?? nilAdUnitIdKey
-        MAXLog.debug("\(String(describing: self)) incrementMaxSessionDepth for adUnitId: <\(id)>")
+        MAXLogger.debug("\(String(describing: self)) incrementMaxSessionDepth for adUnitId: <\(id)>")
         
         if id == nilAdUnitIdKey {
-            MAXLog.warn("\(String(describing: self)) incrementMaxSessionDepth for nil ad unit id")
+            MAXLogger.warn("\(String(describing: self)) incrementMaxSessionDepth for nil ad unit id")
         }
         
         var score = session.scores[id]
@@ -102,10 +102,10 @@ public class MAXSessionManager: NSObject {
     @objc public func incrementSSPSessionDepth(adUnitId: String?) {
         
         let id = adUnitId ?? nilAdUnitIdKey
-        MAXLog.debug("\(String(describing: self)) incrementSSPSessionDepth for adUnitId: <\(id)>")
+        MAXLogger.debug("\(String(describing: self)) incrementSSPSessionDepth for adUnitId: <\(id)>")
         
         if id == nilAdUnitIdKey {
-            MAXLog.warn("\(String(describing: self)) incrementMaxSessionDepth for nil ad unit id")
+            MAXLogger.warn("\(String(describing: self)) incrementMaxSessionDepth for nil ad unit id")
         }
         
         var score = session.scores[id]
@@ -156,7 +156,7 @@ public class MAXSessionManager: NSObject {
     }
     
     @objc func reset() {
-        MAXLog.debug("\(String(describing: self)) reset session")
+        MAXLogger.debug("\(String(describing: self)) reset session")
         session = MAXSession(sessionId: MAXSessionManager.generateSessionId())
     }
 }

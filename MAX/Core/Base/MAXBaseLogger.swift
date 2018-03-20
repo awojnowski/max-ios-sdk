@@ -8,13 +8,16 @@
 
 import Foundation
 
-// NOTE: For now we wrap MaxCommonLogger ObjC class with Swift. After ObjC code is rewritten in Swift, we can remove wrapper and port objc implementation to Swift implementation in this class.
+// NOTE: For now we wrap MaxCommonLogger ObjC class with Swift. After ObjC code is rewritten in
+// Swift, we can remove wrapper and port objc implementation to Swift implementation in this class.
+// MAXBaseLogger can then be removed in favor of MAXLogger class.
+
 
 @objc public enum MAXBaseLogLevel: Int, CustomStringConvertible {
     
     case none = 0
     case error
-    case warning
+    case warn
     case info
     case debug
     
@@ -27,8 +30,8 @@ import Foundation
             return "none"
         case .error:
             return "error"
-        case .warning:
-            return "warning"
+        case .warn:
+            return "warn"
         case .info:
             return "info"
         case .debug:
@@ -59,7 +62,7 @@ public class MAXBaseLogger: NSObject {
         MaxCommonLogger.error(tag, withMessage: message)
     }
     
-    @objc public func warning(tag: String, message: String) {
+    @objc public func warn(tag: String, message: String) {
         MaxCommonLogger.warning(tag, withMessage: message)
     }
     

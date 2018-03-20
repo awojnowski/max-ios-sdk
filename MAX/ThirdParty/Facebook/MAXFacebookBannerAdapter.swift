@@ -16,7 +16,7 @@ internal class FacebookBannerView: MAXAdViewAdapter, FBAdViewDelegate {
                 self.fbAdView = newValue as! FBAdView
                 // swiftlint:enable force_cast
             } else {
-                MAXLog.error("Tried to set FacebookBannerView.fbAdView but got a non-FBAdView type")
+                MAXLogger.error("Tried to set FacebookBannerView.fbAdView but got a non-FBAdView type")
             }
         }
     }
@@ -29,7 +29,7 @@ internal class FacebookBannerView: MAXAdViewAdapter, FBAdViewDelegate {
     }
 
     override internal func loadAd() {
-        MAXLog.debug("Calling loadAd on Facebook Banner")
+        MAXLogger.debug("Calling loadAd on Facebook Banner")
         self.fbAdView.loadAd(withBidPayload: self.bidPayload)
     }
 
@@ -38,26 +38,26 @@ internal class FacebookBannerView: MAXAdViewAdapter, FBAdViewDelegate {
      */
     public func adViewDidClick(_ adView: FBAdView) {
         self.delegate?.adViewWasClicked(self)
-        MAXLog.debug("Facebook banner ad was clicked")
+        MAXLogger.debug("Facebook banner ad was clicked")
     }
 
     public func adViewDidFinishHandlingClick(_ adView: FBAdView) {
-        MAXLog.debug("Facebook banner ad finished handling click")
+        MAXLogger.debug("Facebook banner ad finished handling click")
     }
 
     public func adViewDidLoad(_ adView: FBAdView) {
         self.delegate?.adViewDidLoad(self)
-        MAXLog.debug("Facebook banner ad finished handling click")
+        MAXLogger.debug("Facebook banner ad finished handling click")
     }
 
     public func adView(_ adView: FBAdView, didFailWithError error: Error) {
         self.delegate?.adView(self, didFailWithError: error)
-        MAXLog.debug("Facebook banner ad failed with error: \(error.localizedDescription)")
+        MAXLogger.debug("Facebook banner ad failed with error: \(error.localizedDescription)")
     }
 
     public func adViewWillLogImpression(_ adView: FBAdView) {
         self.delegate?.adViewWillLogImpression(self)
-        MAXLog.debug("Facebook banner ad will log an impression")
+        MAXLogger.debug("Facebook banner ad will log an impression")
     }
 }
 
@@ -69,12 +69,12 @@ internal class FacebookBannerGenerator: MAXAdViewAdapterGenerator {
                                  withSize size: CGSize,
                                  rootViewController: UIViewController?) -> MAXAdViewAdapter? {
         guard let placementID = response.partnerPlacementID else {
-            MAXLog.warn("Tried to load a banner ad for Facebook but couldn't find a placement ID in the response")
+            MAXLogger.warn("Tried to load a banner ad for Facebook but couldn't find a placement ID in the response")
             return nil
         }
 
         guard let bidPayload = response.creative else {
-            MAXLog.warn("Tried to load a banner ad for Facebook but couldn't find a bid payload in the response")
+            MAXLogger.warn("Tried to load a banner ad for Facebook but couldn't find a bid payload in the response")
             return nil
         }
 

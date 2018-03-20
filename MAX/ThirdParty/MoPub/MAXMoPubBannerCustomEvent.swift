@@ -6,7 +6,10 @@ import MoPub
 /// See the documentation on [SSP Integration](http://docs.maxads.io/documentation/integration/ssp_integration/)
 /// to ensure you integrate this properly in your waterfall.
 /// NOTE: MoPub will instantiate this class based on MoPub account line item configurations
+
+// Keep this: @objc() declaration for Swift class to be available from Objective-C runtime calls to NSStringFromClass()
 @objc(MAXMoPubBannerCustomEvent)
+
 public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDelegate, MAXAdViewDelegate {
     
     private var adView: MAXAdView?
@@ -17,18 +20,18 @@ public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEvent
         self.adView = nil
 
         guard let adUnitID = info["adunit_id"] as? String else {
-            MAXLog.error("AdUnitID not specified in adunit_id customEventInfo block")
+            MAXLogger.error("AdUnitID not specified in adunit_id customEventInfo block")
             self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
             return
         }
 
         guard let adResponse = MAXAds.getPreBid(adUnitID: adUnitID) else {
-            MAXLog.error("Pre-bid was not found for adUnitID=\(adUnitID)")
+            MAXLogger.error("Pre-bid was not found for adUnitID=\(adUnitID)")
             self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
             return
         }
 
-        MAXLog.debug("Banner for \(adUnitID) found, loading...")
+        MAXLogger.debug("Banner for \(adUnitID) found, loading...")
 
         // Inform MAX system that we won in the waterfall
         adResponse.trackSelected()
@@ -40,7 +43,7 @@ public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEvent
             adView.delegate = self
             adView.loadAd()
         } else {
-            MAXLog.error("Unable to create MAXAdView, failing")
+            MAXLogger.error("Unable to create MAXAdView, failing")
             self.delegate.bannerCustomEvent(self, didFailToLoadAdWithError: nil)
         }
 
@@ -55,7 +58,7 @@ public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEvent
     // This is used to handle callbacks from native creative rendering by MAX internally.
     
     public func adViewDidFailWithError(_ adView: MAXAdView?, error: NSError?) {
-        MAXLog.debug("adViewDidFailWithError")
+        MAXLogger.debug("adViewDidFailWithError")
         
         if let d = delegate {
             d.bannerCustomEvent(self, didFailToLoadAdWithError: error)
@@ -63,7 +66,7 @@ public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEvent
     }
     
     public func adViewDidLoad(_ adView: MAXAdView?) {
-        MAXLog.debug("adViewDidLoad")
+        MAXLogger.debug("adViewDidLoad")
         
         if let d = delegate {
             d.trackImpression()
@@ -72,18 +75,18 @@ public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEvent
     }
     
     public func adViewDidClick(_ adView: MAXAdView?) {
-        MAXLog.debug("adViewDidClick")
+        MAXLogger.debug("adViewDidClick")
         delegate?.trackClick()
         delegate?.bannerCustomEventWillBeginAction(self)
     }
     
     public func adViewDidFinishHandlingClick(_ adView: MAXAdView?) {
-        MAXLog.debug("adViewDidFinishHandlingClick")
+        MAXLogger.debug("adViewDidFinishHandlingClick")
         delegate?.bannerCustomEventDidFinishAction(self)
     }
     
     public func adViewWillLogImpression(_ adView: MAXAdView?) {
-        MAXLog.debug("adViewWillLogImpression")
+        MAXLogger.debug("adViewWillLogImpression")
     }
     
     public func viewControllerForMaxPresentingModalView() -> UIViewController? {

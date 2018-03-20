@@ -8,7 +8,7 @@ public class MAXConfiguration: NSObject {
     @objc public static let shared = MAXConfiguration()
     
     private override init() {
-        MAXLog.info("You are using MAX iOS SDK version \(maxSDKVersion)")
+        MAXLogger.info("You are using MAX iOS SDK version \(maxSDKVersion)")
     }
 
     /// Get the current version of the SDK. This is reported in ad requests.

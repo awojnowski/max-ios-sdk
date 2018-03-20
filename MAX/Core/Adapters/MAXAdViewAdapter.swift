@@ -35,7 +35,7 @@ public class MAXAdViewAdapter: NSObject {
     @objc weak var delegate: MAXAdViewAdapterDelegate?
 
     @objc public func loadAd() {
-        MAXLog.error("MAXAdapterAdView.loadAd not implemented")
+        MAXLogger.error("MAXAdapterAdView.loadAd not implemented")
     }
 }
 

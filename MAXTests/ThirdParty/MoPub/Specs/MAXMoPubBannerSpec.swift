@@ -31,6 +31,7 @@ internal class MAXMoPubBannerSpec: QuickSpec {
             let moPubBanner = MAXMoPubBannerMock(mpAdView: mpAdView!, bannerController: bannerController, sessionManager: sessionManager)
             
             beforeEach {
+                moPubBanner.disableAutoRefresh = true
                 mpAdView!.loadCalled = false
                 mpAdView!.keywords = nil
                 mpAdView!.adUnitId = nil
@@ -106,6 +107,7 @@ internal class MAXMoPubBannerSpec: QuickSpec {
                 expect(bannerController.adShown).to(beFalse())
                 expect(requestManager.refreshTimerStarted).to(beFalse())
 
+                moPubBanner.disableAutoRefresh = false
                 moPubBanner.load(maxAdUnitId: maxAdUnitId, mpAdUnitId: moPubAdUnitId)
 
                 expect(mpAdView!.loadCalled).to(beTrue())

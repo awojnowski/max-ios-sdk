@@ -15,6 +15,9 @@ import MoPub
 /// to ensure you integrate this properly in your waterfall.
 /// NOTE: MoPub will instantiate this class based on MoPub account line item configurations
 
+// Keep this: @objc() declaration for Swift class to be available from Objective-C runtime calls to NSStringFromClass()
+@objc(MAXMoPubInterstitialCustomEvent)
+
 public class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInterstitialAdDelegate, MPInterstitialCustomEventDelegate {
     
     private var MAXInterstitial: MAXInterstitialAd?
@@ -24,13 +27,13 @@ public class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInte
         self.MAXInterstitial = nil
         
         guard let adUnitID = info["adunit_id"] as? String else {
-            MAXLog.error("AdUnitID not specified in adunit_id customEventInfo block: \(info)")
+            MAXLogger.error("AdUnitID not specified in adunit_id customEventInfo block: \(info)")
             self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: nil)
             return
         }
         
         guard let adResponse = MAXAds.getPreBid(adUnitID: adUnitID) else {
-            MAXLog.error("Pre-bid not found for adUnitId: \(adUnitID)")
+            MAXLogger.error("Pre-bid not found for adUnitId: \(adUnitID)")
             self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: nil)
             return
         }
@@ -44,26 +47,26 @@ public class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInte
         self.MAXInterstitial = MAXInterstitial
         MAXInterstitial.delegate = self
         MAXInterstitial.load(adUnitId: adUnitID)
-        MAXLog.debug("Interstitial for \(adUnitID) found and loaded")
+        MAXLogger.debug("Interstitial for \(adUnitID) found and loaded")
     }
     
     override open func showInterstitial(fromRootViewController rootViewController: UIViewController!) {
-        MAXLog.debug("MAXMoPubInterstitialCustomEvent.showInterstitial()")
+        MAXLogger.debug("MAXMoPubInterstitialCustomEvent.showInterstitial()")
         if let customEventInstance = self.customEventInstance {
             customEventInstance.showInterstitial(fromRootViewController: rootViewController)
         } else {
             guard let interstitial = MAXInterstitial else {
-                MAXLog.error("Interstitial ad was not loaded, calling interstitialCustomEventDidExpire")
+                MAXLogger.error("Interstitial ad was not loaded, calling interstitialCustomEventDidExpire")
                 self.delegate.interstitialCustomEventDidExpire(self)
                 return
             }
             
-            MAXLog.debug("InterstitialCustomEventWillAppear")
+            MAXLogger.debug("InterstitialCustomEventWillAppear")
             self.delegate.interstitialCustomEventWillAppear(self)
             
             interstitial.showAdFromRootViewController(rootViewController)
             
-            MAXLog.debug("InterstitialCustomEventDidAppear")
+            MAXLogger.debug("InterstitialCustomEventDidAppear")
             self.delegate.interstitialCustomEventDidAppear(self)
         }
     }
@@ -71,27 +74,27 @@ public class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInte
     // MARK: MAXInterstitialAdDelegate
     
     public func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd) {
-        MAXLog.debug("MAX: interstitialAdDidLoad")
+        MAXLogger.debug("MAX: interstitialAdDidLoad")
         self.delegate.interstitialCustomEvent(self, didLoadAd: MAXInterstitial)
     }
     
     public func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {
-        MAXLog.debug("MAX: interstitialAdDidClick")
+        MAXLogger.debug("MAX: interstitialAdDidClick")
         self.delegate.interstitialCustomEventDidReceiveTap(self)
     }
     
     public func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd) {
-        MAXLog.debug("MAX: interstitialAdWillClose")
+        MAXLogger.debug("MAX: interstitialAdWillClose")
         self.delegate.interstitialCustomEventWillDisappear(self)
     }
     
     public func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd) {
-        MAXLog.debug("MAX: interstitialAdDidClose")
+        MAXLogger.debug("MAX: interstitialAdDidClose")
         self.delegate.interstitialCustomEventDidDisappear(self)
     }
     
     public func interstitial(_ interstitialAd: MAXInterstitialAd?, didFailWithError error: MAXClientError) {
-        MAXLog.debug("MAX: interstitial:didFailWithError: \(error.message)")
+        MAXLogger.debug("MAX: interstitial:didFailWithError: \(error.message)")
         self.delegate.interstitialCustomEvent(self, didFailToLoadAdWithError: error.asNSError())
     }
     

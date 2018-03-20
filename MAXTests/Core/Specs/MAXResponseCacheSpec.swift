@@ -45,15 +45,41 @@ class MockMAXAdResponse: MAXAdResponse {
     }
 }
 
+// AKA MAXAdsSpec
 class MAXResponseCacheSpec: QuickSpec {
     override func spec() {
+        
+        let adUnitId = "abcd"
+        
+        it("should cache ads that are not reserved") {
+            let maxAdResponseStub = MAXAdResponseStub()
+
+            maxAdResponseStub._isReserved = false
+
+            MAXAds.receivedPreBid(adUnitID: adUnitId, response: maxAdResponseStub, error: nil)
+
+            let responseReceived = MAXAds.getPreBid(adUnitID: adUnitId)
+            expect(responseReceived).toNot(beNil())
+        }
+        
+        it("should not cache ads that are reserved") {
+            let maxAdResponseStub = MAXAdResponseStub()
+            
+            maxAdResponseStub._isReserved = true
+
+            MAXAds.receivedPreBid(adUnitID: adUnitId, response: maxAdResponseStub, error: nil)
+
+            let responseReceived = MAXAds.getPreBid(adUnitID: adUnitId)
+            expect(responseReceived).to(beNil())
+        }
+        
         it("should call trackExpired on ads that have expired") {
             let response = MockMAXAdResponse()
             response.expirationIntervalSeconds = 0.0
 
-            MAXAds.receivedPreBid(adUnitID: "abcd", response: response, error: nil)
+            MAXAds.receivedPreBid(adUnitID: adUnitId, response: response, error: nil)
 
-            let responseReceived = MAXAds.getPreBid(adUnitID: "abcd")
+            let responseReceived = MAXAds.getPreBid(adUnitID: adUnitId)
             expect(responseReceived).to(beNil())
             expect(response.trackExpiredCalled).to(beTrue())
         }
@@ -62,9 +88,9 @@ class MAXResponseCacheSpec: QuickSpec {
             var response = MockMAXAdResponse()
             response.expirationIntervalSeconds = 100000.0
 
-            MAXAds.receivedPreBid(adUnitID: "abcd", response: response, error: nil)
+            MAXAds.receivedPreBid(adUnitID: adUnitId, response: response, error: nil)
 
-            response = MAXAds.getPreBid(adUnitID: "abcd") as! MockMAXAdResponse
+            response = MAXAds.getPreBid(adUnitID: adUnitId) as! MockMAXAdResponse
             expect(response.trackExpiredCalled).to(beFalse())
         }
     }

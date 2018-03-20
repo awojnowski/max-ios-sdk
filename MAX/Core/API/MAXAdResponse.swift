@@ -54,7 +54,7 @@ public class MAXAdResponse: NSObject {
 
         // Give the ability to reset the location tracking distance filter from the server
         if let distanceFilter = self.response[MAXAdResponseParameters.distanceFilter] as? Double {
-            MAXLog.debug("Setting the distance filter from the server response")
+            MAXLogger.debug("Setting the distance filter from the server response")
             MAXLocationProvider.shared.setDistanceFilter(distanceFilter)
         }
 
@@ -65,7 +65,7 @@ public class MAXAdResponse: NSObject {
         // Give the ability to reset the error url to something the server provides
         if let errorUrl = self.response[MAXAdResponseParameters.errorUrl] as? String {
             if let url = URL(string: errorUrl) {
-                MAXLog.debug("Reset the error reporter url")
+                MAXLogger.debug("Reset the error reporter url")
                 MAXErrorReporter.shared.setUrl(url: url)
             }
         }
@@ -90,7 +90,7 @@ public class MAXAdResponse: NSObject {
         if let refresh = self.response[MAXAdResponseParameters.refreshRate] as? Int {
             return NSNumber(value: refresh)
         } else {
-            MAXLog.debug("Refresh interval not set in ad response")
+            MAXLogger.debug("Refresh interval not set in ad response")
             return nil
         }
     }
@@ -172,41 +172,41 @@ public class MAXAdResponse: NSObject {
 
     /// Fires an impression tracking event for this AdResponse
     @objc public func trackImpression() {
-        MAXLog.debug("trackImpression called")
+        MAXLogger.debug("trackImpression called")
         self.trackAll(self.response[MAXAdResponseParameters.impressionUrls] as? NSArray)
     }
 
     /// Fires a click tracking event for this AdResponse
     @objc public func trackClick() {
-        MAXLog.debug("trackClick called")
+        MAXLogger.debug("trackClick called")
         self.trackAll(self.response[MAXAdResponseParameters.clickUrls] as? NSArray)
     }
 
     /// Fires a selected tracking event for this AdResponse. This is used when the AdResponse is
     /// selected for display through a containing SSP.
     @objc public func trackSelected() {
-        MAXLog.debug("trackSelected called")
+        MAXLogger.debug("trackSelected called")
         self.trackAll(self.response[MAXAdResponseParameters.selectedUrls] as? NSArray)
     }
 
     /// Fires a handoff event for this AdResponse, which tracks when we've handed off control to the SSP
     /// SDK and the SSP SDK is about to make an ad request to the SSP ad server.
     @objc public func trackHandoff() {
-        MAXLog.debug("trackHandoff called")
+        MAXLogger.debug("trackHandoff called")
         self.trackAll(self.response[MAXAdResponseParameters.handoffUrls] as? NSArray)
     }
 
     /// Fires an expire tracking event for this AdResponse. This should be used when the AdResponse value
     /// has been in the ad cache for longer than the expiry time.
     @objc public func trackExpired() {
-        MAXLog.debug("trackExpired called")
+        MAXLogger.debug("trackExpired called")
         self.trackAll(self.response[MAXAdResponseParameters.expireUrls] as? NSArray)
     }
 
     /// Fires a loss tracking event for this AdResponse. This is called when a new AdResponse for the same
     /// MAX ad unit ID is received.
     @objc public func trackLoss() {
-        MAXLog.debug("trackLoss called")
+        MAXLogger.debug("trackLoss called")
         self.trackAll(self.response[MAXAdResponseParameters.lossUrls] as? NSArray)
     }
 
@@ -222,7 +222,7 @@ public class MAXAdResponse: NSObject {
     }
 
     private func track(_ url: URL) {
-        MAXLog.debug("MAX: tracking URL fired ==> \(url)")
+        MAXLogger.debug("MAX: tracking URL fired ==> \(url)")
         getSession().dataTask(with: url).resume()
     }
 }

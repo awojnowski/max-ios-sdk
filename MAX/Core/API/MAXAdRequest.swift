@@ -214,12 +214,9 @@ public class MAXAdRequest: NSObject {
             "location_tracking": self.locationTrackingAvailability,
             "location": self.locationData,
             "tokens": self.tokens,
-            
-            // ADD ONLY FOR TESTING
-            "reserved": true
         ]
 
-        MAXLog.debug(d.description)
+        MAXLogger.debug(d.description)
         return d
     }
 
@@ -247,7 +244,12 @@ public class MAXAdRequest: NSObject {
     @objc public class func preBidWithMAXAdUnit(_ adUnitID: String, completion: @escaping MAXResponseCompletion) -> MAXAdRequest {
         let adr = MAXAdRequest(adUnitID: adUnitID)
         adr.requestAd(adUnitId: adUnitID, {(response, error) in
-            MAXAds.receivedPreBid(adUnitID: adUnitID, response: response, error: error)
+            
+            // only cache ad responses that may be displayed if MAX wins in the MoPub waterfall
+            if response?.isReserved == false {
+                MAXAds.receivedPreBid(adUnitID: adUnitID, response: response, error: error)
+            }
+            
             completion(response, error)
         })
         return adr
@@ -261,6 +263,8 @@ public class MAXAdRequest: NSObject {
     /// the ad request should be discarded.
     /// - Parameter completion: a `MAXResponseCompletion` callback to be called when the request completes.
     @objc public func requestAd(adUnitId: String, _ completion: @escaping MAXResponseCompletion) {
+        MAXLogger.debug("\(String(describing: self)): request ad with id - \(adUnitId)")
+        
         // Setup POST
         let url = self.getUrl()
         let session = getSession()

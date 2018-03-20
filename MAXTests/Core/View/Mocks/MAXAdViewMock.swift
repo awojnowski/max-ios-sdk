@@ -46,7 +46,7 @@ internal class MAXAdViewMockListener: NSObject, MAXAdViewDelegate {
 
 internal class MAXAdViewMock: MAXAdView {
     var didLoadUsingMRAID = false
-    override internal func loadAdWithMRAIDRenderer() {
+    override internal func loadAdWithMRAIDRenderer(creative: String) {
         didLoadUsingMRAID = true
     }
     

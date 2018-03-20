@@ -19,7 +19,7 @@ open class MAXAdRequestManager: NSObject {
     @objc public static let defaultRefreshTimeSeconds = 60
     @objc public var adUnitId: String?
     @objc public weak var delegate: MAXAdRequestManagerDelegate?
-
+    
     internal var lastError: NSError?
     internal var errorCount = 0.0
     internal var minErrorRetrySeconds = 2.0
@@ -28,17 +28,17 @@ open class MAXAdRequestManager: NSObject {
     private var isRefreshing = false
     private var timer: Timer?
     private var appActiveObserver: NSObjectProtocol!
-
+    
     // Lock access to isRefreshing variable to ensure only a single refresh cycle happens at a time.
     // While a number of steps in the refresh cycle are asynchronous, the chain of events in a single
     // complete cycle will happen in order, making refresh calls threadsafe.
     private let refreshQueue = DispatchQueue(label: "RefreshQueue")
-
+    
     @objc public override init() {
         super.init()
         addObservers()
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self.appActiveObserver)
     }
@@ -51,14 +51,11 @@ open class MAXAdRequestManager: NSObject {
             if let e = error {
                 self.lastError = e
                 self.errorCount += 1
-                MAXLog.debug("\(String(describing: self)).requestAd() for adUnitId: \(String(describing: response?.adUnitId)) returned with error: \(String(describing: error))")
-                if let del = self.delegate {
-                    del.onRequestFailed(error: e)
-                }
+                self.reportError(message: "\(String(describing: self)).requestAd() for adUnitId: \(String(describing: response?.adUnitId)) returned with error: \(String(describing: e))")
             } else {
                 self.lastError = nil
                 self.errorCount = 0
-                MAXLog.debug("\(String(describing: self)).requestAd() returned successfully for adUnitId: \(String(describing: response?.adUnitId))")
+                MAXLogger.debug("\(String(describing: self)).requestAd() returned successfully for adUnitId: \(String(describing: response?.adUnitId))")
                 if let del = self.delegate {
                     del.onRequestSuccess(adResponse: response)
                 }
@@ -66,47 +63,53 @@ open class MAXAdRequestManager: NSObject {
         }
     }
 
-    internal func requestAdFromAPI(completion: @escaping MAXResponseCompletion){
-        if let id = self.adUnitId {
-            _ = MAXAdRequest.preBidWithMAXAdUnit(id, completion: completion)
-        } else {
-            MAXLog.error("\(String(describing: self)).requestAdFromAPI() could not be completed because adUnitID is nil")
+    internal func requestAdFromAPI(completion: @escaping MAXResponseCompletion) {
+        
+        guard let id = self.adUnitId else {
+            reportError(message: "\(String(describing: self)).requestAdFromAPI() could not be completed because adUnitID is nil")
+            return
         }
+        
+        _ = MAXAdRequest.preBidWithMAXAdUnit(id, completion: completion)
     }
-
+    
     @objc public func startRefreshTimer(delay: Int) {
-        MAXLog.debug("\(String(describing: self)).startRefreshTimer() called")
+        MAXLogger.debug("\(String(describing: self)).isRefreshing() called")
         
         // Guarantee threadsafe refresh cycle with refreshQueue - see decsription at variable declaration
         refreshQueue.async {
-            self.startRefreshTimerInternal(delay: delay)
+            if !self.isRefreshing {
+                self.isRefreshing = true
+                self.startRefreshTimerInternal(delay: delay)
+            }
         }
     }
-
+    
     @objc public func stopRefreshTimer() {
-        MAXLog.debug("\(String(describing: self)).stopRefresh() called")
+        MAXLogger.debug("\(String(describing: self)).stopRefresh() called")
         
         // See refreshQueue decsription at variable declaration
         refreshQueue.async {
+            self.isRefreshing = false
             self.stopRefreshTimerInternal()
         }
     }
     
+    // Not threadsafe. Use startFrefreshTimer(delay:) if thread safety needed
     internal func startRefreshTimerInternal(delay: Int) {
         if !self.isRefreshing {
             self.isRefreshing = true
             if let error = self.lastError {
                 // Retry a failed ad request using exponential backoff. The request will be retried until it succeeds.
-                MAXLog.error("\(String(describing: self)): Error occurred \(error), retry attempt \(self.errorCount)")
-                MAXErrorReporter.shared.logError(error: error)
+                reportError(message: "\(String(describing: self)): refresh error occurred <\(error)>, retry attempt \(self.errorCount)")
                 
                 if minErrorRetrySeconds < 1 {
-                    MAXLog.warn("\(String(describing: self)): minErrorRetrySeconds is less than 1. Resetting to 1.")
+                    MAXLogger.warn("\(String(describing: self)): minErrorRetrySeconds is less than 1. Resetting to 1.")
                     minErrorRetrySeconds = 1
                 }
                 
                 if maxErrorRetrySeconds < minErrorRetrySeconds {
-                    MAXLog.warn("\(String(describing: self)): maxErrorRetrySeconds is less than minErrorRetrySeconds. Resetting to minErrorRetrySeconds.")
+                    MAXLogger.warn("\(String(describing: self)): maxErrorRetrySeconds is less than minErrorRetrySeconds. Resetting to minErrorRetrySeconds.")
                     maxErrorRetrySeconds = minErrorRetrySeconds
                 }
                 
@@ -115,24 +118,29 @@ open class MAXAdRequestManager: NSObject {
                 let delay = delay > 0 ? delay : MAXAdRequestManager.defaultRefreshTimeSeconds
                 self.scheduleTimerWithInterval(interval: delay)
             }
+            
+            self.scheduleTimerWithInterval(interval: Int(min(pow(self.minErrorRetrySeconds, self.errorCount), self.maxErrorRetrySeconds)))
+        } else {
+            let delay = delay > 0 ? delay : MAXAdRequestManager.defaultRefreshTimeSeconds
+            self.scheduleTimerWithInterval(interval: delay)
         }
     }
     
+    // Not threadsafe. Use stopRefreshTimer() if thread safety needed
     internal func stopRefreshTimerInternal() {
-        self.isRefreshing = false
         // Guarantee timer is invalidated in same thread on which it was scheduled
         DispatchQueue.main.async {
-            MAXLog.debug("\(String(describing: self)) refresh timer invalidated")
+            MAXLogger.debug("\(String(describing: self)) refresh timer invalidated")
             self.timer?.invalidate()
             self.timer = nil
         }
     }
-
+    
     private func scheduleTimerWithInterval(interval: Int) {
-        MAXLog.debug("\(String(describing: self)): Scheduling auto-refresh in \(interval) seconds")
+        MAXLogger.debug("\(String(describing: self)): Scheduling auto-refresh in \(interval) seconds")
         // Ensure timer is sheduled on main queue (Timers are added to main run loop by default)
         DispatchQueue.main.async(execute: {
-        
+            
             var finalInterval = interval
             if finalInterval < 0 {
                 finalInterval = MAXAdRequestManager.defaultRefreshTimeSeconds
@@ -145,16 +153,18 @@ open class MAXAdRequestManager: NSObject {
             
             // then, set a new timer with the requested time interval
             self.timer = Timer.scheduledTimer(
-                    timeInterval: TimeInterval(finalInterval),
-                    target: self,
-                    selector: #selector(self.refreshTimerDidFire(_:)),
-                    userInfo: nil,
-                    repeats: false
+                timeInterval: TimeInterval(finalInterval),
+                target: self,
+                selector: #selector(self.refreshTimerDidFire(_:)),
+                userInfo: nil,
+                repeats: false
             )
         })
     }
-
+    
     @objc private func refreshTimerDidFire(_ timer: Timer!) {
+        MAXLogger.debug("\(String(describing: self)): refresh timer fired")
+        
         self.timer = nil
         
         guard self.isRefreshing else {
@@ -165,7 +175,7 @@ open class MAXAdRequestManager: NSObject {
             // in this case, the user has stopped refresh for this ad manager explicitly,
             // or the application is backgrounded, in which case we should not attempt to continue
             // loading new ads
-            MAXLog.debug("\(String(describing: self)): auto-refresh cancelled, app is not active")
+            MAXLogger.debug("\(String(describing: self)): auto-refresh cancelled, app is not active")
             return
         }
         
@@ -183,9 +193,18 @@ open class MAXAdRequestManager: NSObject {
         ) {
             _ in
             if self.isRefreshing {
-                MAXLog.debug("\(String(describing: self)): got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
-                self.startRefreshTimer(delay: 0)
+                MAXLogger.debug("\(String(describing: self)): got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
+                self.requestAd()
             }
+        }
+    }
+    
+    private func reportError(message: String) {
+        MAXLogger.error(message)
+        let error = MAXClientError(message: message)
+        MAXErrorReporter.shared.logError(error: error)
+        if let del = self.delegate {
+            del.onRequestFailed(error: error)
         }
     }
 }

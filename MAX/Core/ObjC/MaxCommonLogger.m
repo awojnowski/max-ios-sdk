@@ -21,28 +21,28 @@ static SourceKitLogLevel logLevel;
 + (void)error:(NSString *)tag withMessage:(NSString *)message
 {
     if (logLevel >= SourceKitLogLevelError) {
-        NSLog(@"%@: (E) %@", tag, message);
+        NSLog(@"MAX - %@: (E) %@", tag, message);
     }
 }
 
 + (void)warning:(NSString *)tag withMessage:(NSString *)message
 {
     if (logLevel >= SourceKitLogLevelWarning) {
-        NSLog(@"%@: (W) %@", tag, message);
+        NSLog(@"MAX - %@: (W) %@", tag, message);
     }
 }
 
 + (void)info:(NSString *)tag withMessage:(NSString *)message
 {
     if (logLevel >= SourceKitLogLevelInfo) {
-        NSLog(@"%@: (I) %@", tag, message);
+        NSLog(@"MAX - %@: (I) %@", tag, message);
     }
 }
 
 + (void)debug:(NSString *)tag withMessage:(NSString *)message
 {
     if (logLevel >= SourceKitLogLevelDebug) {
-        NSLog(@"%@: (D) %@", tag, message);
+        NSLog(@"MAX - %@: (D) %@", tag, message);
     }
 }
 

@@ -16,20 +16,20 @@ internal class MAXInterstitialAdMock: MAXInterstitialAd {
     internal var didLoadUsingVAST = false
     internal var didLoadUsingAdapter = false
     
-    override internal func loadInterstitial() {
+    override internal func loadInterstitial(creativeType: String) {
         loaded = true
-        super.loadInterstitial()
+        super.loadInterstitial(creativeType: creativeType)
     }
     
-    override internal func loadAdWithMRAIDRenderer() {
+    override internal func loadAdWithMRAIDRenderer(creative: String) {
         didLoadUsingMRAID = true
     }
     
-    override internal func loadAdWithVASTRenderer() {
+    override internal func loadAdWithVASTRenderer(creative: String) {
         didLoadUsingVAST = true
     }
     
-    override internal func loadAdWithAdapter() {
+    override internal func loadAdWithAdapter(adResponse: MAXAdResponse) {
         didLoadUsingAdapter = true
     }
     

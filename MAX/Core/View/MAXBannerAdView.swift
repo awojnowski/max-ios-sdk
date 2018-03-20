@@ -18,6 +18,15 @@ import Foundation
 
 public class MAXBannerAdView: UIView {
     
+    @objc public var disableAutoRefresh: Bool {
+        get {
+            return (bannerController?.disableAutoRefresh)!
+        }
+        set (newValue) {
+            bannerController?.disableAutoRefresh = newValue
+        }
+    }
+    
     // Since MAXBannerAdView is just a facade for BannerController and the banners it manages,
     @objc public weak var delegate: MAXBannerAdViewDelegate? {
         get {

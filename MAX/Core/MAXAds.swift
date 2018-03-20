@@ -12,7 +12,7 @@ internal class MAXCachedAdResponse {
         self.adResponse = withResponse
         self.createdAt = Date()
 
-        MAXLog.debug("Cached a pre-bid for partner \(String(describing: withResponse?.partnerName))")
+        MAXLogger.debug("Cached a pre-bid for partner \(String(describing: withResponse?.partnerName))")
     }
 
     internal var timeoutIntervalSeconds: Double {
@@ -28,10 +28,16 @@ internal class MAXCachedAdResponse {
     }
 }
 
+
 public class MAXAds: NSObject {
 
     @objc public class func receivedPreBid(adUnitID: String, response: MAXAdResponse?, error: NSError?) {
-        MAXLog.debug("Received pre-bid with MAX ad unit id \(adUnitID)")
+        MAXLogger.debug("Received pre-bid with MAX ad unit id \(adUnitID)")
+        
+        guard response?.isReserved == false else {
+            MAXLogger.debug("\(String(describing: self)): is not caching ad with id <\(adUnitID)> because it is reserved")
+            return
+        }
 
         if let existingResponse = MAXPreBids[adUnitID] {
             if existingResponse.isExpired {
@@ -45,7 +51,7 @@ public class MAXAds: NSObject {
     }
 
     @objc public class func getPreBid(adUnitID: String) -> MAXAdResponse? {
-        MAXLog.debug("Getting pre-bid with MAX ad unit id \(adUnitID)")
+        MAXLogger.debug("Getting pre-bid with MAX ad unit id \(adUnitID)")
 
         defer {
             // only allow pre-bid to be used once
@@ -54,12 +60,12 @@ public class MAXAds: NSObject {
         }
 
         if let error = MAXPreBidErrors[adUnitID] {
-            MAXLog.error("Pre-bid error was found for adUnitID=\(adUnitID), error=\(error)")
+            MAXLogger.error("Pre-bid error was found for adUnitID=\(adUnitID), error=\(error)")
             return nil
         }
 
         guard let cachedAdResponse = MAXPreBids[adUnitID] else {
-            MAXLog.error("Pre-bid was not found for adUnitID=\(adUnitID)")
+            MAXLogger.error("Pre-bid was not found for adUnitID=\(adUnitID)")
             return nil
         }
 

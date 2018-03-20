@@ -52,54 +52,67 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
     
     // NOTE: Call this function on the main queue
-    internal func loadInterstitial() {
-        switch adResponse?.creativeType {
-        case MAXInterstitialCreativeType.VAST.rawValue?:
-            loadAdWithVASTRenderer()
-        case MAXInterstitialCreativeType.HTML.rawValue?:
-            loadAdWithMRAIDRenderer()
-        case MAXInterstitialCreativeType.empty.rawValue?:
-            loadAdWithAdapter()
+    internal func loadInterstitial(creativeType: String) {
+        
+        guard let adR = adResponse else {
+            reportError(message: "\(String(describing: self)): loading an interstitial failed because the adResponse was nil.")
+            return
+        }
+        
+        guard let creative = adResponse?.creative else {
+            reportError(message: "\(String(describing: self)): loading an interstitial failed because the creative was nil.")
+            return
+        }
+        
+        switch creativeType {
+        case MAXInterstitialCreativeType.VAST.rawValue:
+            loadAdWithVASTRenderer(creative: creative)
+        case MAXInterstitialCreativeType.HTML.rawValue:
+            loadAdWithMRAIDRenderer(creative: creative)
+        case MAXInterstitialCreativeType.empty.rawValue:
+            loadAdWithAdapter(adResponse: adR)
         default:
-            MAXLog.error("\(String(describing: self)): had unsupported ad creative_type=\(String(describing: adResponse?.creativeType))")
-            if let d = delegate {
-                d.interstitial(self, didFailWithError: MAXClientError(message: "MAXInterstitialAdError.creativeTypeNotFound"))
-            }
+            reportError(message: "\(String(describing: self)): had unsupported ad creative_type=\(String(describing: adResponse?.creativeType))")
         }
     }
 
     // NOTE: Call this function on the main queue
     @objc public func showAdFromRootViewController(_ rootViewController: UIViewController) {
+        
+        // must check for nil since this method is exposed to ObjC
+        if rootViewController == nil {
+            reportError(message: "\(String(describing: self)): showAdFromRootViewController was called with a nil root view controller.")
+            return
+        }
+        
         self.rootViewController = rootViewController
         switch adResponse?.creativeType {
         case MAXInterstitialCreativeType.VAST.rawValue?:
-                MAXLog.debug("\(String(describing: self)): showing ad with VAST renderer")
+                MAXLogger.debug("\(String(describing: self)): showing ad with VAST renderer")
                 vastViewController?.presenterViewController = rootViewController
                 vastViewController?.play()
             case MAXInterstitialCreativeType.HTML.rawValue?:
                 if (adResponse?.usePartnerRendering)! {
-                    MAXLog.debug("\(String(describing: self)): attempting to load ad with third party renderer")
+                    MAXLogger.debug("\(String(describing: self)): attempting to load ad with third party renderer")
                     interstitialAdapter?.showAd(fromRootViewController: rootViewController)
                 } else {
-                    MAXLog.debug("\(String(describing: self)): showing ad with MRAID renderer")
+                    MAXLogger.debug("\(String(describing: self)): showing ad with MRAID renderer")
                     mraidInterstitial?.rootViewController = rootViewController
                     mraidInterstitial?.show()
                 }
             case MAXInterstitialCreativeType.empty.rawValue?:
-                MAXLog.debug("\(String(describing: self)): had empty ad response, nothing to show")
+                MAXLogger.debug("\(String(describing: self)): had empty ad response, nothing to show")
             default:
-                MAXLog.error("\(String(describing: self)): had unsupported ad creative_type=\(String(describing: adResponse?.creativeType))")
-                if let d = delegate {
-                    d.interstitial(self, didFailWithError: MAXClientError(message: "MAXInterstitialAdError.creativeTypeNotFound"))
-            }
+                reportError(message: "\(String(describing: self)): had unsupported ad creative_type=\(String(describing: adResponse?.creativeType))")
         }
     }
 
-    internal func loadAdWithMRAIDRenderer() {
-        MAXLog.debug("\(String(describing: self)): attempting to load ad with MRAID renderer")
+    internal func loadAdWithMRAIDRenderer(creative: String) {
+        MAXLogger.debug("\(String(describing: self)): attempting to load ad with MRAID renderer")
+        
         mraidInterstitial = MaxMRAIDInterstitial(
             supportedFeatures: [],
-            withHtmlData: adResponse?.creative!,
+            withHtmlData: creative,
             withBaseURL: URL(string: "https://\(MAXAdRequest.adsDomain)"),
             delegate: self,
             serviceDelegate: self,
@@ -108,36 +121,38 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
         )
     }
 
-    internal func loadAdWithVASTRenderer() {
-        MAXLog.debug("\(String(describing: self)): attempting to load ad with VAST renderer")
-        if let creative = adResponse?.creative {
-            if let videoData = creative.data(using: String.Encoding.utf8) {
-                vastViewController = MaxVASTViewController(delegate: self, with: rootViewController)
-                vastViewController!.loadVideo(with: videoData)
-            } else {
-                MAXLog.debug("\(String(describing: self)): ERROR: VAST ad response creative had no video data")
+    internal func loadAdWithVASTRenderer(creative: String) {
+        MAXLogger.debug("\(String(describing: self)): attempting to load ad with VAST renderer")
+        
+        guard let videoData = creative.data(using: String.Encoding.utf8) else {
+            MAXLogger.error("\(String(describing: self)): ERROR: VAST ad response creative had no video data")
+            if let d = delegate {
+                let error = MAXClientError(message: "MAXInterstitialAd: VAST creative video data could not be extracted")
+                d.interstitial(self, didFailWithError: error)
             }
-        } else {
-            MAXLog.debug("\(String(describing: self)): ERROR: VAST ad response had no creative")
+            return
         }
+        
+        vastViewController = MaxVASTViewController(delegate: self, with: rootViewController)
+        vastViewController!.loadVideo(with: videoData)
     }
 
-    internal func loadAdWithAdapter() {
-        guard let adR = adResponse else {
-            MAXLog.error("\(String(describing: self)): Tried loading ad with adapter but adResponse was nil.")
+    internal func loadAdWithAdapter(adResponse: MAXAdResponse) {
+        MAXLogger.debug("\(String(describing: self)): attempting to load ad with a third party renderer")
+
+        guard let partner = adResponse.partnerName else {
+            reportError(message: "\(String(describing: self)): Attempted to load interstitial with third party renderer, but no partner was declared. Trying to load with a MAX MRAID renderer instead.")
+            loadAdWithMRAIDRenderer(creative: adResponse.creative!)
             return
         }
-        guard let partner = adResponse?.partnerName else {
-            MAXLog.error("\(String(describing: self)): Attempted to load interstitial with third party renderer, but no partner was declared")
-            loadAdWithMRAIDRenderer()
-            return
-        }
+        
         guard let adViewGenerator = self.getGenerator(forPartner: partner) else {
-            MAXLog.error("\(String(describing: self)): Tried loading ad with third party ad generator for \(partner), but no generator was configured.")
-            loadAdWithMRAIDRenderer()
+            reportError(message: "\(String(describing: self)): Tried loading ad with third party ad generator for \(partner), but no generator was configured. Trying to load with a MAX MRAID renderer instead.")
+            loadAdWithMRAIDRenderer(creative: adResponse.creative!)
             return
         }
-        let adapter = adViewGenerator.getInterstitialAdapter(fromResponse: adR)
+        
+        let adapter = adViewGenerator.getInterstitialAdapter(fromResponse: adResponse)
         interstitialAdapter = adapter
         interstitialAdapter?.delegate = self
         interstitialAdapter?.loadAd()
@@ -155,16 +170,16 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
         self.adResponse = adResponse
         
         // DANGER: Not threadsafe - If load() is called once and then again before a request returns for the first call, mpAdUnitId will have changed by the time this code is executed. It seems unlikely that a pub would call load() rapidly on the same instance of MAXMoPubBanner, but, if one did, our reporting of which ads are being shown would be inaccurate.
-        self.loadInterstitial()
+        self.loadInterstitial(creativeType: adResponse.creativeType)
     }
     
     //MARK: MAXAdRequestManagerDelegate
     
     public func onRequestSuccess(adResponse: MAXAdResponse?) {
-        MAXLog.debug("\(String(describing: self)).requestAd() succeeded for adUnit:\(String(describing: adResponse?.adUnitId))")
+        MAXLogger.debug("\(String(describing: self)).requestAd() succeeded for adUnit:\(String(describing: adResponse?.adUnitId))")
         
         guard adResponse != nil else {
-            MAXLog.debug("\(String(describing: self)).requestAd() succeeded but the ad response was nil")
+            MAXLogger.debug("\(String(describing: self)).requestAd() succeeded but the ad response was nil")
             return
         }
         
@@ -174,10 +189,7 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
     
     public func onRequestFailed(error: NSError?) {
-        MAXLog.debug("\(String(describing: self)).requestAd() failed with error: \(String(describing: error?.localizedDescription))")
-        if let d = self.delegate {
-            d.interstitial(nil, didFailWithError: MAXClientError(message: error?.localizedDescription ?? "a nil request error was passed back.."))
-        }
+        reportError(message: "\(String(describing: self)).requestAd() failed with error: \(String(describing: error?.localizedDescription))")
     }
 
     //TODO - Bryan: When Interstitial base class is created, the below methods can be consolidated to one set of InterstitialDelegate methods
@@ -185,7 +197,7 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     //MARK: MAXInterstitialAdapterDelegate methods
  
     public func interstitialWasClicked(_ interstitial: MAXInterstitialAdapter) {
-        MAXLog.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialWasClicked")
+        MAXLogger.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialWasClicked")
         adResponse?.trackClick()
         if let d = delegate {
             d.interstitialAdDidClick(self)
@@ -193,61 +205,60 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
 
     public func interstitialDidClose(_ interstitial: MAXInterstitialAdapter) {
-        MAXLog.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialDidClose")
+        MAXLogger.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialDidClose")
         if let d = delegate {
             d.interstitialAdDidClose(self)
         }
     }
 
     public func interstitialWillClose(_ interstitial: MAXInterstitialAdapter) {
-        MAXLog.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialWillClose")
+        MAXLogger.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialWillClose")
         if let d = delegate {
             d.interstitialAdWillClose(self)
         }
     }
 
     public func interstitialDidLoad(_ interstitial: MAXInterstitialAdapter) {
-        MAXLog.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialDidLoad")
+        MAXLogger.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialDidLoad")
         interstitialAdapter?.showAd(fromRootViewController: self.rootViewController)
     }
 
     public func interstitialWillLogImpression(_ interstitial: MAXInterstitialAdapter) {
-        MAXLog.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialWillLogImpression")
+        MAXLogger.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialWillLogImpression")
         adResponse?.trackImpression()
     }
 
     public func interstitial(_ interstitial: MAXInterstitialAdapter, didFailWithError error: MAXClientError) {
-        MAXLog.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitial:didFailWithError: \(error.message)")
-        if let d = delegate {
-            d.interstitial(self, didFailWithError: error)
-        }
+        reportError(message: "\(String(describing: self)): MAXInterstitialAdapterDelegate interstitial:didFailWithError: \(error.message)")
     }
 
     
     //MARK: MaxVASTViewControllerDelegate
     
     public func vastReady(_ vastVC: MaxVASTViewController!) {
-        MAXLog.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastReady")
+        MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastReady")
         if let d = delegate {
             d.interstitialAdDidLoad(self)
         }
     }
 
     public func vastTrackingEvent(_ eventName: String!) {
-        MAXLog.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastTrackingEvent(\(eventName!))")
+        MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastTrackingEvent(\(eventName!))")
+        
         if eventName == "start"{
+            guard let adR = adResponse else {
+                MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate - vastTrackingEvent - called for a nil ad response. Impression was not tracked and MAX session depth could not be incremented")
+                return
+            }
             
             adResponse?.trackImpression()
             
             // An interstitial will be shown because a MAX response was ‘reserved,’ so MAX bypassed any SSP and directly rendered an ad response
-            if let adR = adResponse {
-                if adR.isReserved {
-                    sessionManager.incrementMaxSessionDepth(adUnitId: adR.adUnitId)
-                }
-            } else {
-                MAXLog.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate - vastTrackingEvent - max session depth was not incremented because the ad response was nil")
+            if adR.isReserved {
+                sessionManager.incrementMaxSessionDepth(adUnitId: adR.adUnitId)
             }
         }
+        
         if eventName == "close" {
             if let d = delegate {
                 d.interstitialAdWillClose(self)
@@ -256,14 +267,14 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
 
     public func vastDidDismissFullScreen(_ vastVC: MaxVASTViewController!) {
-        MAXLog.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastDidDismissFullScreen")
+        MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastDidDismissFullScreen")
         if let d = delegate {
             d.interstitialAdDidClose(self)
         }
     }
 
     public func vastOpenBrowse(with url: URL!, vastVC: MaxVASTViewController!) {
-        MAXLog.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastOpenBrowse")
+        MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastOpenBrowse")
         if let d = delegate {
             d.interstitialAdDidClick(self)
         }
@@ -274,25 +285,21 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
 
     public func vastError(_ vastVC: MaxVASTViewController!,_ error: MaxVASTError) {
-        MAXLog.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: failedToLoadAd - Code:\(error.rawValue)")
-        let tmpError = MAXClientError(message: "MaxVASTError - \(error.rawValue)")
-        if let d = delegate {
-            d.interstitial(self, didFailWithError: tmpError)
-        }
+        reportError(message: "\(String(describing: self)) - MaxVASTViewControllerDelegate: failedToLoadAd - Code:\(error.rawValue)")
     }
     
     
     //MARK: MaxMRAIDInterstitialDelegate
 
     public func mraidInterstitialAdReady(_ mraidInterstitial: MaxMRAIDInterstitial!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidInterstitialAdReady")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidInterstitialAdReady")
         if let d = delegate {
             d.interstitialAdDidLoad(self)
         }
     }
 
     public func mraidInterstitialDidHide(_ mraidInterstitial: MaxMRAIDInterstitial!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidInterstitialDidHide")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidInterstitialDidHide")
         if let d = delegate {
             d.interstitialAdWillClose(self)
             d.interstitialAdDidClose(self)
@@ -300,28 +307,26 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
 
     public func mraidInterstitialAdFailed(_ mraidInterstitial: MaxMRAIDInterstitial!, error: Error!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidInterstitialAdFailed with error - \(error.localizedDescription)")
-        if let d = delegate {
-            d.interstitial(self, didFailWithError: MAXClientError(message: error.localizedDescription))
-        }
+        reportError(message: "\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidInterstitialAdFailed with error - \(error.localizedDescription)")
     }
 
     public func mraidInterstitialWillShow(_ mraidInterstitial: MaxMRAIDInterstitial!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate - mraidInterstitialWillShow")
-        adResponse?.trackImpression()
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate - mraidInterstitialWillShow")
         
-        // An interstitial will be shown because a MAX response was ‘reserved,’ so MAX bypassed any SSP and directly rendered an ad response
-        if let adR = adResponse {
-            if adR.isReserved {
-                sessionManager.incrementMaxSessionDepth(adUnitId: adR.adUnitId)
-            }
-        } else {
-            MAXLog.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate - mraidInterstitialWillShow - max session depth was not incremented because the ad response was nil")
+        guard let adR = adResponse else {
+            MAXLogger.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate - mraidInterstitialWillShow - called for a nil ad response. Impression was not tracked and MAX session depth could not be incremented")
+            return
+        }
+        
+        adR.trackImpression()
+        
+        if adR.isReserved {
+            sessionManager.incrementMaxSessionDepth(adUnitId: adR.adUnitId)
         }
     }
 
     public func mraidInterstitialNavigate(_ mraidInterstitial: MaxMRAIDInterstitial!, with url: URL!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidInterstitialNavigate")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidInterstitialNavigate")
         adResponse?.trackClick()
         MAXLinkHandler().openURL(rootViewController!, url: url, completion: nil)
         if let d = delegate {
@@ -330,11 +335,23 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
 
     public func mraidServiceOpenBrowser(withUrlString url: String) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidServiceOpenBrowserWithUrlString")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDInterstitialDelegate: mraidServiceOpenBrowserWithUrlString")
 
         // This method is called when the MRAID creative requests a native browser to be opened. This is
         // considered to be a click event
         adResponse?.trackClick()
         MAXLinkHandler().openURL(rootViewController!, url: URL(string: url)!, completion: nil)
+    }
+    
+    
+    //MARK: Temp until MAXInterstitialDecorator is created
+    
+    private func reportError(message: String) {
+        MAXLogger.error(message)
+        let error = MAXClientError(message: message)
+        if let d = delegate {
+            d.interstitial(self, didFailWithError: error)
+        }
+        MAXErrorReporter.shared.logError(message: message)
     }
 }

@@ -52,38 +52,41 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     }
 
     @objc public func loadAd() {
-        switch self.adResponse.creativeType {
+        
+        // Guard for nil because MAXAdView is currently exposed to ObjC
+        if adResponse == nil {
+            reportError(message: "\(String(describing: self)): loading failed because the adResponse was nil.")
+            return
+        }
+        
+        guard let creative = self.adResponse.creative else {
+            reportError(message: "\(String(describing: self)): loading failed because the ad response creative is nil")
+            return
+        }
+        
+        switch adResponse.creativeType {
         case MAXBannerCreativeType.MRAID.rawValue:
             if self.adResponse.usePartnerRendering {
                 let partner = self.adResponse.partnerName
-                MAXLog.debug("\(String(describing: self)) - Loading creative using view from third party: \(String(describing: partner))")
+                MAXLogger.debug("\(String(describing: self)) - Loading creative using view from third party: \(String(describing: partner))")
                 self.loadAdWithAdapter()
             } else {
-                MAXLog.debug("\(String(describing: self)) - Loading creative using MRAID renderer")
-                self.loadAdWithMRAIDRenderer()
+                MAXLogger.debug("\(String(describing: self)) - Loading creative using MRAID renderer")
+                self.loadAdWithMRAIDRenderer(creative: creative)
             }
-
         case MAXBannerCreativeType.empty.rawValue:
-            MAXLog.debug("\(String(describing: self)) - AdView had empty ad response, nothing to show")
+            MAXLogger.debug("\(String(describing: self)) - AdView had empty ad response, nothing to show")
             self.delegate?.adViewDidLoad(self)
-
         default:
-            MAXLog.error("\(String(describing: self)) - AdView had unsupported ad creative_type=\(self.adResponse.creativeType)")
-            self.delegate?.adViewDidFailWithError(self, error: nil)
+            reportError(message: "\(String(describing: self)) - AdView had unsupported ad creative_type = <\(self.adResponse.creativeType)>")
         }
     }
 
-    internal func loadAdWithMRAIDRenderer() {
-        guard let htmlData = self.adResponse.creative else {
-            MAXLog.error("\(String(describing: self)) - Malformed response, HTML creative type but no markup... failing")
-            MAXErrorReporter.shared.logError(message: "Malformed response, creative with type html had no markup")
-            self.delegate?.adViewDidFailWithError(self, error: nil)
-            return
-        }
-
+    internal func loadAdWithMRAIDRenderer(creative: String) {
+        
         self.mraidView = MaxMRAIDView(
             frame: self.bounds,
-            withHtmlData: htmlData,
+            withHtmlData: creative,
             withBaseURL: URL(string: "https://\(MAXAdRequest.adsDomain)"),
             supportedFeatures: [],
             delegate: self,
@@ -101,38 +104,40 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     /// third party's code. If for any reason `loadAdWithAdapter` fails, it will attempt to fall
     /// back to `loadAdWithMRAIDRenderer`.
     internal func loadAdWithAdapter() {
-        guard let partner = self.adResponse.partnerName else {
-            MAXLog.error("Attempted to load ad with third party renderer, but no winner was declared")
-            self.loadAdWithMRAIDRenderer()
+        
+        guard let partner = adResponse.partnerName else {
+            reportError(message: "\(String(describing: self)): Attempted to load ad with third party renderer, but no winner was declared. Trying to load with MAX MRAID renderer instead.")
+            self.loadAdWithMRAIDRenderer(creative: adResponse.creative!)
             return
         }
 
-        guard let adViewGenerator = self.getGenerator(forPartner: partner) else {
-            MAXLog.error("Tried loading ad with third party generator, but no generator for \(partner) was configured.")
-            self.loadAdWithMRAIDRenderer()
+        guard let adViewGenerator = getGenerator(forPartner: partner) else {
+            reportError(message: "\(String(describing: self)): Tried loading ad with third party generator, but no generator for \(partner) was configured. Trying to load with MAX MRAID renderer instead.")
+            self.loadAdWithMRAIDRenderer(creative: adResponse.creative!)
             return
         }
 
         guard let adapter = adViewGenerator.getAdViewAdapter(
-            fromResponse: self.adResponse,
-            withSize: self.adSize,
-            rootViewController: self.delegate?.viewControllerForMaxPresentingModalView?() ?? UIApplication.shared.delegate?.window??.rootViewController
+            fromResponse: adResponse,
+            withSize: adSize,
+            rootViewController: delegate?.viewControllerForMaxPresentingModalView?() ?? UIApplication.shared.delegate?.window??.rootViewController
         ) else {
-            MAXLog.error("Unable to load ad view generator, generator loadAdView returned nil")
-            self.loadAdWithMRAIDRenderer()
+            reportError(message: "\(String(describing: self)): Unable to retrieve third party ad renderer. Trying to load with MAX MRAID renderer instead.")
+            self.loadAdWithMRAIDRenderer(creative: adResponse.creative!)
             return
         }
-
-        self.adViewAdapter = adapter
-        self.adViewAdapter.delegate = self
-        self.adViewAdapter.loadAd()
-
-        if let view = self.adViewAdapter.adView {
-            self.addSubview(view)
-        } else {
-            // TODO - Bryan: Add an error to be passed back in adViewDidFailWithError
-            self.delegate?.adViewDidFailWithError(self, error: nil)
+        
+        adViewAdapter = adapter
+        adViewAdapter.delegate = self
+        adViewAdapter.loadAd()
+        
+        guard let view = adapter.adView else {
+            reportError(message: "\(String(describing: self)): Unable to render ad with a third party adapter since its adView is nil. Trying to load with MAX MRAID renderer instead.")
+            self.loadAdWithMRAIDRenderer(creative: adResponse.creative!)
+            return
         }
+        
+        self.addSubview(view)
     }
 
     internal func getGenerator(forPartner: String) -> MAXAdViewAdapterGenerator? {
@@ -163,22 +168,22 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     //TODO - Bryan: think if we would like to have MAXAdViewAdapter and delegate methods public or internal -> depends on if we want to allow pubs to make their own adapters?
  
     public func adViewWasClicked(_ adView: MAXAdViewAdapter) {
-        MAXLog.debug("\(String(describing: self)) - MAXAdViewAdapterDelegate - Generated ad view was clicked")
+        MAXLogger.debug("\(String(describing: self)) - MAXAdViewAdapterDelegate - Generated ad view was clicked")
         self.trackClick()
     }
 
     public func adViewDidLoad(_ adView: MAXAdViewAdapter) {
-        MAXLog.debug("\(String(describing: self)) - MAXAdViewAdapterDelegate - Generated ad view was loaded")
+        MAXLogger.debug("\(String(describing: self)) - MAXAdViewAdapterDelegate - Generated ad view was loaded")
         self.delegate?.adViewDidLoad(self)
     }
 
     public func adView(_ adView: MAXAdViewAdapter, didFailWithError error: Error) {
-        MAXLog.debug("\(String(describing: self)) - MAXAdViewAdapterDelegate - Generated ad view failed with error: \(error.localizedDescription)")
+        MAXLogger.debug("\(String(describing: self)) - MAXAdViewAdapterDelegate - Generated ad view failed with error: \(error.localizedDescription)")
         self.delegate?.adViewDidFailWithError(self, error: error as NSError)
     }
 
     public func adViewWillLogImpression(_ adView: MAXAdViewAdapter) {
-        MAXLog.debug("\(String(describing: self)) - MAXAdViewAdapterDelegate - Generated ad view logged an impression")
+        MAXLogger.debug("\(String(describing: self)) - MAXAdViewAdapterDelegate - Generated ad view logged an impression")
         self.trackImpression()
     }
 
@@ -186,36 +191,36 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     //MARK: MaxMRAIDViewDelegate methods
     
     public func mraidViewAdReady(_ mraidView: MaxMRAIDView!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewAdReady")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewAdReady")
         self.trackImpression()
         self.delegate?.adViewDidLoad(self)
     }
 
     public func mraidViewAdFailed(_ mraidView: MaxMRAIDView!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewAdFailed")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewAdFailed")
         self.delegate?.adViewDidFailWithError(self, error: nil)
     }
 
     public func mraidViewDidClose(_ mraidView: MaxMRAIDView!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewDidClose")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewDidClose")
     }
 
     public func mraidViewWillExpand(_ mraidView: MaxMRAIDView!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewWillExpand")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewWillExpand")
 
         // An MRAID expand action is considered to be a click for tracking purposes. 
         self.trackClick()
     }
 
     public func mraidViewNavigate(_ mraidView: MaxMRAIDView!, with url: URL!) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewNavigate \(url)")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewNavigate \(url)")
 
         // The main mechanism for MRAID banners to request a navigation out to an external browser
         self.click(url)
     }
 
     public func mraidViewShouldResize(_ mraidView: MaxMRAIDView!, toPosition position: CGRect, allowOffscreen: Bool) -> Bool {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewShouldResize to \(position) offscreen=\(allowOffscreen)")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDViewDelegate - mraidViewShouldResize to \(position) offscreen=\(allowOffscreen)")
         return true
     }
 
@@ -223,12 +228,24 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     //MARK: MaxMRAIDServiceDelegate
      
     public func mraidServiceOpenBrowser(withUrlString url: String) {
-        MAXLog.debug("\(String(describing: self)) - MaxMRAIDServiceDelegate - mraidServiceOpenBrowserWithUrlString \(url)")
+        MAXLogger.debug("\(String(describing: self)) - MaxMRAIDServiceDelegate - mraidServiceOpenBrowserWithUrlString \(url)")
 
         // This method is called when an MRAID creative requests a native browser open.
         // This is considered to be a click.
         if let url = URL(string: url) {
             self.click(url)
         }
+    }
+    
+    
+    //MARK: Temp until MAXBannerDecorator is created
+    
+    private func reportError(message: String) {
+        MAXLogger.error(message)
+        let error = MAXClientError(message: message)
+        if let d = delegate {
+            d.adViewDidFailWithError(self, error: error)
+        }
+        MAXErrorReporter.shared.logError(message: message)
     }
 }

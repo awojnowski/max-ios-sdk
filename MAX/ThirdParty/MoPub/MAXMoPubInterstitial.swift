@@ -11,7 +11,8 @@ import MoPub
 
 public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate, MAXInterstitialAdDelegate, MAXAdRequestManagerDelegate {
     
-    @objc public weak var delegate: MPInterstitialAdControllerDelegate?
+    @objc public weak var mpInterstitialDelegate: MPInterstitialAdControllerDelegate?
+    @objc public weak var maxInterstitialDelegate: MAXInterstitialAdDelegate?
     
     private let maxAdUnitId: String
     private let mpInterstitial: MPInterstitialAdController
@@ -39,15 +40,23 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     // NOTE: Loading will not show an ad. show() function must be called separately after interstitialDidLoadAd() or interstitialAdDidLoad() callbacks occur. (For banners, calling load() will also show the banner)
     // Call on main thread
     @objc public func load() {
+        
+        guard maxAdUnitId != nil else {
+            MAXLogger.error("\(String(describing: self)) load called with nil MAX ad unit id")
+            return
+        }
+        
         maxInterstitial.load(adUnitId: maxAdUnitId)
     }
     
     // Call on main thread
     @objc public func show() {
+        
         guard let adR = adResponse else {
-            MAXLog.debug("\(String(describing: self)): show() failed because an ad has not loaded yet -> either show() was called before load() call finished and interstitialDidLoadAd() callback fired, or load() returned a nil adResponse")
+            MAXLogger.debug("\(String(describing: self)): show() failed because an ad has not loaded yet -> either show() was called before load() call finished and interstitialDidLoadAd() callback fired, or load() returned a nil adResponse")
             return
         }
+        
         doShow(adResponse: adR)
     }
     
@@ -66,9 +75,11 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
         self.adResponse = adResponse
         
         if adResponse.isReserved {
+            MAXLogger.debug("\(String(describing: self)): Ad is eligible for auction rounds, loading ad through MAX SDK")
             // Make call to bannerController in opposite direction of normal callbacks (up dependency chain) because this class hijacked maxInterstitial.requestManager callbacks
             maxInterstitial.onRequestSuccess(adResponse: adResponse)
         } else {
+            MAXLogger.debug("\(String(describing: self)): Ad is not eligible for auction rounds, loading ad through MoPub SDK")
             // MAX passes control to MoPub and inserts MAX line items in MoPub waterfall.
             adResponse.trackHandoff()
             mpInterstitial.keywords = adResponse.preBidKeywords
@@ -84,10 +95,10 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     // NOTE This class will hijack the MAXAdRequestManagerDelegate of the MAXInterstitialAd instance it owns to intercept MAXInterstitialAd.requestManager callbacks.
     
     public func onRequestSuccess(adResponse: MAXAdResponse?) {
-        MAXLog.debug("\(String(describing: self)).requestAd() succeeded for adUnit:\(String(describing: adResponse?.adUnitId))")
+        MAXLogger.debug("\(String(describing: self)).requestAd() succeeded for adUnit:\(String(describing: adResponse?.adUnitId))")
         
         guard adResponse != nil else {
-            MAXLog.debug("\(String(describing: self)).requestAd() succeeded but the ad response was nil")
+            MAXLogger.debug("\(String(describing: self)).requestAd() succeeded but the ad response was nil")
             return
         }
         
@@ -97,6 +108,8 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     }
     
     public func onRequestFailed(error: NSError?) {
+        MAXLogger.debug("\(String(describing: self)).requestAd() failed with error: \(String(describing: error?.localizedDescription)). Will try to load an ad from the MoPub SDK.")
+        
         DispatchQueue.main.async {
             // Fall back on MoPub if MAX ad request fails
             self.loadVanillaMoPub()
@@ -107,13 +120,13 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     //MARK: MPInterstitialAdControllerDelegate
     
     public func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
-         if let d = delegate {
+         if let d = mpInterstitialDelegate {
             d.interstitialDidLoadAd?(interstitial)
         }
     }
     
     public func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!) {
-         if let d = delegate {
+         if let d = mpInterstitialDelegate {
             d.interstitialDidFail?(toLoadAd: interstitial)
         }
     }
@@ -123,37 +136,37 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
         // An interstitial will be shown because a MAX line item in the MoPub waterfall was selected
         sessionManager.incrementSSPSessionDepth(adUnitId: interstitial.adUnitId)
         
-         if let d = delegate {
+         if let d = mpInterstitialDelegate {
             d.interstitialWillAppear?(interstitial)
         }
     }
     
     public func interstitialDidAppear(_ interstitial: MPInterstitialAdController!) {
-         if let d = delegate {
+         if let d = mpInterstitialDelegate {
             d.interstitialDidAppear?(interstitial)
         }
     }
     
     public func interstitialWillDisappear(_ interstitial: MPInterstitialAdController!) {
-         if let d = delegate {
+         if let d = mpInterstitialDelegate {
             d.interstitialWillDisappear?(interstitial)
         }
     }
     
     public func interstitialDidDisappear(_ interstitial: MPInterstitialAdController!) {
-         if let d = delegate {
+         if let d = mpInterstitialDelegate {
             d.interstitialDidDisappear?(interstitial)
         }
     }
     
     public func interstitialDidExpire(_ interstitial: MPInterstitialAdController!) {
-         if let d = delegate {
+         if let d = mpInterstitialDelegate {
             d.interstitialDidExpire?(interstitial)
         }
     }
     
     public func interstitialDidReceiveTapEvent(_ interstitial: MPInterstitialAdController!) {
-         if let d = delegate {
+         if let d = mpInterstitialDelegate {
             d.interstitialDidReceiveTapEvent?(interstitial)
         }
     }
@@ -162,33 +175,33 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     //MARK: MAXInterstitialAdDelegate
     
     public func interstitialAdDidLoad(_ interstitialAd: MAXInterstitialAd) {
-        if let d = delegate {
-            d.interstitialDidLoadAd?(mpInterstitial)
+        if let d = maxInterstitialDelegate {
+            d.interstitialAdDidLoad(interstitialAd)
         }
     }
     
     public func interstitialAdDidClick(_ interstitialAd: MAXInterstitialAd) {
-        if let d = delegate {
-            d.interstitialDidReceiveTapEvent?(mpInterstitial)
+        if let d = maxInterstitialDelegate {
+            d.interstitialAdDidClick(interstitialAd)
         }
     }
     
     public func interstitialAdWillClose(_ interstitialAd: MAXInterstitialAd) {
-        if let d = delegate {
-            d.interstitialWillDisappear?(mpInterstitial)
+        if let d = maxInterstitialDelegate {
+            d.interstitialAdWillClose(interstitialAd)
         }
     }
     
     public func interstitialAdDidClose(_ interstitialAd: MAXInterstitialAd) {
-        if let d = delegate {
-            d.interstitialDidDisappear?(mpInterstitial)
+        if let d = maxInterstitialDelegate {
+            d.interstitialAdDidClose(interstitialAd)
         }
     }
     
     public func interstitial(_ interstitialAd: MAXInterstitialAd?, didFailWithError error: MAXClientError) {
-        MAXLog.debug("\(String(describing: self)) MAXInterstitialAdDelegate failed to load ad with error: \(error.message)")
-        if let d = delegate {
-            d.interstitialDidFail?(toLoadAd: mpInterstitial)
+        MAXLogger.debug("\(String(describing: self)) MAXInterstitialAdDelegate failed to load ad with error: \(error.message)")
+        if let d = maxInterstitialDelegate {
+            d.interstitial(interstitialAd, didFailWithError: error)
         }
     }
     
@@ -196,6 +209,6 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     //MARK: Overrides
     
     public override var description: String {
-        return "\(super.description)\n --- \nmaxAdUnitId: \(maxAdUnitId)\n mpInterstitial: \(String(describing:mpInterstitial))"
+        return "\(super.description)\nmaxAdUnitId: \(maxAdUnitId)\nmpInterstitial: \(String(describing:mpInterstitial))"
     }
 }

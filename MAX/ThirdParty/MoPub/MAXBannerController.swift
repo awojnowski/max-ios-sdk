@@ -8,19 +8,18 @@ internal class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestMan
     
     //TODO - Bryan: Break up MAXAdView and create MAXBannerFactory. Then include factory in this class
     
+    // NOTE: MAXBannerController does not have its own MAXBannerControllerDelegate. Instead, it will funnel MAXAdRequestManager and MAXAdView callbacks into MAXBannerAdControllerDelegate callbacks.
+    internal weak var delegate: MAXBannerAdViewDelegate?
+    internal var disableAutoRefresh = false
+    
     private let bannerAdView: UIView
     private let requestManager: MAXAdRequestManager
     private let sessionManager: MAXSessionManager
-    
-    //TODO - Bryan: Add initialization manager
-    
     // Use a current and next ad view to prevent lag time between ads. With two ads, we can fully load the next ad before attempting to display it.
     private var currentAdView: MAXAdView?
     // The next ad to be shown. It will be completely loaded before an ad that is already showing will be replaced.
     private var nextAdView: MAXAdView?
     
-    // NOTE: MAXBannerController does not have its own MAXBannerControllerDelegate. Instead, it will funnel MAXAdRequestManager and MAXAdView callbacks into MAXBannerAdControllerDelegate callbacks.
-    internal weak var delegate: MAXBannerAdViewDelegate?
     
     internal convenience init(bannerAdView: UIView) {
         self.init(bannerAdView: bannerAdView, requestManager: MAXAdRequestManager(), sessionManager: MAXSessionManager.shared)
@@ -61,7 +60,9 @@ internal class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestMan
     }
     
     internal func startRefreshTimer(delay: Int) {
-        requestManager.startRefreshTimer(delay: delay)
+        if disableAutoRefresh == false {
+            requestManager.startRefreshTimer(delay: delay)
+        }
     }
     
     // NOTE: If MAXBannerController is being wrapped by a MAXBannerAdView facade, then bannerAdView will be a MAXBannerAdView. For other cases, such as when MAXMoPubBanner wrap an instance of MAXBannerController, getBannerAdView will return nil
@@ -84,7 +85,7 @@ internal class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestMan
     public func onRequestSuccess(adResponse: MAXAdResponse?) {
         
         guard adResponse != nil else {
-            MAXLog.debug("\(String(describing: self)).requestAd() succeeded but the ad response was nil")
+            MAXLogger.debug("\(String(describing: self)).requestAd() succeeded but the ad response was nil")
             return
         }
         
@@ -114,7 +115,7 @@ internal class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestMan
         // A banner loaded for a MAX 'reserved' ad response
         sessionManager.incrementMaxSessionDepth(adUnitId: (adView?.adUnitId)!)
         
-        requestManager.startRefreshTimer(delay: Int(MAXAdRequestManager.defaultRefreshTimeSeconds))
+        startRefreshTimer(delay: Int(MAXAdRequestManager.defaultRefreshTimeSeconds))
         
         if let next = nextAdView {
             currentAdView?.removeFromSuperview()
@@ -132,6 +133,9 @@ internal class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestMan
     }
     
     internal func adViewDidFailWithError(_ adView: MAXAdView?, error: NSError?) {
+        
+        startRefreshTimer(delay: Int(MAXAdRequestManager.defaultRefreshTimeSeconds))
+        
         if let d = delegate {
             let maxError = MAXClientError(message: error?.localizedDescription ?? "")
             d.onBannerError(banner: getBannerAdView(), error: maxError)

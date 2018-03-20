@@ -2,7 +2,7 @@ import Foundation
 
 /// Centralized MAX logging
 /// By default, only ERROR messages are logged to the console. To see debug
-/// messages, call MAXLogLevelDebug()
+/// messages, call MAXLogger.shared.setLogLevelDebug()
 
 @objc public enum MAXLogLevel: Int, RawRepresentable {
     case debug
@@ -41,70 +41,57 @@ import Foundation
     }
 }
 
-public let MAXLog: MAXLogger = {
-    let log = MAXLogger(identifier: "MAX")
-    return log
-}()
-
-public func MAXLogLevelDebug() {
-    MAXLog.setLogLevelDebug()
-}
-
-public func MAXLogLevelInfo() {
-    MAXLog.setLogLevelInfo()
-}
-
-public func MAXLogLevelWarn() {
-    MAXLog.setLogLevelWarn()
-}
-
-public func MAXLogLevelError() {
-    MAXLog.setLogLevelError()
-}
-
 public class MAXLogger: NSObject {
-    var identifier: String
-    var logLevel: MAXLogLevel = .info
+    
+    @objc public let identifier: String
+    @objc public private(set) var logLevel: MAXLogLevel = .info
+    
+    private static let shared = MAXLogger(identifier: "MAX", maxBaseLogger: MAXBaseLogger())
+    private let maxBaseLogger: MAXBaseLogger
 
-    @objc public static var logger = MAXLog
-
-    @objc public init(identifier: String) {
+    private init(identifier: String, maxBaseLogger: MAXBaseLogger) {
         self.identifier = identifier
+        self.maxBaseLogger = MAXBaseLogger()
+        super.init()
     }
 
-    @objc public func setLogLevelDebug() {
-        self.logLevel = .debug
+    @objc public static func setLogLevelDebug() {
+        shared.logLevel = .debug
+        shared.maxBaseLogger.logLevel = MAXBaseLogLevel.debug
     }
 
-    @objc public func setLogLevelInfo() {
-        self.logLevel = .info
+    @objc public static func setLogLevelInfo() {
+        shared.logLevel = .info
+        shared.maxBaseLogger.logLevel = MAXBaseLogLevel.info
     }
 
-    @objc public func setLogLevelWarn() {
-        self.logLevel = .warn
+    @objc public static func setLogLevelWarn() {
+        shared.logLevel = .warn
+        shared.maxBaseLogger.logLevel = MAXBaseLogLevel.warn
     }
 
-    @objc public func setLogLevelError() {
-        self.logLevel = .error
+    @objc public static func setLogLevelError() {
+        shared.logLevel = .error
+        shared.maxBaseLogger.logLevel = MAXBaseLogLevel.error
     }
 
-    @objc public func error(_ message: String) {
-        NSLog("\(identifier) [ERROR]: \(message)")
+    internal static func error(_ message: String) {
+        NSLog("\(shared.identifier) [ERROR]: \(message)")
     }
 
-    @objc public func warn(_ message: String) {
-        guard [MAXLogLevel.warn, MAXLogLevel.info, MAXLogLevel.debug].contains(self.logLevel) else { return }
-        NSLog("\(identifier) [WARN]: \(message)")
+    internal static func warn(_ message: String) {
+        guard [MAXLogLevel.warn, MAXLogLevel.info, MAXLogLevel.debug].contains(shared.logLevel) else { return }
+        NSLog("\(shared.identifier) [WARN]: \(message)")
     }
 
-    @objc public func info(_ message: String) {
-        guard [MAXLogLevel.info, MAXLogLevel.debug].contains(self.logLevel) else { return }
-        NSLog("\(identifier) [INFO]: \(message)")
+    internal static func info(_ message: String) {
+        guard [MAXLogLevel.info, MAXLogLevel.debug].contains(shared.logLevel) else { return }
+        NSLog("\(shared.identifier) [INFO]: \(message)")
     }
 
-    @objc public func debug(_ message: String) {
-        if self.logLevel == .debug {
-            NSLog("\(identifier) [DEBUG]: \(message)")
+    internal static func debug(_ message: String) {
+        if shared.logLevel == .debug {
+            NSLog("\(shared.identifier) [DEBUG]: \(message)")
         }
     }
 }
