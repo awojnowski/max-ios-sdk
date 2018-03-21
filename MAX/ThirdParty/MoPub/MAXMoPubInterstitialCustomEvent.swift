@@ -46,7 +46,7 @@ public class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInte
         let MAXInterstitial = MAXInterstitialAd(requestManager: MAXAdRequestManager(), sessionManager: MAXSessionManager.shared)
         self.MAXInterstitial = MAXInterstitial
         MAXInterstitial.delegate = self
-        MAXInterstitial.load(adUnitId: adUnitID)
+        MAXInterstitial.loadResponse(adResponse: adResponse)
         MAXLogger.debug("Interstitial for \(adUnitID) found and loaded")
     }
     

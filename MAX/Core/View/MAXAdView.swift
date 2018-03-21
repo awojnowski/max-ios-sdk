@@ -1,6 +1,7 @@
 import UIKit
 
 public enum MAXBannerCreativeType: String {
+    // HTML is equivalent to MRAID. We have it as 'html' for backwards compatibility. 
     case MRAID = "html"
     case empty = "empty"
 }
@@ -69,7 +70,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
             if self.adResponse.usePartnerRendering {
                 let partner = self.adResponse.partnerName
                 MAXLogger.debug("\(String(describing: self)) - Loading creative using view from third party: \(String(describing: partner))")
-                self.loadAdWithAdapter()
+                self.loadAdWithAdapter(adResponse: adResponse)
             } else {
                 MAXLogger.debug("\(String(describing: self)) - Loading creative using MRAID renderer")
                 self.loadAdWithMRAIDRenderer(creative: creative)
@@ -103,7 +104,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     /// be found. This can also fail if the adapter doesn't create a renderable ad view with the
     /// third party's code. If for any reason `loadAdWithAdapter` fails, it will attempt to fall
     /// back to `loadAdWithMRAIDRenderer`.
-    internal func loadAdWithAdapter() {
+    internal func loadAdWithAdapter(adResponse: MAXAdResponse) {
         
         guard let partner = adResponse.partnerName else {
             reportError(message: "\(String(describing: self)): Attempted to load ad with third party renderer, but no winner was declared. Trying to load with MAX MRAID renderer instead.")

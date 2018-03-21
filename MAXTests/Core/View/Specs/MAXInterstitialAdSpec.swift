@@ -48,7 +48,9 @@ class MAXInterstitialAdSpec: QuickSpec {
             it("should load interstitials with VAST for responses with creativeType 'vast3'") {
                 response._creativeType = MAXInterstitialCreativeType.VAST.rawValue
                 ad.generator = nil
+                
                 ad.load(adUnitId: adUnitId)
+                
                 expect(ad.didLoadUsingAdapter).to(beFalse())
                 expect(ad.didLoadUsingMRAID).to(beFalse())
                 expect(ad.didLoadUsingVAST).to(beTrue())
@@ -57,15 +59,21 @@ class MAXInterstitialAdSpec: QuickSpec {
             it("should load interstitials with MRAID for responses with creativeType 'html'") {
                 response._creativeType = MAXInterstitialCreativeType.HTML.rawValue
                 ad.generator = nil
+                
                 ad.load(adUnitId: adUnitId)
+                
                 expect(ad.didLoadUsingAdapter).to(beFalse())
                 expect(ad.didLoadUsingMRAID).to(beTrue())
                 expect(ad.didLoadUsingVAST).to(beFalse())
             }
             
-            it("should load interstitials with adapters for responses with creativeType 'empty'") {
+            it("should load interstitials with adapters for responses with creativeType 'html' and usePartnerRendering == true") {
+                response._creativeType = MAXInterstitialCreativeType.HTML.rawValue
+                response._usePartnerRendering = true
                 ad.generator = nil
+                
                 ad.load(adUnitId: adUnitId)
+                
                 expect(ad.didLoadUsingAdapter).to(beTrue())
                 expect(ad.didLoadUsingMRAID).to(beFalse())
                 expect(ad.didLoadUsingVAST).to(beFalse())

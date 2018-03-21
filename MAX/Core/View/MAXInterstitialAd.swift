@@ -2,6 +2,7 @@ import UIKit
 
 public enum MAXInterstitialCreativeType: String {
     case VAST = "vast3"
+    // HTML is equivalent to MRAID. We have it as 'html' for backwards compatibility.
     case HTML = "html"
     case empty = "empty"
 }
@@ -51,28 +52,40 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
         requestManager.requestAd()
     }
     
-    // NOTE: Call this function on the main queue
-    internal func loadInterstitial(creativeType: String) {
+    // DANGER: Not threadsafe - If load() is called once and then again before a request returns for the first call, mpAdUnitId will have changed by the time this code is executed. It seems unlikely that a pub would call load() rapidly on the same instance of MAXMoPubBanner, but, if one did, our reporting of which ads are being shown would be inaccurate.
+    internal func loadResponse(adResponse: MAXAdResponse) {
         
-        guard let adR = adResponse else {
+        self.adResponse = adResponse
+        
+        //TODO - Bryan: For now we keep the adResponse around. Once an InterstitialFactory and Interstitial base class are created, MAXInterstitialAd will keep an Interstitial instance, which can be kept instead of a MAXAdResponse.
+        
+        guard let adR = self.adResponse else {
             reportError(message: "\(String(describing: self)): loading an interstitial failed because the adResponse was nil.")
             return
         }
         
-        guard let creative = adResponse?.creative else {
+        guard let creative = self.adResponse?.creative else {
             reportError(message: "\(String(describing: self)): loading an interstitial failed because the creative was nil.")
             return
         }
         
-        switch creativeType {
+        switch adR.creativeType {
         case MAXInterstitialCreativeType.VAST.rawValue:
+            MAXLogger.debug("\(String(describing: self)): loading interstitial with VAST renderer")
             loadAdWithVASTRenderer(creative: creative)
+            // HTML is equivalent to MRAID. We have it as 'html' for backwards compatibility.
         case MAXInterstitialCreativeType.HTML.rawValue:
-            loadAdWithMRAIDRenderer(creative: creative)
+            if adR.usePartnerRendering {
+                MAXLogger.debug("\(String(describing: self)): loading interstitial with third party renderer")
+                loadAdWithAdapter(adResponse: adR)
+            } else {
+                MAXLogger.debug("\(String(describing: self)): loading interstitial with MRAID renderer")
+                loadAdWithMRAIDRenderer(creative: creative)
+            }
         case MAXInterstitialCreativeType.empty.rawValue:
-            loadAdWithAdapter(adResponse: adR)
+            MAXLogger.debug("\(String(describing: self)): attempting to load with an empty creative type, nothing to show")
         default:
-            reportError(message: "\(String(describing: self)): had unsupported ad creative_type=\(String(describing: adResponse?.creativeType))")
+            reportError(message: "\(String(describing: self)): loadInterstitial() called for an unsupported ad creative_type=\(String(describing: adR.creativeType))")
         }
     }
 
@@ -91,9 +104,10 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
                 MAXLogger.debug("\(String(describing: self)): showing ad with VAST renderer")
                 vastViewController?.presenterViewController = rootViewController
                 vastViewController?.play()
+            // HTML is equivalent to MRAID. We have it as 'html' for backwards compatibility.
             case MAXInterstitialCreativeType.HTML.rawValue?:
                 if (adResponse?.usePartnerRendering)! {
-                    MAXLogger.debug("\(String(describing: self)): attempting to load ad with third party renderer")
+                    MAXLogger.debug("\(String(describing: self)): showing ad with third party renderer")
                     interstitialAdapter?.showAd(fromRootViewController: rootViewController)
                 } else {
                     MAXLogger.debug("\(String(describing: self)): showing ad with MRAID renderer")
@@ -103,7 +117,7 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
             case MAXInterstitialCreativeType.empty.rawValue?:
                 MAXLogger.debug("\(String(describing: self)): had empty ad response, nothing to show")
             default:
-                reportError(message: "\(String(describing: self)): had unsupported ad creative_type=\(String(describing: adResponse?.creativeType))")
+                reportError(message: "\(String(describing: self)): show() called for an unsupported ad creative_type=\(String(describing: adResponse?.creativeType))")
         }
     }
 
@@ -161,16 +175,6 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     //TODO - Bryan: Replace interstitial generator with MAXInterstitialFactory (to mirror Android implementation)
     internal func getGenerator(forPartner partner: String) -> MAXInterstitialAdapterGenerator? {
         return MAXConfiguration.shared.getInterstitialGenerator(forPartner: partner)
-    }
-    
-    
-    internal func loadResponse(adResponse: MAXAdResponse) {
-        
-        //TODO - Bryan: For now we keep the adResponse around. Once an InterstitialFactory and Interstitial base class are created, MAXInterstitialAd will keep an Interstitial instance, which can be kept instead of a MAXAdResponse.
-        self.adResponse = adResponse
-        
-        // DANGER: Not threadsafe - If load() is called once and then again before a request returns for the first call, mpAdUnitId will have changed by the time this code is executed. It seems unlikely that a pub would call load() rapidly on the same instance of MAXMoPubBanner, but, if one did, our reporting of which ads are being shown would be inaccurate.
-        self.loadInterstitial(creativeType: adResponse.creativeType)
     }
     
     //MARK: MAXAdRequestManagerDelegate

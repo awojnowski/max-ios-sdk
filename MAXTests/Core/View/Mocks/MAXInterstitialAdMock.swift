@@ -16,9 +16,9 @@ internal class MAXInterstitialAdMock: MAXInterstitialAd {
     internal var didLoadUsingVAST = false
     internal var didLoadUsingAdapter = false
     
-    override internal func loadInterstitial(creativeType: String) {
+    override internal func loadResponse(adResponse: MAXAdResponse) {
         loaded = true
-        super.loadInterstitial(creativeType: creativeType)
+        super.loadResponse(adResponse: adResponse)
     }
     
     override internal func loadAdWithMRAIDRenderer(creative: String) {
@@ -45,6 +45,6 @@ internal class MAXInterstitialAdMock: MAXInterstitialAd {
     
     override public func onRequestSuccess(adResponse: MAXAdResponse?) {
         // bypass main queue used in super class onRequestSuccess
-        super.loadResponse(adResponse: adResponse!)
+        self.loadResponse(adResponse: adResponse!)
     }
 }
