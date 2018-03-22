@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-let maxSDKVersion = "0.9.0"
+let maxSDKVersion = "1.0.0"
 
 public class MAXConfiguration: NSObject {
 
