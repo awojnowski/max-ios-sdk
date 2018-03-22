@@ -1,5 +1,5 @@
 //
-//  MAXMoPubBannerCustom.swift
+//  MAXMoPubInterstitialCustomEvent.swift
 //  MAX
 //
 //  Created by Bryan Boyko on 3/13/18.

@@ -14,6 +14,7 @@
 #import "MaxMRAIDServiceDelegate.h"
 #import "MaxMRAIDUtil.h"
 #import "MaxMRAIDSettings.h"
+#import "MaxUtils.h"
 
 #import "MaxCommonLogger.h"
 
@@ -711,7 +712,9 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     
     // align on top right
     int x = CGRectGetWidth(modalVC.view.frame) - CGRectGetWidth(frame);
-    frame.origin = CGPointMake(x, 0);
+    // Interstitials are not rendered to vertically fill the full iPhoneX screen, which causes the close region to be added outside the bounds of the interstitial => for iPhoneX, ensure close regio remains in bounds of the rendered interstitial.
+    int y = MaxUtils.iPhoneType == IPhoneTypeX ? 45 : 0;
+    frame.origin = CGPointMake(x, y);
     closeEventRegion.frame = frame;
     // autoresizing so it stays at top right (flexible left and flexible bottom margin)
     closeEventRegion.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
