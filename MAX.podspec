@@ -22,16 +22,12 @@ point in your existing waterfall.
 
   s.subspec 'Core' do |d|
     d.dependency 'SnapKit', '4.0'
+    d.dependency 'mopub-ios-sdk', '>= 4.17.0'
     d.source_files = [
      'MAX/*.{h,m,swift}',
-     'MAX/Core/**/*.{h,m,swift}'
+     'MAX/Core/**/*.{h,m,swift}',
+     'MAX/ThirdParty/MoPub/**/*'
    ]
- end
-
-  s.subspec 'MoPub' do |d|
-    d.dependency 'MAX/Core'
-    d.dependency 'mopub-ios-sdk', '>= 4.17.0'
-    d.source_files = ['MAX/ThirdParty/MoPub/**/*']
   end
 
   s.subspec 'Facebook' do |d|

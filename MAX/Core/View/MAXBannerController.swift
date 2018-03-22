@@ -1,5 +1,4 @@
 import Foundation
-import MoPub
 import SnapKit
 
 // NOTE: MAXMoPubBanner will display expanded ads in the parent view controller of the bannerAdView injected in init
