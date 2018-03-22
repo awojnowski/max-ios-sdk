@@ -4,7 +4,7 @@ import SnapKit
 
 // NOTE: MAXMoPubBanner will display expanded ads in the parent view controller of the bannerAdView injected in init
 
-internal class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestManagerDelegate {
+class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestManagerDelegate {
     
     //TODO - Bryan: Break up MAXAdView and create MAXBannerFactory. Then include factory in this class
     
