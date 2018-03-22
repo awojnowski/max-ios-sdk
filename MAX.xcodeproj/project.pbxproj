@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		191329102046385100C99F05 /* MAXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1913290F2046385100C99F05 /* MAXSession.swift */; };
 		1913291320463E8300C99F05 /* MAXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1913290F2046385100C99F05 /* MAXSession.swift */; };
+		192866F4206432F800E6FBEA /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192866F3206432F800E6FBEA /* MAXBannerController.swift */; };
+		192866F5206432F800E6FBEA /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192866F3206432F800E6FBEA /* MAXBannerController.swift */; };
+		192866F6206432F800E6FBEA /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192866F3206432F800E6FBEA /* MAXBannerController.swift */; };
 		193BFA05203797E2006D86DC /* MAXAdViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BAF3203639E7000D06DE /* MAXAdViewAdapter.swift */; };
 		193BFA06203797E2006D86DC /* MAXInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BAF4203639E7000D06DE /* MAXInterstitialAdapter.swift */; };
 		193BFA07203797E2006D86DC /* MAXTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1917BAF5203639E7000D06DE /* MAXTokenProvider.swift */; };
@@ -175,9 +178,6 @@
 		1996F7F9205374C5005204D1 /* MAXInterstitialAdSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7DA205374C5005204D1 /* MAXInterstitialAdSpec.swift */; };
 		1996F7FB205377B8005204D1 /* MPInterstitialAdControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7FA205377B8005204D1 /* MPInterstitialAdControllerMock.swift */; };
 		1996F7FD205379F5005204D1 /* MAXInterstitialAdMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7FC205379F5005204D1 /* MAXInterstitialAdMock.swift */; };
-		19A1E9E0204E1877009BF93E /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXBannerController.swift */; };
-		19A1E9E1204E1877009BF93E /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXBannerController.swift */; };
-		19A1E9E2204E1877009BF93E /* MAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1E9DE204E1876009BF93E /* MAXBannerController.swift */; };
 		19A3DFDA2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */; };
 		19A3DFDB2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */; };
 		19A3DFDC2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */; };
@@ -311,6 +311,7 @@
 		1917BB5B203639E7000D06DE /* MAXFacebookInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXFacebookInterstitialAdapter.swift; sourceTree = "<group>"; };
 		1917BB5D203639E7000D06DE /* MAXMoPubBannerCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerCustomEvent.swift; sourceTree = "<group>"; };
 		191AB5B720363ED700501922 /* MAX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MAX-Bridging-Header.h"; sourceTree = "<group>"; };
+		192866F3206432F800E6FBEA /* MAXBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXBannerController.swift; sourceTree = "<group>"; };
 		193BF9FC203797CE006D86DC /* libMAXLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMAXLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		193BFA56203799EA006D86DC /* MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		193BFA58203799EA006D86DC /* MAX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAX.h; sourceTree = "<group>"; };
@@ -353,7 +354,6 @@
 		1996F7DA205374C5005204D1 /* MAXInterstitialAdSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdSpec.swift; sourceTree = "<group>"; };
 		1996F7FA205377B8005204D1 /* MPInterstitialAdControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPInterstitialAdControllerMock.swift; sourceTree = "<group>"; };
 		1996F7FC205379F5005204D1 /* MAXInterstitialAdMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdMock.swift; sourceTree = "<group>"; };
-		19A1E9DE204E1876009BF93E /* MAXBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXBannerController.swift; sourceTree = "<group>"; };
 		19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXBaseLogger.swift; sourceTree = "<group>"; };
 		19A3DFDD2037B71900D1CAF0 /* MAXAds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAds.swift; sourceTree = "<group>"; };
 		19D5E7B92057011C005C038C /* MAXMoPubBannerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerMock.swift; sourceTree = "<group>"; };
@@ -632,6 +632,7 @@
 			children = (
 				1917BB55203639E7000D06DE /* MAXAdView.swift */,
 				1917BB56203639E7000D06DE /* MAXInterstitialAd.swift */,
+				192866F3206432F800E6FBEA /* MAXBannerController.swift */,
 				1996F7462050CE81005204D1 /* MAXBannerAdView.swift */,
 			);
 			path = View;
@@ -661,7 +662,6 @@
 			children = (
 				1917BB5D203639E7000D06DE /* MAXMoPubBannerCustomEvent.swift */,
 				19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */,
-				19A1E9DE204E1876009BF93E /* MAXBannerController.swift */,
 				1996F6BA204F2233005204D1 /* MAXMoPubBanner.swift */,
 				1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */,
 			);
@@ -1269,9 +1269,9 @@
 				193BFA14203797E2006D86DC /* MAXErrorReporter.swift in Sources */,
 				193BFA15203797E2006D86DC /* MAXLinkHandler.swift in Sources */,
 				19A3DFDA2037B6ED00D1CAF0 /* MAXBaseLogger.swift in Sources */,
-				19A1E9E0204E1877009BF93E /* MAXBannerController.swift in Sources */,
 				193BFA16203797E2006D86DC /* MAXLogger.swift in Sources */,
 				193BFA17203797E2006D86DC /* MAXAdView.swift in Sources */,
+				192866F4206432F800E6FBEA /* MAXBannerController.swift in Sources */,
 				193BFA18203797E2006D86DC /* MAXInterstitialAd.swift in Sources */,
 				19D5E7FF205859CD005C038C /* MAXExtensions.swift in Sources */,
 				193BFA19203797E2006D86DC /* MAXFacebookAdapter.swift in Sources */,
@@ -1296,7 +1296,6 @@
 				1996F7482050CE81005204D1 /* MAXBannerAdView.swift in Sources */,
 				193BFA8E2037A057006D86DC /* MaxMRAIDParser.m in Sources */,
 				19A3DFDF2037B71900D1CAF0 /* MAXAds.swift in Sources */,
-				19A1E9E1204E1877009BF93E /* MAXBannerController.swift in Sources */,
 				193BFA8F2037A057006D86DC /* MaxMRAIDResizeProperties.m in Sources */,
 				193BFA902037A057006D86DC /* MaxMRAIDSettings.m in Sources */,
 				193BFA912037A057006D86DC /* MaxMRAIDUtil.m in Sources */,
@@ -1307,6 +1306,7 @@
 				193BFA952037A057006D86DC /* MaxVASTControls.m in Sources */,
 				193BFA962037A057006D86DC /* MaxVASTEventProcessor.m in Sources */,
 				193BFA972037A057006D86DC /* MaxVASTMediaFile.m in Sources */,
+				192866F5206432F800E6FBEA /* MAXBannerController.swift in Sources */,
 				193BFA982037A057006D86DC /* MaxVASTMediaFilePicker.m in Sources */,
 				193BFA992037A057006D86DC /* MaxVASTModel.m in Sources */,
 				19D5E804205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift in Sources */,
@@ -1402,6 +1402,7 @@
 				193BFB1B2037A650006D86DC /* MAXLogger.swift in Sources */,
 				1996F7E1205374C5005204D1 /* MAXAdViewAdapterGeneratorStub.swift in Sources */,
 				1996F7E3205374C5005204D1 /* MAXAdRequestManagerMock.swift in Sources */,
+				192866F6206432F800E6FBEA /* MAXBannerController.swift in Sources */,
 				193BFB1C2037A650006D86DC /* MAXAdView.swift in Sources */,
 				193BFB1D2037A650006D86DC /* MAXInterstitialAd.swift in Sources */,
 				193BFB1E2037A650006D86DC /* MAXFacebookAdapter.swift in Sources */,
@@ -1414,7 +1415,6 @@
 				1996F7ED205374C5005204D1 /* MAXSessionSpec.swift in Sources */,
 				1996F7EA205374C5005204D1 /* MockURLSession.swift in Sources */,
 				193BFB212037A650006D86DC /* MAXMoPubBannerCustomEvent.swift in Sources */,
-				19A1E9E2204E1877009BF93E /* MAXBannerController.swift in Sources */,
 				1996F6C520509A27005204D1 /* MAXMoPubInterstitial.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
