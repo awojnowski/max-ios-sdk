@@ -55,6 +55,11 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     // DANGER: Not threadsafe - If load() is called once and then again before a request returns for the first call, mpAdUnitId will have changed by the time this code is executed. It seems unlikely that a pub would call load() rapidly on the same instance of MAXMoPubBanner, but, if one did, our reporting of which ads are being shown would be inaccurate.
     internal func loadResponse(adResponse: MAXAdResponse) {
         
+        guard Thread.isMainThread else {
+            reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")
+            return
+        }
+        
         self.adResponse = adResponse
         
         //TODO - Bryan: For now we keep the adResponse around. Once an InterstitialFactory and Interstitial base class are created, MAXInterstitialAd will keep an Interstitial instance, which can be kept instead of a MAXAdResponse.
@@ -91,6 +96,11 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
 
     // NOTE: Call this function on the main queue
     @objc public func showAdFromRootViewController(_ rootViewController: UIViewController) {
+        
+        guard Thread.isMainThread else {
+            reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")
+            return
+        }
         
         // must check for nil since this method is exposed to ObjC
         if rootViewController == nil {
@@ -356,6 +366,5 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
         if let d = delegate {
             d.interstitial(self, didFailWithError: error)
         }
-        MAXErrorReporter.shared.logError(message: message)
     }
 }

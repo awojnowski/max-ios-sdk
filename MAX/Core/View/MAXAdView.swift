@@ -54,6 +54,11 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
 
     @objc public func loadAd() {
         
+        guard Thread.isMainThread else {
+            reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")
+            return
+        }
+        
         // Guard for nil because MAXAdView is currently exposed to ObjC
         if adResponse == nil {
             reportError(message: "\(String(describing: self)): loading failed because the adResponse was nil.")
@@ -247,6 +252,5 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
         if let d = delegate {
             d.adViewDidFailWithError(self, error: error)
         }
-        MAXErrorReporter.shared.logError(message: message)
     }
 }

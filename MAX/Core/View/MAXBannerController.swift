@@ -44,7 +44,12 @@ class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestManagerDeleg
     }
 
     internal func showAd(maxAdResponse: MAXAdResponse) {
-        //TODO - Bryan: Check to see if it's necessary to pass a size in to MAXAdView
+        
+        guard Thread.isMainThread else {
+            reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")
+            return
+        }
+        
         nextAdView = MAXAdView(adResponse: maxAdResponse, size: bannerAdView.frame.size)
         nextAdView?.delegate = self
         guard nextAdView != nil else {
@@ -65,7 +70,7 @@ class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestManagerDeleg
     }
     
     // NOTE: If MAXBannerController is being wrapped by a MAXBannerAdView facade, then bannerAdView will be a MAXBannerAdView. For other cases, such as when MAXMoPubBanner wrap an instance of MAXBannerController, getBannerAdView will return nil
-    private func getBannerAdView() -> MAXBannerAdView? {
+    internal func getBannerAdView() -> MAXBannerAdView? {
         if bannerAdView is MAXBannerAdView {
             return bannerAdView as? MAXBannerAdView
         }
@@ -134,11 +139,7 @@ class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestManagerDeleg
     internal func adViewDidFailWithError(_ adView: MAXAdView?, error: NSError?) {
         
         startRefreshTimer(delay: Int(MAXAdRequestManager.defaultRefreshTimeSeconds))
-        
-        if let d = delegate {
-            let maxError = MAXClientError(message: error?.localizedDescription ?? "")
-            d.onBannerError(banner: getBannerAdView(), error: maxError)
-        }
+        reportError(message: error?.localizedDescription ?? "")
     }
     
     internal func adViewDidClick(_ adView: MAXAdView?) {
@@ -164,5 +165,17 @@ class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestManagerDeleg
     
     public override var description: String {
         return "\(super.description)\n --- \nbannerAdView: \(bannerAdView)\n currentAdView: \(String(describing: currentAdView))\n nextAdView: \(String(describing: nextAdView))"
+    }
+    
+    
+    //MARK: Errors
+    
+    private func reportError(message: String) {
+        MAXLogger.error(message)
+        
+        if let d = delegate {
+            let error = MAXClientError(message: message)
+            d.onBannerError(banner: getBannerAdView(), error: error)
+        }
     }
 }

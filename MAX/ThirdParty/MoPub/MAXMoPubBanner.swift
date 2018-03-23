@@ -60,13 +60,13 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
 
         // must check for nil since this method can be called from ObjC
         guard maxAdUnitId != nil else {
-            MAXLogger.error("\(String(describing: self)) load called with nil MAX ad unit id")
+            reportError(message: "\(String(describing: self)) load called with nil MAX ad unit id")
             return
         }
         
         // must check for nil since this method can be called from ObjC
         guard mpAdUnitId != nil else {
-            MAXLogger.error("\(String(describing: self)) load called with nil MoPub ad unit id")
+            reportError(message: "\(String(describing: self)) load called with nil MoPub ad unit id")
             return
         }
         
@@ -81,6 +81,12 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
     }
     
     internal func loadResponse(adResponse: MAXAdResponse) {
+        
+        guard Thread.isMainThread else {
+            reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")
+            return
+        }
+        
         if adResponse.isReserved {
             MAXLogger.debug("\(String(describing: self)): Ad is eligible for auction rounds, loading ad through MAX SDK")
             // Make call to bannerController in opposite direction of normal callbacks (up dependency chain) because we hijacked vbannerController.requestManager callbacks
@@ -96,6 +102,12 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
     }
     
     internal func loadVanillaMoPub() {
+        
+        guard Thread.isMainThread else {
+            reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")
+            return
+        }
+        
         self.mpAdView.adUnitId = self.mpAdUnitId
         self.mpAdView.loadAd()
     }
@@ -152,10 +164,7 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
     public func adViewDidFail(toLoadAd view: MPAdView!) {
         
         startRefreshTimer(adResponse: adResponse)
-        
-        if let d = mpAdViewDelegate {
-            d.adViewDidFail?(toLoadAd: view)
-        }
+        reportError(message: "\(String(describing: self)): MPAdViewDelegate - adViewDidFail")
     }
     
     public func willPresentModalView(forAd view: MPAdView!) {
@@ -193,9 +202,7 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
     }
     
     public func onBannerError(banner: MAXBannerAdView?, error: MAXClientError) {
-        if let d = maxBannerAdViewDelegate {
-            d.onBannerError(banner: banner, error: error)
-        }
+        reportError(message: error.message)
     }
     
     
@@ -203,5 +210,26 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
     
     public override var description: String {
         return "\(super.description)\n --- \nmpAdUnitId: \(String(describing: mpAdUnitId))\n adResponse: \(String(describing: adResponse))"
+    }
+    
+    //MARK: Errors
+    
+    private func reportError(message: String) {
+        MAXLogger.error(message)
+        
+        guard let adR = adResponse else {
+            return
+        }
+        
+        if adR.isReserved {
+            let error = MAXClientError(message: message)
+            if let maxDelegate = maxBannerAdViewDelegate {
+                maxDelegate.onBannerError(banner: bannerController.getBannerAdView(), error: error)
+            }
+        } else {
+            if let mpDelegate = mpAdViewDelegate {
+                mpDelegate.adViewDidFail?(toLoadAd: mpAdView)
+            }
+        }
     }
 }

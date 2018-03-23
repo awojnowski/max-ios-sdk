@@ -202,7 +202,6 @@ open class MAXAdRequestManager: NSObject {
     private func reportError(message: String) {
         MAXLogger.error(message)
         let error = MAXClientError(message: message)
-        MAXErrorReporter.shared.logError(error: error)
         if let del = self.delegate {
             del.onRequestFailed(error: error)
         }

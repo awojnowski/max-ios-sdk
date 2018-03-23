@@ -42,7 +42,7 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     @objc public func load() {
         
         guard maxAdUnitId != nil else {
-            MAXLogger.error("\(String(describing: self)) load called with nil MAX ad unit id")
+            reportError(message: "\(String(describing: self)) load called with nil MAX ad unit id")
             return
         }
         
@@ -51,6 +51,11 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     
     // Call on main thread
     @objc public func show() {
+        
+        guard Thread.isMainThread else {
+            reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")
+            return
+        }
         
         guard let adR = adResponse else {
             MAXLogger.debug("\(String(describing: self)): show() failed because an ad has not loaded yet -> either show() was called before load() call finished and interstitialDidLoadAd() callback fired, or load() returned a nil adResponse")
@@ -61,6 +66,7 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     }
     
     private func doShow(adResponse: MAXAdResponse) {
+        
         self.mpInterstitial.keywords = adResponse.preBidKeywords
         
         if adResponse.isReserved {
@@ -72,6 +78,7 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     }
     
     internal func loadResponse(adResponse: MAXAdResponse) {
+        
         self.adResponse = adResponse
         
         if adResponse.isReserved {
@@ -199,10 +206,7 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     }
     
     public func interstitial(_ interstitialAd: MAXInterstitialAd?, didFailWithError error: MAXClientError) {
-        MAXLogger.debug("\(String(describing: self)) MAXInterstitialAdDelegate failed to load ad with error: \(error.message)")
-        if let d = maxInterstitialDelegate {
-            d.interstitial(interstitialAd, didFailWithError: error)
-        }
+        reportError(message: error.message)
     }
     
     
@@ -210,5 +214,27 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     
     public override var description: String {
         return "\(super.description)\nmaxAdUnitId: \(maxAdUnitId)\nmpInterstitial: \(String(describing:mpInterstitial))"
+    }
+    
+    
+    //MARK: Errors
+    
+    private func reportError(message: String) {
+        MAXLogger.error(message)
+        
+        guard let adR = adResponse else {
+            return
+        }
+        
+        if adR.isReserved {
+            let error = MAXClientError(message: message)
+            if let maxDelegate = maxInterstitialDelegate {
+                maxDelegate.interstitial(maxInterstitial, didFailWithError: error)
+            } 
+        } else {
+            if let mpDelegate = mpInterstitialDelegate {
+                mpDelegate.interstitialDidFail?(toLoadAd: mpInterstitial)
+            }
+        }
     }
 }
