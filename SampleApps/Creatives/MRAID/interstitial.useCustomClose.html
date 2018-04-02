@@ -1,0 +1,21 @@
+<script src="mraid.js"></script>
+<div id="container"
+	style="width: 100%; height: 100%; padding-top: 40%; background: orange; text-align: center; display: none"
+	onclick="closeFunc()">
+	Interstitial Custom Close Demo<br />Click anywhere to close.
+</div>
+
+<script>
+	function stateChangeHandler(state) {
+		if (state === mraid.STATES.DEFAULT) {
+			document.getElementById("container").style.display = "block";
+		}
+	}
+
+	mraid.addEventListener(mraid.EVENTS.STATECHANGE, stateChangeHandler);
+	mraid.useCustomClose(true);
+
+	function closeFunc() {
+		mraid.close();
+	}
+</script>

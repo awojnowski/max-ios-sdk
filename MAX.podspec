@@ -12,7 +12,6 @@ point in your existing waterfall.
   s.author           = { 'MAX' => 'hello@maxads.co' }
   s.source           = { :git => 'git@github.com:MAXAds/max-ios-sdk.git', :tag => s.version.to_s }
   s.xcconfig         = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
-  s.pod_target_xcconfig = { 'SWIFT_OBJC_BRIDGING_HEADER' => '$(PODS_TARGET_SRCROOT)/MAX/Core/ObjC/MAX-Bridging-Header.h' }
   s.libraries        = 'xml2' 
   s.swift_version    = "4.0" 
  

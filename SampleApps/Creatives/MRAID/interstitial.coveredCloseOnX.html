@@ -1,0 +1,77 @@
+<script src="mraid.js"></script>
+<div id="adContainer" style="width:320px;margin:0px;padding:0px;background-color:#ffffff;">
+    <div id="normal" style="display:none;width:320px;height:50px;margin:auto;position:relative;top:0px;left:0px;">
+        <img width="320" height="50" src="https://storage.googleapis.com/maxads-156519.appspot.com/max320x50.png" onclick="javascript:expand();"/>
+    </div>
+    <div id="expanded" style="display:none;width:320px;height:250px;margin:auto;position:relative;top:0px;left:0px;">
+        <img width="320" height="250" style="position:absolute;top:0px;left:0px;" src="https://storage.googleapis.com/maxads-156519.appspot.com/max320x50.png" />
+    </div>
+</div>
+
+<style type="text/css">
+    body {
+        background-color:#FFFFFF;
+    }
+</style>
+
+<script>
+    // Core Ad Functions
+    function collapse() {
+        mraid.close();
+    }
+
+function mraidIsReady() {
+    mraid.removeEventListener("ready", mraidIsReady);
+    showMyAd();
+}
+
+function showMyAd() {
+    var el = document.getElementById("normal");
+    el.style.display = '';
+    mraid.addEventListener("stateChange", updateAd);
+}
+
+function expand() {
+    mraid.setOrientationProperties({"allowOrientationChange":false, "forceOrientation":"portrait"});
+    mraid.expand();
+}
+
+function updateAd(state) {
+    if (state == "expanded") {
+        toggleLayer('normal', 'expanded');
+    } else if (state == "default") {
+        toggleLayer('expanded', 'normal');
+    }
+}
+
+function toggleLayer(fromLayer, toLayer) {
+    var fromElem = document.getElementById(fromLayer);
+    fromElem.style.display = 'none';
+    
+    var toElem = document.getElementById(toLayer);
+    toElem.style.display = '';
+}
+
+function setupViewport(width) {
+    var element = document.querySelector("meta[name=viewport]");
+    if (!element) {
+        element = document.createElement("meta");
+        element.name = "viewport";
+        element.content = "width=" + width + ", user-scalable=no";
+        document.getElementsByTagName('head')[0].appendChild(element);
+    } else {
+        element.content = "width=" + width + ", user-scalable=no";
+    }
+}
+setupViewport(320);
+
+function doReadyCheck() {
+    if (mraid.getState() == 'loading') {
+        mraid.addEventListener("ready", mraidIsReady);
+    } else {
+        showMyAd();
+    }
+}
+
+doReadyCheck();
+    </script>

@@ -1,0 +1,69 @@
+<script src="mraid.js"></script>
+
+<div align="center" style="background-color:silver; width:100%; min-height:100%;">
+	Test MRAID resize <br/>
+	<button type='button' id='resizeButton' onclick='resize();'>Resize</button>
+	<br/>
+	<button type='button' id='closeButton' onclick='closeFn();'
+		style="visibility: hidden">Close</button>
+	<br/>
+	<div id="banner"></div>
+</div>
+
+<script>
+
+	mraid.addEventListener("error", handleError);
+	mraid.addEventListener('stateChange', handleStateChange);
+
+	function handleError(message, action) {
+		var msg = "Error";
+		if (action != null) {
+			msg += " caused by action '" + action + "',";
+		}
+		msg += " message: " + message;
+		console.log(msg);
+	}
+
+	function handleStateChange(state) {
+		var img = document.getElementById("closeRegion");
+		var isResized = (state === mraid.STATES.RESIZED);
+		img.style.visibility = (isResized ? 'visible' : 'hidden');
+		setButtonVisible(isResized);
+	}
+
+	var isFirstResize = true;
+
+	function resize() {
+		var resizeProperties = {
+			"width" : 320,
+			"offsetX" : 0,
+			"offsetY" : 0,
+			"customClosePosition" : "top-right",
+			"allowOffscreen" : true
+		};
+		resizeProperties.height = (isFirstResize ? 200 : 400);
+		isFirstResize = false;
+		mraid.setResizeProperties(resizeProperties);
+		resizeProperties = mraid.getResizeProperties();
+		var msg = "width=" + resizeProperties.width + ", height="
+				+ resizeProperties.height + "<br/>" + "offsetX="
+				+ resizeProperties.offsetX + ", offsetY="
+				+ resizeProperties.offsetY + "<br/>" + "customClosePosition="
+				+ resizeProperties.customClosePosition + "<br/>"
+				+ "allowOffscreen " + resizeProperties.allowOffscreen;
+		document.getElementById("banner").innerHTML = msg;
+		mraid.resize();
+		setButtonVisible(true);
+	}
+
+	function closeFn() {
+		mraid.close();
+		setButtonVisible(false);
+	}
+
+	function setButtonVisible(visible) {
+		var button = document.getElementById("closeButton");
+		button.style.visibility = (visible ? 'visible' : 'hidden');
+	}
+	
+</script>

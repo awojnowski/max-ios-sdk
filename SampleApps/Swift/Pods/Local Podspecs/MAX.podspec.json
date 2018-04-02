@@ -1,0 +1,60 @@
+{
+  "name": "MAX",
+  "version": "1.0.0",
+  "summary": "Parallel bidding wrapper for mobile ads.",
+  "description": "MAX pre-bid wrapper that can be used alongside your existing mobile advertising SSP ad calls,\ngiving you the ability to work with multiple programmatic buyers and exchanges in parallel at any\npoint in your existing waterfall.",
+  "homepage": "https://app.maxads.io",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "MAX": "hello@maxads.co"
+  },
+  "source": {
+    "git": "git@github.com:MAXAds/max-ios-sdk.git",
+    "tag": "1.0.0"
+  },
+  "xcconfig": {
+    "HEADER_SEARCH_PATHS": "$(SDKROOT)/usr/include/libxml2"
+  },
+  "libraries": "xml2",
+  "swift_version": "4.0",
+  "requires_arc": true,
+  "platforms": {
+    "ios": "8.0"
+  },
+  "static_framework": true,
+  "subspecs": [
+    {
+      "name": "Core",
+      "dependencies": {
+        "SnapKit": [
+          "4.0"
+        ],
+        "mopub-ios-sdk": [
+          ">= 4.17.0"
+        ]
+      },
+      "source_files": [
+        "MAX/*.{h,m,swift}",
+        "MAX/Core/**/*.{h,m,swift}",
+        "MAX/ThirdParty/MoPub/**/*"
+      ]
+    },
+    {
+      "name": "Facebook",
+      "dependencies": {
+        "MAX/Core": [
+
+        ],
+        "FBAudienceNetwork": [
+          "4.27.2"
+        ]
+      },
+      "source_files": [
+        "MAX/ThirdParty/Facebook/**/*"
+      ]
+    }
+  ]
+}

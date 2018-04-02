@@ -1,0 +1,6 @@
+framework module Pods_MAXiOSSampleAppObjC {
+  umbrella header "Pods-MAXiOSSampleAppObjC-umbrella.h"
+
+  export *
+  module * { export * }
+}

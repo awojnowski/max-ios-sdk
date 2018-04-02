@@ -989,7 +989,6 @@
 				193BF9F8203797CE006D86DC /* Sources */,
 				193BF9F9203797CE006D86DC /* Frameworks */,
 				193BF9FA203797CE006D86DC /* CopyFiles */,
-				4D47C4D82FE1F2B3BD10416B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1009,7 +1008,6 @@
 				193BFA52203799EA006D86DC /* Frameworks */,
 				193BFA53203799EA006D86DC /* Headers */,
 				193BFA54203799EA006D86DC /* Resources */,
-				BDAC8AC38D9EA6746B4A9E7B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1029,7 +1027,6 @@
 				193BFA5B203799EA006D86DC /* Frameworks */,
 				193BFA5C203799EA006D86DC /* Resources */,
 				98904FE3B043AEA48A1A5D62 /* [CP] Embed Pods Frameworks */,
-				934DDE9A2F85011382251A3E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1103,36 +1100,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4D47C4D82FE1F2B3BD10416B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MAXLib/Pods-MAXLib-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		934DDE9A2F85011382251A3E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MAXTests/Pods-MAXTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		98904FE3B043AEA48A1A5D62 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1155,21 +1122,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MAXTests/Pods-MAXTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BDAC8AC38D9EA6746B4A9E7B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MAX/Pods-MAX-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E00C89EB948704B2FC4E9EF2 /* [CP] Check Pods Manifest.lock */ = {

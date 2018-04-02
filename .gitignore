@@ -28,8 +28,8 @@ xcuserdata
 *.ipa
 
 # Cocoapods
-#Pods/
-#Podfile.lock
+# Pods/
+# Podfile.lock
 
 # Swift Package Manager
 .build/

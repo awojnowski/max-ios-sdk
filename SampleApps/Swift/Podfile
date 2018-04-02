@@ -1,0 +1,19 @@
+platform :ios, '8.0'
+
+source 'https://github.com/MAXAds/Specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'MAXiOSSampleApp' do
+  use_frameworks!
+
+
+# MAX repos
+
+
+#  pod 'MAX/Core', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
+  pod 'MAX/Core', :path => "../.."
+#  pod 'MAX/Facebook', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
+  pod 'MAX/Facebook', :path => "../.."
+
+
+end

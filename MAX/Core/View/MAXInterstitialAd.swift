@@ -234,7 +234,9 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
 
     public func interstitialDidLoad(_ interstitial: MAXInterstitialAdapter) {
         MAXLogger.debug("\(String(describing: self)): MAXInterstitialAdapterDelegate interstitialDidLoad")
-        interstitialAdapter?.showAd(fromRootViewController: self.rootViewController)
+        if let d = delegate {
+            d.interstitialAdDidLoad(self)
+        }
     }
 
     public func interstitialWillLogImpression(_ interstitial: MAXInterstitialAdapter) {

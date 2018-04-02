@@ -1,0 +1,34 @@
+platform :ios, '8.0'
+
+source 'https://github.com/MAXAds/Specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'MAXiOSSampleApp' do
+  use_frameworks!
+
+
+# MAX repos
+
+
+  pod 'MAX/Core', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
+#  pod 'MAX/Core', :path => "../max-ios-sdk"
+  pod 'MAX/MoPub', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
+#  pod 'MAX/MoPub', :path => "../max-ios-sdk"
+  pod 'MAX/Facebook', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
+#  pod 'MAX/Facebook', :path => "../max-ios-sdk"
+
+# Third party repos
+
+  pod 'mopub-ios-sdk', '= 4.18.0'
+  pod 'FBAudienceNetwork', '4.27.2'
+  pod 'SnapKit', '~> 4.0'
+
+  target 'MAXiOSSampleAppTests' do
+    inherit! :search_paths
+  end
+
+  target 'MAXiOSSampleAppUITests' do
+    inherit! :search_paths
+  end
+
+end

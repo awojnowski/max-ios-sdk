@@ -1,0 +1,117 @@
+<body style="margin:0;padding:0;">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://d1zg4cyg8u4pko.cloudfront.net/v2/vast2html5.min.js?v=1_17568"></script>
+    <div id="mpPlayableContainer">
+        <script src="mraid.js"></script>
+        <style>
+            #close_zone {
+                z-index: 100;
+                cursor: pointer;
+                font-size: 25%
+            }
+        
+        .close_zone_left {
+            position: absolute;
+            top: 2px;
+            left: 2px
+        }
+        
+        .close_zone_right {
+            position: absolute;
+            top: 2px;
+            right: 2px
+        }
+        
+        #close_timer {
+            color: #fff;
+            font: 400 1em/normal Arial, Helvetica, sans-serif
+        }
+        
+        .close_timer_left {
+            position: absolute;
+            top: 6px;
+            left: 10px
+        }
+        
+        .close_timer_right {
+            position: absolute;
+            top: 6px;
+            right: 10px
+        }
+        
+        .close-button {
+            display: inline-block;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            width: .75em;
+            height: .75em;
+            position: relative;
+            border: none;
+            -webkit-border-radius: 1em;
+            border-radius: 1em;
+            font: 400 8em/normal Arial, Helvetica, sans-serif;
+            color: rgba(0, 0, 0, 1);
+            -o-text-overflow: clip;
+            text-overflow: clip;
+            background: #111;
+            top: -1px
+        }
+        
+        .close-button::after,
+        .close-button::before {
+            display: inline-block;
+            width: .45em;
+            height: .1em;
+            position: absolute;
+            content: "";
+            top: .33em;
+            left: .155em;
+            border: none;
+            font: 400 100%/normal Arial, Helvetica, sans-serif;
+            color: rgba(0, 0, 0, 1);
+            -o-text-overflow: clip;
+            text-overflow: clip;
+            background: #fff;
+            text-shadow: none
+        }
+        
+        .close-button::before {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            -webkit-transform: rotateZ(45deg);
+            transform: rotateZ(45deg)
+        }
+        
+        .close-button::after {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            -webkit-transform: rotateZ(-45deg);
+            transform: rotateZ(-45deg)
+        }
+        </style>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli:300">
+            <link href="https://img.serveroute.com/ms_mini_robotron_v1_5/css/mraid_wrapper.css" rel="stylesheet" />
+            <script type="text/javascript">
+                var ad_name = "ms_mini_robotron_v1_5";
+                var ad_title = "Mobile Strike";
+                var ad_click_dest = "https://secure-click.crossinstall.com/click/?ad=DfZk&sub=1447193&sub2=ca33430a-13a9-46ce-ba1a-5a6b3a3a0aa7&sub3=1&sub4=1004183&sub10=mopub&android_ad_id=c17580cf-4bfc-464b-a19b-d4dca19f814c&sub9=ms_mini_robotron_v1_5&publisher=com.northpark.drinkwater&size=320x480&genre=&p=YXM6MzIweDQ4MHxhZzowfGdlOjB8Y2I6MnxuYTozfGFsOjR8Y3Q6M3xwYToxfHBtOjB8cGw6Mg%253D%253D&sub11=dHQ9MjAxNzA2MjMuMTUzOSZwcz0xLjAwJnJldnQ9Y29tJmFjaT1UcVlrJmRsPW5vbmUmbG9jYWxkYXlvZndlZWs9V2VkJnZpZGVvX3Jlc3BvbnNlPWZhbHNlJmRtPVNNJTJDU00tTjkxMFQmZG49Tm9ydGhwYXJrLkFuZHJvaWQmZG12PXNtLW45MTB0JmRwPXJldHJ5X2Ftb3VudCUzQTElMkNraWxsc190b19jdGElM0EyNSZjdXJjPUFydHMrJTI2K0VudGVydGFpbm1lbnQlMkNIZWFsdGgrJTI2K0ZpdG5lc3MlMkNIb2JiaWVzKyUyNitJbnRlcmVzdHMlMkNWaWRlbyslMjYrQ29tcHV0ZXIrR2FtZXMmZGFpPTEwMDg3MTEmZGFwPSU1QjI4ZGF5LTYwZGF5JTVEJm5pbXI9ZmFsc2Umb3N2PTQmdWg9MTkmYWQ9OSZlaD1ub25lJm1yPTEmdXBkPTE4LTI0JmFpPTE0NDcxOTMmbnZwPSU1QjElNUQmZG50PWZhbHNlJmFuPU1BQ0hJTkUrWk9ORSZ6aT1mYWxzZSZsb2NhbHBhcnRvZndlZWs9d2Vla2RheSZhcj11cy1lYXN0LTEmbmE9aGlnaCZ2aT1mYWxzZSZ1cHc9d2Vla2RheSZ2cz1mYWxzZSZkc209bW9wdWImYmE9YW5ub3lpbmclMkNkaWFsb2clMkNleHBhbmRfYXV0byUyQ3BvcCUyQ3Byb3ZvY2F0aXZlJTJDdmlkZW9fYXV0byUyQ3ZpZGVvX3VzZXImYmI9MC4zNTAwMDAmcnI9NC40MzY1MzQ0NDgzNzQxNTEzRS00JmJjPUlBQjI1JTJDSUFCMjYlMkNJQUIzXzclMkNJQUI3XzM5JTJDSUFCOF8xOCUyQ0lBQjhfNSUyQ0lBQjlfOSZydD0wLjAwOCZydj1mYWxzZSZkc3Y9NC4xMS4wJmJpPTEwLjAuMC4yMTkmbnY9JTVCMSU1RCZhYWk9Y29tLm1vYmlsZXN0cmlrZSZ1ZHc9V2VkJmFlcz1vayZicD01LjA3JnNjPTMuMjY2NDYwMDM4ODAzNTIzJmJ0PWNwbSZzZT0lNUIwJTVEJm5hdGl2ZT1mYWxzZSZicGI9JTVCNS4wK3RvKzUuNSU1RCZ0c3Y9JTVCN2RheS1pbmYlNUQmc2k9MTAwNDE4MyZwY2k9RGZaayZjYXQ9QXJ0cyslMjYrRW50ZXJ0YWlubWVudCUyQ0hlYWx0aCslMjYrRml0bmVzcyUyQ0hvYmJpZXMrJTI2K0ludGVyZXN0cyUyQ1ZpZGVvKyUyNitDb21wdXRlcitHYW1lcyZwY249TW9iaWxlK1N0cmlrZSstK1BsYXlhYmxlKy0rRGV2aWNlK1doaXRlbGlzdCs0LjArLStNYXJrZXQtd2lkZSZjYT1jb20ubm9ydGhwYXJrLmRyaW5rd2F0ZXImY2I9bWVkaXVtJnNzPUNSUyUzQVJORF9DUFMlM0FSTkRfRiUzQTE4MDBfTEMlM0E1MCZhPXZlcnloaWdoJmNlPUJfREVGQVVMVCZvcj1mYWxzZSZjPTMxMC0yNjAmZD0yMDE3MDYyOCZjcmlkPW1zX21pbmlfcm9ib3Ryb25fdjFfNSZwbGE9eWVzJnRwYT1Lb2NoYXZhJm9zPWFuZHJvaWQmc3o9MzIweDQ4MCZnPVVua25vd24mY250PVVTQSZjbz1jZWxsdWxhciZsPWVzJmNwPTEuMCZwYj0xLjAwMDAmY3g9bW9wdWImbG9jYWxwYXJ0b2ZkYXk9MDYtMTImbG9jYWxob3VyPTExJmRhPSU1QjkwZGF5LTE4MGRheSU1RCZwbj1XYXRlcitEcmluaytSZW1pbmRlciZhZ2U9VW5rbm93biZkYz1mYWxzZQ%3D%3D";
+                var ad_orientation = "portrait";
+                var ad_webroot = "https://img.serveroute.com";
+                var ad_logroot = "https://www.serveroute.com";
+                var ad_splash_image = ad_webroot + "/ms_mini_robotron_v1_5/img/icon.jpg";
+                var ad_has_custom_load_screen = false;
+                var ad_creative_id = "ms_mini_robotron_v1_5";
+                var ad_close_duration = 5000;
+                var ad_close_position = "right";
+                var ad_close_countdown = false;
+                var ad_exchange = "mopub";
+                var ad_getapp_instead_of_title = false;
+                var ad_dynamic_parameters = "retry_amount=1&kills_to_cta=25";
+                if (ad_exchange === "chartboost") ad_orientation = window.innerHeight > window.innerWidth ? portrait : landscape;
+                </script>
+            <script type=text/javascript src=https://img.serveroute.com/ms_mini_robotron_v1_5/js/code.js></script>
+            </div>
+</body>

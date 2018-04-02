@@ -1,0 +1,71 @@
+<html>
+    <head>
+    	<style>
+    	body {
+    		font-family: "Helvetica";
+    	}
+
+    	.button {
+    		display: block;
+    		width: 100%;
+    		height: 125px;
+    		margin-bottom: 10px;
+    		font-size: 30px;
+    		color: white;
+    		text-decoration: none;
+    	}
+
+    	.window-location{
+    		background-color: #001F3F;
+    	}
+
+    	.window-location-href{
+    		background-color: #FFDC00;
+    	}
+
+    	.window-open{
+    		background-color: #01FF70;
+    	}
+
+    	.window-open-with-params{
+    		background-color: #85144b;
+    	}
+
+    	.a-href {
+    		background-color: #FF4136;
+    	}
+	    </style>
+    	<script type="text/javascript">
+    		function onWindowLocation() {
+    			window.location = "https://www.duke.edu";
+    		}
+
+    		function onWindowLocationHref() {
+    			window.location.href = "https://www.allbirds.com";
+    		}
+
+    		function onWindowOpen(windowParameters) {
+    			var windowObjectRef = window.open("https://www.mixt.com", "MAX_WINDOW", windowParameters);
+    		}
+    	</script>
+    </head>
+    <body align='center'>
+        <h2>Interstitial click tracking</h2>
+        <div class="window-location button" onclick="onWindowLocation()">
+        	Tap here to trigger a window.location event
+        </div>
+
+        <div class="window-location-href button" onclick="onWindowLocationHref()">
+        	Tap here to trigger a window.location.href event
+        </div>
+        <div class="window-open button" onclick="onWindowOpen()">
+        	Tap here to trigger a window.open event
+        </div>
+        <div class="window-open-with-params button" onclick="onWindowOpen('location=yes')">
+        	Tap here to trigger a window.open event with the "location=yes" parameter
+        </div>
+        <a class="a-href button" href="https://ads.maxads.io">
+        	Tap here to trigger an a href event
+        </a>
+    </body>
+</html>

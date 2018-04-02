@@ -15,7 +15,6 @@ PODS:
   - Quick (1.2.0)
   - SnapKit (4.0.0)
   - SwiftLint (0.25.0)
-  - VungleSDK-iOS (5.4.0)
 
 DEPENDENCIES:
   - FBAudienceNetwork (= 4.27.2)
@@ -24,7 +23,15 @@ DEPENDENCIES:
   - Quick
   - SnapKit (~> 4.0)
   - SwiftLint
-  - VungleSDK-iOS (= 5.4.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - FBAudienceNetwork
+    - mopub-ios-sdk
+    - Nimble
+    - Quick
+    - SnapKit
+    - SwiftLint
 
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
@@ -33,8 +40,7 @@ SPEC CHECKSUMS:
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
-  VungleSDK-iOS: bf5bb77eedc065e28c34d8613b027ef9cc3053c2
 
-PODFILE CHECKSUM: b56b45867346e4445db80c8fde356dcfc8602738
+PODFILE CHECKSUM: 9826cbfc2f8bf2fbed4aa952787371c3ab099fac
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0.beta.1
