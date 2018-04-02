@@ -1,0 +1,11 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit" "${PODS_CONFIGURATION_BUILD_DIR}/mopub-ios-sdk" "${PODS_ROOT}/FBAudienceNetwork" "${PODS_ROOT}/VungleSDK-iOS"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/FBAudienceNetwork" "${PODS_ROOT}/Headers/Public/SwiftLint" "${PODS_ROOT}/Headers/Public/VungleSDK-iOS"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks' '@executable_path/../../Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/mopub-ios-sdk/MoPub.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/FBAudienceNetwork" -isystem "${PODS_ROOT}/Headers/Public/SwiftLint" -isystem "${PODS_ROOT}/Headers/Public/VungleSDK-iOS"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"xml2" -l"z" -framework "AVFoundation" -framework "AdSupport" -framework "AudioToolbox" -framework "CFNetwork" -framework "CoreGraphics" -framework "CoreImage" -framework "CoreMedia" -framework "FBAudienceNetwork" -framework "Foundation" -framework "MediaPlayer" -framework "MoPub" -framework "QuartzCore" -framework "Security" -framework "SnapKit" -framework "StoreKit" -framework "SystemConfiguration" -framework "UIKit" -framework "VungleSDK" -weak_framework "AdSupport" -weak_framework "CoreMotion" -weak_framework "SafariServices" -weak_framework "WebKit"
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods

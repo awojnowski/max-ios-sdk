@@ -1,0 +1,40 @@
+PODS:
+  - FBAudienceNetwork (4.27.2)
+  - mopub-ios-sdk (4.20.1):
+    - mopub-ios-sdk/MoPubSDK (= 4.20.1)
+  - mopub-ios-sdk/Avid (4.20.1):
+    - mopub-ios-sdk/Core
+  - mopub-ios-sdk/Core (4.20.1)
+  - mopub-ios-sdk/Moat (4.20.1):
+    - mopub-ios-sdk/Core
+  - mopub-ios-sdk/MoPubSDK (4.20.1):
+    - mopub-ios-sdk/Avid
+    - mopub-ios-sdk/Core
+    - mopub-ios-sdk/Moat
+  - Nimble (7.0.3)
+  - Quick (1.2.0)
+  - SnapKit (4.0.0)
+  - SwiftLint (0.25.0)
+  - VungleSDK-iOS (5.4.0)
+
+DEPENDENCIES:
+  - FBAudienceNetwork (= 4.27.2)
+  - mopub-ios-sdk (>= 4.18.0)
+  - Nimble
+  - Quick
+  - SnapKit (~> 4.0)
+  - SwiftLint
+  - VungleSDK-iOS (= 5.4.0)
+
+SPEC CHECKSUMS:
+  FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
+  mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
+  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
+  VungleSDK-iOS: bf5bb77eedc065e28c34d8613b027ef9cc3053c2
+
+PODFILE CHECKSUM: b56b45867346e4445db80c8fde356dcfc8602738
+
+COCOAPODS: 1.4.0
