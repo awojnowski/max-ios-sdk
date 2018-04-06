@@ -150,7 +150,7 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
     }
     
     public func adViewDidLoadAd(_ view: MPAdView!) {
-        
+
         // A banner loaded because a non-MAX line item in the MoPub waterfall was selected
         sessionManager.incrementSSPSessionDepth(adUnitId: view.adUnitId)
         
