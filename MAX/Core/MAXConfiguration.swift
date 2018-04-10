@@ -1,27 +1,34 @@
 import Foundation
 import UIKit
+import VungleSDK
+import VungleSDKHeaderBidding
 
 let maxSDKVersion = "1.0.0"
 
+
+// configuration relating to the below third parties is implemented in MAXConfiguration extensions in the corresponding third party adapter classes
+internal let facebookIdentifier = "facebook"
+internal let vungleIdentifier = "vungle"
+
 public class MAXConfiguration: NSObject {
 
-    @objc public static let shared = MAXConfiguration()
+    @objc public static let shared = MAXConfiguration(directSDKManager: MAXDirectSDKManager())
+    @objc public let directSDKManager: MAXDirectSDKManager
     
-    private override init() {
+    private init(directSDKManager: MAXDirectSDKManager) {
+        self.directSDKManager = directSDKManager
         MAXLogger.info("You are using MAX iOS SDK version \(maxSDKVersion)")
+        super.init()
     }
 
     /// Get the current version of the SDK. This is reported in ad requests.
     @objc public func getSDKVersion() -> String {
         return maxSDKVersion
     }
-
-    /*
-     * Location Tracking
-     *
-     * Location tracking is disabled by default. Enable location tracking by
-     * calling `MAXConfiguration.shared.enableLocationTracking()`.
-     */
+    
+    //MARK: Location tracking
+    // Location tracking is disabled by default. Enable location tracking by
+    // calling `MAXConfiguration.shared.enableLocationTracking()`.
 
     private var _locationTrackingEnabled: Bool = false
 
@@ -37,10 +44,8 @@ public class MAXConfiguration: NSObject {
         self._locationTrackingEnabled = false
     }
 
-    /*
-     * Third party hooks
-     */
-    @objc public var tokenRegistrar = MAXTokenRegistrar()
+    
+    //MARK: Third party hooks
 
     private var partnerAdViewGenerators: Dictionary<String, MAXAdViewAdapterGenerator> = [:]
     
@@ -53,7 +58,7 @@ public class MAXConfiguration: NSObject {
     }
 
     private var partnerInterstitialGenerators: Dictionary<String, MAXInterstitialAdapterGenerator> = [:]
-    public func registerInterstitialGenerator(_ generator: MAXInterstitialAdapterGenerator) {
+    @objc public func registerInterstitialGenerator(_ generator: MAXInterstitialAdapterGenerator) {
         self.partnerInterstitialGenerators[generator.identifier] = generator
     }
 

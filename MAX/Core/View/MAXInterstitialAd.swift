@@ -19,6 +19,7 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     
     @objc public weak var delegate: MAXInterstitialAdDelegate?
     
+    private let configuration: MAXConfiguration
     private let requestManager: MAXAdRequestManager
     private let sessionManager: MAXSessionManager
     private var adResponse: MAXAdResponse?
@@ -32,12 +33,13 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
     
     @objc public override convenience init() {
-        self.init(requestManager: MAXAdRequestManager(), sessionManager: MAXSessionManager.shared)
+        self.init(requestManager: MAXAdRequestManager(), sessionManager: MAXSessionManager.shared, configuration: MAXConfiguration.shared)
     }
     
-    internal init(requestManager: MAXAdRequestManager, sessionManager: MAXSessionManager) {
+    internal init(requestManager: MAXAdRequestManager, sessionManager: MAXSessionManager, configuration: MAXConfiguration) {
         self.requestManager = requestManager
         self.sessionManager = sessionManager
+        self.configuration = configuration
         super.init()
         self.requestManager.delegate = self
     }
@@ -72,6 +74,10 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
         guard let creative = self.adResponse?.creative else {
             reportError(message: "\(String(describing: self)): loading an interstitial failed because the creative was nil.")
             return
+        }
+        
+        if let error =  configuration.directSDKManager.checkDirectIntegrationsInitialized() {
+            MAXLogger.warn(error.message)
         }
         
         switch adR.creativeType {

@@ -32,7 +32,8 @@ class MAXInterstitialAdSpec: QuickSpec {
             let requestManager = MAXAdRequestManagerMock()
             requestManager.response = response
             let sessionManager = MAXSessionManager.shared
-            let ad = MAXInterstitialAdMock(requestManager: requestManager, sessionManager: sessionManager)
+            let configuration = MAXConfiguration.shared
+            let ad = MAXInterstitialAdMock(requestManager: requestManager, sessionManager: sessionManager, configuration: configuration)
             
             beforeEach {
                 response._usePartnerRendering = false

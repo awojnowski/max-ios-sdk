@@ -28,7 +28,9 @@ xcuserdata
 *.ipa
 
 # Cocoapods
-# Pods/
+Pods/
+SampleApps/Swift/Pods/
+SampleApps/ObjC/Pods/
 # Podfile.lock
 
 # Swift Package Manager

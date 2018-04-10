@@ -15,7 +15,7 @@ import MoPub
 /// to ensure you integrate this properly in your waterfall.
 /// NOTE: MoPub will instantiate this class based on MoPub account line item configurations
 
-// Keep this: @objc() declaration for Swift class to be available from Objective-C runtime calls to NSStringFromClass()
+// Keep this: @objc() declaration for Swift class to be available from Objective-C runtime calls made by MoPub to NSStringFromClass()
 @objc(MAXMoPubInterstitialCustomEvent)
 
 public class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInterstitialAdDelegate, MPInterstitialCustomEventDelegate {
@@ -43,7 +43,7 @@ public class MAXMoPubInterstitialCustomEvent: MPInterstitialCustomEvent, MAXInte
         
         // generate interstitial object from the pre-bid,
         // connect delegate and tell MoPub SDK that the interstitial has been loaded
-        let MAXInterstitial = MAXInterstitialAd(requestManager: MAXAdRequestManager(), sessionManager: MAXSessionManager.shared)
+        let MAXInterstitial = MAXInterstitialAd()
         self.MAXInterstitial = MAXInterstitial
         MAXInterstitial.delegate = self
         MAXInterstitial.loadResponse(adResponse: adResponse)

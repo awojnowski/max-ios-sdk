@@ -1,0 +1,15 @@
+
+module VungleSDK [system] {
+    header "../../../../Pods/VungleSDK-iOS/VungleSDK.framework/Headers/VungleSDK.h"
+    export *
+}
+
+module VungleSDKCreativeTracking [system] {
+    header "../../../../Pods/VungleSDK-iOS/VungleSDK.framework/Headers/VungleSDKCreativeTracking.h"
+    export *
+}
+
+module VungleSDKHeaderBidding [system] {
+    header "../../../../Pods/VungleSDK-iOS/VungleSDK.framework/Headers/VungleSDKHeaderBidding.h"
+    export *
+}

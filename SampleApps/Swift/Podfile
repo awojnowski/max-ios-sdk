@@ -4,8 +4,8 @@ source 'https://github.com/MAXAds/Specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MAXiOSSampleApp' do
-  use_frameworks!
 
+use_frameworks!
 
 # MAX repos
 
@@ -14,6 +14,8 @@ target 'MAXiOSSampleApp' do
   pod 'MAX/Core', :path => "../.."
 #  pod 'MAX/Facebook', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
   pod 'MAX/Facebook', :path => "../.."
+#  pod 'MAX/Vungle', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
+  pod 'MAX/Vungle', :path => "../.."
 
 
 end

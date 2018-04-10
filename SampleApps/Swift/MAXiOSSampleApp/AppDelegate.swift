@@ -20,9 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        //TODO - Bryan: When we add a dependency injection framework, maxLogger should not have a shared instance.
-        MAXLogger.setLogLevelDebug()
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = MainTabBarController()
         window?.backgroundColor = UIColor.white

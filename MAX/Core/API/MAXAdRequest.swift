@@ -185,7 +185,7 @@ public class MAXAdRequest: NSObject {
     @objc public var tokens: Dictionary<String, String> {
         var tokenData: Dictionary<String, String> = [:]
 
-        for (_, tokenProvider) in MAXConfiguration.shared.tokenRegistrar.tokens {
+        for (_, tokenProvider) in MAXConfiguration.shared.directSDKManager.tokenRegistrar.tokens {
             tokenData[tokenProvider.identifier] = tokenProvider.generateToken()
         }
 

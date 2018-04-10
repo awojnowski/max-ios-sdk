@@ -7,7 +7,7 @@ import MoPub
 /// to ensure you integrate this properly in your waterfall.
 /// NOTE: MoPub will instantiate this class based on MoPub account line item configurations
 
-// Keep this: @objc() declaration for Swift class to be available from Objective-C runtime calls to NSStringFromClass()
+// Keep this: @objc() declaration for Swift class to be available from Objective-C runtime calls made by MoPub to NSStringFromClass()
 @objc(MAXMoPubBannerCustomEvent)
 
 public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEventDelegate, MAXAdViewDelegate {
@@ -90,7 +90,10 @@ public class MAXMoPubBannerCustomEvent: MPBannerCustomEvent, MPBannerCustomEvent
     }
     
     public func viewControllerForMaxPresentingModalView() -> UIViewController? {
-        return self.delegate.viewControllerForPresentingModalView()
+        if let d = delegate {
+            return d.viewControllerForPresentingModalView()
+        }
+        return nil
     }
 
     // MPBannerCustomEventDelegate

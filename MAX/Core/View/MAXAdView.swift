@@ -27,6 +27,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack.
     @objc public weak var delegate: MAXAdViewDelegate?
 
+    private let configuration: MAXConfiguration
     private let sessionManager: MAXSessionManager
     private let adResponse: MAXAdResponse
     private var mraidView: MaxMRAIDView!
@@ -38,13 +39,14 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     }
 
     @objc public convenience init(adResponse: MAXAdResponse, size: CGSize) {
-        self.init(adResponse: adResponse, size: size, sessionManager: MAXSessionManager.shared)
+        self.init(adResponse: adResponse, size: size, sessionManager: MAXSessionManager.shared, configuration: MAXConfiguration.shared)
     }
     
-    internal init(adResponse: MAXAdResponse, size: CGSize, sessionManager: MAXSessionManager) {
+    internal init(adResponse: MAXAdResponse, size: CGSize, sessionManager: MAXSessionManager, configuration: MAXConfiguration) {
         self.adResponse = adResponse
         self.adSize = size
         self.sessionManager = sessionManager
+        self.configuration = configuration
         super.init(frame: CGRect(origin: CGPoint.zero, size: size))
     }
 
@@ -68,6 +70,10 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
         guard let creative = self.adResponse.creative else {
             reportError(message: "\(String(describing: self)): loading failed because the ad response creative is nil")
             return
+        }
+        
+        if let error =  configuration.directSDKManager.checkDirectIntegrationsInitialized() {
+                MAXLogger.warn(error.message)
         }
         
         switch adResponse.creativeType {

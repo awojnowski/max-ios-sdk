@@ -37,6 +37,7 @@ class FormatsController: BaseViewController, MPAdViewDelegate, MAXBannerAdViewDe
         MAXLogger.setLogLevelDebug()
         MAXConfiguration.shared.enableLocationTracking()
         MAXConfiguration.shared.initializeFacebookIntegration()
+        MAXConfiguration.shared.initializeVungleSDK(appId: "5ab569a2b87c80213861cc67", placementIds: ["DEFAULT-4333142"], enableLogging: true)
     }
     
     override func setupViews() {

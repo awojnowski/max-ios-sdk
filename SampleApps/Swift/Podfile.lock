@@ -6,6 +6,9 @@ PODS:
   - MAX/Facebook (1.0.0):
     - FBAudienceNetwork (= 4.27.2)
     - MAX/Core
+  - MAX/Vungle (1.0.0):
+    - MAX/Core
+    - VungleSDK-iOS (= 5.4.0)
   - mopub-ios-sdk (4.20.1):
     - mopub-ios-sdk/MoPubSDK (= 4.20.1)
   - mopub-ios-sdk/Avid (4.20.1):
@@ -18,16 +21,19 @@ PODS:
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/Moat
   - SnapKit (4.0.0)
+  - VungleSDK-iOS (5.4.0)
 
 DEPENDENCIES:
   - MAX/Core (from `../..`)
   - MAX/Facebook (from `../..`)
+  - MAX/Vungle (from `../..`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - FBAudienceNetwork
     - mopub-ios-sdk
     - SnapKit
+    - VungleSDK-iOS
 
 EXTERNAL SOURCES:
   MAX:
@@ -35,10 +41,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
-  MAX: 1d86d3f58eae164eda32b0727e1d2d7e93219a47
+  MAX: 15069dfe6961cbb693b7b5b464918cc3dd049f0b
   mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  VungleSDK-iOS: bf5bb77eedc065e28c34d8613b027ef9cc3053c2
 
-PODFILE CHECKSUM: e1960934d36524eb66d1b74354bb0f3c3db7a3c3
+PODFILE CHECKSUM: 9df715487368d4e7d479da1770f9791d5a24f7c6
 
 COCOAPODS: 1.5.0.beta.1

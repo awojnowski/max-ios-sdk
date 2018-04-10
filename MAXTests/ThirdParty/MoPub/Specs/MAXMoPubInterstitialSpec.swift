@@ -27,7 +27,8 @@ internal class MAXMoPubInterstitialSpec: QuickSpec {
             let requestManager = MAXAdRequestManagerMock()
             requestManager.response = response
             let sessionManager = MAXSessionManager.shared
-            let maxInterstitial = MAXInterstitialAdMock(requestManager: requestManager, sessionManager: sessionManager)
+            let configuration = MAXConfiguration.shared
+            let maxInterstitial = MAXInterstitialAdMock(requestManager: requestManager, sessionManager: sessionManager, configuration: configuration)
             let maxMPInterstitial = MAXMoPubInterstitialMock(maxAdUnitId: adUnitId, mpInterstitial: mpInterstitialControllerSecretAgent!, maxInterstitial: maxInterstitial, sessionManager: sessionManager, rootViewController: rvc)
             
             beforeEach {

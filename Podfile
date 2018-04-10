@@ -9,14 +9,18 @@ def common_deps
 
   pod 'SwiftLint'
   pod 'mopub-ios-sdk', '>= 4.18.0'
-  pod 'FBAudienceNetwork', '= 4.27.2'
   pod 'SnapKit', '~> 4.0'
+
+
+# Direct 
+
+  pod 'FBAudienceNetwork', '= 4.27.2'
+  pod "VungleSDK-iOS", "5.4.0"
  
 end
 
-
 target 'MAX' do
- 
+
   common_deps
 
   target 'MAXTests' do
@@ -25,12 +29,7 @@ target 'MAX' do
     pod 'Quick'
     pod 'Nimble'
   end
- 
-end
 
-target 'MAXLib' do
-
-  common_deps
 
 end
 

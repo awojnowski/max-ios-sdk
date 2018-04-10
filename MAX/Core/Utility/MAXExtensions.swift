@@ -18,3 +18,16 @@ extension UIView {
         return nil
     }
 }
+
+extension String {
+    internal static func jsonToString(json: [String : Any]) -> String {
+        do {
+            let data1 =  try JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let convertedString = String(data: data1, encoding: String.Encoding.utf8)
+            return convertedString!
+        } catch let myJSONError {
+            print(myJSONError)
+        }
+        return ""
+    }
+}

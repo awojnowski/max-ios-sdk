@@ -1,7 +1,5 @@
 import FBAudienceNetwork
 
-internal let facebookIdentifier = "facebook"
-
 internal class FacebookTokenProvider: MAXTokenProvider {
     @objc public let identifier: String = facebookIdentifier
     @objc public func generateToken() -> String {
@@ -17,7 +15,7 @@ public extension MAXConfiguration {
         // immediately throw out this view to force the initialization to happen.
         MAXLogger.debug("Initializing FBAudienceNetwork integration")
         _ = FBAdView()
-        self.tokenRegistrar.registerTokenProvider(FacebookTokenProvider())
+        self.directSDKManager.tokenRegistrar.registerTokenProvider(FacebookTokenProvider())
         self.registerAdViewGenerator(FacebookBannerGenerator())
         self.registerInterstitialGenerator(FacebookInterstitialGenerator())
     }

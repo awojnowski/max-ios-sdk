@@ -66,7 +66,7 @@ internal class FacebookInterstitialView: MAXInterstitialAdapter, FBInterstitialA
 
     internal func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
         MAXLogger.debug("Facebook interstitial ad failed: \(error.localizedDescription)")
-        self.delegate?.interstitial(self, didFailWithError: MAXClientError(message: error.localizedDescription))
+        self.delegate?.interstitial(self, didFailWithError: MAXClientError(message: "localizedDescription: " + error.localizedDescription + " code: " + String(describing: (error as NSError).code)))
     }
 }
 
@@ -76,12 +76,12 @@ internal class FacebookInterstitialGenerator: MAXInterstitialAdapterGenerator {
 
     internal func getInterstitialAdapter(fromResponse: MAXAdResponse) -> MAXInterstitialAdapter? {
         guard let placementID = fromResponse.partnerPlacementID else {
-            MAXLogger.warn("Tried to load an interstitial ad for Facebook but couldn't find placement ID in the response")
+            MAXLogger.warn("\(String(describing: self)): Tried to load an interstitial ad for Facebook but couldn't find placement ID in the response")
             return nil
         }
 
         guard let bidPayload = fromResponse.creative else {
-            MAXLogger.warn("Tried to load a banner ad for Facebook but couldn't find a bid payload in the response")
+            MAXLogger.warn("\(String(describing: self)): Tried to load a banner ad for Facebook but couldn't find a bid payload in the response")
             return nil
         }
 

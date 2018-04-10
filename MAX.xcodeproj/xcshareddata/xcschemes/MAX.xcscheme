@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "193BFA55203799EA006D86DC"
+               BlueprintIdentifier = "1958CCFC2076D4650076A853"
                BuildableName = "MAX.framework"
                BlueprintName = "MAX"
                ReferencedContainer = "container:MAX.xcodeproj">
@@ -43,7 +43,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "193BFA55203799EA006D86DC"
+            BlueprintIdentifier = "1958CCFC2076D4650076A853"
             BuildableName = "MAX.framework"
             BlueprintName = "MAX"
             ReferencedContainer = "container:MAX.xcodeproj">
@@ -66,7 +66,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "193BFA55203799EA006D86DC"
+            BlueprintIdentifier = "1958CCFC2076D4650076A853"
             BuildableName = "MAX.framework"
             BlueprintName = "MAX"
             ReferencedContainer = "container:MAX.xcodeproj">
@@ -84,7 +84,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "193BFA55203799EA006D86DC"
+            BlueprintIdentifier = "1958CCFC2076D4650076A853"
             BuildableName = "MAX.framework"
             BlueprintName = "MAX"
             ReferencedContainer = "container:MAX.xcodeproj">
