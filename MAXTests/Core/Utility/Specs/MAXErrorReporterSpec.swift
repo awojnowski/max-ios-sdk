@@ -23,8 +23,9 @@ class MAXErrorReporterSpec: QuickSpec {
             }
 
             it("properly serializes data") {
-                let recorder = MAXErrorReporterStub()
-                recorder.logError(message: "Something broke")
+                let url = URL(string: "TEST_URL")
+                let recorder = MAXErrorReporterStub(errorUrl: url!)
+                recorder.reportError(message: "Something broke")
 
                 expect({
                     guard let _ = recorder.data else {

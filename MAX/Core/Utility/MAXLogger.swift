@@ -79,7 +79,7 @@ public class MAXLogger: NSObject {
         NSLog("\(shared.identifier) [ERROR]: \(message)")
         
         // Call error urls
-        MAXErrorReporter.shared.logError(message: message)
+        MAXErrorReporter.shared.reportError(message: message)
     }
 
     internal static func warn(_ message: String) {

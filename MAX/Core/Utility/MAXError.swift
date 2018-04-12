@@ -5,12 +5,8 @@ import UIKit
 
 public class MAXClientError: NSError {
     
-    @objc public private(set) var appId: NSNumber?
-    @objc public private(set) var adUnitID: NSNumber?
-    @objc public private(set) var adUnitType: String?
-    @objc public private(set) var adSourceId: NSNumber?
-    @objc public private(set) var createdAt: String
-    @objc public private(set) var message: String
+    @objc public let createdAt: String
+    @objc public let message: String
 
     private let MAXErrorDomain = "MAXErrorDomain"
 
