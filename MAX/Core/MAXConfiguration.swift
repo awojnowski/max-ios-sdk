@@ -1,7 +1,5 @@
 import Foundation
 import UIKit
-import VungleSDK
-import VungleSDKHeaderBidding
 
 let maxSDKVersion = "1.0.0"
 

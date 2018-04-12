@@ -10,12 +10,12 @@ use_frameworks!
 # MAX repos
 
 
-#  pod 'MAX/Core', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
-  pod 'MAX/Core', :path => "../.."
-#  pod 'MAX/Facebook', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
-  pod 'MAX/Facebook', :path => "../.."
+  pod 'MAX/Core', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
+#  pod 'MAX/Core', :path => "../.."
+  pod 'MAX/Facebook', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
+#  pod 'MAX/Facebook', :path => "../.."
 #  pod 'MAX/Vungle', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
-  pod 'MAX/Vungle', :path => "../.."
+#  pod 'MAX/Vungle', :path => "../.."
 
 
 end
