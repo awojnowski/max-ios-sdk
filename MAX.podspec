@@ -25,22 +25,15 @@ point in your existing waterfall.
     d.source_files = [
      'MAX/UmbrellaHeader/*.{h,m,swift}',
      'MAX/Core/**/*.{h,m,swift}',
-     'MAX/ThirdParty/MoPub/**/*'
+     'MAX/ThirdParty/MoPub/**/*',
+     'MAX/ThirdParty/*.swift'
    ]
   end
 
   s.subspec 'Facebook' do |d|
     d.dependency 'MAX/Core'
     d.dependency 'FBAudienceNetwork', '4.27.2'
-    d.source_files = ['MAX/ThirdParty/*.swift', 'MAX/ThirdParty/Facebook/**/*']
-  end
-
-  s.subspec 'Vungle' do |d|
-    d.dependency 'MAX/Core'
-    d.dependency 'VungleSDK-iOS', '5.4.0'
-    d.source_files = ['MAX/ThirdParty/*.swift', 'MAX/ThirdParty/Vungle/**/*']
-    d.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_TARGET_SRCROOT)/MAX/ThirdParty/Vungle/ModuleMap' }
-    d.preserve_paths = 'MAX/ThirdParty/Vungle/ModuleMap/module.modulemap'
+    d.source_files = ['MAX/ThirdParty/Facebook/**/*']
   end
 
 end

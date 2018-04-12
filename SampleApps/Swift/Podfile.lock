@@ -1,9 +1,9 @@
 PODS:
   - FBAudienceNetwork (4.27.2)
-  - MAX/Core (1.0.0):
+  - MAX/Core (1.1.0):
     - mopub-ios-sdk (>= 4.17.0)
     - SnapKit (= 4.0)
-  - MAX/Facebook (1.0.0):
+  - MAX/Facebook (1.1.0):
     - FBAudienceNetwork (= 4.27.2)
     - MAX/Core
   - mopub-ios-sdk (4.20.1):
@@ -35,12 +35,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MAX:
-    :commit: 1febdf51a3107b4d3c94bff62ddf8ad5b66fd942
+    :commit: 7345bf6c85bf30b2d3475070236d4e873b255d01
     :git: "git@github.com:MAXAds/max-ios-sdk-internal"
 
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
-  MAX: 229c451e402e6d00cf847b512669884be4aa510a
+  MAX: bacb2808da7db0b94fee80c710eafe1470025fec
   mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
