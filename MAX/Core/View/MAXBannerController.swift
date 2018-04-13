@@ -119,7 +119,7 @@ class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestManagerDeleg
         // A banner loaded for a MAX 'reserved' ad response
         sessionManager.incrementMaxSessionDepth(adUnitId: (adView?.adUnitId)!)
         
-        startRefreshTimer(delay: Int(MAXAdRequestManager.defaultRefreshTimeSeconds))
+        startRefreshTimer(delay: Int(adView?.adResponse.autoRefreshInterval?.intValue ?? MAXAdRequestManager.defaultRefreshTimeSeconds))
         
         if let next = nextAdView {
             currentAdView?.removeFromSuperview()

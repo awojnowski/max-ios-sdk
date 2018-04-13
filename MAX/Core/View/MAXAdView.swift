@@ -26,10 +26,9 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     // due to a new request being initiated by the SSP (e.g. for a timeout or other failure) 
     // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack.
     @objc public weak var delegate: MAXAdViewDelegate?
-
+    internal let adResponse: MAXAdResponse
     private let configuration: MAXConfiguration
     private let sessionManager: MAXSessionManager
-    private let adResponse: MAXAdResponse
     private var mraidView: MaxMRAIDView!
     private var adViewAdapter: MAXAdViewAdapter!
     private var adSize: CGSize!
