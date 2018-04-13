@@ -1,10 +1,10 @@
 PODS:
   - FBAudienceNetwork (4.27.2)
   - Masonry (1.1.0)
-  - MAX/Core (1.1.0):
+  - MAX/Core (1.1.1):
     - mopub-ios-sdk (>= 4.17.0)
     - SnapKit (= 4.0)
-  - MAX/Facebook (1.1.0):
+  - MAX/Facebook (1.1.1):
     - FBAudienceNetwork (= 4.27.2)
     - MAX/Core
   - mopub-ios-sdk (4.20.1):
@@ -39,7 +39,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MAX: a7351844ae3b646bef4c5863bb517886545d9b4a
+  MAX: 9a5be1cbc71d11fc554bdb1ecab33296ee88019d
   mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
