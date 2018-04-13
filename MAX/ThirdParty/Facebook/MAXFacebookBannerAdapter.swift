@@ -21,8 +21,9 @@ internal class FacebookBannerView: MAXAdViewAdapter, FBAdViewDelegate {
         }
     }
 
-    internal init(placementID: String, fbAdSize: FBAdSize, rootViewController: UIViewController?, bidPayload: String) {
+    internal init?(placementID: String, size: CGSize, fbAdSize: FBAdSize, rootViewController: UIViewController?, bidPayload: String) {
         self.fbAdView = FBAdView(placementID: placementID, adSize: fbAdSize, rootViewController: rootViewController)
+        self.fbAdView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         self.bidPayload = bidPayload
         super.init()
         self.fbAdView.delegate = self
@@ -77,18 +78,17 @@ internal class FacebookBannerGenerator: MAXAdViewAdapterGenerator {
             MAXLogger.warn("Tried to load a banner ad for Facebook but couldn't find a bid payload in the response")
             return nil
         }
-
         var fbAdSize: FBAdSize
         switch (size.width, size.height) {
-            case (_, 50.0): fbAdSize = kFBAdSizeHeight50Banner
-            case (_, 90.0): fbAdSize = kFBAdSizeHeight90Banner
-            case (_, 250.0): fbAdSize = kFBAdSizeHeight250Rectangle
-
-            default: return nil
+        case (_, 50.0): fbAdSize = kFBAdSizeHeight50Banner
+        case (_, 90.0): fbAdSize = kFBAdSizeHeight90Banner
+        case (_, 250.0): fbAdSize = kFBAdSizeHeight250Rectangle
+        default: return nil
         }
 
         let adaptedAdView = FacebookBannerView(
             placementID: placementID,
+            size: size,
             fbAdSize: fbAdSize,
             rootViewController: rootViewController,
             bidPayload: bidPayload
