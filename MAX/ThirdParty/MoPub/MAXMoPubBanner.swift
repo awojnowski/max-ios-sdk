@@ -87,6 +87,8 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
             return
         }
         
+        self.adResponse = adResponse
+        
         if adResponse.isReserved {
             MAXLogger.debug("\(String(describing: self)): Ad is eligible for auction rounds, loading ad through MAX SDK")
             // Make call to bannerController in opposite direction of normal callbacks (up dependency chain) because we hijacked vbannerController.requestManager callbacks

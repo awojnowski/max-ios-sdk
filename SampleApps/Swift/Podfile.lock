@@ -20,8 +20,8 @@ PODS:
   - SnapKit (4.0.0)
 
 DEPENDENCIES:
-  - "MAX/Core (from `git@github.com:MAXAds/max-ios-sdk-internal`)"
-  - "MAX/Facebook (from `git@github.com:MAXAds/max-ios-sdk-internal`)"
+  - MAX/Core (from `../..`)
+  - MAX/Facebook (from `../..`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -31,19 +31,14 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   MAX:
-    :git: "git@github.com:MAXAds/max-ios-sdk-internal"
-
-CHECKOUT OPTIONS:
-  MAX:
-    :commit: 7345bf6c85bf30b2d3475070236d4e873b255d01
-    :git: "git@github.com:MAXAds/max-ios-sdk-internal"
+    :path: "../.."
 
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
-  MAX: bacb2808da7db0b94fee80c710eafe1470025fec
+  MAX: a7351844ae3b646bef4c5863bb517886545d9b4a
   mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: deef859ce336d93ff0fee1cb661f3d424bd8565c
+PODFILE CHECKSUM: a914c0e872ddec251792fd1d2f87d7abc66b6c85
 
 COCOAPODS: 1.5.0.beta.1
