@@ -8,7 +8,6 @@
 
 import Foundation
 import MoPub
-import SnapKit
 
 // NOTE: MAXMoPubBanner will display expanded ads in the parent view controller of the mpAdView injected in init
 
@@ -42,10 +41,22 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
         self.sessionManager = sessionManager
         super.init(frame: self.mpAdView.frame)
         self.mpAdView.delegate = self
-        self.addSubview(self.mpAdView)
-        self.mpAdView.snp.makeConstraints { (make) -> Void in
-            make.edges.equalTo(self)
+
+        let constraints: [NSLayoutAttribute] = [.left, .right, .top, .bottom]
+        for constraint in constraints {
+            self.addConstraint(NSLayoutConstraint(
+                item: self.mpAdView,
+                attribute: constraint,
+                relatedBy: .equal,
+                toItem: self,
+                attribute: constraint,
+                multiplier: 1,
+                constant: 0
+            ))
         }
+        
+        self.addSubview(self.mpAdView)
+
         self.mpAdView.stopAutomaticallyRefreshingContents()
         self.bannerController.delegate = self
         self.bannerController.hijackRequestManagerDelegate(maxRequestManagerDelegate: self)

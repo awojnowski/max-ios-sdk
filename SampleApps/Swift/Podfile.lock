@@ -2,7 +2,6 @@ PODS:
   - FBAudienceNetwork (4.27.2)
   - MAX/Core (1.1.1):
     - mopub-ios-sdk (>= 4.17.0)
-    - SnapKit (= 4.0)
   - MAX/Facebook (1.1.1):
     - FBAudienceNetwork (= 4.27.2)
     - MAX/Core
@@ -22,6 +21,7 @@ PODS:
 DEPENDENCIES:
   - MAX/Core (from `../..`)
   - MAX/Facebook (from `../..`)
+  - SnapKit
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -35,10 +35,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
-  MAX: 9a5be1cbc71d11fc554bdb1ecab33296ee88019d
+  MAX: bc3dfa974957f9119e30df01fde0971ac13ee2ee
   mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: a914c0e872ddec251792fd1d2f87d7abc66b6c85
+PODFILE CHECKSUM: cfdf572c3c4a90703b3372fa8daa33c9de6c11d7
 
 COCOAPODS: 1.5.0.beta.1

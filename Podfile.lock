@@ -11,9 +11,8 @@ PODS:
     - mopub-ios-sdk/Avid
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/Moat
-  - Nimble (7.1.0)
+  - Nimble (7.1.1)
   - Quick (1.2.0)
-  - SnapKit (4.0.0)
   - SwiftLint (0.25.1)
   - VungleSDK-iOS (5.4.0)
 
@@ -22,7 +21,6 @@ DEPENDENCIES:
   - mopub-ios-sdk (>= 4.18.0)
   - Nimble
   - Quick
-  - SnapKit (~> 4.0)
   - SwiftLint
   - VungleSDK-iOS (= 5.4.0)
 
@@ -32,19 +30,17 @@ SPEC REPOS:
     - mopub-ios-sdk
     - Nimble
     - Quick
-    - SnapKit
     - SwiftLint
     - VungleSDK-iOS
 
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
   mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
-  Nimble: 9c6651c3021af6de54c3ed90a4a0a87d548f7359
+  Nimble: 391f07782af4b37914f9bd7b2ffbb952731b8202
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   VungleSDK-iOS: bf5bb77eedc065e28c34d8613b027ef9cc3053c2
 
-PODFILE CHECKSUM: 51c5bc59a604c1b77be7acf3bec75af3595c8483
+PODFILE CHECKSUM: 518d2558d9cda61b8bf2d37b27b80214ff499780
 
-COCOAPODS: 1.5.0.beta.1
+COCOAPODS: 1.5.0

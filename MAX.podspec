@@ -1,4 +1,4 @@
-Pod::Spec.new do |s| 
+Pod::Spec.new do |s|
   s.name             = 'MAX'
   s.version          = '1.1.1'
   s.summary          = 'Parallel bidding wrapper for mobile ads.'
@@ -12,15 +12,14 @@ point in your existing waterfall.
   s.author           = { 'MAX' => 'hello@maxads.co' }
   s.source           = { :git => 'git@github.com:MAXAds/max-ios-sdk.git', :tag => s.version.to_s }
   s.xcconfig         = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
-  s.libraries        = 'xml2' 
-  s.swift_version    = "4.0" 
- 
-  s.requires_arc     = true 
+  s.libraries        = 'xml2'
+  s.swift_version    = "4.0"
+
+  s.requires_arc     = true
   s.platform         = :ios, '8.0'
   s.static_framework = true
 
   s.subspec 'Core' do |d|
-    d.dependency 'SnapKit', '4.0'
     d.dependency 'mopub-ios-sdk', '>= 4.17.0'
     d.source_files = [
      'MAX/UmbrellaHeader/*.{h,m,swift}',

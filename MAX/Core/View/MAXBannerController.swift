@@ -1,5 +1,4 @@
 import Foundation
-import SnapKit
 
 // NOTE: MAXMoPubBanner will display expanded ads in the parent view controller of the bannerAdView injected in init
 
@@ -126,8 +125,18 @@ class MAXBannerController: NSObject, MAXAdViewDelegate, MAXAdRequestManagerDeleg
             currentAdView = next
             nextAdView = nil
             bannerAdView.addSubview(currentAdView!)
-            currentAdView!.snp.makeConstraints { (make) -> Void in
-                make.edges.equalTo(self.bannerAdView)
+            
+            let constraints: [NSLayoutAttribute] = [.left, .right, .top, .bottom]
+            for constraint in constraints {
+                self.bannerAdView.addConstraint(NSLayoutConstraint(
+                    item: currentAdView!,
+                    attribute: constraint,
+                    relatedBy: .equal,
+                    toItem: self.bannerAdView,
+                    attribute: constraint,
+                    multiplier: 1,
+                    constant: 0
+                ))
             }
         }
         
