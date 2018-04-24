@@ -147,6 +147,16 @@
 		197B1C79207837190087AA51 /* MAXDirectSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */; };
 		19E7EABB207D2F8A009AFA57 /* MAXDirectSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */; };
 		7CD9D9A058996A501AAFB921 /* Pods_MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53060C259F3AB4781C0321CB /* Pods_MAX.framework */; };
+		93FBED5020862F1B008AD288 /* MaxCommonBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBED4620862F17008AD288 /* MaxCommonBackButton.m */; };
+		93FBED5120862F1B008AD288 /* MaxForwardButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 93FBED4720862F18008AD288 /* MaxForwardButton.h */; };
+		93FBED5220862F1B008AD288 /* MaxVASTSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 93FBED4820862F18008AD288 /* MaxVASTSchema.h */; };
+		93FBED5320862F1B008AD288 /* MaxCommonCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBED4920862F18008AD288 /* MaxCommonCloseButton.m */; };
+		93FBED5420862F1B008AD288 /* max_mraidjs.h in Headers */ = {isa = PBXBuildFile; fileRef = 93FBED4A20862F19008AD288 /* max_mraidjs.h */; };
+		93FBED5520862F1B008AD288 /* max_mraidjs.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBED4B20862F19008AD288 /* max_mraidjs.m */; };
+		93FBED5620862F1B008AD288 /* MaxCommonCloseButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 93FBED4C20862F1A008AD288 /* MaxCommonCloseButton.h */; };
+		93FBED5720862F1B008AD288 /* MaxForwardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBED4D20862F1A008AD288 /* MaxForwardButton.m */; };
+		93FBED5820862F1B008AD288 /* MaxCommonBackButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 93FBED4E20862F1A008AD288 /* MaxCommonBackButton.h */; };
+		93FBED5920862F1B008AD288 /* MaxVASTSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBED4F20862F1B008AD288 /* MaxVASTSchema.m */; };
 		F537ED84BD0BA2A516E7849C /* Pods_MAXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE3AC258AF05842F8D0A8C3 /* Pods_MAXTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -184,18 +194,14 @@
 		1917BB0D203639E7000D06DE /* vast_2.0.1.xsd */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = vast_2.0.1.xsd; sourceTree = "<group>"; };
 		1917BB0E203639E7000D06DE /* MAXConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXConfiguration.swift; sourceTree = "<group>"; };
 		1917BB0F203639E7000D06DE /* MAXLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXLocationProvider.swift; sourceTree = "<group>"; };
-		1917BB11203639E7000D06DE /* max_mraidjs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = max_mraidjs.h; sourceTree = "<group>"; };
 		1917BB13203639E7000D06DE /* MaxBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxBrowser.h; sourceTree = "<group>"; };
 		1917BB14203639E7000D06DE /* MaxBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxBrowser.m; sourceTree = "<group>"; };
 		1917BB15203639E7000D06DE /* MaxBrowserControlsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxBrowserControlsView.h; sourceTree = "<group>"; };
 		1917BB16203639E7000D06DE /* MaxBrowserControlsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxBrowserControlsView.m; sourceTree = "<group>"; };
-		1917BB17203639E7000D06DE /* MaxCommonBackButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxCommonBackButton.h; sourceTree = "<group>"; };
-		1917BB18203639E7000D06DE /* MaxCommonCloseButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxCommonCloseButton.h; sourceTree = "<group>"; };
 		1917BB19203639E7000D06DE /* MaxCommonLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxCommonLogger.h; sourceTree = "<group>"; };
 		1917BB1A203639E7000D06DE /* MaxCommonLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxCommonLogger.m; sourceTree = "<group>"; };
 		1917BB1B203639E7000D06DE /* MaxCommonSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxCommonSettings.h; sourceTree = "<group>"; };
 		1917BB1C203639E7000D06DE /* MaxCommonSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxCommonSettings.m; sourceTree = "<group>"; };
-		1917BB1D203639E7000D06DE /* MaxForwardButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxForwardButton.h; sourceTree = "<group>"; };
 		1917BB1E203639E7000D06DE /* MaxMRAIDInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxMRAIDInterstitial.h; sourceTree = "<group>"; };
 		1917BB1F203639E7000D06DE /* MaxMRAIDInterstitial.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxMRAIDInterstitial.m; sourceTree = "<group>"; };
 		1917BB20203639E7000D06DE /* MaxMRAIDModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxMRAIDModalViewController.h; sourceTree = "<group>"; };
@@ -229,7 +235,6 @@
 		1917BB3C203639E7000D06DE /* MaxVASTMediaFilePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxVASTMediaFilePicker.m; sourceTree = "<group>"; };
 		1917BB3D203639E7000D06DE /* MaxVASTModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxVASTModel.h; sourceTree = "<group>"; };
 		1917BB3E203639E7000D06DE /* MaxVASTModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxVASTModel.m; sourceTree = "<group>"; };
-		1917BB3F203639E7000D06DE /* MaxVASTSchema.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxVASTSchema.h; sourceTree = "<group>"; };
 		1917BB40203639E7000D06DE /* MaxVASTSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxVASTSettings.h; sourceTree = "<group>"; };
 		1917BB41203639E7000D06DE /* MaxVASTSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaxVASTSettings.m; sourceTree = "<group>"; };
 		1917BB42203639E7000D06DE /* MaxVASTUrlWithId.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaxVASTUrlWithId.h; sourceTree = "<group>"; };
@@ -312,6 +317,16 @@
 		53060C259F3AB4781C0321CB /* Pods_MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5760ACD522E2C3A61C7EC8 /* Pods_MAXFTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAXFTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CC6519174FDA0F403097E9 /* Pods-MAXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MAXTests/Pods-MAXTests.release.xcconfig"; sourceTree = "<group>"; };
+		93FBED4620862F17008AD288 /* MaxCommonBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxCommonBackButton.m; sourceTree = "<group>"; };
+		93FBED4720862F18008AD288 /* MaxForwardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxForwardButton.h; sourceTree = "<group>"; };
+		93FBED4820862F18008AD288 /* MaxVASTSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxVASTSchema.h; sourceTree = "<group>"; };
+		93FBED4920862F18008AD288 /* MaxCommonCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxCommonCloseButton.m; sourceTree = "<group>"; };
+		93FBED4A20862F19008AD288 /* max_mraidjs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = max_mraidjs.h; sourceTree = "<group>"; };
+		93FBED4B20862F19008AD288 /* max_mraidjs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = max_mraidjs.m; sourceTree = "<group>"; };
+		93FBED4C20862F1A008AD288 /* MaxCommonCloseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxCommonCloseButton.h; sourceTree = "<group>"; };
+		93FBED4D20862F1A008AD288 /* MaxForwardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxForwardButton.m; sourceTree = "<group>"; };
+		93FBED4E20862F1A008AD288 /* MaxCommonBackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxCommonBackButton.h; sourceTree = "<group>"; };
+		93FBED4F20862F1B008AD288 /* MaxVASTSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxVASTSchema.m; sourceTree = "<group>"; };
 		A467BEB1111315848362DE33 /* Pods-MAXF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAXF.release.xcconfig"; path = "Pods/Target Support Files/Pods-MAXF/Pods-MAXF.release.xcconfig"; sourceTree = "<group>"; };
 		A879746A94A313A557EA6E8F /* Pods_MAXLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAXLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D28B8B9B2063F38A78077255 /* Pods-MAXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MAXTests/Pods-MAXTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -498,18 +513,22 @@
 		1917BB10203639E7000D06DE /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
-				1917BB11203639E7000D06DE /* max_mraidjs.h */,
+				93FBED4A20862F19008AD288 /* max_mraidjs.h */,
+				93FBED4B20862F19008AD288 /* max_mraidjs.m */,
+				93FBED4E20862F1A008AD288 /* MaxCommonBackButton.h */,
+				93FBED4620862F17008AD288 /* MaxCommonBackButton.m */,
+				93FBED4C20862F1A008AD288 /* MaxCommonCloseButton.h */,
+				93FBED4920862F18008AD288 /* MaxCommonCloseButton.m */,
 				1917BB13203639E7000D06DE /* MaxBrowser.h */,
 				1917BB14203639E7000D06DE /* MaxBrowser.m */,
 				1917BB15203639E7000D06DE /* MaxBrowserControlsView.h */,
 				1917BB16203639E7000D06DE /* MaxBrowserControlsView.m */,
-				1917BB17203639E7000D06DE /* MaxCommonBackButton.h */,
-				1917BB18203639E7000D06DE /* MaxCommonCloseButton.h */,
 				1917BB19203639E7000D06DE /* MaxCommonLogger.h */,
 				1917BB1A203639E7000D06DE /* MaxCommonLogger.m */,
 				1917BB1B203639E7000D06DE /* MaxCommonSettings.h */,
 				1917BB1C203639E7000D06DE /* MaxCommonSettings.m */,
-				1917BB1D203639E7000D06DE /* MaxForwardButton.h */,
+				93FBED4720862F18008AD288 /* MaxForwardButton.h */,
+				93FBED4D20862F1A008AD288 /* MaxForwardButton.m */,
 				1917BB1E203639E7000D06DE /* MaxMRAIDInterstitial.h */,
 				1917BB1F203639E7000D06DE /* MaxMRAIDInterstitial.m */,
 				1917BB20203639E7000D06DE /* MaxMRAIDModalViewController.h */,
@@ -542,7 +561,8 @@
 				1917BB3C203639E7000D06DE /* MaxVASTMediaFilePicker.m */,
 				1917BB3D203639E7000D06DE /* MaxVASTModel.h */,
 				1917BB3E203639E7000D06DE /* MaxVASTModel.m */,
-				1917BB3F203639E7000D06DE /* MaxVASTSchema.h */,
+				93FBED4820862F18008AD288 /* MaxVASTSchema.h */,
+				93FBED4F20862F1B008AD288 /* MaxVASTSchema.m */,
 				1917BB40203639E7000D06DE /* MaxVASTSettings.h */,
 				1917BB41203639E7000D06DE /* MaxVASTSettings.m */,
 				1917BB42203639E7000D06DE /* MaxVASTUrlWithId.h */,
@@ -941,9 +961,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93FBED5820862F1B008AD288 /* MaxCommonBackButton.h in Headers */,
 				197B1C742078166C0087AA51 /* MAX.h in Headers */,
+				93FBED5620862F1B008AD288 /* MaxCommonCloseButton.h in Headers */,
 				197B1C73207815D00087AA51 /* MaxCommonLogger.h in Headers */,
+				93FBED5120862F1B008AD288 /* MaxForwardButton.h in Headers */,
+				93FBED5420862F1B008AD288 /* max_mraidjs.h in Headers */,
 				197B1C72207815C60087AA51 /* MaxVASTError.h in Headers */,
+				93FBED5220862F1B008AD288 /* MaxVASTSchema.h in Headers */,
 				197B1C71207815C10087AA51 /* MaxVASTViewController.h in Headers */,
 				197B1C70207815B70087AA51 /* MaxReachability.h in Headers */,
 				197B1C6F207815B10087AA51 /* MaxMRAIDServiceDelegate.h in Headers */,
@@ -1121,6 +1146,7 @@
 				197B1C12207814A80087AA51 /* MaxCommonSettings.m in Sources */,
 				197B1C13207814A80087AA51 /* MaxMRAIDInterstitial.m in Sources */,
 				197B1C14207814A80087AA51 /* MaxMRAIDModalViewController.m in Sources */,
+				93FBED5020862F1B008AD288 /* MaxCommonBackButton.m in Sources */,
 				197B1C15207814A80087AA51 /* MaxMRAIDOrientationProperties.m in Sources */,
 				197B1C16207814A80087AA51 /* MaxMRAIDParser.m in Sources */,
 				197B1C17207814A80087AA51 /* MaxMRAIDResizeProperties.m in Sources */,
@@ -1128,6 +1154,7 @@
 				197B1C19207814A80087AA51 /* MaxMRAIDUtil.m in Sources */,
 				197B1C1A207814A80087AA51 /* MaxMRAIDView.m in Sources */,
 				197B1C1B207814A80087AA51 /* MaxReachability.m in Sources */,
+				93FBED5920862F1B008AD288 /* MaxVASTSchema.m in Sources */,
 				197B1C1C207814A80087AA51 /* MaxVAST2Parser.m in Sources */,
 				197B1C1D207814A80087AA51 /* MaxVASTControls.m in Sources */,
 				197B1C1E207814A80087AA51 /* MaxVASTEventProcessor.m in Sources */,
@@ -1138,16 +1165,19 @@
 				197B1C22207814A80087AA51 /* MaxVASTSettings.m in Sources */,
 				197B1C23207814A80087AA51 /* MaxVASTUrlWithId.m in Sources */,
 				197B1C24207814A80087AA51 /* MaxVASTViewController.m in Sources */,
+				93FBED5320862F1B008AD288 /* MaxCommonCloseButton.m in Sources */,
 				197B1C25207814A80087AA51 /* MaxVASTXMLUtil.m in Sources */,
 				197B1C26207814A80087AA51 /* MaxUtils.m in Sources */,
 				197B1BEC207814A00087AA51 /* MAXAdViewAdapter.swift in Sources */,
 				197B1BED207814A00087AA51 /* MAXInterstitialAdapter.swift in Sources */,
 				197B1BEE207814A00087AA51 /* MAXTokenProvider.swift in Sources */,
+				93FBED5520862F1B008AD288 /* max_mraidjs.m in Sources */,
 				197B1BEF207814A00087AA51 /* MAXAdRequest.swift in Sources */,
 				197B1BF0207814A00087AA51 /* MAXAdRequestManager.swift in Sources */,
 				197B1BF1207814A00087AA51 /* MAXAdResponse.swift in Sources */,
 				197B1BF2207814A00087AA51 /* MAXAPIConstants.swift in Sources */,
 				197B1BF3207814A00087AA51 /* MAXUserAgent.swift in Sources */,
+				93FBED5720862F1B008AD288 /* MaxForwardButton.m in Sources */,
 				197B1BF4207814A00087AA51 /* MAXBaseLogger.swift in Sources */,
 				197B1BF5207814A00087AA51 /* MAXConfiguration.swift in Sources */,
 				197B1BF6207814A00087AA51 /* MAXLocationProvider.swift in Sources */,
