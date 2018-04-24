@@ -67,23 +67,23 @@ public class MAXMoPubBanner: UIView, MAXAdRequestManagerDelegate, MPAdViewDelega
     }
     
     // NOTE: Loading will also show an ad (For interstitials, show must be called separately)
-    @objc public func load(maxAdUnitId: String, mpAdUnitId: String) {
+    @objc public func load(maxAdUnitId: String?, mpAdUnitId: String?) {
 
         // must check for nil since this method can be called from ObjC
-        guard maxAdUnitId != nil else {
+        guard let maxID = maxAdUnitId else {
             reportError(message: "\(String(describing: self)) load called with nil MAX ad unit id")
             return
         }
         
         // must check for nil since this method can be called from ObjC
-        guard mpAdUnitId != nil else {
+        guard let mpID = mpAdUnitId else {
             reportError(message: "\(String(describing: self)) load called with nil MoPub ad unit id")
             return
         }
         
-        self.mpAdUnitId = mpAdUnitId
+        self.mpAdUnitId = mpID
         // Note that normally bannerController.load() will request an ad, load it, and show it. In this case, bannerController.load() requests an ad and MAXMoPubBanner handles the request callbacks (Because it hijacked the request manager delegate from banner controller)
-        bannerController.load(adUnitId: maxAdUnitId)
+        bannerController.load(adUnitId: maxID)
     }
     
     internal func startRefreshTimer(adResponse: MAXAdResponse?) {

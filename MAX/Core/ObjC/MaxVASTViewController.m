@@ -33,34 +33,33 @@ typedef enum {
 } CurrentVASTQuartile;
 
 @interface MaxVASTViewController() <UIGestureRecognizerDelegate>
-{
-    NSURL *mediaFileURL;
-    NSArray *clickTracking;
-    NSArray *vastErrors;
-    NSArray *impressions;
-    NSTimer *playbackTimer;
-    NSTimer *initialDelayTimer;
-    NSTimer *videoLoadTimeoutTimer;
-    NSTimeInterval movieDuration;
-    NSTimeInterval playedSeconds;
-    
-    MaxVASTControls *controls;
-    
-    float currentPlayedPercentage;
-    BOOL isPlaying;
-    BOOL isViewOnScreen;
-    BOOL hasPlayerStarted;
-    BOOL isLoadCalled;
-    BOOL vastReady;
-    BOOL statusBarHidden;
-    CurrentVASTQuartile currentQuartile;
-    UIActivityIndicatorView *loadingIndicator;
-    
-    
-    MaxReachability *reachabilityForVAST;
-    NetworkReachable networkReachableBlock;
-    NetworkUnreachable networkUnreachableBlock;
-}
+
+@property(nonatomic, strong) NSURL *mediaFileURL;
+@property(nonatomic, strong) NSArray *clickTracking;
+@property(nonatomic, strong) NSArray *vastErrors;
+@property(nonatomic, strong) NSArray *impressions;
+@property(nonatomic, strong) NSTimer *playbackTimer;
+@property(nonatomic, strong) NSTimer *initialDelayTimer;
+@property(nonatomic, strong) NSTimer *videoLoadTimeoutTimer;
+@property(nonatomic, assign) NSTimeInterval movieDuration;
+@property(nonatomic, assign) NSTimeInterval playedSeconds;
+
+@property(nonatomic, strong) MaxVASTControls *controls;
+
+@property(nonatomic, assign) float currentPlayedPercentage;
+@property(nonatomic, assign) BOOL isPlaying;
+@property(nonatomic, assign) BOOL isViewOnScreen;
+@property(nonatomic, assign) BOOL hasPlayerStarted;
+@property(nonatomic, assign) BOOL isLoadCalled;
+@property(nonatomic, assign) BOOL vastReady;
+@property(nonatomic, assign) BOOL statusBarHidden;
+@property(nonatomic, assign) CurrentVASTQuartile currentQuartile;
+
+@property(nonatomic, strong) UIActivityIndicatorView *loadingIndicator;
+
+@property(nonatomic, strong) MaxReachability *reachabilityForVAST;
+@property(nonatomic, assign) NetworkReachable networkReachableBlock;
+@property(nonatomic, assign) NetworkUnreachable networkUnreachableBlock;
 
 @property(nonatomic, strong) MPMoviePlayerController *moviePlayer;
 @property(nonatomic, strong) UITapGestureRecognizer *touchGestureRecognizer;
@@ -86,7 +85,7 @@ typedef enum {
     if (self) {
         _delegate = delegate;
         self.presenterViewController = viewController;
-        currentQuartile=VASTFirstQuartile;
+        self.currentQuartile=VASTFirstQuartile;
         self.videoHangTest=[NSMutableArray arrayWithCapacity:20];
         [self setupReachability];
         
@@ -125,7 +124,7 @@ typedef enum {
 
 - (void)dealloc
 {
-    [reachabilityForVAST stopNotifier];
+    [self.reachabilityForVAST stopNotifier];
     [self removeObservers];
 }
 
@@ -150,13 +149,15 @@ typedef enum {
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Starting loadVideoWithData"];
     }
     
-    if (isLoadCalled) {
+    if (self.isLoadCalled) {
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Ignoring loadVideo because a load is in progress."];
         return;
     }
-    isLoadCalled = YES;
+    self.isLoadCalled = YES;
 
+    __weak __typeof(self)weakSelf = self;
     void (^parserCompletionBlock)(MaxVASTModel *vastModel, MaxVASTError vastError) = ^(MaxVASTModel *vastModel, MaxVASTError vastError) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"back from block in loadVideoFromData"];
         
         if (!vastModel) {
@@ -167,29 +168,29 @@ typedef enum {
             return;
         }
         
-        self.eventProcessor = [[MaxVASTEventProcessor alloc] initWithTrackingEvents:[vastModel trackingEvents] withDelegate:_delegate];
-        impressions = [vastModel impressions];
-        vastErrors = [vastModel errors];
-        self.clickThrough = [[vastModel clickThrough] url];
-        clickTracking = [vastModel clickTracking];
-        mediaFileURL = [MaxVASTMediaFilePicker pick:[vastModel mediaFiles]].url;
+        strongSelf.eventProcessor = [[MaxVASTEventProcessor alloc] initWithTrackingEvents:[vastModel trackingEvents] withDelegate:strongSelf.delegate];
+        strongSelf.impressions = [vastModel impressions];
+        strongSelf.vastErrors = [vastModel errors];
+        strongSelf.clickThrough = [[vastModel clickThrough] url];
+        strongSelf.clickTracking = [vastModel clickTracking];
+        strongSelf.mediaFileURL = [MaxVASTMediaFilePicker pick:[vastModel mediaFiles]].url;
         
-        if(!mediaFileURL) {
+        if(!strongSelf.mediaFileURL) {
             [MaxCommonLogger error:@"VAST - View Controller" withMessage:@"Error - VASTMediaFilePicker did not find a compatible mediaFile - VASTViewcontroller will not be presented"];
-            if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
-                [self.delegate vastError:self error:VASTErrorNoCompatibleMediaFile];
+            if ([strongSelf.delegate respondsToSelector:@selector(vastError:error:)]) {
+                [strongSelf.delegate vastError:self error:VASTErrorNoCompatibleMediaFile];
             }
-            if (vastErrors) {
+            if (strongSelf.vastErrors) {
                 [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-                [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+                [strongSelf.eventProcessor sendVASTUrlsWithId:strongSelf.vastErrors];
             }
             return;
         }
         
         // VAST document parsing OK, player ready to attempt play, so send vastReady
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending vastReady: callback"];
-        vastReady = YES;
-        [self.delegate vastReady:self];
+        strongSelf.vastReady = YES;
+        [strongSelf.delegate vastReady:self];
     };
     
     MaxVAST2Parser *parser = [[MaxVAST2Parser alloc] init];
@@ -212,18 +213,18 @@ typedef enum {
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    isViewOnScreen=YES;
-    if (!hasPlayerStarted) {
-        loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.isViewOnScreen=YES;
+    if (!self.hasPlayerStarted) {
+        self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") ) {
-            loadingIndicator.frame = CGRectMake( (self.view.frame.size.width/2)-25.0, (self.view.frame.size.height/2)-25.0,50,50);
+            self.loadingIndicator.frame = CGRectMake( (self.view.frame.size.width/2)-25.0, (self.view.frame.size.height/2)-25.0,50,50);
         }
         else {
-            loadingIndicator.frame = CGRectMake( (self.view.frame.size.height/2)-25.0, (self.view.frame.size.width/2)-25.0,50,50);
+            self.loadingIndicator.frame = CGRectMake( (self.view.frame.size.height/2)-25.0, (self.view.frame.size.width/2)-25.0,50,50);
         }
-        [loadingIndicator startAnimating];
-        [self.view addSubview:loadingIndicator];
+        [self.loadingIndicator startAnimating];
+        [self.view addSubview:self.loadingIndicator];
     } else {
         // resuming from background or phone call, so resume if was playing, stay paused if manually paused
         [self handleResumeState];
@@ -233,7 +234,7 @@ typedef enum {
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    statusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
+    self.statusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     }
@@ -243,7 +244,7 @@ typedef enum {
 {
     [super viewWillDisappear:animated];
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        [[UIApplication sharedApplication] setStatusBarHidden:statusBarHidden withAnimation:UIStatusBarAnimationNone];
+        [[UIApplication sharedApplication] setStatusBarHidden:self.statusBarHidden withAnimation:UIStatusBarAnimationNone];
     }
 }
 
@@ -268,14 +269,14 @@ typedef enum {
                 [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"video stopped"];
                 break;
             case MPMoviePlaybackStatePlaying:  // 1
-                isPlaying=YES;
-                if (loadingIndicator) {
+                self.isPlaying=YES;
+                if (self.loadingIndicator) {
                     [self stopVideoLoadTimeoutTimer];
-                    [loadingIndicator stopAnimating];
-                    [loadingIndicator removeFromSuperview];
-                    loadingIndicator = nil;
+                    [self.loadingIndicator stopAnimating];
+                    [self.loadingIndicator removeFromSuperview];
+                    self.loadingIndicator = nil;
                 }
-                if (isViewOnScreen) {
+                if (self.isViewOnScreen) {
                     [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"video is playing"];
                     [self startPlaybackTimer];
                 }
@@ -283,7 +284,7 @@ typedef enum {
             case MPMoviePlaybackStatePaused:  // 2
                 [self stopPlaybackTimer];
                 [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"video paused"];
-                isPlaying=NO;
+                self.isPlaying=NO;
                 break;
             case MPMoviePlaybackStateInterrupted:  // 3
                 [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"video interrupt"];
@@ -326,9 +327,9 @@ typedef enum {
             if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
                 [self.delegate vastError:self error:VASTErrorPlaybackError];
             }
-            if (vastErrors) {
+            if (self.vastErrors) {
                 [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-                [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+                [self.eventProcessor sendVASTUrlsWithId:self.vastErrors];
             }
             [self close];
         } else {
@@ -336,7 +337,7 @@ typedef enum {
             [self.eventProcessor trackEvent:VASTEventTrackComplete];
             [self updatePlayedSeconds];
             [self showControls];
-            [controls toggleToPlayButton:YES];
+            [self.controls toggleToPlayButton:YES];
         }
     }
 }
@@ -344,25 +345,25 @@ typedef enum {
 - (void)movieDuration:(NSNotification *)notification
 {
     @try {
-        movieDuration = self.moviePlayer.duration;
+        self.movieDuration = self.moviePlayer.duration;
     }
     @catch (NSException *e) {
         [MaxCommonLogger error:@"VAST - View Controller" withMessage:[NSString stringWithFormat:@"Exception - movieDuration: %@", e]];
         // The movie too short error will fire if movieDuration is < 0.5 or is a NaN value, so no need for further action here.
     }
     
-    [MaxCommonLogger debug:@"VAST - View Controller" withMessage:[NSString stringWithFormat:@"playback duration is %f", movieDuration]];
+    [MaxCommonLogger debug:@"VAST - View Controller" withMessage:[NSString stringWithFormat:@"playback duration is %f", self.movieDuration]];
     
-    if (movieDuration < 0.5 || isnan(movieDuration)) {
+    if (self.movieDuration < 0.5 || isnan(self.movieDuration)) {
         // movie too short - ignore it
         [self stopVideoLoadTimeoutTimer];  // don't time out in this case
         [MaxCommonLogger warning:@"VAST - View Controller" withMessage:@"Movie too short - will dismiss player"];
         if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
             [self.delegate vastError:self error:VASTErrorMovieTooShort];
         }
-        if (vastErrors) {
+        if (self.vastErrors) {
             [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-            [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+            [self.eventProcessor sendVASTUrlsWithId:self.vastErrors];
         }
         [self close];
     }
@@ -404,11 +405,6 @@ typedef enum {
     return UIInterfaceOrientationIsLandscape(currentInterfaceOrientation) ? currentInterfaceOrientation : UIInterfaceOrientationLandscapeRight;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
-}
-
 - (BOOL)prefersStatusBarHidden{
     return YES;
 }
@@ -421,7 +417,7 @@ typedef enum {
     @synchronized (self) {
         [self stopPlaybackTimer];
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"start playback timer"];
-        playbackTimer = [NSTimer scheduledTimerWithTimeInterval:kPlayTimeCounterInterval
+        self.playbackTimer = [NSTimer scheduledTimerWithTimeInterval:kPlayTimeCounterInterval
                                                          target:self
                                                        selector:@selector(updatePlayedSeconds)
                                                        userInfo:nil
@@ -432,60 +428,60 @@ typedef enum {
 - (void)stopPlaybackTimer
 {
     [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"stop playback timer"];
-    [playbackTimer invalidate];
-    playbackTimer = nil;
+    [self.playbackTimer invalidate];
+    self.playbackTimer = nil;
 }
 
 - (void)updatePlayedSeconds
 {
     @try {
-        playedSeconds = self.moviePlayer.currentPlaybackTime;
+        self.playedSeconds = self.moviePlayer.currentPlaybackTime;
     }
     @catch (NSException *e) {
         [MaxCommonLogger warning:@"VAST - View Controller" withMessage:[NSString stringWithFormat:@"Exception - updatePlayedSeconds: %@", e]];
         // The hang test below will fire if playedSeconds doesn't update (including a NaN value), so no need for further action here.
     }
 
-    [self.videoHangTest addObject:@((int) (playedSeconds * 10.0))];     // add new number to end of hang test buffer
+    [self.videoHangTest addObject:@((int) (self.playedSeconds * 10.0))];     // add new number to end of hang test buffer
     
     if ([self.videoHangTest count]>20) {  // only check for hang if we have at least 20 elements or about 5 seconds of played video, to prevent false positives
         if ([[self.videoHangTest firstObject] integerValue]==[[self.videoHangTest lastObject] integerValue]) {
-            [MaxCommonLogger error:@"VAST - View Controller" withMessage:[NSString stringWithFormat:@"Video error - video player hung at playedSeconds: %f", playedSeconds]];
+            [MaxCommonLogger error:@"VAST - View Controller" withMessage:[NSString stringWithFormat:@"Video error - video player hung at playedSeconds: %f", self.playedSeconds]];
             if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
                 [self.delegate vastError:self error:VASTErrorPlayerHung];
             }
-            if (vastErrors) {
+            if (self.vastErrors) {
                 [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-                [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+                [self.eventProcessor sendVASTUrlsWithId:self.vastErrors];
             }
             [self close];
         }
         [self.videoHangTest removeObjectAtIndex:0];   // remove oldest number from start of hang test buffer
     }
     
-   	currentPlayedPercentage = (float)100.0*(playedSeconds/movieDuration);
-    [controls updateProgressBar: currentPlayedPercentage/100.0 withPlayedSeconds:playedSeconds withTotalDuration:movieDuration];
+   	self.currentPlayedPercentage = (float)100.0*(self.playedSeconds/self.movieDuration);
+    [self.controls updateProgressBar: self.currentPlayedPercentage/100.0 withPlayedSeconds:self.playedSeconds withTotalDuration:self.movieDuration];
     
-    switch (currentQuartile) {
+    switch (self.currentQuartile) {
             
         case VASTFirstQuartile:
-            if (currentPlayedPercentage>25.0) {
+            if (self.currentPlayedPercentage>25.0) {
                 [self.eventProcessor trackEvent:VASTEventTrackFirstQuartile];
-                currentQuartile=VASTSecondQuartile;
+                self.currentQuartile=VASTSecondQuartile;
             }
             break;
             
         case VASTSecondQuartile:
-            if (currentPlayedPercentage>50.0) {
+            if (self.currentPlayedPercentage>50.0) {
                 [self.eventProcessor trackEvent:VASTEventTrackMidpoint];
-                currentQuartile=VASTThirdQuartile;
+                self.currentQuartile=VASTThirdQuartile;
             }
             break;
             
         case VASTThirdQuartile:
-            if (currentPlayedPercentage>75.0) {
+            if (self.currentPlayedPercentage>75.0) {
                 [self.eventProcessor trackEvent:VASTEventTrackThirdQuartile];
-                currentQuartile=VASTFourtQuartile;
+                self.currentQuartile=VASTFourtQuartile;
             }
             break;
             
@@ -498,7 +494,7 @@ typedef enum {
 - (void)startVideoLoadTimeoutTimer
 {
     [MaxCommonLogger error:@"VAST - View Controller" withMessage:@"Start Video Load Timer"];
-    videoLoadTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:[MaxVASTSettings vastVideoLoadTimeout]
+    self.videoLoadTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:[MaxVASTSettings vastVideoLoadTimeout]
                                                              target:self
                                                            selector:@selector(videoLoadTimerFired)
                                                            userInfo:nil
@@ -507,8 +503,8 @@ typedef enum {
 
 - (void)stopVideoLoadTimeoutTimer
 {
-    [videoLoadTimeoutTimer invalidate];
-    videoLoadTimeoutTimer = nil;
+    [self.videoLoadTimeoutTimer invalidate];
+    self.videoLoadTimeoutTimer = nil;
     [MaxCommonLogger error:@"VAST - View Controller" withMessage:@"Stop Video Load Timer"];
 }
 
@@ -517,9 +513,9 @@ typedef enum {
     [MaxCommonLogger error:@"VAST - View Controller" withMessage:@"Video Load Timeout"];
     [self close];
     
-    if (vastErrors) {
+    if (self.vastErrors) {
        [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-        [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+        [self.eventProcessor sendVASTUrlsWithId:self.vastErrors];
     }
     if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
         [self.delegate vastError:self error:VASTErrorLoadTimeout];
@@ -539,7 +535,7 @@ typedef enum {
     @synchronized (self) {
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"playVideo"];
         
-        if (!vastReady) {
+        if (!self.vastReady) {
             if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
                 [self.delegate vastError:self error:VASTErrorPlayerNotReady];                  // This is not a VAST player error, so no external Error event is sent.
                 [MaxCommonLogger warning:@"VAST - View Controller" withMessage:@"Ignoring call to playVideo before the player has sent vastReady."];
@@ -547,7 +543,7 @@ typedef enum {
             }
         }
         
-        if (isViewOnScreen) {
+        if (self.isViewOnScreen) {
             if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
                 [self.delegate vastError:self error:VASTErrorPlaybackAlreadyInProgress];       // This is not a VAST player error, so no external Error event is sent.
                 [MaxCommonLogger warning:@"VAST - View Controller" withMessage:@"Ignoring call to playVideo while playback is already in progress"];
@@ -568,12 +564,12 @@ typedef enum {
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"initializing player"];
         
         @try {
-            playedSeconds = 0.0;
-            currentPlayedPercentage = 0.0;
+            self.playedSeconds = 0.0;
+            self.currentPlayedPercentage = 0.0;
             
             // Create and prepare the player to confirm the video is playable (or not) as early as possible
             [self startVideoLoadTimeoutTimer];
-            self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: mediaFileURL];
+            self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: self.mediaFileURL];
             self.moviePlayer.shouldAutoplay = NO; // YES by default - But we don't want to autoplay
             self.moviePlayer.controlStyle=MPMovieControlStyleNone;  // To use custom control toolbar
             [self.moviePlayer prepareToPlay];
@@ -584,9 +580,9 @@ typedef enum {
             if ([self.delegate respondsToSelector:@selector(vastError:error:)]) {
                 [self.delegate vastError:self error:VASTErrorPlaybackError];
             }
-            if (vastErrors) {
+            if (self.vastErrors) {
                 [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending Error requests"];
-                [self.eventProcessor sendVASTUrlsWithId:vastErrors];
+                [self.eventProcessor sendVASTUrlsWithId:self.vastErrors];
             }
             return;
         }
@@ -607,9 +603,9 @@ typedef enum {
 
 - (void)info
 {
-    if (clickTracking) {
+    if (self.clickTracking) {
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending clickTracking requests"];
-        [self.eventProcessor sendVASTUrlsWithId:clickTracking];
+        [self.eventProcessor sendVASTUrlsWithId:self.clickTracking];
     }
     if ([self.delegate respondsToSelector:@selector(vastOpenBrowseWithUrl:vastVC:)]) {
         [self.delegate vastOpenBrowseWithUrl:self.clickThrough vastVC:self];
@@ -625,7 +621,7 @@ typedef enum {
         
         self.moviePlayer=nil;
         
-        if (isViewOnScreen) {
+        if (self.isViewOnScreen) {
             // send close any time the player has been dismissed
             [self.eventProcessor trackEvent:VASTEventTrackClose];
             [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Dismissing VASTViewController"];
@@ -663,41 +659,42 @@ typedef enum {
 }
 
 - (void)handleTouches{
-    if (!initialDelayTimer) {
+    if (!self.initialDelayTimer) {
         [self showControls];
     }
 }
 
 - (void)showControls
 {
-    initialDelayTimer = nil;
-    [controls showControls];
+    self.initialDelayTimer = nil;
+    [self.controls showControls];
 }
 
 #pragma mark - Reachability
 
 - (void)setupReachability
 {
-    reachabilityForVAST = [MaxReachability reachabilityForInternetConnection];
-    reachabilityForVAST.reachableOnWWAN = YES;            // Do allow 3G/WWAN for reachablity
+    self.reachabilityForVAST = [MaxReachability reachabilityForInternetConnection];
+    self.reachabilityForVAST.reachableOnWWAN = YES;            // Do allow 3G/WWAN for reachablity
     
-    __unsafe_unretained MaxVASTViewController *self_ = self; // avoid block retain cycle
-    
-    networkReachableBlock  = ^(MaxReachability*reachabilityForVAST){
+    __weak __typeof(self)weakSelf = self;
+    self.networkReachableBlock  = ^(MaxReachability*reachabilityForVAST){
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Network reachable"];
-        self_.networkCurrentlyReachable = YES;
+        strongSelf.networkCurrentlyReachable = YES;
     };
     
-    networkUnreachableBlock = ^(MaxReachability*reachabilityForVAST){
+    self.networkUnreachableBlock = ^(MaxReachability*reachabilityForVAST){
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Network not reachable"];
-        self_.networkCurrentlyReachable = NO;
+        strongSelf.networkCurrentlyReachable = NO;
     };
     
-    reachabilityForVAST.reachableBlock = networkReachableBlock;
-    reachabilityForVAST.unreachableBlock = networkUnreachableBlock;
+    self.reachabilityForVAST.reachableBlock = self.networkReachableBlock;
+    self.reachabilityForVAST.unreachableBlock = self.networkUnreachableBlock;
     
-    [reachabilityForVAST startNotifier];
-    self.networkCurrentlyReachable = [reachabilityForVAST isReachable];
+    [self.reachabilityForVAST startNotifier];
+    self.networkCurrentlyReachable = [self.reachabilityForVAST isReachable];
     [MaxCommonLogger debug:@"VAST - View Controller" withMessage:[NSString stringWithFormat:@"Network is reachable %d", self.networkCurrentlyReachable]];
 }
 
@@ -705,7 +702,7 @@ typedef enum {
 
 - (BOOL)isPlaying
 {
-    return isPlaying;
+    return self.isPlaying;
 }
 
 - (void)showAndPlayVideo
@@ -717,12 +714,12 @@ typedef enum {
     
     // N.B. The player has to be ready to play before controls may be added to the player's view
     [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"initializing player controls"];
-    controls = [[MaxVASTControls alloc] initWithVASTPlayer:self];
-    [self.moviePlayer.view addSubview: controls];
+    self.controls = [[MaxVASTControls alloc] initWithVASTPlayer:self];
+    [self.moviePlayer.view addSubview: self.controls];
     
     if (kFirstShowControlsDelay > 0) {
-        [controls hideControls];
-        initialDelayTimer = [NSTimer scheduledTimerWithTimeInterval:kFirstShowControlsDelay
+        [self.controls hideControls];
+        self.initialDelayTimer = [NSTimer scheduledTimerWithTimeInterval:kFirstShowControlsDelay
                                                              target:self
                                                            selector:@selector(showControls)
                                                            userInfo:nil
@@ -732,11 +729,11 @@ typedef enum {
     }
     
     [self.moviePlayer play];
-    hasPlayerStarted=YES;
+    self.hasPlayerStarted=YES;
     
-    if (impressions) {
+    if (self.impressions) {
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"Sending Impressions requests"];
-        [self.eventProcessor sendVASTUrlsWithId:impressions];
+        [self.eventProcessor sendVASTUrlsWithId:self.impressions];
     }
     [self.eventProcessor trackEvent:VASTEventTrackStart];
     [self setUpTapGestureRecognizer];
@@ -755,10 +752,10 @@ typedef enum {
 - (void)handlePauseState
 {
     @synchronized (self) {
-    if (isPlaying) {
+    if (self.isPlaying) {
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"handle pausing player"];
         [self.moviePlayer pause];
-        isPlaying = NO;
+        self.isPlaying = NO;
         [self.eventProcessor trackEvent:VASTEventTrackPause];
     }
     [self stopPlaybackTimer];
@@ -768,12 +765,12 @@ typedef enum {
 - (void)handleResumeState
 {
     @synchronized (self) {
-    if (hasPlayerStarted) {
-        if (![controls controlsPaused]) {
+    if (self.hasPlayerStarted) {
+        if (![self.controls controlsPaused]) {
         // resuming from background or phone call, so resume if was playing, stay paused if manually paused by inspecting controls state
         [MaxCommonLogger debug:@"VAST - View Controller" withMessage:@"handleResumeState, resuming player"];
         [self.moviePlayer play];
-        isPlaying = YES;
+        self.isPlaying = YES;
         [self.eventProcessor trackEvent:VASTEventTrackResume];
         [self startPlaybackTimer];
         }

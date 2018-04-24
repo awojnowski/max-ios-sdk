@@ -26,15 +26,15 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     // due to a new request being initiated by the SSP (e.g. for a timeout or other failure) 
     // then this reference becomes nil. This way we do not end up calling back into an invalid SSP stack.
     @objc public weak var delegate: MAXAdViewDelegate?
-    internal let adResponse: MAXAdResponse
+    internal let adResponse: MAXAdResponse?
     private let configuration: MAXConfiguration
     private let sessionManager: MAXSessionManager
     private var mraidView: MaxMRAIDView!
     private var adViewAdapter: MAXAdViewAdapter!
     private var adSize: CGSize!
     
-    internal var adUnitId: String {
-        return adResponse.adUnitId
+    internal var adUnitId: String? {
+        return adResponse?.adUnitId
     }
 
     @objc public convenience init(adResponse: MAXAdResponse, size: CGSize) {
@@ -61,12 +61,12 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
         }
         
         // Guard for nil because MAXAdView is currently exposed to ObjC
-        if adResponse == nil {
+        guard let adr = adResponse else {
             reportError(message: "\(String(describing: self)): loading failed because the adResponse was nil.")
             return
         }
         
-        guard let creative = self.adResponse.creative else {
+        guard let creative = adr.creative else {
             reportError(message: "\(String(describing: self)): loading failed because the ad response creative is nil")
             return
         }
@@ -75,12 +75,12 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
                 MAXLogger.warn(error.message)
         }
         
-        switch adResponse.creativeType {
+        switch adr.creativeType {
         case MAXBannerCreativeType.MRAID.rawValue:
-            if self.adResponse.usePartnerRendering {
-                let partner = self.adResponse.partnerName
+            if adr.usePartnerRendering {
+                let partner = adr.partnerName
                 MAXLogger.debug("\(String(describing: self)) - Loading creative using view from third party: \(String(describing: partner))")
-                self.loadAdWithAdapter(adResponse: adResponse)
+                self.loadAdWithAdapter(adResponse: adr)
             } else {
                 MAXLogger.debug("\(String(describing: self)) - Loading creative using MRAID renderer")
                 self.loadAdWithMRAIDRenderer(creative: creative)
@@ -89,7 +89,7 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
             MAXLogger.debug("\(String(describing: self)) - AdView had empty ad response, nothing to show")
             self.delegate?.adViewDidLoad(self)
         default:
-            reportError(message: "\(String(describing: self)) - AdView had unsupported ad creative_type = <\(self.adResponse.creativeType)>")
+            reportError(message: "\(String(describing: self)) - AdView had unsupported ad creative_type = <\(adr.creativeType)>")
         }
     }
 
@@ -156,13 +156,25 @@ public class MAXAdView: UIView, MaxMRAIDViewDelegate, MaxMRAIDServiceDelegate, M
     }
 
     internal func trackImpression() {
+        
+        guard let adr = adResponse else {
+            reportError(message: "\(String(describing: self)): could not track impression because ad response is nil.")
+            return
+        }
+        
         self.delegate?.adViewWillLogImpression(self)
-        self.adResponse.trackImpression()
+        adr.trackImpression()
     }
 
     internal func trackClick() {
-        self.adResponse.trackClick()
+        
+        guard let adr = adResponse else {
+            reportError(message: "\(String(describing: self)): could not track click because ad response is nil.")
+            return
+        }
+        
         self.delegate?.adViewDidClick(self)
+        adr.trackClick()
     }
 
     internal func click(_ url: URL) {

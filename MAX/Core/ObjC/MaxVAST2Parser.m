@@ -14,9 +14,8 @@
 #import "MaxCommonLogger.h"
 
 @interface MaxVAST2Parser ()
-{
-    MaxVASTModel *vastModel;
-}
+
+@property (nonatomic, strong) MaxVASTModel *vastModel;
 
 - (MaxVASTError)parseRecursivelyWithData:(NSData *)vastData depth:(int)depth;
 
@@ -28,7 +27,7 @@
 {
     self = [super init];
     if (self) {
-        vastModel = [[MaxVASTModel alloc] init];
+        self.vastModel = [[MaxVASTModel alloc] init];
     }
     return self;
 }
@@ -37,21 +36,25 @@
 
 - (void)parseWithUrl:(NSURL *)url completion:(void (^)(MaxVASTModel *, MaxVASTError))block
 {
+    __weak __typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
         NSData *vastData = [NSData dataWithContentsOfURL:url];
         MaxVASTError vastError = [self parseRecursivelyWithData:vastData depth:0];
         dispatch_async(dispatch_get_main_queue(), ^{
-            block(vastModel, vastError);
+            block(strongSelf.vastModel, vastError);
         });
     });
 }
 
 - (void)parseWithData:(NSData *)vastData completion:(void (^)(MaxVASTModel *, MaxVASTError))block
 {
+    __weak __typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
         MaxVASTError vastError = [self parseRecursivelyWithData:vastData depth:0];
         dispatch_async(dispatch_get_main_queue(), ^{
-            block(vastModel, vastError);
+            block(strongSelf.vastModel, vastError);
         });
     });
 }
@@ -61,7 +64,7 @@
 - (MaxVASTError)parseRecursivelyWithData:(NSData *)vastData depth:(int)depth
 {
     if (depth >= kMaxRecursiveDepth) {
-        vastModel = nil;
+        self.vastModel = nil;
         return VASTErrorTooManyWrappers;
     }
     
@@ -73,7 +76,7 @@
     BOOL isValid;
     isValid = validateXMLDocSyntax(vastData);
     if (!isValid) {
-        vastModel = nil;
+        self.vastModel = nil;
         return VASTErrorXMLParse;
     }
 
@@ -86,14 +89,14 @@
                                                 freeWhenDone:NO];
         isValid = validateXMLDocAgainstSchema(vastData, vastSchemaData);
         if (!isValid) {
-            vastModel = nil;
+            self.vastModel = nil;
             return VASTErrorSchemaValidation;
         }
     }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-    [vastModel performSelector:@selector(addVASTDocument:) withObject:vastData];
+    [self.vastModel performSelector:@selector(addVASTDocument:) withObject:vastData];
 #pragma clang diagnostic pop
     
     // Check to see whether this is a wrapper ad. If so, process it.

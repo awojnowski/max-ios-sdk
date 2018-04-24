@@ -14,13 +14,13 @@
 
 @interface MaxMRAIDModalViewController ()
 {
-    BOOL isStatusBarHidden;
-    BOOL hasViewAppeared;
-    BOOL hasRotated;
-    
     MaxMRAIDOrientationProperties *orientationProperties;
     UIInterfaceOrientation preferredOrientation;
 }
+
+@property (nonatomic, assign) BOOL isStatusBarHidden;
+@property (nonatomic, assign) BOOL hasViewAppeared;
+@property (nonatomic, assign) BOOL hasRotated;
 
 - (NSString *)stringfromUIInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
@@ -86,7 +86,7 @@
     
     [MaxCommonLogger debug:@"MRAID - ModalViewController" withMessage:[NSString stringWithFormat:@"%@ %@", [self.class description], NSStringFromSelector(_cmd)]];
 
-    isStatusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
+    self.isStatusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     }
@@ -97,11 +97,11 @@
     [super viewDidAppear:animated];
     
     [MaxCommonLogger debug:@"MRAID - ModalViewController" withMessage:[NSString stringWithFormat:@"%@ %@", [self.class description], NSStringFromSelector(_cmd)]];
-    hasViewAppeared = YES;
+    self.hasViewAppeared = YES;
     
-    if (hasRotated) {
+    if (self.hasRotated) {
         [self.delegate mraidModalViewControllerDidRotate:self];
-        hasRotated = NO;
+        self.hasRotated = NO;
     }
 }
 
@@ -110,7 +110,7 @@
     [super viewWillDisappear:animated];
     
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")){
-        [[UIApplication sharedApplication] setStatusBarHidden:isStatusBarHidden withAnimation:UIStatusBarAnimationFade];
+        [[UIApplication sharedApplication] setStatusBarHidden:self.isStatusBarHidden withAnimation:UIStatusBarAnimationFade];
     }
 }
 
@@ -197,29 +197,22 @@
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         // willAnimateRotationToInterfaceOrientation code goes here
         [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-        
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        [MaxCommonLogger debug:@"MRAID - ModalViewController" withMessage:[NSString stringWithFormat:@"%@ %@ changed to orientation <%@>",
+                                                                           [self.class description],
+                                                                           NSStringFromSelector(_cmd),
+                                                                           [self stringfromUIInterfaceOrientation:orientation]]];
+        if (self.hasViewAppeared) {
+            [self.delegate mraidModalViewControllerDidRotate:self];
+            self.hasRotated = NO;
+        }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         // didRotateFromInterfaceOrientation goes here
-        if (hasViewAppeared) {
+        if (self.hasViewAppeared) {
             [self.delegate mraidModalViewControllerDidRotate:self];
-            hasRotated = NO;
+            self.hasRotated = NO;
         }
     }];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    UIInterfaceOrientation toInterfaceOrientation = self.interfaceOrientation;
-    [MaxCommonLogger debug:@"MRAID - ModalViewController" withMessage:[NSString stringWithFormat:@"%@ %@from %@ to %@",
-                      [self.class description],
-                      NSStringFromSelector(_cmd),
-                      [self stringfromUIInterfaceOrientation:fromInterfaceOrientation],
-                      [self stringfromUIInterfaceOrientation:toInterfaceOrientation]]];
-    
-    if (hasViewAppeared) {
-        [self.delegate mraidModalViewControllerDidRotate:self];
-        hasRotated = NO;
-    }
 }
 
 - (void)forceToOrientation:(MaxMRAIDOrientationProperties *)orientationProps;
@@ -348,7 +341,7 @@
 #pragma clang diagnostic pop
     }
     
-    hasRotated = YES;
+    self.hasRotated = YES;
 }
 
 - (NSString *)stringfromUIInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
