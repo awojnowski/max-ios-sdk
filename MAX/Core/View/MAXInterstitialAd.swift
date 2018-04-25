@@ -101,7 +101,7 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     }
 
     // NOTE: Call this function on the main queue
-    @objc public func showAdFromRootViewController(_ rootViewController: UIViewController) {
+    @objc public func showAdFromRootViewController(_ rootViewController: UIViewController?) {
         
         guard Thread.isMainThread else {
             reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")

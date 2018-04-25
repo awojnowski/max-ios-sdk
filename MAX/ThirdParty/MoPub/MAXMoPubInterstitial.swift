@@ -14,7 +14,7 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     @objc public weak var mpInterstitialDelegate: MPInterstitialAdControllerDelegate?
     @objc public weak var maxInterstitialDelegate: MAXInterstitialAdDelegate?
     
-    private let maxAdUnitId: String
+    private let maxAdUnitId: String?
     private let mpInterstitial: MPInterstitialAdController
     private let maxInterstitial: MAXInterstitialAd
     private let sessionManager: MAXSessionManager
@@ -41,12 +41,12 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     // Call on main thread
     @objc public func load() {
         
-        guard maxAdUnitId != nil else {
+        guard let maxID = maxAdUnitId else {
             reportError(message: "\(String(describing: self)) load called with nil MAX ad unit id")
             return
         }
         
-        maxInterstitial.load(adUnitId: maxAdUnitId)
+        maxInterstitial.load(adUnitId: maxID)
     }
     
     // Call on main thread
@@ -213,7 +213,7 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     //MARK: Overrides
     
     public override var description: String {
-        return "\(super.description)\nmaxAdUnitId: \(maxAdUnitId)\nmpInterstitial: \(String(describing:mpInterstitial))"
+        return "\(super.description)\nmaxAdUnitId: \(String(describing: maxAdUnitId))\nmpInterstitial: \(String(describing:mpInterstitial))"
     }
     
     

@@ -38,7 +38,7 @@ internal class MAXInterstitialAdMock: MAXInterstitialAd {
         return generator
     }
     
-    override public func showAdFromRootViewController(_ rootViewController: UIViewController) {
+    override public func showAdFromRootViewController(_ rootViewController: UIViewController?) {
         shown = true
         super.showAdFromRootViewController(rootViewController)
     }
