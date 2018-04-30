@@ -20,6 +20,7 @@
 
 #import "max_mraidjs.h"
 #import "MaxCommonCloseButton.h"
+#import <WebKit/WebKit.h>
 
 #define kCloseEventRegionSize 50
 #define SYSTEM_VERSION_LESS_THAN(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
@@ -34,7 +35,7 @@ typedef enum {
 
 static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
 
-@interface MaxMRAIDView () <UIWebViewDelegate, MaxMRAIDModalViewControllerDelegate, UIGestureRecognizerDelegate>
+@interface MaxMRAIDView () <MaxMRAIDModalViewControllerDelegate, UIGestureRecognizerDelegate, WKUIDelegate, WKNavigationDelegate>
 {
     MRAIDState state;
     // This corresponds to the MRAID placement type.
@@ -58,9 +59,9 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     NSArray *mraidFeatures;
     NSArray *supportedFeatures;
     
-    UIWebView *webView;
-    UIWebView *webViewPart2;
-    UIWebView *currentWebView;
+    WKWebView *webView;
+    WKWebView *webViewPart2;
+    WKWebView *currentWebView;
     
     UIButton *closeEventRegion;
     
@@ -98,7 +99,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
 -(void)setScreenSize;
 
 // internal helper methods
-- (void)initWebView:(UIWebView *)wv;
+- (void)initWebView:(WKWebView *)wv;
 - (void)parseCommandUrl:(NSString *)commandUrlString;
 
 @end
@@ -188,7 +189,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
             supportedFeatures=currentFeatures;
         }
         
-        webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+        webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
         [self initWebView:webView];
         currentWebView = webView;
         [self addSubview:webView];
@@ -399,7 +400,8 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     
     if (webViewPart2) {
         // Clean up webViewPart2 if returning from 2-part expansion.
-        webViewPart2.delegate = nil;
+        webViewPart2.UIDelegate = nil;
+        webViewPart2.navigationDelegate = nil;
         currentWebView = webView;
         webViewPart2 = nil;
     } else {
@@ -492,7 +494,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
         [webView removeFromSuperview];
     } else {
         // 2-part expansion
-        webViewPart2 = [[UIWebView alloc] initWithFrame:frame];
+        webViewPart2 = [[WKWebView alloc] initWithFrame:frame];
         [self initWebView:webViewPart2];
         currentWebView = webViewPart2;
         bonafideTapObserved = YES; // by definition for 2 part expand a valid tap has occurred
@@ -520,7 +522,8 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
             // Error! Clean up and return.
             [MaxCommonLogger error:@"MRAID - View" withMessage:[NSString stringWithFormat:@"Could not load part 2 expanded content for URL: %@" ,urlString]];
             currentWebView = webView;
-            webViewPart2.delegate = nil;
+            webViewPart2.UIDelegate = nil;
+            webViewPart2.navigationDelegate = nil;
             webViewPart2 = nil;
             modalVC = nil;
             return;
@@ -805,7 +808,11 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
 
 - (void)injectJavaScript:(NSString *)js
 {
-    [currentWebView stringByEvaluatingJavaScriptFromString:js];
+    [currentWebView evaluateJavaScript:js completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
+        if (error != nil) {
+            [MaxCommonLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"injectJavaScript: failed when evaluateJavaScript: was called with JS <%@>", js]];
+        }
+    }];
 }
 
 // convenience methods
@@ -944,14 +951,14 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     }
 }
 
-#pragma mark - UIWebViewDelegate
+#pragma mark - (WebView) WKNavigationDelegate
 
-- (void)webViewDidStartLoad:(UIWebView *)wv
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
 {
     [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat: @"JS callback %@", NSStringFromSelector(_cmd)]];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)wv
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     @synchronized(self) {
         [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat: @"JS callback %@", NSStringFromSelector(_cmd)]];
@@ -961,11 +968,21 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
         // if (wv != webViewPart2) {
         
         if (SK_ENABLE_JS_LOG) {
-            [wv stringByEvaluatingJavaScriptFromString:@"var enableLog = true"];
+            NSString *js = @"var enableLog = true";
+            [webView evaluateJavaScript:js completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
+                if (error != nil) {
+                    [MaxCommonLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"evaluateJavaScript: was called in webView:didFinishNavigation: with JS string <%@> and failed with error <%@>", js, error.localizedDescription]];
+                }
+            }];
         }
         
         if (SK_SUPPRESS_JS_ALERT) {
-            [wv stringByEvaluatingJavaScriptFromString:@"function alert(){}; function prompt(){}; function confirm(){}"];
+            NSString *js = @"function alert(){}; function prompt(){}; function confirm(){}";
+            [webView evaluateJavaScript:js completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
+                if (error != nil) {
+                    [MaxCommonLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"evaluateJavaScript: was called in webView:didFinishNavigation: with JS string <%@> and failed with error <%@>", js, error.localizedDescription]];
+                }
+            }];
         }
         
         if (state == MRAIDStateLoading) {
@@ -993,7 +1010,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     }
 }
 
-- (void)webView:(UIWebView *)wv didFailLoadWithError:(NSError *)error
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {
     NSString *errorMessage = [NSString stringWithFormat: @"JS callback %@", NSStringFromSelector(_cmd)];
     [MaxCommonLogger debug:@"MRAID - View" withMessage:errorMessage];
@@ -1003,23 +1020,23 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     }
 }
 
-- (BOOL)webView:(UIWebView *)wv shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    NSURL *url = [request URL];
+    NSURL *url = [navigationAction.request URL];
     NSString *scheme = [url scheme];
     NSString *absUrlString = [url absoluteString];
     
     if ([scheme isEqualToString:@"mraid"]) {
         [self parseCommandUrl:absUrlString];
-
+        
     } else if ([scheme isEqualToString:@"console-log"]) {
         [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat:@"JS console: %@",
-                          [[absUrlString substringFromIndex:14] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding ]]];
+                                                            [[absUrlString substringFromIndex:14] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding ]]];
     } else {
-        [MaxCommonLogger info:@"MRAID - View" withMessage:[NSString stringWithFormat:@"Found URL %@ with type %@", absUrlString, @(navigationType)]];
+        [MaxCommonLogger info:@"MRAID - View" withMessage:[NSString stringWithFormat:@"Found URL %@ with type %@", absUrlString, @(navigationAction.navigationType)]];
         
         // Links, Form submissions
-        if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
             // For banner views
             if ([self.delegate respondsToSelector:@selector(mraidViewNavigate:withURL:)]) {
                 [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat:@"JS webview load: %@",
@@ -1028,10 +1045,11 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
             }
         } else {
             // Need to let browser to handle rendering and other things
-            return YES;
+            decisionHandler(WKNavigationActionPolicyAllow);
+            return;
         }
     }
-    return NO;
+    decisionHandler(WKNavigationActionPolicyCancel);
 }
 
 #pragma mark - MRAIDModalViewControllerDelegate
@@ -1045,9 +1063,10 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
 
 #pragma mark - internal helper methods
 
-- (void)initWebView:(UIWebView *)wv
+- (void)initWebView:(WKWebView *)wv
 {
-    wv.delegate = self;
+    wv.UIDelegate = self;
+    wv.navigationDelegate = self;
     wv.opaque = NO;
     wv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight |
     UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
@@ -1055,11 +1074,11 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     wv.autoresizesSubviews = YES;
     
     if ([supportedFeatures containsObject:MRAIDSupportsInlineVideo]) {
-        wv.allowsInlineMediaPlayback = YES;
-        wv.mediaPlaybackRequiresUserAction = NO;
+        wv.configuration.allowsInlineMediaPlayback = YES;
+        wv.configuration.mediaPlaybackRequiresUserAction = NO;
     } else {
-        wv.allowsInlineMediaPlayback = NO;
-        wv.mediaPlaybackRequiresUserAction = YES;
+        wv.configuration.allowsInlineMediaPlayback = NO;
+        wv.configuration.mediaPlaybackRequiresUserAction = YES;
         [MaxCommonLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"No inline video support has been included, videos will play full screen without autoplay."]];
     }
     
@@ -1080,12 +1099,24 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     scrollView.scrollEnabled = NO;
     
     // disable selection
-    NSString *js = @"window.getSelection().removeAllRanges();";
-    [wv stringByEvaluatingJavaScriptFromString:js];
+    NSString *jsRemoveAllRanges = @"window.getSelection().removeAllRanges();";
+    [wv evaluateJavaScript:jsRemoveAllRanges completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
+        if (error != nil) {
+            [MaxCommonLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"initWebView: failed when evaluateJavaScript: was called with JS <%@>", jsRemoveAllRanges]];
+        }
+    }];
+    
+    
     
     // Alert suppression
-    if (SK_SUPPRESS_JS_ALERT)
-        [wv stringByEvaluatingJavaScriptFromString:@"function alert(){}; function prompt(){}; function confirm(){}"];
+    if (SK_SUPPRESS_JS_ALERT) {
+        NSString *jsFunctionCriteria = @"function alert(){}; function prompt(){}; function confirm(){}";
+        [wv evaluateJavaScript:jsFunctionCriteria completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
+            if (error != nil) {
+                [MaxCommonLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"initWebView: failed when evaluateJavaScript: was called with JS <%@>", jsFunctionCriteria]];
+            }
+        }];
+    }
 }
 
 - (void)parseCommandUrl:(NSString *)commandUrlString
