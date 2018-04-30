@@ -15,7 +15,7 @@ public enum MAXInterstitialCreativeType: String {
     @objc func interstitial(_ interstitialAd: MAXInterstitialAd?, didFailWithError error: MAXClientError)
 }
 
-open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTViewControllerDelegate, MaxMRAIDInterstitialDelegate, MaxMRAIDServiceDelegate, MAXAdRequestManagerDelegate {
+open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxMRAIDInterstitialDelegate, MaxMRAIDServiceDelegate, MAXAdRequestManagerDelegate {
     
     @objc public weak var delegate: MAXInterstitialAdDelegate?
     
@@ -24,7 +24,6 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     private let sessionManager: MAXSessionManager
     private var adResponse: MAXAdResponse?
     private var rootViewController: UIViewController?
-    private var vastViewController: MaxVASTViewController?
     private var mraidInterstitial: MaxMRAIDInterstitial?
     private var interstitialAdapter: MAXInterstitialAdapter?
     
@@ -118,8 +117,9 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
         switch adResponse?.creativeType {
         case MAXInterstitialCreativeType.VAST.rawValue?:
                 MAXLogger.debug("\(String(describing: self)): showing ad with VAST renderer")
-                vastViewController?.presenterViewController = rootViewController
-                vastViewController?.play()
+            
+// VAST code was removed since it was not in use. Retrieve VAST code from commit 0ed1a3de4d1778049cee99efc918bd258a753204
+            
             // HTML is equivalent to MRAID. We have it as 'html' for backwards compatibility.
             case MAXInterstitialCreativeType.HTML.rawValue?:
                 if (adResponse?.usePartnerRendering)! {
@@ -154,17 +154,8 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
     internal func loadAdWithVASTRenderer(creative: String) {
         MAXLogger.debug("\(String(describing: self)): attempting to load ad with VAST renderer")
         
-        guard let videoData = creative.data(using: String.Encoding.utf8) else {
-            MAXLogger.error("\(String(describing: self)): ERROR: VAST ad response creative had no video data")
-            if let d = delegate {
-                let error = MAXClientError(message: "MAXInterstitialAd: VAST creative video data could not be extracted")
-                d.interstitial(self, didFailWithError: error)
-            }
-            return
-        }
+// VAST code was removed since it was not in use. Retrieve VAST code from commit 0ed1a3de4d1778049cee99efc918bd258a753204
         
-        vastViewController = MaxVASTViewController(delegate: self, with: rootViewController)
-        vastViewController!.loadVideo(with: videoData)
     }
 
     internal func loadAdWithAdapter(adResponse: MAXAdResponse) {
@@ -252,62 +243,6 @@ open class MAXInterstitialAd: NSObject, MAXInterstitialAdapterDelegate, MaxVASTV
 
     public func interstitial(_ interstitial: MAXInterstitialAdapter, didFailWithError error: MAXClientError) {
         reportError(message: "\(String(describing: self)): MAXInterstitialAdapterDelegate interstitial:didFailWithError: \(error.message)")
-    }
-
-    
-    //MARK: MaxVASTViewControllerDelegate
-    
-    public func vastReady(_ vastVC: MaxVASTViewController!) {
-        MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastReady")
-        if let d = delegate {
-            d.interstitialAdDidLoad(self)
-        }
-    }
-
-    public func vastTrackingEvent(_ eventName: String!) {
-        MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastTrackingEvent(\(eventName!))")
-        
-        if eventName == "start"{
-            guard let adR = adResponse else {
-                MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate - vastTrackingEvent - called for a nil ad response. Impression was not tracked and MAX session depth could not be incremented")
-                return
-            }
-            
-            adResponse?.trackImpression()
-            
-            // An interstitial will be shown because a MAX response was ‘reserved,’ so MAX bypassed any SSP and directly rendered an ad response
-            if adR.isReserved {
-                sessionManager.incrementMaxSessionDepth(adUnitId: adR.adUnitId)
-            }
-        }
-        
-        if eventName == "close" {
-            if let d = delegate {
-                d.interstitialAdWillClose(self)
-            }
-        }
-    }
-
-    public func vastDidDismissFullScreen(_ vastVC: MaxVASTViewController!) {
-        MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastDidDismissFullScreen")
-        if let d = delegate {
-            d.interstitialAdDidClose(self)
-        }
-    }
-
-    public func vastOpenBrowse(with url: URL!, vastVC: MaxVASTViewController!) {
-        MAXLogger.debug("\(String(describing: self)) - MaxVASTViewControllerDelegate: vastOpenBrowse")
-        if let d = delegate {
-            d.interstitialAdDidClick(self)
-        }
-        vastVC.dismiss(animated: false) {
-            MAXLinkHandler().openURL(vastVC, url: url, completion: nil)
-        }
-        vastVC.close()
-    }
-
-    public func vastError(_ vastVC: MaxVASTViewController!,_ error: MaxVASTError) {
-        reportError(message: "\(String(describing: self)) - MaxVASTViewControllerDelegate: failedToLoadAd - Code:\(error.rawValue)")
     }
     
     

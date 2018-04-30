@@ -36,7 +36,11 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
     /// in which case it will open the URL using the system call in UIApplication.
     func openURL(_ viewController: UIViewController?, url: URL, completion: (() -> Void)?) {
         guard useStoreKit else {
-            UIApplication.shared.openURL(url)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [String : Any](), completionHandler:nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
             completion?()
             return
         }
@@ -50,7 +54,11 @@ class MAXLinkHandler: NSObject, SKStoreProductViewControllerDelegate, URLSession
                 let sessionLastURL = self.sessionLastURL,
                 let _ = sessionLastURL.host?.range(of: "itunes.apple.com"),
                 let match = sessionLastURL.path.range(of: "/id(\\d+)", options: .regularExpression) else {
-                    UIApplication.shared.openURL(url)
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [String : Any](), completionHandler:nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
                     return
             }
 

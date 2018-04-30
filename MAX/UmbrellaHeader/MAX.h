@@ -22,6 +22,4 @@ FOUNDATION_EXPORT const unsigned char MAXVersionString[];
 #import <MAX/MaxMRAIDInterstitial.h>
 #import <MAX/MaxMRAIDServiceDelegate.h>
 #import <MAX/MaxReachability.h>
-#import <MAX/MaxVASTViewController.h>
-#import <MAX/MaxVASTError.h>
 #import <MAX/MaxCommonLogger.h>

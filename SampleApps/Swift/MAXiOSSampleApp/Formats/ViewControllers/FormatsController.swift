@@ -98,6 +98,7 @@ class FormatsController: BaseViewController, MPAdViewDelegate, MAXBannerAdViewDe
         view.addSubview(showInterstitialButton)
         
         resultsView = UIView()
+        resultsView.isUserInteractionEnabled = false
         view.addSubview(resultsView)
         
         // add constraints

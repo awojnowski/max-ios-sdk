@@ -505,14 +505,14 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
         
         // Check to see whether we've been given an absolute or relative URL.
         // If it's relative, prepend the base URL.
-        urlString = [urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        urlString = urlString.stringByRemovingPercentEncoding;
         if (![[NSURL URLWithString:urlString] scheme]) {
             // relative URL
-            urlString = [[[baseURL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingString:urlString];
+            urlString = [[baseURL absoluteString].stringByRemovingPercentEncoding stringByAppendingString:urlString];
         }
         
         // Need to escape characters which are URL specific
-        urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        urlString = urlString.stringByRemovingPercentEncoding;
         
         NSError *error;
         NSString *content = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString] encoding:NSUTF8StringEncoding error:&error];
@@ -570,7 +570,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
        return;  // ignore programmatic touches (taps)
     }
     
-    urlString = [urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    urlString =  urlString.stringByRemovingPercentEncoding;
     [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat: @"JS callback %@ %@", NSStringFromSelector(_cmd), urlString]];
     
     // Notify the callers
@@ -586,7 +586,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
         return;  // ignore programmatic touches (taps)
     }
     
-    urlString = [urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    urlString = urlString.stringByRemovingPercentEncoding;
     [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat: @"JS callback %@ %@", NSStringFromSelector(_cmd), urlString]];
     if ([self.serviceDelegate respondsToSelector:@selector(mraidServicePlayVideoWithUrlString:)]) {
         [self.serviceDelegate mraidServicePlayVideoWithUrlString:urlString];
@@ -668,7 +668,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
         return;  // ignore programmatic touches (taps)
     }
     
-    urlString=[urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    urlString = urlString.stringByRemovingPercentEncoding;
     [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat: @"JS callback %@ %@", NSStringFromSelector(_cmd), urlString]];
     
     if ([supportedFeatures containsObject:MRAIDSupportsStorePicture]) {
@@ -1031,7 +1031,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
         
     } else if ([scheme isEqualToString:@"console-log"]) {
         [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat:@"JS console: %@",
-                                                            [[absUrlString substringFromIndex:14] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding ]]];
+                                                            [absUrlString substringFromIndex:14].stringByRemovingPercentEncoding]];
     } else {
         [MaxCommonLogger info:@"MRAID - View" withMessage:[NSString stringWithFormat:@"Found URL %@ with type %@", absUrlString, @(navigationAction.navigationType)]];
         
@@ -1040,7 +1040,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
             // For banner views
             if ([self.delegate respondsToSelector:@selector(mraidViewNavigate:withURL:)]) {
                 [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat:@"JS webview load: %@",
-                                                                    [absUrlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+                                                                    absUrlString.stringByRemovingPercentEncoding]];
                 [self.delegate mraidViewNavigate:self withURL:url];
             }
         } else {
@@ -1075,10 +1075,18 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     
     if ([supportedFeatures containsObject:MRAIDSupportsInlineVideo]) {
         wv.configuration.allowsInlineMediaPlayback = YES;
-        wv.configuration.mediaPlaybackRequiresUserAction = NO;
+        if (@available(iOS 10.0, *)) {
+            wv.configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+        } else {
+            wv.configuration.mediaPlaybackRequiresUserAction = NO;
+        }
     } else {
         wv.configuration.allowsInlineMediaPlayback = NO;
-        wv.configuration.mediaPlaybackRequiresUserAction = YES;
+        if (@available(iOS 10.0, *)) {
+            wv.configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+        } else {
+            wv.configuration.mediaPlaybackRequiresUserAction = NO;
+        }
         [MaxCommonLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"No inline video support has been included, videos will play full screen without autoplay."]];
     }
     
