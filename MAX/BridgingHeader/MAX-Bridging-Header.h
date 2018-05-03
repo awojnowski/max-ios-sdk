@@ -21,4 +21,10 @@
 #import <MAX/MaxReachability.h>
 #import <MAX/MaxCommonLogger.h>
 
+
+// Third party wrappers
+
+#import <MAX/MAXObjCVungleConfiguration.h>
+#import <MAX/MAXObjCVungleInterstitialAdapter.h>
+
 #endif /* MAX_Bridging_Header_h */

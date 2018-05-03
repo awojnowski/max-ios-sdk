@@ -41,6 +41,9 @@ static NSString *interstitialMoPubAdUnitId = @"afa7b8256ba841edbb7d10c43d3614e2"
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+    
     // NOTE: An instance of MAXMoPubInterstitial must be created for each ad unit id
     MPInterstitialAdController *mpInterstitialController = [MPInterstitialAdController interstitialAdControllerForAdUnitId:interstitialMoPubAdUnitId];
     self.maxMoPubInterstitial = [[MAXMoPubInterstitial alloc] initWithMaxAdUnitId:interstitialMAXAdUnitId mpInterstitial:mpInterstitialController rootViewController:self];

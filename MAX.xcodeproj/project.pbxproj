@@ -131,6 +131,10 @@
 		197B1C73207815D00087AA51 /* MaxCommonLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1917BB19203639E7000D06DE /* MaxCommonLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		197B1C742078166C0087AA51 /* MAX.h in Headers */ = {isa = PBXBuildFile; fileRef = 193BFA58203799EA006D86DC /* MAX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		197B1C79207837190087AA51 /* MAXDirectSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */; };
+		199D2B60209BB3460070519A /* MAXObjCVungleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 199D2B49209B842F0070519A /* MAXObjCVungleConfiguration.m */; };
+		199D2B61209BB3460070519A /* MAXObjCVungleInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 199D2B5D209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.m */; };
+		199D2B62209BB35F0070519A /* MAXObjCVungleConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 199D2B4A209B84300070519A /* MAXObjCVungleConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		199D2B63209BB3640070519A /* MAXObjCVungleInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 199D2B5C209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		19E7EABB207D2F8A009AFA57 /* MAXDirectSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */; };
 		7CD9D9A058996A501AAFB921 /* Pods_MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53060C259F3AB4781C0321CB /* Pods_MAX.framework */; };
 		93FBED5020862F1B008AD288 /* MaxCommonBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBED4620862F17008AD288 /* MaxCommonBackButton.m */; };
@@ -218,7 +222,6 @@
 		193BFA58203799EA006D86DC /* MAX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAX.h; sourceTree = "<group>"; };
 		193BFA59203799EA006D86DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		193BFA65203799EB006D86DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1958CC962076D3380076A853 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		1958CD492076F8A00076A853 /* MAX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MAX-Bridging-Header.h"; sourceTree = "<group>"; };
 		195D83E720477D4200BA3330 /* MAXAdUnitScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXAdUnitScore.swift; sourceTree = "<group>"; };
 		197B1BD52078147B0087AA51 /* MAX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MAX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,6 +262,10 @@
 		1996F7DA205374C5005204D1 /* MAXInterstitialAdSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdSpec.swift; sourceTree = "<group>"; };
 		1996F7FA205377B8005204D1 /* MPInterstitialAdControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPInterstitialAdControllerMock.swift; sourceTree = "<group>"; };
 		1996F7FC205379F5005204D1 /* MAXInterstitialAdMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdMock.swift; sourceTree = "<group>"; };
+		199D2B49209B842F0070519A /* MAXObjCVungleConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAXObjCVungleConfiguration.m; sourceTree = "<group>"; };
+		199D2B4A209B84300070519A /* MAXObjCVungleConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAXObjCVungleConfiguration.h; sourceTree = "<group>"; };
+		199D2B5C209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAXObjCVungleInterstitialAdapter.h; sourceTree = "<group>"; };
+		199D2B5D209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAXObjCVungleInterstitialAdapter.m; sourceTree = "<group>"; };
 		19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXBaseLogger.swift; sourceTree = "<group>"; };
 		19A3DFDD2037B71900D1CAF0 /* MAXAds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAds.swift; sourceTree = "<group>"; };
 		19D5E7B92057011C005C038C /* MAXMoPubBannerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerMock.swift; sourceTree = "<group>"; };
@@ -590,14 +597,6 @@
 			path = UmbrellaHeader;
 			sourceTree = "<group>";
 		};
-		197B1C77207817370087AA51 /* ModuleMap */ = {
-			isa = PBXGroup;
-			children = (
-				1958CC962076D3380076A853 /* module.modulemap */,
-			);
-			path = ModuleMap;
-			sourceTree = "<group>";
-		};
 		1996F7A1205374C5005204D1 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -862,12 +861,31 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
+		199D2B4E209B852B0070519A /* ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				199D2B4A209B84300070519A /* MAXObjCVungleConfiguration.h */,
+				199D2B49209B842F0070519A /* MAXObjCVungleConfiguration.m */,
+				199D2B5C209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.h */,
+				199D2B5D209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.m */,
+			);
+			path = ObjC;
+			sourceTree = "<group>";
+		};
+		199D2B4F209B85380070519A /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				19E76F062065794E00E40B38 /* MAXVungleAdapter.swift */,
+				19E76F0A2065796100E40B38 /* MAXVungleInterstitialAdapter.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
 		19E76F0F2065797100E40B38 /* Vungle */ = {
 			isa = PBXGroup;
 			children = (
-				197B1C77207817370087AA51 /* ModuleMap */,
-				19E76F062065794E00E40B38 /* MAXVungleAdapter.swift */,
-				19E76F0A2065796100E40B38 /* MAXVungleInterstitialAdapter.swift */,
+				199D2B4F209B85380070519A /* Swift */,
+				199D2B4E209B852B0070519A /* ObjC */,
 			);
 			path = Vungle;
 			sourceTree = "<group>";
@@ -898,8 +916,10 @@
 				93FBED5120862F1B008AD288 /* MaxForwardButton.h in Headers */,
 				93FBED5420862F1B008AD288 /* max_mraidjs.h in Headers */,
 				197B1C70207815B70087AA51 /* MaxReachability.h in Headers */,
+				199D2B62209BB35F0070519A /* MAXObjCVungleConfiguration.h in Headers */,
 				197B1C6F207815B10087AA51 /* MaxMRAIDServiceDelegate.h in Headers */,
 				197B1C6E207815A90087AA51 /* MaxMRAIDInterstitial.h in Headers */,
+				199D2B63209BB3640070519A /* MAXObjCVungleInterstitialAdapter.h in Headers */,
 				197B1C6D2078159F0087AA51 /* MaxMRAIDView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1067,6 +1087,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				199D2B60209BB3460070519A /* MAXObjCVungleConfiguration.m in Sources */,
+				199D2B61209BB3460070519A /* MAXObjCVungleInterstitialAdapter.m in Sources */,
 				197B1C11207814A80087AA51 /* MaxCommonLogger.m in Sources */,
 				197B1C12207814A80087AA51 /* MaxCommonSettings.m in Sources */,
 				197B1C13207814A80087AA51 /* MaxMRAIDInterstitial.m in Sources */,
@@ -1335,7 +1357,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/MAX/ThirdParty/Vungle/ModuleMap";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1364,7 +1386,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.MAX.MAX;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/MAX/ThirdParty/Vungle/ModuleMap";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

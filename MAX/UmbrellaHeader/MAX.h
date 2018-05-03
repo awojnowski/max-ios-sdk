@@ -23,3 +23,10 @@ FOUNDATION_EXPORT const unsigned char MAXVersionString[];
 #import <MAX/MaxMRAIDServiceDelegate.h>
 #import <MAX/MaxReachability.h>
 #import <MAX/MaxCommonLogger.h>
+
+
+
+// Third party wrappers
+
+#import <MAX/MAXObjCVungleConfiguration.h>
+#import <MAX/MAXObjCVungleInterstitialAdapter.h>

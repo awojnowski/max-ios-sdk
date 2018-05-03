@@ -22,12 +22,13 @@
     // Override point for customization after application launch.
     
     [MAXLogger setLogLevelDebug];
-    
-//    [[MAXConfiguration shared] initializeFacebookIntegration];
+    [[MAXConfiguration shared] enableLocationTracking];
+    [[MAXConfiguration shared] initializeFacebookIntegration];
+    [[MAXConfiguration shared] initializeVungleSDKWithAppId:@"5ab569a2b87c80213861cc67" placementIds:@[@"DEFAULT-4333142"] enableLogging:YES];
     
     UIViewController *rootVC = nil;
-    rootVC = [BannerViewController new];
-//    rootVC = [InterstitialViewController new];
+//    rootVC = [BannerViewController new];
+    rootVC = [InterstitialViewController new];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = rootVC;
     self.window.backgroundColor = [UIColor whiteColor];

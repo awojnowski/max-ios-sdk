@@ -8,6 +8,7 @@ let maxSDKVersion = "1.1.3"
 internal let facebookIdentifier = "facebook"
 internal let vungleIdentifier = "vungle"
 
+
 public class MAXConfiguration: NSObject {
 
     @objc public static let shared = MAXConfiguration(directSDKManager: MAXDirectSDKManager())

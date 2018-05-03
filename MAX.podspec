@@ -35,4 +35,10 @@ point in your existing waterfall.
     d.source_files = ['MAX/ThirdParty/Facebook/**/*']
   end
 
+  s.subspec 'Vungle' do |d|
+    d.dependency 'MAX/Core'
+    d.dependency 'VungleSDK-iOS', '5.4.0'
+    d.source_files = ['MAX/ThirdParty/Vungle/**/*']
+  end
+
 end
