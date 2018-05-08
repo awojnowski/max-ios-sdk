@@ -455,7 +455,7 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
         return;  // ignore programmatic touches (taps)
     }
 
-    eventJSON=[eventJSON stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    eventJSON=[eventJSON stringByRemovingPercentEncoding];
     [MaxCommonLogger debug:@"MRAID - View" withMessage:[NSString stringWithFormat: @"JS callback %@ %@", NSStringFromSelector(_cmd), eventJSON]];
     
     if ([supportedFeatures containsObject:MRAIDSupportsCalendar]) {
@@ -1073,19 +1073,27 @@ static NSString *MaxMRAIDViewErrorDomain = @"MaxMRAIDViewErrorDomain";
     UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     wv.autoresizesSubviews = YES;
     
+     NSArray *osVersion = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+    
     if ([supportedFeatures containsObject:MRAIDSupportsInlineVideo]) {
         wv.configuration.allowsInlineMediaPlayback = YES;
-        if (@available(iOS 10.0, *)) {
-            wv.configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+        if ([[osVersion objectAtIndex:0] intValue] <= 10) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            wv.configuration.requiresUserActionForMediaPlayback = NO;
+#pragma clang diagnostic pop
         } else {
-            wv.configuration.mediaPlaybackRequiresUserAction = NO;
+            wv.configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
         }
     } else {
         wv.configuration.allowsInlineMediaPlayback = NO;
-        if (@available(iOS 10.0, *)) {
-            wv.configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+        if ([[osVersion objectAtIndex:0] intValue] <= 10) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            wv.configuration.requiresUserActionForMediaPlayback = NO;
+#pragma clang diagnostic pop
         } else {
-            wv.configuration.mediaPlaybackRequiresUserAction = NO;
+            wv.configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
         }
         [MaxCommonLogger warning:@"MRAID - View" withMessage:[NSString stringWithFormat:@"No inline video support has been included, videos will play full screen without autoplay."]];
     }

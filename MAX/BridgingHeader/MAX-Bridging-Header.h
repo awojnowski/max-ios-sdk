@@ -6,14 +6,16 @@
 //  Copyright © 2018 Bryan Boyko. All rights reserved.
 //
 
+
+
+// NOTE: This file is currently only in use for the MAXTests target
+
 #ifndef MAX_Bridging_Header_h
 #define MAX_Bridging_Header_h
 
 // Third party
 #import <VungleSDK/VungleSDK.h>
 #import <VungleSDK/VungleSDKHeaderBidding.h>
-
-// NOTE: This is currently only in use for the MAXTests target
 
 #import <MAX/MaxMRAIDView.h>
 #import <MAX/MaxMRAIDInterstitial.h>
