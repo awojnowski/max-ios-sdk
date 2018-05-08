@@ -28,5 +28,8 @@ FOUNDATION_EXPORT const unsigned char MAXVersionString[];
 
 // Third party wrappers
 
+// TEMPORARY - since no third parties will need access to these files, they only need to be added here until MAX Swift files are reqritten to ObjC
+#ifdef MAX_VUNGLE_INTEGRATION_EXISTS
 #import <MAX/MAXObjCVungleConfiguration.h>
 #import <MAX/MAXObjCVungleInterstitialAdapter.h>
+#endif

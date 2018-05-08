@@ -1,11 +1,11 @@
 PODS:
   - FBAudienceNetwork (4.27.2)
-  - MAX/Core (1.1.3):
+  - MAX/Core (1.1.4):
     - mopub-ios-sdk (>= 4.17.0)
-  - MAX/Facebook (1.1.3):
+  - MAX/Facebook (1.1.4):
     - FBAudienceNetwork (= 4.27.2)
     - MAX/Core
-  - MAX/Vungle (1.1.3):
+  - MAX/Vungle (1.1.4):
     - MAX/Core
     - VungleSDK-iOS (= 5.4.0)
   - mopub-ios-sdk (4.20.1):
@@ -41,7 +41,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBAudienceNetwork: 84fc420e262ae16b30586861fa11dd9c779336a8
-  MAX: 6eb4a7966988dde68d37b28d9db93ba2f18ff56c
+  MAX: 5749168b780542c42d9f17c57e3a8fc3aeaa6c89
   mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   VungleSDK-iOS: bf5bb77eedc065e28c34d8613b027ef9cc3053c2
