@@ -355,15 +355,13 @@
 		1917BAF1203639E7000D06DE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				1917BB5C203639E7000D06DE /* MoPub */,
 				1917BAF2203639E7000D06DE /* Adapters */,
 				1917BAF6203639E7000D06DE /* API */,
 				1917BAFC203639E7000D06DE /* Base */,
-				1917BB0E203639E7000D06DE /* MAXConfiguration.swift */,
-				1917BB0F203639E7000D06DE /* MAXLocationProvider.swift */,
-				19A3DFDD2037B71900D1CAF0 /* MAXAds.swift */,
-				1917BB31203639E7000D06DE /* MAXSessionManager.swift */,
-				1913290F2046385100C99F05 /* MAXSession.swift */,
-				195D83E720477D4200BA3330 /* MAXAdUnitScore.swift */,
+				1933B2CD20A25D150022886C /* Configuration */,
+				1933B2CE20A25D730022886C /* Location */,
+				1933B2CC20A25D020022886C /* Session */,
 				1917BB10203639E7000D06DE /* ObjC */,
 				1917BB4D203639E7000D06DE /* Utility */,
 				1917BB54203639E7000D06DE /* View */,
@@ -384,6 +382,7 @@
 		1917BAF6203639E7000D06DE /* API */ = {
 			isa = PBXGroup;
 			children = (
+				19A3DFDD2037B71900D1CAF0 /* MAXAds.swift */,
 				1917BAF7203639E7000D06DE /* MAXAdRequest.swift */,
 				1917BAF8203639E7000D06DE /* MAXAdRequestManager.swift */,
 				1917BAF9203639E7000D06DE /* MAXAdResponse.swift */,
@@ -529,8 +528,6 @@
 			isa = PBXGroup;
 			children = (
 				1917BB58203639E7000D06DE /* Facebook */,
-				197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */,
-				1917BB5C203639E7000D06DE /* MoPub */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -554,6 +551,33 @@
 				1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */,
 			);
 			path = MoPub;
+			sourceTree = "<group>";
+		};
+		1933B2CC20A25D020022886C /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				1917BB31203639E7000D06DE /* MAXSessionManager.swift */,
+				1913290F2046385100C99F05 /* MAXSession.swift */,
+				195D83E720477D4200BA3330 /* MAXAdUnitScore.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		1933B2CD20A25D150022886C /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				1917BB0E203639E7000D06DE /* MAXConfiguration.swift */,
+				197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		1933B2CE20A25D730022886C /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				1917BB0F203639E7000D06DE /* MAXLocationProvider.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		193BFA62203799EB006D86DC /* MAXTests */ = {
