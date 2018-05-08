@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-configFileVersion=`grep maxSDKVersion MAX/Core/MAXConfiguration.swift | head -n 1 | awk '{print $NF}' | sed 's/"//g'`;
+configFileVersion=`grep maxSDKVersion MAX/Core/Configuration/MAXConfiguration.swift | head -n 1 | awk '{print $NF}' | sed 's/"//g'`;
 podFileVersion=`grep s.version MAX.podspec | head -n 1 | awk '{print $NF}' | sed "s/'//g"`; 
 if [ "$configFileVersion" != "$podFileVersion" ]  
 	then 

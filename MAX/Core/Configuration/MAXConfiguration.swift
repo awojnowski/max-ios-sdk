@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-let maxSDKVersion = "1.1.5"
+let maxSDKVersion = "1.1.6"
 
 
 // configuration relating to the below third parties is implemented in MAXConfiguration extensions in the corresponding third party adapter classes
