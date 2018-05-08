@@ -192,10 +192,8 @@ open class MAXAdRequestManager: NSObject {
             queue: OperationQueue.main
         ) {
             _ in
-            if self.isRefreshing {
-                MAXLogger.debug("\(String(describing: self)): got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
-                self.requestAd()
-            }
+            MAXLogger.debug("\(String(describing: self)): got UIApplicationDidBecomeActiveNotification, requesting auto-refresh")
+            self.requestAd()
         }
     }
     
