@@ -41,8 +41,6 @@
 		197B1C0A207814A00087AA51 /* MAXMoPubInterstitialCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */; };
 		197B1C0B207814A00087AA51 /* MAXMoPubBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6BA204F2233005204D1 /* MAXMoPubBanner.swift */; };
 		197B1C0C207814A00087AA51 /* MAXMoPubInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */; };
-		197B1C0D207814A00087AA51 /* MAXVungleAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E76F062065794E00E40B38 /* MAXVungleAdapter.swift */; };
-		197B1C0E207814A00087AA51 /* MAXVungleInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E76F0A2065796100E40B38 /* MAXVungleInterstitialAdapter.swift */; };
 		197B1C11207814A80087AA51 /* MaxCommonLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB1A203639E7000D06DE /* MaxCommonLogger.m */; };
 		197B1C12207814A80087AA51 /* MaxCommonSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB1C203639E7000D06DE /* MaxCommonSettings.m */; };
 		197B1C13207814A80087AA51 /* MaxMRAIDInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917BB1F203639E7000D06DE /* MaxMRAIDInterstitial.m */; };
@@ -88,8 +86,6 @@
 		197B1C45207814DB0087AA51 /* MAXMoPubInterstitialCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */; };
 		197B1C46207814DB0087AA51 /* MAXMoPubBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6BA204F2233005204D1 /* MAXMoPubBanner.swift */; };
 		197B1C47207814DB0087AA51 /* MAXMoPubInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F6C220509A27005204D1 /* MAXMoPubInterstitial.swift */; };
-		197B1C48207814DB0087AA51 /* MAXVungleAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E76F062065794E00E40B38 /* MAXVungleAdapter.swift */; };
-		197B1C49207814DB0087AA51 /* MAXVungleInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E76F0A2065796100E40B38 /* MAXVungleInterstitialAdapter.swift */; };
 		197B1C4A207814DB0087AA51 /* MAXAdViewAdapterGeneratorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7B4205374C5005204D1 /* MAXAdViewAdapterGeneratorStub.swift */; };
 		197B1C4B207814DB0087AA51 /* MAXAdViewAdapterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7B5205374C5005204D1 /* MAXAdViewAdapterStub.swift */; };
 		197B1C4C207814DB0087AA51 /* MAXAdRequestManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996F7B8205374C5005204D1 /* MAXAdRequestManagerMock.swift */; };
@@ -131,10 +127,6 @@
 		197B1C73207815D00087AA51 /* MaxCommonLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1917BB19203639E7000D06DE /* MaxCommonLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		197B1C742078166C0087AA51 /* MAX.h in Headers */ = {isa = PBXBuildFile; fileRef = 193BFA58203799EA006D86DC /* MAX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		197B1C79207837190087AA51 /* MAXDirectSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */; };
-		199D2B60209BB3460070519A /* MAXObjCVungleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 199D2B49209B842F0070519A /* MAXObjCVungleConfiguration.m */; };
-		199D2B61209BB3460070519A /* MAXObjCVungleInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 199D2B5D209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.m */; };
-		199D2B62209BB35F0070519A /* MAXObjCVungleConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 199D2B4A209B84300070519A /* MAXObjCVungleConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		199D2B63209BB3640070519A /* MAXObjCVungleInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 199D2B5C209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		19E7EABB207D2F8A009AFA57 /* MAXDirectSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */; };
 		7CD9D9A058996A501AAFB921 /* Pods_MAX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53060C259F3AB4781C0321CB /* Pods_MAX.framework */; };
 		93FBED5020862F1B008AD288 /* MaxCommonBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FBED4620862F17008AD288 /* MaxCommonBackButton.m */; };
@@ -262,10 +254,6 @@
 		1996F7DA205374C5005204D1 /* MAXInterstitialAdSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdSpec.swift; sourceTree = "<group>"; };
 		1996F7FA205377B8005204D1 /* MPInterstitialAdControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPInterstitialAdControllerMock.swift; sourceTree = "<group>"; };
 		1996F7FC205379F5005204D1 /* MAXInterstitialAdMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXInterstitialAdMock.swift; sourceTree = "<group>"; };
-		199D2B49209B842F0070519A /* MAXObjCVungleConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAXObjCVungleConfiguration.m; sourceTree = "<group>"; };
-		199D2B4A209B84300070519A /* MAXObjCVungleConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAXObjCVungleConfiguration.h; sourceTree = "<group>"; };
-		199D2B5C209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MAXObjCVungleInterstitialAdapter.h; sourceTree = "<group>"; };
-		199D2B5D209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MAXObjCVungleInterstitialAdapter.m; sourceTree = "<group>"; };
 		19A3DFD92037B6EC00D1CAF0 /* MAXBaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXBaseLogger.swift; sourceTree = "<group>"; };
 		19A3DFDD2037B71900D1CAF0 /* MAXAds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAXAds.swift; sourceTree = "<group>"; };
 		19D5E7B92057011C005C038C /* MAXMoPubBannerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubBannerMock.swift; sourceTree = "<group>"; };
@@ -274,8 +262,6 @@
 		19D5E802205862A6005C038C /* MAXMoPubInterstitialCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMoPubInterstitialCustomEvent.swift; sourceTree = "<group>"; };
 		19E76F00206457DE00E40B38 /* MaxUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxUtils.h; sourceTree = "<group>"; };
 		19E76F01206457DE00E40B38 /* MaxUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxUtils.m; sourceTree = "<group>"; };
-		19E76F062065794E00E40B38 /* MAXVungleAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXVungleAdapter.swift; sourceTree = "<group>"; };
-		19E76F0A2065796100E40B38 /* MAXVungleInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXVungleInterstitialAdapter.swift; sourceTree = "<group>"; };
 		1E6EE64A8199E37E629B3039 /* Pods-MAX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAX.release.xcconfig"; path = "Pods/Target Support Files/Pods-MAX/Pods-MAX.release.xcconfig"; sourceTree = "<group>"; };
 		24CFB451635E3D5861055CB4 /* Pods_MAXF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAXF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE3C88EDC57AC7094510C2C /* Pods-MAX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MAX/Pods-MAX.debug.xcconfig"; sourceTree = "<group>"; };
@@ -543,7 +529,6 @@
 			isa = PBXGroup;
 			children = (
 				1917BB58203639E7000D06DE /* Facebook */,
-				19E76F0F2065797100E40B38 /* Vungle */,
 				197B1C78207837190087AA51 /* MAXDirectSDKManager.swift */,
 				1917BB5C203639E7000D06DE /* MoPub */,
 			);
@@ -861,35 +846,6 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
-		199D2B4E209B852B0070519A /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				199D2B4A209B84300070519A /* MAXObjCVungleConfiguration.h */,
-				199D2B49209B842F0070519A /* MAXObjCVungleConfiguration.m */,
-				199D2B5C209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.h */,
-				199D2B5D209B8DCA0070519A /* MAXObjCVungleInterstitialAdapter.m */,
-			);
-			path = ObjC;
-			sourceTree = "<group>";
-		};
-		199D2B4F209B85380070519A /* Swift */ = {
-			isa = PBXGroup;
-			children = (
-				19E76F062065794E00E40B38 /* MAXVungleAdapter.swift */,
-				19E76F0A2065796100E40B38 /* MAXVungleInterstitialAdapter.swift */,
-			);
-			path = Swift;
-			sourceTree = "<group>";
-		};
-		19E76F0F2065797100E40B38 /* Vungle */ = {
-			isa = PBXGroup;
-			children = (
-				199D2B4F209B85380070519A /* Swift */,
-				199D2B4E209B852B0070519A /* ObjC */,
-			);
-			path = Vungle;
-			sourceTree = "<group>";
-		};
 		1DFE40C601E2E27314A83D46 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -916,10 +872,8 @@
 				93FBED5120862F1B008AD288 /* MaxForwardButton.h in Headers */,
 				93FBED5420862F1B008AD288 /* max_mraidjs.h in Headers */,
 				197B1C70207815B70087AA51 /* MaxReachability.h in Headers */,
-				199D2B62209BB35F0070519A /* MAXObjCVungleConfiguration.h in Headers */,
 				197B1C6F207815B10087AA51 /* MaxMRAIDServiceDelegate.h in Headers */,
 				197B1C6E207815A90087AA51 /* MaxMRAIDInterstitial.h in Headers */,
-				199D2B63209BB3640070519A /* MAXObjCVungleInterstitialAdapter.h in Headers */,
 				197B1C6D2078159F0087AA51 /* MaxMRAIDView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1087,8 +1041,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				199D2B60209BB3460070519A /* MAXObjCVungleConfiguration.m in Sources */,
-				199D2B61209BB3460070519A /* MAXObjCVungleInterstitialAdapter.m in Sources */,
 				197B1C11207814A80087AA51 /* MaxCommonLogger.m in Sources */,
 				197B1C12207814A80087AA51 /* MaxCommonSettings.m in Sources */,
 				197B1C13207814A80087AA51 /* MaxMRAIDInterstitial.m in Sources */,
@@ -1139,8 +1091,6 @@
 				197B1C0A207814A00087AA51 /* MAXMoPubInterstitialCustomEvent.swift in Sources */,
 				197B1C0B207814A00087AA51 /* MAXMoPubBanner.swift in Sources */,
 				197B1C0C207814A00087AA51 /* MAXMoPubInterstitial.swift in Sources */,
-				197B1C0D207814A00087AA51 /* MAXVungleAdapter.swift in Sources */,
-				197B1C0E207814A00087AA51 /* MAXVungleInterstitialAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1182,8 +1132,6 @@
 				197B1C45207814DB0087AA51 /* MAXMoPubInterstitialCustomEvent.swift in Sources */,
 				197B1C46207814DB0087AA51 /* MAXMoPubBanner.swift in Sources */,
 				197B1C47207814DB0087AA51 /* MAXMoPubInterstitial.swift in Sources */,
-				197B1C48207814DB0087AA51 /* MAXVungleAdapter.swift in Sources */,
-				197B1C49207814DB0087AA51 /* MAXVungleInterstitialAdapter.swift in Sources */,
 				197B1C4A207814DB0087AA51 /* MAXAdViewAdapterGeneratorStub.swift in Sources */,
 				197B1C4B207814DB0087AA51 /* MAXAdViewAdapterStub.swift in Sources */,
 				197B1C4C207814DB0087AA51 /* MAXAdRequestManagerMock.swift in Sources */,
@@ -1273,7 +1221,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"MAX_VUNGLE_INTEGRATION_EXISTS=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1324,7 +1271,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "MAX_VUNGLE_INTEGRATION_EXISTS=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
