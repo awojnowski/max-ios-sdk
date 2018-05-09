@@ -16,7 +16,7 @@ point in your existing waterfall.
   s.swift_version    = "4.0"
 
   s.requires_arc     = true
-  s.platform         = :ios, '8.0'
+  s.platform         = :ios, '9.0'
   s.static_framework = true
 
   s.subspec 'Core' do |d|
