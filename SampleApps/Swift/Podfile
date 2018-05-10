@@ -1,4 +1,4 @@
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 source 'https://github.com/MAXAds/Specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
@@ -16,7 +16,7 @@ use_frameworks!
 #  pod 'MAX/Facebook', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
   pod 'MAX/Facebook', :path => "../.."
 #  pod 'MAX/Vungle', :git => 'git@github.com:MAXAds/max-ios-sdk-internal'
-  pod 'MAX/Vungle', :path => "../.."
+#  pod 'MAX/Vungle', :path => "../.."
 
 
 end
