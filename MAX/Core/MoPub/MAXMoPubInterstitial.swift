@@ -18,14 +18,18 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     private let mpInterstitial: MPInterstitialAdController
     private let maxInterstitial: MAXInterstitialAd
     private let sessionManager: MAXSessionManager
-    private let rootViewController: UIViewController
     private var adResponse: MAXAdResponse?
+    private var rootViewController: UIViewController?
+    
+    @objc public convenience init(maxAdUnitId: String, mpInterstitial: MPInterstitialAdController) {
+        self.init(maxAdUnitId: maxAdUnitId, mpInterstitial: mpInterstitial, maxInterstitial: MAXInterstitialAd(), sessionManager: MAXSessionManager.shared, rootViewController: nil)
+    }
     
     @objc public convenience init(maxAdUnitId: String, mpInterstitial: MPInterstitialAdController, rootViewController: UIViewController) {
         self.init(maxAdUnitId: maxAdUnitId, mpInterstitial: mpInterstitial, maxInterstitial: MAXInterstitialAd(), sessionManager: MAXSessionManager.shared, rootViewController: rootViewController)
     }
     
-    internal init(maxAdUnitId: String, mpInterstitial: MPInterstitialAdController, maxInterstitial: MAXInterstitialAd, sessionManager: MAXSessionManager, rootViewController: UIViewController) {
+    internal init(maxAdUnitId: String, mpInterstitial: MPInterstitialAdController, maxInterstitial: MAXInterstitialAd, sessionManager: MAXSessionManager, rootViewController: UIViewController?) {
         self.maxAdUnitId = maxAdUnitId
         self.mpInterstitial = mpInterstitial
         self.maxInterstitial = maxInterstitial
@@ -51,24 +55,28 @@ public class MAXMoPubInterstitial: NSObject, MPInterstitialAdControllerDelegate,
     
     // Call on main thread
     @objc public func show() {
-        
+        guard let rootViewController = self.rootViewController else {
+            reportError(message: "show() func was called with no rootViewController, yet the interstitial was not initialized with a rootViewController")
+            return
+        }
+        doShow(rootViewController: rootViewController)
+    }
+    
+    // Call on main thread
+    @objc public func show(rootViewController: UIViewController) {
+        doShow(rootViewController: rootViewController)
+    }
+    
+    private func doShow(rootViewController: UIViewController) {
         guard Thread.isMainThread else {
             reportError(message: "\(String(describing: self)) \(String(describing: #function)) was not called on the main thread. Since calling it will render UI, it should be called on the main thread")
             return
         }
-        
-        guard let adR = adResponse else {
+        guard let adResponse = adResponse else {
             MAXLogger.debug("\(String(describing: self)): show() failed because an ad has not loaded yet -> either show() was called before load() call finished and interstitialDidLoadAd() callback fired, or load() returned a nil adResponse")
             return
         }
-        
-        doShow(adResponse: adR)
-    }
-    
-    private func doShow(adResponse: MAXAdResponse) {
-        
         self.mpInterstitial.keywords = adResponse.preBidKeywords
-        
         if adResponse.isReserved {
             // An ad response has been 'reserved' for MAX, meaning that it will bypass the MoPub SSP waterfall and the ad response will be immediately rendered by MAX
             maxInterstitial.showAdFromRootViewController(rootViewController)
